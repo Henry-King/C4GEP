@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+	<table name="population" schema="dbo" catalog="SF4GEP"></table>
+	<table name="configuration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.outputmodel.Configuration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="algInstance" schema="dbo" catalog="SF4GEP"
+		class="domain.core.outputmodel.AlgInstance">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="gepconfiguration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.outputmodel.GepConfiguration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="outputPopulation" schema="dbo" catalog="SF4GEP"
+		class="domain.core.outputmodel.OutputPopulation">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="outputIndividual" schema="dbo" catalog="SF4GEP"
+		class="domain.core.outputmodel.OutputIndividual">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="Role" schema="dbo" catalog="transferSystem" class="Role">
+	<primary-key>
+		<generator class="native"></generator>
+	</primary-key>
+</table>
+</hibernate-reverse-engineering>
