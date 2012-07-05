@@ -7,6 +7,7 @@ import common.ObjectCopy;
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.genecomponent.Constant;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 import domain.service.alg.configuration.Modifying;
@@ -69,11 +70,18 @@ public class DefaultModifying extends Modifying {
 				for(int i=1;i<mutatingHomeoticGene.getHeader().getContainedGenePieces().size();i++){
 					if(mutateRandom.nextFloat()<getMutateRate()){
 						type=funcOrConsRandom.nextInt(myGepAlgorithm.getFunctionList().size()+1);
+						if(type<myGepAlgorithm.getFunctionList().size()){
+							mutatingHomeoticGene.getHeader().getContainedGenePieces().set(i, 
+									ObjectCopy.newInstance(myGepAlgorithm.getFunctionList().get(functionRandom.nextInt(myGepAlgorithm.getFunctionList().size()))));
+						}
+						else {
+							mutatingHomeoticGene.getHeader().getContainedGenePieces().set(i, new Constant(myGepAlgorithm.getNormalGeneNumber()));
+						}
 					}
 				}
 				for(int i=0;i<mutatingHomeoticGene.getTail().getContainedGenePieces().size();i++){
 					if(mutateRandom.nextFloat()<getMutateRate()){
-						
+						mutatingHomeoticGene.getTail().getContainedGenePieces().set(i, new Constant(myGepAlgorithm.getNormalGeneNumber()));
 					}
 				}
 			}

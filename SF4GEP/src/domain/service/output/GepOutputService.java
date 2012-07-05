@@ -38,7 +38,7 @@ public class GepOutputService implements IgepOutputService {
 	public void writeExcel(AlgInstance set, File path) throws IOException,
 			WriteException {
 		// TODO Auto-generated method stub
-		igepOutput.writeExcel(path, set);
+//		igepOutput.writeExcel(path, set);
 	}
 
 	@Override
