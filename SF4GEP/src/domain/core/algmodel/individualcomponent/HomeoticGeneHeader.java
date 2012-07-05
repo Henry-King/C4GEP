@@ -11,9 +11,9 @@ public class HomeoticGeneHeader extends Header{
 	 */
 	private static final long serialVersionUID = 5276198147420739676L;
 
-	public HomeoticGeneHeader(List<GenePiece> genePieces) {
+	public HomeoticGeneHeader(List<GenePiece> genePieces,int start,int end) {
 		// TODO Auto-generated constructor stub
-		super(genePieces);
+		super(genePieces,start,end);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package domain.core.algmodel.configuration;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -7,7 +8,11 @@ import java.util.List;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.algmodel.genecomponent.Variable;
 
-public class GepAlgorithm {
+public class GepAlgorithm implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9145263051145401068L;
 	private int populationSize;
 	private int normalGeneNumber;
 	private int normalHeaderLength;

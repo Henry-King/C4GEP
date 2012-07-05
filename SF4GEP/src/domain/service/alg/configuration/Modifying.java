@@ -89,6 +89,13 @@ public abstract class Modifying {
 		this.geneRecombineRate = geneRecombineRate;
 	}
 	public abstract void run(GepAlgorithm myGepAlgorithm);
+	public abstract void mutate(GepAlgorithm myGepAlgorithm);
+	public abstract void isTransport(GepAlgorithm myGepAlgorithm);
+	public abstract void risTransport(GepAlgorithm myGepAlgorithm);
+	public abstract void geneTransport(GepAlgorithm myGepAlgorithm);
+	public abstract void onePointRecombine(GepAlgorithm myGepAlgorithm);
+	public abstract void twoPointRecombine(GepAlgorithm myGepAlgorithm);
+	public abstract void geneRecombine(GepAlgorithm myGepAlgorithm);
 	public float getStart() {
 		return start;
 	}

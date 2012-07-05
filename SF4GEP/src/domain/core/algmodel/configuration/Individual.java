@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.core.algmodel.genecomponent.Computable;
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
@@ -36,16 +35,16 @@ public class Individual implements Comparable<Individual>,Serializable{
 		StringBuffer result=new StringBuffer();
 		result.append("正常基因:");
 		for(NormalGene normalGene:getNormalGeneList()){
-			for(GenePiece piece:normalGene.getHeader().getGenePieces())
+			for(GenePiece piece:normalGene.getHeader().getContainedGenePieces())
 				result.append(piece+" ");
-			for(Computable piece:normalGene.getTail().getComputable())
+			for(GenePiece piece:normalGene.getTail().getContainedGenePieces())
 				result.append(piece+" ");
 		}
 		result.append("\n同源基因:");
 		for(HomeoticGene homeoticGene:getHomeoticGeneList()){
-			for(GenePiece piece:homeoticGene.getHeader().getGenePieces())
+			for(GenePiece piece:homeoticGene.getHeader().getContainedGenePieces())
 				result.append(piece+" ");
-			for(Computable piece:homeoticGene.getTail().getComputable())
+			for(GenePiece piece:homeoticGene.getTail().getContainedGenePieces())
 				result.append(piece+" ");
 		}
 		return result.toString();
@@ -92,17 +91,15 @@ public class Individual implements Comparable<Individual>,Serializable{
 		normalGeneList=new ArrayList<NormalGene>(normalGeneNumber);
 		homeoticGeneList=new ArrayList<HomeoticGene>(homeoticGeneNumber);
 		for(int i=0;i<normalGeneNumber;i++){
-			containedGenePieces.subList(i*normalGeneLength, (i+1)*normalGeneLength);
 			normalGene=new NormalGene(normalGeneHeaderLength,normalGeneLength-normalGeneHeaderLength,
-					containedGenePieces.subList(i*normalGeneLength, (i+1)*normalGeneLength));
+					containedGenePieces,i*normalGeneLength, (i+1)*normalGeneLength);
 			normalGeneList.add(normalGene);
 		}
 		int normalGeneTotalLength=normalGeneLength*normalGeneNumber;
 		for(int i=0;i<homeoticGeneNumber;i++){
 			homeoticGene=new HomeoticGene(homeoticGeneHeaderLength,homeoticGeneLength-homeoticGeneHeaderLength,
-					containedGenePieces.subList(normalGeneTotalLength+i*homeoticGeneLength, normalGeneTotalLength+(i+1)*homeoticGeneLength));
+					containedGenePieces,normalGeneTotalLength+i*homeoticGeneLength, normalGeneTotalLength+(i+1)*homeoticGeneLength);
 			homeoticGeneList.add(homeoticGene);
 		}
 	}
-
 }

@@ -12,10 +12,10 @@ public class HomeoticGene extends Gene{
 	/**
 	 * 
 	 */
-	public HomeoticGene(int headerLength,int tailLength,List<GenePiece> genePieces){
-		super(genePieces);
-		header=new HomeoticGeneHeader(genePieces.subList(0, headerLength));
-		tail=new HomeoticGeneTail(genePieces.subList(headerLength, headerLength+tailLength));
+	public HomeoticGene(int headerLength,int tailLength,List<GenePiece> genePieces,int start,int end){
+		super(genePieces,start,end);
+		header=new HomeoticGeneHeader(genePieces,start,start+headerLength);
+		tail=new HomeoticGeneTail(genePieces,start+headerLength, end);
 	}
 	@Override
 	public HomeoticGeneHeader getHeader() {
