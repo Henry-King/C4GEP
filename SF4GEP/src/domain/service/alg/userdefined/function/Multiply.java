@@ -12,7 +12,7 @@ public class Multiply extends Function{
 	private static final long serialVersionUID = 6877986033210887194L;
 
 	public Multiply() {
-		super("³Ë·¨",2,"*");
+		super("*",2,"*");
 		// TODO Auto-generated constructor stub
 	}
 

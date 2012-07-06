@@ -12,7 +12,7 @@ public class Minus extends Function {
 	private static final long serialVersionUID = 3358438185571026193L;
 
 	public Minus() {
-		super("¼õ·¨", 2,"-");
+		super("-", 2,"-");
 		// TODO Auto-generated constructor stub
 	}
 
