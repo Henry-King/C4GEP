@@ -6,9 +6,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import common.ICopy;
+
 import domain.core.algmodel.genecomponent.GenePiece;
 
-public abstract class Gene implements Serializable {
+public abstract class Gene implements Serializable,ICopy<Gene> {
 	/**
 	 * 
 	 */
@@ -69,5 +71,19 @@ public abstract class Gene implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public Gene copy(){
+		// TODO Auto-generated method stub
+		Gene gene=null;
+		if(this instanceof NormalGene){
+			NormalGene normalGene=(NormalGene)this;
+			gene=new NormalGene(normalGene.getHeader().getContainedGenePieces().size(), normalGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
+		}
+		else if (this instanceof HomeoticGene) {
+			HomeoticGene homeoticGene=(HomeoticGene)this;
+			gene=new HomeoticGene(homeoticGene.getHeader().getContainedGenePieces().size(), homeoticGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
+		}
+		return gene;
 	}
 }

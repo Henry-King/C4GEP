@@ -30,19 +30,19 @@ public class AbsoluteCalculator extends Calculator{
 		this.gepAlgorithm=gepAlgorithm;
 		List<Individual> individuals=gepAlgorithm.getPopulationQueue().getLast().getIndividuals();
 		List<FieldRow> fieldRowList=getInputSet().getFieldRowList();
-		List<Float> individualValue;
-		List<Float> oneRowFitness;
+		List<Float> individualValueInMulHomeGene;
+		List<Float> oneRowFitnessInMulHomeGene;
 		List<Float> sumFitness=new ArrayList<Float>(gepAlgorithm.getHomeoticGeneNumber());
-		float target;
+		float userFunctionValue;
 		int homeoticGeneIndex;
 		for(Individual individual:individuals){
-			for(int i=0;i<fieldRowList.size();i++)
+			for(int i=0;i<gepAlgorithm.getHomeoticGeneNumber();i++)
 				sumFitness.add((float) 0);
 			for(FieldRow fieldRow:fieldRowList){
-				individualValue=calculateIndividualValue(individual,fieldRow);
-				target=fieldRow.getFieldItemList().get(fieldRow.getColumns()-1).getValue();
-				oneRowFitness=calculateOneRowFitness(individualValue,target);
-				addToFitnessSum(oneRowFitness, sumFitness);
+				individualValueInMulHomeGene=calculateIndividualValueWithMulHomeGene(individual,fieldRow);
+				userFunctionValue=fieldRow.getFieldItemList().get(fieldRow.getColumns()-1).getValue();
+				oneRowFitnessInMulHomeGene=calculateOneRowFitnessWithMulHomeoGene(individualValueInMulHomeGene,userFunctionValue);
+				addToFitnessSum(oneRowFitnessInMulHomeGene, sumFitness);
 				clearFunctionFlag(individual);
 			}
 			homeoticGeneIndex=selectIndividualFitness(sumFitness);
@@ -64,7 +64,7 @@ public class AbsoluteCalculator extends Calculator{
 		float value;
 		for(FieldRow fieldRow:fieldRowList){
 			try {
-				value=calculateIndividualValue(individual, fieldRow).get(individual.getSelectedHomeoticGeneNumber());
+				value=calculateIndividualValueWithMulHomeGene(individual, fieldRow).get(individual.getSelectedHomeoticGeneNumber());
 				fieldRow.getFieldItemList().get(fieldRow.getColumns()-1).setValue(value);
 			} catch (ArithmeticException e) {
 				// TODO Auto-generated catch block
@@ -74,7 +74,7 @@ public class AbsoluteCalculator extends Calculator{
 			}
 		}
 	}
-	private List<Float> calculateIndividualValue(Individual individual,FieldRow fieldRow){
+	private List<Float> calculateIndividualValueWithMulHomeGene(Individual individual,FieldRow fieldRow){
 		for(NormalGene gene:individual.getNormalGeneList()){
 			assignValueToVariable(gene, fieldRow.getFieldItemList());
 			calculateGeneValue(gene, individual);
@@ -87,7 +87,7 @@ public class AbsoluteCalculator extends Calculator{
 		}
 		return resulList;
 	}
-	private List<Float> calculateOneRowFitness(List<Float> fList,float target){
+	private List<Float> calculateOneRowFitnessWithMulHomeoGene(List<Float> fList,float target){
 		List<Float> result=new ArrayList<Float>(fList.size());
 		float minus;
 		float abs;

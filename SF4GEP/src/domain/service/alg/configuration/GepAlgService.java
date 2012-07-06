@@ -2,14 +2,14 @@ package domain.service.alg.configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 import jxl.read.biff.BiffException;
-
-import common.ObjectCopy;
 
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
@@ -168,7 +168,8 @@ public class GepAlgService implements IgepAlgService {
 				System.out.println(individual.getFitness());
 
 			Population newPopulation=null;
-			newPopulation = mySelector.select(ObjectCopy.newInstance(myGepAlgorithm.getPopulationQueue()));
+			
+			newPopulation = mySelector.select(copyPopulations(myGepAlgorithm.getPopulationQueue()));
 			myGepAlgorithm.addPopulation(newPopulation);
 			
 			/*
@@ -208,9 +209,11 @@ public class GepAlgService implements IgepAlgService {
 		File classfiles=new File(filePathString);
 		List<T> resultList=new ArrayList<T>(classfiles.list().length);
 		for(String string:classfiles.list()){
-			Class<?> myClass=Class.forName(binaryPath+"."+string.subSequence(0, string.length()-6));
-			T newInstance=typeClass.cast(myClass.newInstance());
-			resultList.add(newInstance);
+			if(!string.contains("$")){
+				Class<?> myClass=Class.forName(binaryPath+"."+string.subSequence(0, string.length()-6));
+				T newInstance=typeClass.cast(myClass.newInstance());
+				resultList.add(newInstance);				
+			}
 		}
 		return resultList;
 	}
@@ -276,6 +279,13 @@ public class GepAlgService implements IgepAlgService {
 		OutputIndividual result=new OutputIndividual();
 		result.setExpression(individual.toString());
 		result.setFitness(individual.getFitness());
+		return result;
+	}
+	//Î´Íê³É
+	private Deque<Population> copyPopulations(Deque<Population> populations){
+		Deque<Population> result=new ArrayDeque<Population>(2);
+		result.add(populations.getFirst().copy());
+		result.add(populations.getLast().copy());
 		return result;
 	}
 }

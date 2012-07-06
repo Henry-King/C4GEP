@@ -6,10 +6,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import common.ICopy;
+
 import domain.core.algmodel.genecomponent.Computable;
 import domain.core.algmodel.genecomponent.GenePiece;
 
-public abstract class Tail implements Serializable{
+public abstract class Tail implements Serializable,ICopy<Tail>{
 	/**
 	 * 
 	 */
@@ -49,5 +51,17 @@ public abstract class Tail implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public Tail copy() {
+		// TODO Auto-generated method stub
+		Tail tail=null;
+		if(this instanceof NormalGeneTail){
+			tail=new NormalGeneTail(genePieces, start, end);
+		}
+		else if (this instanceof HomeoticGeneTail) {
+			tail=new HomeoticGeneTail(genePieces, start, end);
+		}
+		return tail;
 	}
 }

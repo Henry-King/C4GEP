@@ -1,7 +1,7 @@
 package domain.core.algmodel.genecomponent;
 
 
-public class Variable extends Computable implements Cloneable  {
+public class Variable extends Computable{
 	/**
 	 * 
 	 */

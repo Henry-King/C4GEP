@@ -6,7 +6,7 @@ import java.util.Deque;
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
-public abstract class Function extends GenePiece  implements Cloneable{
+public abstract class Function extends GenePiece{
 	/**
 	 * 
 	 */

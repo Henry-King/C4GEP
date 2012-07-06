@@ -2,7 +2,10 @@ package domain.core.algmodel.genecomponent;
 
 import java.io.Serializable;
 
-public abstract class GenePiece implements Serializable{
+import common.ICopy;
+
+
+public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiece>{
 	/**
 	 * 
 	 */
@@ -22,4 +25,21 @@ public abstract class GenePiece implements Serializable{
 		return symbol;
 	}
 	public abstract float getValue();
+	@Override
+	public GenePiece clone(){
+		// TODO Auto-generated method stub
+		GenePiece o=null;
+		try {
+			o=(GenePiece) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return o;
+	}
+	@Override
+	public GenePiece copy() {
+		// TODO Auto-generated method stub
+		return clone();
+	}
 }

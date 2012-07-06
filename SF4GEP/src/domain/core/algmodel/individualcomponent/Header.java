@@ -6,9 +6,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import common.ICopy;
+
 import domain.core.algmodel.genecomponent.GenePiece;
 
-public abstract class Header implements Serializable{
+public abstract class Header implements Serializable,ICopy<Header>{
 	/**
 	 * 
 	 */
@@ -47,6 +49,17 @@ public abstract class Header implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	@Override
+	public Header copy() {
+		// TODO Auto-generated method stub
+		Header header=null;
+		if(this instanceof NormalGeneHeader){
+			header=new NormalGeneHeader(genePieces, start, end);
+		}
+		else if(this instanceof HomeoticGeneHeader) {
+			header=new HomeoticGeneHeader(genePieces, start, end);
+		}
+		return header;
 	}
 }
