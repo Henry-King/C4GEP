@@ -32,7 +32,7 @@ public class ConfigurationTest {
 		myParameter.setGeneTransportRate("0.1");
 		myParameter.setNormalHeaderLength("7");
 		myParameter.setIsTransportRate("0.1");
-		myParameter.setMaxGeneration("10000");
+		myParameter.setMaxGeneration("100000");
 		myParameter.setOnePointRecombineRate("0.4");
 		myParameter.setPopulationSize("20");
 		myParameter.setRisTransportRate("0.1");
