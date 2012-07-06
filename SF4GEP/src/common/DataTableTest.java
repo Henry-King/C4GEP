@@ -1,4 +1,4 @@
-package domain.service.input;
+package common;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.IOException;
