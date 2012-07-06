@@ -207,6 +207,14 @@ public class DefaultModifying extends Modifying {
 			elementLength=headerLength+tailLength;
 			sourceLoc=sourceLocRandom.nextInt(geneNum)*(headerLength+tailLength);
 			destLoc=destLocRandom.nextInt(geneNum)*(headerLength+tailLength);
+			if(sourceLoc<destLoc){
+				int temp=sourceLoc;
+				sourceLoc=destLoc;
+				destLoc=temp;
+			}
+			else if(sourceLoc==destLoc){
+				sourceLoc=-1;
+			}
 			break;
 		}
 		if(sourceLoc!=-1){
@@ -233,8 +241,8 @@ public class DefaultModifying extends Modifying {
 		for(int i=0;i<length;i++)
 			copiedSource.add(ObjectCopy.newInstance(genePieces.get(i+source)));
 		if(transportEnum==TransportEnum.GENE){
-			for(int i=0;i<length;i++){
-				genePieces.set(i+source, genePieces.get(i+dest));
+			for(int i=0;i<source-dest;i++){
+				genePieces.set(source-1-i+length, genePieces.get(source-1-i));
 			}
 			for(int i=0;i<length;i++){
 				genePieces.set(i+dest, copiedSource.get(i));
@@ -252,12 +260,16 @@ public class DefaultModifying extends Modifying {
 	}
 	private void recombineIterate(GepAlgorithm gepAlgorithm,Recombine recombine){
 		Population population=gepAlgorithm.getPopulationQueue().getLast();
-		Random recombineRandom=new Random();
+		Random recombineOneRandom=new Random();
+		Random recombineOtherRandom=new Random();
 		for(int i=0;i<population.getIndividuals().size()-1;i++){
-			if(recombineRandom.nextFloat()<recombine.getRate()){
+			if(recombineOneRandom.nextFloat()<recombine.getRate()){
 				for(int j=i+1;j<population.getIndividuals().size();j++){
-					if(recombineRandom.nextFloat()<recombine.getRate()){
+					if(recombineOtherRandom.nextFloat()<recombine.getRate()){
+						System.out.println("Before Recombine:\n"+population.getIndividuals().get(i)+"\n"+population.getIndividuals().get(j));
 						recombineParaDetermination(population.getIndividuals().get(i).getContainedGenePieces(), population.getIndividuals().get(j).getContainedGenePieces(), recombine, gepAlgorithm);
+						System.out.println("After Recombine:\n"+population.getIndividuals().get(i)+"\n"+population.getIndividuals().get(j));
+						break;
 					}
 				}
 			}
