@@ -5,9 +5,14 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
+import com.wolfram.jlink.KernelLink;
+import com.wolfram.jlink.MathCanvas;
+
 import jxl.write.WriteException;
 
+import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
+import domain.service.alg.configuration.Calculator;
 
 
 
@@ -33,10 +38,22 @@ public interface IgepOutput {
 	 * @throws WriteException 
 	 */
 	void writeExcel(File path,AlgInstance output) throws IOException, WriteException;
+	
+	
+	
 	/**
-	 * 画函数图像(全部数据)
-	 * @param parameter 画图所需要的参数，我不知道到底要输出什么类型，所以参数为Object，你确定后我再改参数类型
-	 * @author 滕凌哲
+	 * 画拟合曲线图
+	 * @param output
+	 * @return MathCanvas对象
 	 */
-	ImageIcon drawImage(AlgInstance output);
+	public MathCanvas drawImageA(Calculator calculator, Individual individual);
+	
+	/**
+	 * 画每代最佳个体、最差个体的演化曲线图
+	 * @param output
+	 * @return MathCanvas对象
+	 */
+	public MathCanvas drawImageB(AlgInstance output,KernelLink ml);
+	
+	
 }

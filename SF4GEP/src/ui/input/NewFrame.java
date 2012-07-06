@@ -51,6 +51,11 @@ import javax.swing.JButton;
 
 import org.hibernate.cache.ReadWriteCache.Item;
 
+import com.wolfram.jlink.KernelLink;
+import com.wolfram.jlink.MathCanvas;
+import com.wolfram.jlink.MathLinkException;
+import com.wolfram.jlink.MathLinkFactory;
+
 
 
 
@@ -63,11 +68,14 @@ import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 import domain.core.inputmodel.InputSet;
+import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
+import domain.service.output.DefalutGepOutput;
+import domain.service.output.IgepOutput;
 import exception.Duplicated;
 
 
@@ -126,6 +134,18 @@ public class NewFrame extends JFrame {
 	private JTextField txtGenerationFrom;
 	private JTextField txtGenerationTo;
 	
+	
+	
+	
+	
+	
+	private JPanel panelPaint = null;
+	private JPanel outPutPanel_1 = null;
+	private JPanel outputPanel_2 = null;
+	
+	
+	
+	
 	int count=2;//判断第几次点击下拉框
     int flag=1;//标志是否为修改配置文件
     int number=0;
@@ -136,6 +156,25 @@ public class NewFrame extends JFrame {
 	IgepInput input =new DefaultGepInput();
 	InputSet is = new InputSet();
 	int addTime=0;
+	
+	
+	
+	
+	
+	
+	
+	IgepOutput gepOutput = new DefalutGepOutput();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -413,7 +452,7 @@ public class NewFrame extends JFrame {
 		});
 		HostPane.add(btnSetConfig);
 
-		btnNewButton = new JButton("\u6267\u884C\u7B97\u6CD5");
+		btnNewButton = new JButton("执行算法");
 		btnNewButton.setBounds(193, 120, 93, 23);
 		btnNewButton.setVisible(false);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -446,6 +485,77 @@ public class NewFrame extends JFrame {
 				outPutPanel.setVisible(true);
 				HostPane.setVisible(false);
 				scrollPane.setVisible(false);
+				
+				
+				
+				/**
+				 * 画图运算
+				 */
+				KernelLink ml = null;	//Mathematica 内核
+				try {
+					ml = MathLinkFactory
+					.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
+					ml.discardAnswer();
+				} catch (MathLinkException e1) {
+					System.out.println("An error occurred connecting to the kernel.");
+					if (ml != null)
+						ml.close();
+					return;
+				}
+				//
+				 //mathCanvasA = new MathCanvas(ml);	//构成器含有KernelLink参数
+				 //mathCanvasB = new MathCanvas(ml);
+				
+				MathCanvas mathCanvasA = new MathCanvas(ml);	//拟合曲线图
+				MathCanvas mathCanvasB = new MathCanvas(ml);	//每代最佳个体、最差个体的演化曲线图
+				
+				 ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
+				 ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
+				
+				 
+				 
+				
+				/* mathCanvasA.setMathCommand("<< Graphics`MultipleListPlot`");
+				 mathCanvasA.setMathCommand("data1 = {2.7, 3.6, 5.9, 5.7, 5.9, 5.9, 6.1, 6.7, 6.8, 6.0, 4.7, 3.1};" +
+					  		"data2 = {2.4, 4.3, 4.7, 6.2, 6.2, 6.2, 6.3, 6.8, 6.8, 5.8, 3.7, 2.2};" +
+					"MultipleListPlot[data1, data2, PlotJoined -> True,AxesLabel -> {代数, 适应值}, GridLines -> Automatic, PlotLabel -> Style[Framed[每代最佳个体、最差个体的演化曲线图], 16, Blue, Background -> Lighter[Yellow]]]");
+				 
+				 //mathCanvasA.setMathCommand("123");
+				 */
+				 
+				 
+				 AlgInstance algInstance = myGepService.getMyAlgInstance();
+				 
+				 mathCanvasB = gepOutput.drawImageB(algInstance,ml);
+				
+				 /*画图区域*/
+					
+				 
+				    panelPaint = new JPanel();
+					panelPaint.setBounds(1, 1, 784, 268);
+					panelPaint.setLayout(null);
+					outPutPanel.add(panelPaint);
+					panelPaint.setBorder(new LineBorder(new Color(0, 0, 0)));
+					outPutPanel_1 = new JPanel();
+					// 画图区1---------------------------------------------------------------------------------------------------
+					outPutPanel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+					outPutPanel_1.setBackground(Color.WHITE);
+					outPutPanel_1.setBounds(0, 0, 382, 268);
+					panelPaint.add(outPutPanel_1);
+					
+					mathCanvasA.setBounds(0, 0, 382, 268);
+					outPutPanel_1.add(mathCanvasA);
+					
+
+					// 画图区2--------------------------------------------------------------------------------------------------------------
+					outputPanel_2 = new JPanel();
+					outputPanel_2.setBackground(Color.WHITE);
+					outputPanel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+					outputPanel_2.setBounds(382, 0, 403, 268);
+					panelPaint.add(outputPanel_2);
+					outputPanel_2.setLayout(null);
+					mathCanvasB.setBounds(0, 0, 403, 268);
+					outputPanel_2.add(mathCanvasB);
 
 			}
 
@@ -1253,12 +1363,12 @@ public class NewFrame extends JFrame {
 			}
 		});
 
-		JButton btnRun = new JButton("\u8FD0\u884C\u7B97\u6CD5");
+		JButton btnRun = new JButton("运行");
 		btnRun.setBounds(528, 414, 93, 23);
 		panel_4.add(btnRun);
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				myParameter.setInputFile(txtInputPath.getText());
+				myParameter.setInputFile(txtInputPath.getText());	//设置输入文件的路径
 				myParameter.setName(jcomboBoxConfiguration.getSelectedItem()
 						.toString());
 				myParameter.setAccuray(txtAccuracy.getText());
@@ -1395,8 +1505,10 @@ public class NewFrame extends JFrame {
 					e3.printStackTrace();
 				}
 
+
 				myGepService.run();
 
+				
 				try {
 					if (flag == -1) {
 						if (myParameter.equals(myConfigurationFromDB) == false) {
@@ -1563,7 +1675,15 @@ public class NewFrame extends JFrame {
 		btnRunGeneration.setBounds(655, 400, 93, 23);
 		outPutPanel.add(btnRunGeneration);
 
-		JPanel panelPaint = new JPanel();
+		
+		
+		
+		
+		
+		
+		/*画图区域*/
+		
+		/*JPanel panelPaint = new JPanel();
 		panelPaint.setBounds(1, 1, 784, 268);
 		panelPaint.setLayout(null);
 		outPutPanel.add(panelPaint);
@@ -1574,6 +1694,7 @@ public class NewFrame extends JFrame {
 		outPutPanel_1.setBackground(Color.WHITE);
 		outPutPanel_1.setBounds(0, 0, 382, 268);
 		panelPaint.add(outPutPanel_1);
+		
 
 		// 画图区2--------------------------------------------------------------------------------------------------------------
 		JPanel outputPanel_2 = new JPanel();
@@ -1582,6 +1703,22 @@ public class NewFrame extends JFrame {
 		outputPanel_2.setBounds(382, 0, 403, 268);
 		panelPaint.add(outputPanel_2);
 		outputPanel_2.setLayout(null);
+		
+		mathCanvasB.setBounds(0, 0, 403, 268);
+		outputPanel_2.add(mathCanvasB);*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	
@@ -1596,7 +1733,6 @@ public class NewFrame extends JFrame {
 			}
 			if(rVal==JFileChooser.CANCEL_OPTION){
 				 txtInputPath.setText("You pressed cancel");
-			
 			}
 		}
 	}

@@ -4,8 +4,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
+
+import ui.input.NewFrame;
+
+import com.wolfram.jlink.KernelLink;
+import com.wolfram.jlink.MathCanvas;
 
 import jxl.Workbook;
 import jxl.write.Label;
@@ -14,9 +21,11 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
+import domain.service.alg.configuration.Calculator;
 
 public class DefalutGepOutput implements IgepOutput{
 	
@@ -118,11 +127,70 @@ public class DefalutGepOutput implements IgepOutput{
 		      wwb.close();
 		}
 
-
 	@Override
-	public ImageIcon drawImage(AlgInstance output) {
+	/**
+	 * 最佳个体的拟合曲线图
+	 * @author 滕凌哲
+	 */
+	public MathCanvas drawImageA(Calculator calculator, Individual individual) {
 		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return null;
 	}
 
+	
+	
+	@Override
+	/**
+	 * 每代最佳个体、最差个体的演化曲线图
+	 * @author 滕凌哲
+	 */
+	public MathCanvas drawImageB(AlgInstance output,KernelLink ml) {
+		MathCanvas mathCanvasB = new MathCanvas(ml);
+		
+		Set<OutputPopulation> popSet = output.getPopulationSet();
+		StringBuffer generationStr = new StringBuffer();
+		StringBuffer bestStr = new StringBuffer();
+		StringBuffer worseStr = new StringBuffer();
+		
+		generationStr.append("x={");
+		bestStr.append("yb={");
+		worseStr.append("yw={");
+		
+		Iterator<OutputPopulation> iterator = popSet.iterator();
+		while (iterator.hasNext()) {
+			OutputPopulation outputPopulation = (OutputPopulation) iterator.next();
+			
+			generationStr.append(outputPopulation.getGeneration() + ",");
+			bestStr.append(outputPopulation.getBestOutputIndividual().getFitness() + ",");
+			worseStr.append(outputPopulation.getWorstOutputIndividual().getFitness() + ",");	
+		}
+		generationStr.delete(generationStr.length()-2, generationStr.length());
+		bestStr.delete(bestStr.length()-2, bestStr.length());
+		worseStr.delete(worseStr.length()-2, worseStr.length());
+		
+		generationStr.append("};");
+		bestStr.append("};");
+		worseStr.append("};");
+		
+		String str = "MultipleListPlot[yb, yw, PlotJoined -> True,AxesLabel -> {代数, 适应值}, GridLines -> Automatic, PlotLabel -> Style[Framed[每代最佳个体、最差个体的演化曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
+		
+		mathCanvasB.setMathCommand("<< Graphics`MultipleListPlot`");
+		mathCanvasB.setMathCommand(generationStr.toString()+bestStr.toString()+worseStr.toString()+str);
+		
+		
+		
+		return mathCanvasB;
+	}
+
+
+	
 }
