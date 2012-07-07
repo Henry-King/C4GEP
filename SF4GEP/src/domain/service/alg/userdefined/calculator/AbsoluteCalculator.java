@@ -42,8 +42,6 @@ public class AbsoluteCalculator extends Calculator{
 			for(int i=0;i<rows.size();i++){
 				
 				individualValueInMulHomeGene=calculateIndividualValueWithMulHomeGene(individual,rows.get(i));
-				
-				
 				userFunctionValue=(Float)rows.get(i).getValue(rows.get(i).getColumns().size()-1);
 				oneRowFitnessInMulHomeGene=calculateOneRowFitnessWithMulHomeoGene(individualValueInMulHomeGene,userFunctionValue);
 				addToFitnessSum(oneRowFitnessInMulHomeGene, sumFitness);
