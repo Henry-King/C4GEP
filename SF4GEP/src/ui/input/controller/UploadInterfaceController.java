@@ -97,19 +97,22 @@ public class UploadInterfaceController {
 		  
 		 //检查指定路径是否存在
 		 File newInterface=new File(defaultFileSavePath+file.getName());
-		 File[] fileList;
+		 
 		 if(!saveDir.exists()&&!saveDir.isDirectory()){//检查文件夹是否存在，不存在就生成
 			 newInterface.mkdirs();
 			 
 		 }
-		 fileList=saveDir.listFiles();
-		 for(int i = 0; i< fileList.length;i++){
-			
-		       if(file.getName().equals(fileList[i].getName())){
+		 File[] filesBeforeUpload=saveDir.listFiles();
+		 
+		 List<File> filesListBeforeUpload=new ArrayList<File>();
+		 for(int i = 0; i< filesBeforeUpload.length;i++){
+			   filesListBeforeUpload.add(filesBeforeUpload[i]);
+		       if(file.getName().equals(filesBeforeUpload[i].getName())){
 		    	  
 		    	 //相同文件名的文件已存在
 		    	   
 					 System.out.println("文件已存在");
+					 newInterface.delete();
 				   return -1;//文件已存在
 		       }
 		   }
@@ -156,6 +159,14 @@ public class UploadInterfaceController {
 				available=myClass.isInstance(string);
 			}
 			if(available==false){
+				File[] filesAfterUpload=saveDir.listFiles();
+				
+				for(int i = 0; i< filesAfterUpload.length;i++){
+					if(!filesListBeforeUpload.contains(filesAfterUpload[i])){
+						filesAfterUpload[i].delete();
+					 }
+				}
+				
 				return -2;//没有实现接口
 				
 			}
@@ -172,7 +183,14 @@ public class UploadInterfaceController {
 				
 			}
 			if(i==constructorArray.length){
+				File[] filesAfterUpload=saveDir.listFiles();
+				for(int j = 0; j< filesAfterUpload.length;i++){
+					if(!filesListBeforeUpload.contains(filesAfterUpload[j])){
+						filesAfterUpload[j].delete();
+					 }
+				}
 				return -3;//没有默认构造函数
+				
 			}
 		 } catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.swing.ImageIcon;
 
-import ui.input.NewFrame;
+
 
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
