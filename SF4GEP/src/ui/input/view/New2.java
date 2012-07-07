@@ -25,13 +25,21 @@ import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import ui.alg.Model.ModelForJPanelConfig;
+import ui.alg.Model.ModelForJPanelFunction;
+import ui.alg.Model.ModelForJPanelGEne;
+import ui.alg.controller.FunctionPanelController;
+import ui.alg.controller.HostPanelController;
+import ui.alg.view.HostPanel;
+import ui.alg.view.JPanelForFunction;
+import ui.alg.view.JPanelForGene;
+import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForPopulation;
+import ui.alg.view.ModelForJPanelInputPath;
+import ui.alg.view.ModelForJPanelPopulation;
 import ui.input.controller.*;
-import ui.input.model.ModelForJPanelConfig;
-import ui.input.model.ModelForJPanelFunction;
-import ui.input.model.ModelForJPanelGEne;
-import ui.input.model.ModelForJPanelInputPath;
-import ui.input.model.ModelForJPanelPopulation;
 import ui.input.model.ModelForUploadInterface;
+import ui.output.view.JPanelForOutput;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.GepAlgService;
@@ -147,10 +155,14 @@ public class New2 extends JFrame {
 			});
 		  jcomboBoxConfiguration.addItemListener(new  ItemListener(){ 
               public void  itemStateChanged(ItemEvent   ie)   { 
-            	myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
-            	flag=-1;
-            	setTitle(HostPanelController.jcomboBoxItemController(ie, jcomboBoxConfiguration, configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, footPanel, myConfigurationFromDB, configurationsOfHistory, myGepService));
-                footPanel.btnRun.setEnabled(true);
+            	 myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
+            	 System.out.println(myConfigurationFromDB.toString());
+            	 flag=-1;
+            	 setTitle(myConfigurationFromDB.toString());
+                 footPanel.btnRun.setEnabled(true);
+            	 
+                HostPanelController.jcomboBoxItemController(ie,configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, footPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
+                
                }
              }
 		  );
@@ -165,7 +177,8 @@ public class New2 extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		flag=-1;
 	    		myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
-	    		setTitle(HostPanelController.btnChangeConfigController(jcomboBoxConfiguration,configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService));
+	    		setTitle(myConfigurationFromDB.toString());
+	    		HostPanelController.handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
 	    		footPanel.btnRun.setEnabled(true);
 	    	}
 	      });

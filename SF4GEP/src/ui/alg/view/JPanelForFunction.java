@@ -1,4 +1,4 @@
-package ui.input.view;
+package ui.alg.view;
 
 import java.awt.Color;
 import java.awt.Component;

@@ -12,17 +12,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import ui.input.model.ModelForJPanelConfig;
-import ui.input.model.ModelForJPanelFunction;
-import ui.input.model.ModelForJPanelGEne;
-import ui.input.model.ModelForJPanelInputPath;
-import ui.input.model.ModelForJPanelPopulation;
-import ui.input.view.HostPanel;
+import ui.alg.Model.ModelForJPanelConfig;
+import ui.alg.Model.ModelForJPanelFunction;
+import ui.alg.Model.ModelForJPanelGEne;
+import ui.alg.view.HostPanel;
+import ui.alg.view.JPanelForFunction;
+import ui.alg.view.JPanelForGene;
+import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForPopulation;
+import ui.alg.view.ModelForJPanelInputPath;
+import ui.alg.view.ModelForJPanelPopulation;
 import ui.input.view.JPanelForFooter;
-import ui.input.view.JPanelForFunction;
-import ui.input.view.JPanelForGene;
-import ui.input.view.JPanelForInputPathSetting;
-import ui.input.view.JPanelForPopulation;
 
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;

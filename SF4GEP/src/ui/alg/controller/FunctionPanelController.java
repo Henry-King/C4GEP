@@ -1,4 +1,4 @@
-package ui.input.controller;
+package ui.alg.controller;
 
 import java.util.ArrayList;
 

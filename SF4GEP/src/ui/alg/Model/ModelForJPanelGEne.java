@@ -1,4 +1,4 @@
-package ui.input.model;
+package ui.alg.Model;
 
 
 public class ModelForJPanelGEne {
