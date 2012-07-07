@@ -17,6 +17,10 @@ import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 import domain.service.alg.configuration.Modifying;
 
+/**
+ * 遗传算子类，实现变异，is转座，ris转座，基因转座，单点重组，多点重组等功能。
+ * @author 申远
+ */
 public class DefaultModifying extends Modifying {
 	enum TransportEnum{
 		IS,RIS,GENE;
@@ -45,11 +49,16 @@ public class DefaultModifying extends Modifying {
 			return rate;
 		}
 	}
+	/**
+	 * 默认的构造函数，指定本遗传算子的名称为“默认变异方式”
+	 */
 	public DefaultModifying() {
 		super("默认变异方式");
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * 执行遗传算子，这是程序的入口
+	 */
 	@Override
 	public void run(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
