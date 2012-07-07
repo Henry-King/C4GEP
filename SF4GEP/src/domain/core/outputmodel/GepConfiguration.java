@@ -224,7 +224,6 @@ public class GepConfiguration implements Serializable{
 		GepConfiguration compared=(GepConfiguration)obj;
 		if(getAccuray().equals(compared.getAccuray()))
 			if(getCalculator().equals(compared.getCalculator()))
-				if(getConstantListSize().equals(compared.getConstantListSize()))
 					if(getCreator().equals(compared.getCreator()))
 						if(getFunctionList().equals(compared.getFunctionList()))
 							if(getGeneRecombineRate().equals(compared.getGeneRecombineRate()))
@@ -240,8 +239,6 @@ public class GepConfiguration implements Serializable{
 																	if(getNormalHeaderLength().endsWith(compared.getNormalHeaderLength()))
 																		if(getOnePointRecombineRate().equals(compared.getOnePointRecombineRate()))
 																			if(getPopulationSize().equals(compared.getPopulationSize()))
-																				if(getRandomConstantEnd().equals(compared.getRandomConstantEnd()))
-																					if(getRandomConstantStart().equals(compared.getRandomConstantStart()))
 																						if(getRisElement().equals(compared.getRisElement()))
 																							if(getRisTransportRate().equals(compared.getRisTransportRate()))
 																								if(getSelectionRange().equals(compared.getSelectionRange()))

@@ -50,8 +50,10 @@ public abstract class Tail implements Serializable,ICopy<Tail>{
 			start=in.readInt();
 			end=in.readInt();
 			computable=(List<Computable>)(Object)genePieces.subList(start, end);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}

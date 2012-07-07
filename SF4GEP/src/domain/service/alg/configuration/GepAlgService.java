@@ -75,8 +75,6 @@ public class GepAlgService implements IgepAlgService {
 		// TODO Auto-generated method stub
 		this.myConfiguration=myConfiguration;
 		myCreator=(Creator) Class.forName(myConfiguration.getCreator()).newInstance();
-		myCreator.setConstanListSize(Integer.parseInt(myConfiguration.getConstantListSize()));
-		myCreator.setRandomConstantRange(Float.parseFloat(myConfiguration.getRandomConstantStart()), Float.parseFloat(myConfiguration.getRandomConstantEnd()));
 		myCreator.setSelectedFunctions(getFunctionList(myConfiguration.getFunctionList().split(",")));
 		
 		myCalculator=(Calculator) Class.forName(myConfiguration.getCalculator()).newInstance();
@@ -86,9 +84,8 @@ public class GepAlgService implements IgepAlgService {
 		mySelector=(Selector) Class.forName(myConfiguration.getSelector()).newInstance();
 		myModifying=(Modifying) Class.forName(myConfiguration.getModify()).newInstance();
 		
-		myModifying.setStart(Float.parseFloat(myConfiguration.getRandomConstantEnd()));
-		myModifying.setEnd(Float.parseFloat(myConfiguration.getRandomConstantEnd()));
-		myModifying.setConstanListSize(Integer.parseInt(myConfiguration.getConstantListSize()));
+
+		
 		myModifying.setGeneRecombineRate(Float.parseFloat(myConfiguration.getGeneRecombineRate()));
 		myModifying.setGeneTransportRate(Float.parseFloat(myConfiguration.getGeneTransportRate()));
 		myModifying.setIsElements(stringArrayToIntegerList(myConfiguration.getIsElement().split(",")));

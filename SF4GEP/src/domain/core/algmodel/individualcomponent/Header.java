@@ -47,8 +47,10 @@ public abstract class Header implements Serializable,ICopy<Header>{
 			start=in.readInt();
 			end=in.readInt();
 			containedGenePieces=genePieces.subList(start, end);
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}

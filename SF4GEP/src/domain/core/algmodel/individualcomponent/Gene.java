@@ -78,8 +78,10 @@ public abstract class Gene implements Serializable,ICopy<Gene> {
 			header=(Header) in.readObject();
 			tail=(Tail) in.readObject();
 			
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}
