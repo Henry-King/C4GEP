@@ -9,6 +9,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,9 +74,7 @@ public class UploadInterfaceController {
 	    		   }
 	    		   
 	    	   }
-	    	 if(dataStr.equals("publicNew(){")){//得到构造函数名
-	    		  available=true;//存在默认构造函数
-	    	  }
+	    	 
 	    	   
 	    	 }
 	    	 j++;
@@ -94,9 +93,7 @@ public class UploadInterfaceController {
 		  
 		  
 		  
-		if(available==false){  
-			return -3;//不含默认构造文件
-		}
+		
 		  
 		 //检查指定路径是否存在
 		 File newInterface=new File(defaultFileSavePath+file.getName());
@@ -143,30 +140,47 @@ public class UploadInterfaceController {
 	     t.call();//编译源程序
 	     fileMgr.close();
 	    
-	    
+		
 		try {
 			fileName=file.getName().substring(0,file.getName().indexOf(".java"));//得到类名
 			String filePathString=defaultFileSavePath;
-			//------------------------------
-			//packagePath有问题
+			
 			File classfiles=new File(filePathString);
 			System.out.println(filePathString);
 			System.out.println(classfiles.toString());
+			//---检查实现的接口
 			List<T> resultList=new ArrayList<T>(classfiles.list().length);
+			Class<?> myClass=Class.forName("domain.service.input."+fileName);
 			for(String string:classfiles.list()){
-				Class<?> myClass=Class.forName("domain.service.input."+fileName);
-				available=myClass.isInstance(string);
 				
-			
+				available=myClass.isInstance(string);
 			}
-			
+			if(available==false){
+				return -2;//没有实现接口
+				
+			}
+			int i=0;
+			//检查实现构造函数
+			Constructor<?>[] constructorArray=myClass.getConstructors();
+			for(Constructor<?> constructor:constructorArray){
+				if(constructor.getParameterTypes().length==0){
+					break;
+				}
+				else{
+					i++;
+				}
+				
+			}
+			if(i==constructorArray.length){
+				return -3;//没有默认构造函数
+			}
 		 } catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-	    if(available==false){
-	    	return -2;//没有实现接口
-	    }
+		
+		
+	    
 	     return 0;//可以上传
 	   }
 	    
