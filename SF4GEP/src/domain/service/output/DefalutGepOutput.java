@@ -133,7 +133,6 @@ public class DefalutGepOutput implements IgepOutput{
 	 * @author ëøÁèÕÜ
 	 */
 	public MathCanvas drawImageA(Calculator calculator, Individual individual) {
-		// TODO Auto-generated method stub
 		
 		
 		
@@ -165,13 +164,19 @@ public class DefalutGepOutput implements IgepOutput{
 		bestStr.append("yb={");
 		worseStr.append("yw={");
 		
+		System.out.println("×î²î¸öÌå£º");
+		
+		
 		Iterator<OutputPopulation> iterator = popSet.iterator();
 		while (iterator.hasNext()) {
 			OutputPopulation outputPopulation = (OutputPopulation) iterator.next();
 			
 			generationStr.append(outputPopulation.getGeneration() + ",");
 			bestStr.append(outputPopulation.getBestOutputIndividual().getFitness() + ",");
-			worseStr.append(outputPopulation.getWorstOutputIndividual().getFitness() + ",");	
+			worseStr.append(outputPopulation.getWorstOutputIndividual().getFitness() + ",");
+			
+			System.out.println(outputPopulation.getWorstOutputIndividual().getFitness());
+			
 		}
 		generationStr.delete(generationStr.length()-2, generationStr.length());
 		bestStr.delete(bestStr.length()-2, bestStr.length());

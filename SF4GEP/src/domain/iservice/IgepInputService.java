@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import jxl.read.biff.BiffException;
 
-import domain.core.inputmodel.InputSet;
+import domain.core.inputmodel.DataTable;
 
 public interface IgepInputService {
-	public void uploadFile (InputSet set,File file) throws IOException, BiffException;
+	public void uploadFile (DataTable set,File file) throws IOException, BiffException;
 }

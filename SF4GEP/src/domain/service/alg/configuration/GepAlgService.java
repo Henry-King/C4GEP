@@ -17,7 +17,7 @@ import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
 import domain.core.algmodel.genecomponent.Function;
-import domain.core.inputmodel.InputSet;
+import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
 import domain.core.outputmodel.OutputIndividual;
@@ -105,7 +105,7 @@ public class GepAlgService implements IgepAlgService {
 		myGepAlgorithm.setIndividualLength(myGepAlgorithm.getHomeoticGeneLength()*myGepAlgorithm.getHomeoticGeneNumber()+myGepAlgorithm.getNormalGeneLength()*myGepAlgorithm.getNormalGeneNumber());
 		
 		igepInput.setFile(new File(myConfiguration.getInputFile()));
-		InputSet is=new InputSet();
+		DataTable is=new DataTable();
 		igepInput.read(is);
 		setInputSet(is);
 	}
@@ -196,12 +196,13 @@ public class GepAlgService implements IgepAlgService {
 	public AlgInstance getMyAlgInstance(){
 		return myAlgInstance;
 	}
-	private void setInputSet(InputSet inputSet) {
-		// TODO Auto-generated method stub
-		myCreator.setVariables(inputSet.getVariableRow().getVariableList().subList(0, inputSet.getVariableRow().getColumns()-1));
+	private void setInputSet(DataTable inputSet) {
+		
+		myCreator.setVariables(inputSet.getColumns().getVariableList().subList(0, inputSet.getColumns().size()-1));
 		myCalculator.setInputSet(inputSet);
-		myGepAlgorithm.setMaxFitness(myCalculator.getSelectionRange()*myCalculator.getInputSet().getFieldRowList().size());
-		myGepAlgorithm.setVariableList(inputSet.getVariableRow().getVariableList().subList(0, inputSet.getVariableRow().getColumns()-1));
+		myGepAlgorithm.setMaxFitness(myCalculator.getSelectionRange()*myCalculator.getInputSet().getRows().size());
+		myGepAlgorithm.setVariableList(inputSet.getColumns().getVariableList().subList(0, inputSet.getColumns().size()-1));
+		
 	}
 	
 	private <T> List<T> getClassBinaryName(String binaryPath,Class<T> typeClass) throws ClassNotFoundException, InstantiationException, IllegalAccessException{

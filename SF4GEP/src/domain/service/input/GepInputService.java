@@ -5,9 +5,8 @@ import java.io.IOException;
 
 import jxl.read.biff.BiffException;
 
-import domain.core.inputmodel.InputSet;
 import domain.iservice.IgepInputService;
-
+/*
 public class GepInputService implements IgepInputService {
 	private IgepInput input=new DefaultGepInput();
 
@@ -20,3 +19,4 @@ public class GepInputService implements IgepInputService {
 	
 
 }
+*/

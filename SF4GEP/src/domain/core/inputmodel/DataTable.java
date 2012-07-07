@@ -132,13 +132,20 @@ public final class DataTable {
     
     /**
      * 获取给定行号和列号的值
-     * @param row
-     * @param col
+     * @param row	行号
+     * @param col	列号
      * @return
      */
     public Object getValue(int row,int col) {
     	     return this.rows.get(row).getValue(col);
     }
+    
+    
+    /**
+     * 添加新的一行
+     * @return
+     * @throws Exception
+     */
     public DataRow newRow() throws Exception {
              DataRow tempRow = new DataRow(this);
              nextRowIndex = nextRowIndex < this.rows.size() ? this.rows.size(): nextRowIndex;
@@ -146,33 +153,77 @@ public final class DataTable {
     	     tempRow.setRowIndex(nextRowIndex++);
     	     return tempRow;      
     }
+    
+    
+    /**
+     * 根据行号和列号设定某一单元格的值
+     * @param row
+     * @param col	行号
+     * @param value
+     */
     public void setValue(int row,int col,Object value) {
              this.rows.get(row).setValue(col, value);
     }
        
+    /**
+     * 根据行号和列名设置单元格的值
+     * @param row
+     * @param colName	行名
+     * @param value
+     */
     public void setValue(int row,String colName,Object value) {
     		 this.rows.get(row).setValue(colName, value);
     }
+    
+    
+    
     public Object getTag() {
 		return tag;
 	}
 	public void setTag(Object tag) {
 		this.tag = tag;
 	}
+	
+	
+	/**
+	 * 添加新的一列，为新的一列指定列名
+	 * 返回该行的实例
+	 * @param columnName
+	 * @param dataType
+	 * @return
+	 * @throws Exception
+	 */
 	public DataColumn addColumn(String columnName,
         int dataType) throws Exception {
 		return this.columns.addColumn(columnName, dataType);
 	}
+	
+	
+	/**
+	 * 添加新的一行
+	 * @param row
+	 * @throws Exception
+	 */
 	public void addRow(DataRow row) throws Exception {
 		if (row.getRowIndex() > this.rows.size())
 		    row.setRowIndex(this.rows.size());
 			 this.rows.add(row);
 	}
+	
+	
+	/**
+	 * 获取某一列
+	 * @param index
+	 * @return
+	 */
     public String getColumnName(int index){
     	
 		return columns.get(index).getColumnName();
     	
     }
+    
+    
+    
    public String getColumnName(Object obj){
 	 for(int i=0;i<this.rows.size();i++){
 	     DataRow row=this.rows.get(i);
@@ -184,12 +235,10 @@ public final class DataTable {
 		    	  return row.getColumns().get(j).getColumnName().toLowerCase();
 		     }
 	     }
-	    
-    	 
-    	
 	   }	
 	 return "没有找到";		
    }
+   
    /* Iterator it=columns.nameMap.entrySet().iterator();
     * while(it.hasNext()){
 		Entry entry=(Entry) it.next();
@@ -199,6 +248,12 @@ public final class DataTable {
 		}
 		
 	}*/
+   
+   
+   /**
+    * 添加新的一行
+    * @param columnName
+    */
 public void addColumn(String  columnName) {
 	this.columns.addColumn(columnName);
 	

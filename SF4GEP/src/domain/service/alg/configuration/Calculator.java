@@ -2,7 +2,7 @@ package domain.service.alg.configuration;
 
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
-import domain.core.inputmodel.InputSet;
+import domain.core.inputmodel.DataTable;
 import exception.IllegalInputSet;
 
 /**
@@ -12,7 +12,7 @@ public abstract class Calculator {
 	private float selectionRage;
 	private float accuray;
 	private final String name;
-	private InputSet inputSet;
+	private DataTable inputSet;
 	public Calculator(String name){
 		this.name=name;
 	}
@@ -29,10 +29,10 @@ public abstract class Calculator {
 		this.accuray=accuray;
 	}
 
-	public InputSet getInputSet() {
+	public DataTable getInputSet() {
 		return inputSet;
 	}
-	public void setInputSet(InputSet inputSet) {
+	public void setInputSet(DataTable inputSet) {
 		this.inputSet = inputSet;
 	}
 	/**

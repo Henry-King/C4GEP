@@ -5,17 +5,16 @@ import java.io.IOException;
 
 import jxl.read.biff.BiffException;
 
-import domain.core.inputmodel.InputSet;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
 
-public class InputTest {
+/**public class InputTest {
 
-	/**
+	
 	 * @param args
 	 * @throws IOException 
 	 * @throws BiffException 
-	 */
+	 
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
 		IgepInput input =new DefaultGepInput();
@@ -39,4 +38,4 @@ public class InputTest {
 		}
 	}
 
-}
+}*/

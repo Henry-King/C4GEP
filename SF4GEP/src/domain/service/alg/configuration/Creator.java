@@ -27,15 +27,20 @@ public abstract class Creator {
 	public void setSelectedFunctions(List<Function> functions){
 		selectedFunctions=functions;
 	}
+	
+	
 	public void setVariables(List<Variable> variables){
 		this.variables=variables; 
-	}
-	public List<Function> getSelectedFunctions() {
-		return selectedFunctions;
 	}
 	public List<Variable> getVariables() {
 		return variables;
 	}
+	
+	
+	public List<Function> getSelectedFunctions() {
+		return selectedFunctions;
+	}
+	
 	public void setRandomConstantRange(float start,float end){
 		this.start=start;
 		this.end=end;

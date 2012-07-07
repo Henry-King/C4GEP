@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import jxl.read.biff.BiffException;
 
-import domain.core.inputmodel.InputSet;
+import domain.core.inputmodel.DataTable;
 
 public interface IgepInput {
 	/**
@@ -20,5 +20,5 @@ public interface IgepInput {
 	 * @author ³ÂÍ¨
 	 * @throws BiffException 
 	 */
-	void read(InputSet input) throws IOException, BiffException;
+	void read(DataTable input) throws IOException, BiffException;
 }

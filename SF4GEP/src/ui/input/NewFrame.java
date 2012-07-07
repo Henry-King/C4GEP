@@ -67,7 +67,7 @@ import domain.core.algmodel.genecomponent.Computable;
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
-import domain.core.inputmodel.InputSet;
+import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
@@ -154,7 +154,7 @@ public class NewFrame extends JFrame {
 	GepConfiguration myConfigurationFromDB;
 	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
 	IgepInput input =new DefaultGepInput();
-	InputSet is = new InputSet();
+	DataTable is = new DataTable();
 	int addTime=0;
 	
 	

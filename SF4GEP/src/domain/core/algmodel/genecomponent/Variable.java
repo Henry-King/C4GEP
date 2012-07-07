@@ -8,6 +8,16 @@ public class Variable extends Computable{
 	private static final long serialVersionUID = 2304632426125416061L;
 	private String name;
 	private float value;
+	
+	public Variable() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Variable(String name){
+		this.name = name;
+	}
+	
+	
 	public String getName() {
 		return name;
 	}

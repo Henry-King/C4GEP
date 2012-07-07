@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.genecomponent.Constant;
@@ -14,8 +16,8 @@ import domain.core.algmodel.genecomponent.Variable;
 import domain.core.algmodel.individualcomponent.Gene;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
-import domain.core.inputmodel.FieldItem;
-import domain.core.inputmodel.FieldRow;
+import domain.core.inputmodel.DataRow;
+import domain.core.inputmodel.DataRowCollection;
 import domain.service.alg.configuration.Calculator;
 import exception.IllegalInputSet;
 
@@ -29,7 +31,7 @@ public class AbsoluteCalculator extends Calculator{
 		// TODO Auto-generated method stub
 		this.gepAlgorithm=gepAlgorithm;
 		List<Individual> individuals=gepAlgorithm.getPopulationQueue().getLast().getIndividuals();
-		List<FieldRow> fieldRowList=getInputSet().getFieldRowList();
+		DataRowCollection rows= getInputSet().getRows();
 		List<Float> individualValueInMulHomeGene;
 		List<Float> oneRowFitnessInMulHomeGene;
 		List<Float> sumFitness=new ArrayList<Float>(gepAlgorithm.getHomeoticGeneNumber());
@@ -38,13 +40,18 @@ public class AbsoluteCalculator extends Calculator{
 		for(Individual individual:individuals){
 			for(int i=0;i<gepAlgorithm.getHomeoticGeneNumber();i++)
 				sumFitness.add((float) 0);
-			for(FieldRow fieldRow:fieldRowList){
-				individualValueInMulHomeGene=calculateIndividualValueWithMulHomeGene(individual,fieldRow);
-				userFunctionValue=fieldRow.getFieldItemList().get(fieldRow.getColumns()-1).getValue();
+			
+			for(int i=0;i<rows.size();i++){
+				
+				individualValueInMulHomeGene=calculateIndividualValueWithMulHomeGene(individual,rows.get(i));
+				
+				
+				userFunctionValue=(Float)rows.get(i).getValue(rows.get(i).getColumns().size()-1);
 				oneRowFitnessInMulHomeGene=calculateOneRowFitnessWithMulHomeoGene(individualValueInMulHomeGene,userFunctionValue);
 				addToFitnessSum(oneRowFitnessInMulHomeGene, sumFitness);
 				clearFunctionFlag(individual);
 			}
+			
 			homeoticGeneIndex=selectIndividualFitness(sumFitness);
 			if(homeoticGeneIndex==-1){
 				individual.setFitness((float) 0);
@@ -60,12 +67,20 @@ public class AbsoluteCalculator extends Calculator{
 	@Override
 	public void calculateInputSet(Individual individual) throws IllegalInputSet{
 		// TODO Auto-generated method stub
-		List<FieldRow> fieldRowList=getInputSet().getFieldRowList();
+		
+		
+		DataRowCollection rows= getInputSet().getRows();
+		
+		
+		
 		float value;
-		for(FieldRow fieldRow:fieldRowList){
+		
+		for(int i=0;i<rows.size();i++){
 			try {
-				value=calculateIndividualValueWithMulHomeGene(individual, fieldRow).get(individual.getSelectedHomeoticGeneNumber());
-				fieldRow.getFieldItemList().get(fieldRow.getColumns()-1).setValue(value);
+				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
+				
+				rows.get(i).setValue(i, value);
+				
 			} catch (ArithmeticException e) {
 				// TODO Auto-generated catch block
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
@@ -73,10 +88,12 @@ public class AbsoluteCalculator extends Calculator{
 				throw illegalInputSet;
 			}
 		}
+		
+		
 	}
-	private List<Float> calculateIndividualValueWithMulHomeGene(Individual individual,FieldRow fieldRow){
+	private List<Float> calculateIndividualValueWithMulHomeGene(Individual individual,DataRow row){
 		for(NormalGene gene:individual.getNormalGeneList()){
-			assignValueToVariable(gene, fieldRow.getFieldItemList());
+			assignValueToVariable(gene, row);
 			calculateGeneValue(gene, individual);
 		}
 		List<Float> resulList=new ArrayList<Float>(gepAlgorithm.getHomeoticGeneNumber());
@@ -121,16 +138,18 @@ public class AbsoluteCalculator extends Calculator{
 		}
 		return index;
 	}
-	private void assignValueToVariable(NormalGene gene,List<FieldItem> fList){
+	private void assignValueToVariable(NormalGene gene,DataRow row){
 		for(GenePiece genePiece:gene.getContainedGenePieces()){
 			if(genePiece.getClass().equals(Variable.class)){
 				Variable variable=(Variable) genePiece;
-				for(FieldItem item:fList){
-					if(item.getName().equals(variable.getName())){
-						variable.setValue(item.getValue());
+				for(int i=0;i<row.getColumns().size();i++){
+					
+					if (row.getColumns().get(i).getColumnName().equals(variable.getName())) {
+						variable.setValue((Float)row.getValue(i));
 						break;
-					}	
+					}
 				}
+				
 			}
 		}
 	}
