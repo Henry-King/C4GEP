@@ -13,19 +13,13 @@ import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 
-
 /**
- * 本类的三个属性在完整版程序运行的时候应该可以自动生成，因此没有相应的get方法，在测试的时候最好使用reflect机制进行赋值，如果实在
- * 不会的话，可以去掉private进行测试
+ * 个体类,种群中保存着个体的List
+ * @author 个体类
+ *
  */
 public class Individual implements Comparable<Individual>,Serializable,ICopy<Individual>{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7942680950588488680L;
-	/**
-	 * 
-	 */	
 	private int normalGeneNumber;
 	private int normalGeneHeaderLength;
 	private int normalGeneLength;
@@ -45,6 +39,9 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 	public Individual(){
 
 	}
+	/**
+	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部Genepiece信息。
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -65,42 +62,91 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 		}
 		return result.toString();
 	}
+	/**
+	 * 比较当前个体的适应值和用户指定的某个个体的适应值，并将此结果返回
+	 * @param　用户提供的待比较的个体
+	 * @return 如果当前个体适应值小于参数适应值，返回负数，如果当前个体适应值等于参数个体适应值，返回0，如果当前个体适应值大于参数个体适应值，返回正数
+	 */
 	@Override
 	public int compareTo(Individual o) {
 		// TODO Auto-generated method stub
 		return Float.compare(fitness, o.getFitness());
 	}
-	
+	/**
+	 * 一个个体可能具有多个同源基因，一个个体内的多个同源基因可能产生多个不同的表达式，这个方法将返回在对某个确定的输入集求解的时候使用哪个同源基因翻译个体
+	 * @return 被选择的同源基因的编号，从0开始，最大值为普通基因数量－1
+	 */
 	public int getSelectedHomeoticGeneNumber() {
 		return selectedHomeoticGeneNumber;
 	}
+	/**
+	 * 设置在求解输入集的时候将使用哪个同源基因上传个体。
+	 * @param selectedHomeoticGeneNumber 同源基因编号
+	 */
 	public void setSelectedHomeoticGeneNumber(int selectedHomeoticGeneNumber) {
 		this.selectedHomeoticGeneNumber = selectedHomeoticGeneNumber;
 	}
+	/**
+	 * 返回当前个体的适应值
+	 * @return 当前个体的适应值
+	 */
 	public Float getFitness(){
 		return fitness;
 	}
+	/**
+	 * 设置当前个体的适应值
+	 * @param fitness 当前个体的适应值
+	 */
 	public void setFitness(Float fitness) {
 		this.fitness = fitness;
 	}
-
+	/**
+	 * 返回个体中所包含的普通基因的List
+	 * @return 个体中的所有普通基因
+	 */
 	public List<NormalGene> getNormalGeneList() {
 		return normalGeneList;
 	}
+	/**
+	 * 返回个体中所包含的同源基因的List
+	 * @return 个体中的所有同源基因
+	 */
 	public List<HomeoticGene> getHomeoticGeneList() {
 		return homeoticGeneList;
 	}
+	/**
+	 * 返回个体中包含的所有基因片段，即按照线性顺序遍历所有的普通基因和所有的同源基因，请不要对这个List的大小进行修改，否则可能会出现错误。
+	 * 此为对这个List修改将直接影响对应的基因，反之也是一样。
+	 * @return 包含个体中所有基因片段的list
+	 */
 	public List<GenePiece> getContainedGenePieces(){
 		return containedGenePieces;
 	}
+	/**
+	 * 返回普通基因中包含的所有基因片段，即按照线性顺序遍历所有的普通基因，请不要对这个List的大小进行修改，否则会抛出异常。
+	 * 此为对这个List修改将直接影响对应的基因，反之也是一样。
+	 * @return 包含普通基因中所有基因片段的list
+	 */
 	public List<GenePiece> getNormalGenePieces(){
 		return normalGenePieces;
 	}
+	/**
+	 * 返回同源基因中包含的所有基因片段，即按照线性顺序遍历所有的同源基因，请不要对这个List的大小进行修改，否则会抛出异常。
+	 * 此为对这个List修改将直接影响对应的基因，反之也是一样。
+	 * @return 包含同源基因中所有基因片段的list
+	 */
 	public List<GenePiece> getHomeoticGenePieces(){
 		return homeoticGenePieces;
 	}
 	/**
-	 * 除了在初始化的时候，请不要调用此方法
+	 * 此方法只需要在初始的时候调用，勿在其他的情况下调用，这个方法将自动产生个体所包含的普通基因和同源基因，并设置好基因的头部，尾部等信息
+	 * @param genePieces 个体中所有同源基因和所有非同源的基因片段
+	 * @param normalGeneNumber 普通基因的数量
+	 * @param normalGeneHeaderLength 普通基因的头部长度
+	 * @param normalGeneLength 一个普通基因的长度，普通基因的长度等于普通基因的头长+普通基因的尾长
+	 * @param homeoticGeneNumber 同源基因的数量
+	 * @param homeoticGeneHeaderLength 同源基因的头部长度
+	 * @param homeoticGeneLength 一个同源基因的长度，同源基因的长度等于同源基因的头长+同源基因的尾长
 	 */
 	public void setContainedGenePieces(List<GenePiece> genePieces,int normalGeneNumber,int normalGeneHeaderLength,int normalGeneLength,int homeoticGeneNumber,int homeoticGeneHeaderLength,int homeoticGeneLength){
 		this.containedGenePieces=genePieces;
