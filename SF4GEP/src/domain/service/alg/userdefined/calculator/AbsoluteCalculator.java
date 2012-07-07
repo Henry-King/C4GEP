@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.genecomponent.Constant;
