@@ -10,15 +10,13 @@ import common.ICopy;
 
 import domain.core.algmodel.genecomponent.GenePiece;
 
+/**
+ * 基因类，此类为抽象类，提供了基因的通用的信息
+ * @author 申远
+ *
+ */
 public abstract class Gene implements Serializable,ICopy<Gene> {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7104627974958183372L;
-	/**
-	 * 
-	 */
-
 	private float value;
 	private int start;
 	private int end;
@@ -26,20 +24,46 @@ public abstract class Gene implements Serializable,ICopy<Gene> {
 	protected List<GenePiece> containedGenePieces;
 	protected Header header;
 	protected Tail tail;
+	/**
+	 * 构造函数,创建一个新的基因，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
+	 * @param origGenePieces 当前基因对应的个体中全部的基因片段
+	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
+	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
+	 */
 	public Gene(List<GenePiece> origGenePieces,int start,int end){
 		this.originalGenePiece=origGenePieces;
 		this.start=start;
 		this.end=end;
 		containedGenePieces=origGenePieces.subList(start, end);
 	}
+	/**
+	 * 返回当前基因的头部
+	 * @return 当前基因的头部
+	 */
 	public abstract Header getHeader();
+	/**
+	 * 返回当前基因的尾部
+	 * @return 当前基因的尾部
+	 */
 	public abstract Tail getTail();
+	/**
+	 * 返回当前基因的值，通过使用同源基因连接各个基因的值，可以求得个体对某个输入集的解，通过对解集进行某种数学变换，可以得到个体的适应值。
+	 * @return 当前基因的值
+	 */
 	public float getValue() {
 		return value;
 	}
+	/**
+	 * 设置当前基因的值
+	 * @param value 当前基因的值
+	 */
 	public void setValue(float value) {
 		this.value = value;
 	}
+	/**
+	 * 返回当前基因所对应的基因片段
+	 * @return 包含当前基因所对应的基因片段的List
+	 */
 	public List<GenePiece> getContainedGenePieces(){
 		return containedGenePieces;
 	}
