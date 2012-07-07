@@ -266,9 +266,7 @@ public class DefaultModifying extends Modifying {
 			if(recombineOneRandom.nextFloat()<recombine.getRate()){
 				for(int j=i+1;j<population.getIndividuals().size();j++){
 					if(recombineOtherRandom.nextFloat()<recombine.getRate()){
-						System.out.println("Before Recombine:\n"+population.getIndividuals().get(i)+"\n"+population.getIndividuals().get(j));
 						recombineParaDetermination(population.getIndividuals().get(i).getContainedGenePieces(), population.getIndividuals().get(j).getContainedGenePieces(), recombine, gepAlgorithm);
-						System.out.println("After Recombine:\n"+population.getIndividuals().get(i)+"\n"+population.getIndividuals().get(j));
 						break;
 					}
 				}
@@ -282,7 +280,7 @@ public class DefaultModifying extends Modifying {
 		int end=-1;
 		switch (recombine) {
 		case OnePoint:
-			end=gepAlgorithm.getHomeoticGeneLength()+gepAlgorithm.getNormalGeneLength();
+			end=a.size();
 			start=startRandom.nextInt(end);
 			break;
 		case TwoPoint:
