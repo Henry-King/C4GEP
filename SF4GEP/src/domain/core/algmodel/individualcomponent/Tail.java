@@ -11,15 +11,24 @@ import common.ICopy;
 import domain.core.algmodel.genecomponent.Computable;
 import domain.core.algmodel.genecomponent.GenePiece;
 
+/**
+ * 基因尾部实体的基类，是一个抽象类
+ * @author 申远
+ *
+ */
 public abstract class Tail implements Serializable,ICopy<Tail>{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4667068182615591355L;
 	protected List<Computable> computable;
 	private List<GenePiece> genePieces;
 	private int start;
 	private int end;
+
+	/**
+	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
 	@SuppressWarnings("unchecked")
 	public Tail(List<GenePiece> genePieces,int start,int end){
 		this.genePieces=genePieces;
@@ -27,6 +36,10 @@ public abstract class Tail implements Serializable,ICopy<Tail>{
 		this.end=end;
 		this.computable=(List<Computable>)(Object)genePieces.subList(start, end);
 	}
+	/**
+	 * 基因尾部所包含的全部基因片段
+	 * @return 包含有尾部基因片段的List
+	 */
 	public List<Computable> getContainedGenePieces(){
 		return computable;
 	}
