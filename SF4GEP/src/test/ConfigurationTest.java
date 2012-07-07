@@ -42,7 +42,7 @@ public class ConfigurationTest {
 		myParameter.setIsElement("1,2,3");
 		myParameter.setRisElement("1,2,3");
 		myParameter.setHomeoticGeneNumber("1");
-		myParameter.setHomeoticHeaderLength("7");
+		myParameter.setHomeoticHeaderLength("5");
 		myParameter.setRandomConstantStart("0");
 		myParameter.setRandomConstantEnd("1");
 		myParameter.setConstantListSize("10");
