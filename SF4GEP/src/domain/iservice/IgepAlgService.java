@@ -25,4 +25,11 @@ public interface IgepAlgService {
 	public List<Calculator> getAvailableCalculator() throws ClassNotFoundException, InstantiationException, IllegalAccessException;	
 	public List<Modifying> getAvailableModifyings() throws ClassNotFoundException, InstantiationException, IllegalAccessException;
 	public void run();
+	
+	/**
+	 * 为了画拟合曲线图添加的参数
+	 * @return
+	 */
+	public Calculator getCalculator();
+	
 }

@@ -1,5 +1,7 @@
 package domain.service.alg.configuration;
 
+import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.inputmodel.DataTable;
@@ -39,7 +41,7 @@ public abstract class Calculator {
 	 * 默认的修饰算法只会更改Population队列中队尾元素，不会更改其他元素
 	 */
 	public abstract void calculateFitness(GepAlgorithm gepAlgorithm);
-	public abstract void calculateInputSet(Individual individual) throws IllegalInputSet;
+	public abstract List<Float> calculateInputSet(Individual individual) throws IllegalInputSet;
 	@Override
 	public final String toString() {
 		// TODO Auto-generated method stub

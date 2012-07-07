@@ -46,7 +46,7 @@ public interface IgepOutput {
 	 * @param output
 	 * @return MathCanvas对象
 	 */
-	public MathCanvas drawImageA(Calculator calculator, Individual individual);
+	public MathCanvas drawImageA(Calculator calculator, Individual individual,KernelLink ml);
 	
 	/**
 	 * 画每代最佳个体、最差个体的演化曲线图

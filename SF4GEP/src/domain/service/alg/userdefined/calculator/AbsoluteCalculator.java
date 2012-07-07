@@ -65,31 +65,21 @@ public class AbsoluteCalculator extends Calculator{
 		}
 	}
 	@Override
-	public void calculateInputSet(Individual individual) throws IllegalInputSet{
-		// TODO Auto-generated method stub
-		
-		
+	public List<Float>  calculateInputSet(Individual individual) throws IllegalInputSet{
 		DataRowCollection rows= getInputSet().getRows();
-		
-		
-		
+		List<Float> result=new ArrayList<Float>(getInputSet().getRows().size());
 		float value;
-		
 		for(int i=0;i<rows.size();i++){
 			try {
 				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
-				
 				rows.get(i).setValue(i, value);
-				
 			} catch (ArithmeticException e) {
-				// TODO Auto-generated catch block
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
 				illegalInputSet.initCause(e);
 				throw illegalInputSet;
 			}
 		}
-		
-		
+		return result;
 	}
 	private List<Float> calculateIndividualValueWithMulHomeGene(Individual individual,DataRow row){
 		for(NormalGene gene:individual.getNormalGeneList()){

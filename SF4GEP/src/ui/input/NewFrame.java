@@ -71,6 +71,7 @@ import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
+import domain.service.alg.configuration.Calculator;
 import domain.service.alg.configuration.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
@@ -525,7 +526,10 @@ public class NewFrame extends JFrame {
 				 
 				 
 				 AlgInstance algInstance = myGepService.getMyAlgInstance();
+				 Calculator calculator = myGepService.getCalculator();
 				 
+				 
+				 //mathCanvasA = gepOutput.drawImageA(calculator, individual, ml);
 				 mathCanvasB = gepOutput.drawImageB(algInstance,ml);
 				
 				 /*»­Í¼ÇøÓò*/

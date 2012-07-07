@@ -39,6 +39,16 @@ public class GepAlgService implements IgepAlgService {
 	private GepConfiguration myConfiguration;
 	private IgepInput igepInput=new DefaultGepInput();
 	private AlgInstance myAlgInstance;
+	
+	
+	/**
+	 * 为了画拟合曲线图添加的参数
+	 * @return
+	 */
+	public Calculator getCalculator(){
+		return myCalculator;
+	}
+	
 	@Override
 	public void saveArgumentsToDb(GepConfiguration myConfiguration) throws Duplicated {
 		// TODO Auto-generated method stub

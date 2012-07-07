@@ -22,6 +22,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import domain.core.algmodel.configuration.Individual;
+import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
@@ -132,7 +133,21 @@ public class DefalutGepOutput implements IgepOutput{
 	 * 最佳个体的拟合曲线图
 	 * @author 滕凌哲
 	 */
-	public MathCanvas drawImageA(Calculator calculator, Individual individual) {
+	public MathCanvas drawImageA(Calculator calculator, Individual individual,KernelLink ml) {
+		MathCanvas mathCanvasA = new MathCanvas(ml);
+		
+		DataTable inputSet = calculator.getInputSet();
+		
+		
+		
+		StringBuffer bestStr = new StringBuffer();
+		StringBuffer worseStr = new StringBuffer();
+		
+		
+		for (int i = 0; i < inputSet.getRows().size(); i++) {
+			
+		}
+		
 		
 		
 		
