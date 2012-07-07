@@ -10,7 +10,7 @@ public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiec
 	 * 
 	 */
 	private static final long serialVersionUID = 7648117930489664221L;
-	private String symbol;
+	protected String symbol;
 	
 	public String getSymbol() {
 		return symbol;

@@ -13,7 +13,6 @@ public abstract class Function extends GenePiece{
 	private static final long serialVersionUID = -5233529550458131848L;
 	private final String name;
 	private final int arity;
-	private final String symbol;
 	private float value=Float.NaN;
 	public Function(String name,int arity,String symbol){
 		this.name=name;
