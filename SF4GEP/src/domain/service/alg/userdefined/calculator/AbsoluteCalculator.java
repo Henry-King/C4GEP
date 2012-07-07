@@ -26,7 +26,6 @@ public class AbsoluteCalculator extends Calculator{
 	}
 	@Override
 	public void calculateFitness(GepAlgorithm gepAlgorithm) {
-		// TODO Auto-generated method stub
 		this.gepAlgorithm=gepAlgorithm;
 		List<Individual> individuals=gepAlgorithm.getPopulationQueue().getLast().getIndividuals();
 		DataRowCollection rows= getInputSet().getRows();
@@ -63,12 +62,14 @@ public class AbsoluteCalculator extends Calculator{
 	@Override
 	public List<Float>  calculateInputSet(Individual individual) throws IllegalInputSet{
 		DataRowCollection rows= getInputSet().getRows();
-		List<Float> result=new ArrayList<Float>(getInputSet().getRows().size());
+		List<Float> result = new ArrayList<Float>(getInputSet().getRows().size());
 		float value;
 		for(int i=0;i<rows.size();i++){
 			try {
 				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
-				rows.get(i).setValue(i, value);
+//				rows.get(i).setValue(rows.getColumns().size()-1, value);
+				result.add(value);
+				clearFunctionFlag(individual);
 			} catch (ArithmeticException e) {
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
 				illegalInputSet.initCause(e);
@@ -77,6 +78,9 @@ public class AbsoluteCalculator extends Calculator{
 		}
 		return result;
 	}
+	
+	
+	
 	private List<Float> calculateIndividualValueWithMulHomeGene(Individual individual,DataRow row){
 		for(NormalGene gene:individual.getNormalGeneList()){
 			assignValueToVariable(gene, row);
@@ -90,6 +94,8 @@ public class AbsoluteCalculator extends Calculator{
 		}
 		return resulList;
 	}
+	
+	
 	private List<Float> calculateOneRowFitnessWithMulHomeoGene(List<Float> fList,float target){
 		List<Float> result=new ArrayList<Float>(fList.size());
 		float minus;
@@ -134,6 +140,7 @@ public class AbsoluteCalculator extends Calculator{
 						variable.setValue((Float)row.getValue(i));
 						break;
 					}
+					
 				}
 				
 			}

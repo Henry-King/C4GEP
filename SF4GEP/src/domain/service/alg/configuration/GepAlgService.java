@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +39,9 @@ public class GepAlgService implements IgepAlgService {
 	private GepAlgorithm myGepAlgorithm=new GepAlgorithm();
 	private GepConfiguration myConfiguration;
 	private IgepInput igepInput=new DefaultGepInput();
-	private AlgInstance myAlgInstance;
+	private AlgInstance myAlgInstance = new AlgInstance();
+
+	
 	
 	
 	/**
@@ -162,10 +165,10 @@ public class GepAlgService implements IgepAlgService {
 	public void run() {
 		// TODO Auto-generated method stub
 		Set<OutputPopulation> outputPopulations=new LinkedHashSet<OutputPopulation>();
+		myAlgInstance.setPopulationSet(outputPopulations);
 		myCreator.create(myGepAlgorithm);
 		for(int i=0;i<myGepAlgorithm.getMaxGeneration();i++){
 			myCalculator.calculateFitness(myGepAlgorithm);
-			
 			outputPopulations.add(generateOutputPopulation(myGepAlgorithm.getPopulationQueue().getLast()));
 				
 			System.out.println("-----------------------------\n´úÊý£º"+i);
@@ -195,21 +198,47 @@ public class GepAlgService implements IgepAlgService {
 					System.out.println(individual.getFitness()+"\n"+individual);
 				*/
 			newPopulation.setGeneration(i+1);
-			myModifying.run(myGepAlgorithm);	
+			myModifying.run(myGepAlgorithm);
+			
 		}
-		writeDataToDB(outputPopulations);
+		
+		//myAlgInstance = generateAlgInstance(myGepAlgorithm);
+//		myAlgInstance.setPopulationSet(outputPopulations);
+		
+		
+		//generateAlgInstance(myGepAlgorithm);
+		/*Iterator<OutputPopulation> ouIterator=outputPopulations.iterator();
+		OutputPopulation out;
+		System.out.println("begin");
+		while(ouIterator.hasNext()){
+			out=ouIterator.next();
+			System.out.println(out.getBestOutputIndividual().getFitness());
+		}
+		System.out.println("end");
+		System.out.println("hahahaha~");*/
+		
+		//writeDataToDB(outputPopulations);
 	}
+	
+	
+	
+	
+	
 	@Override
 	public AlgInstance getMyAlgInstance(){
 		return myAlgInstance;
 	}
+	
+	
+	
+	
+	
+	
 	private void setInputSet(DataTable inputSet) {
-		
 		myCreator.setVariables(inputSet.getColumns().getVariableList().subList(0, inputSet.getColumns().size()-1));
 		myCalculator.setInputSet(inputSet);
 		myGepAlgorithm.setMaxFitness(myCalculator.getSelectionRange()*myCalculator.getInputSet().getRows().size());
 		myGepAlgorithm.setVariableList(inputSet.getColumns().getVariableList().subList(0, inputSet.getColumns().size()-1));
-		
 	}
 	
 	private <T> List<T> getClassBinaryName(String binaryPath,Class<T> typeClass) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
@@ -295,5 +324,10 @@ public class GepAlgService implements IgepAlgService {
 		result.add(populations.getFirst().copy());
 		result.add(populations.getLast().copy());
 		return result;
+	}
+
+	@Override
+	public GepAlgorithm getMyGepAlgorithm() {
+		return myGepAlgorithm;
 	}
 }

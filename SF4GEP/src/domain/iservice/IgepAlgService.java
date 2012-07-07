@@ -5,6 +5,7 @@ import java.util.List;
 
 import jxl.read.biff.BiffException;
 
+import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
@@ -31,5 +32,6 @@ public interface IgepAlgService {
 	 * @return
 	 */
 	public Calculator getCalculator();
+	public GepAlgorithm getMyGepAlgorithm();
 	
 }

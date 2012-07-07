@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -27,6 +29,7 @@ import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
 import domain.service.alg.configuration.Calculator;
+import exception.IllegalInputSet;
 
 public class DefalutGepOutput implements IgepOutput{
 	
@@ -135,29 +138,45 @@ public class DefalutGepOutput implements IgepOutput{
 	 */
 	public MathCanvas drawImageA(Calculator calculator, Individual individual,KernelLink ml) {
 		MathCanvas mathCanvasA = new MathCanvas(ml);
-		
 		DataTable inputSet = calculator.getInputSet();
 		
 		
 		
-		StringBuffer bestStr = new StringBuffer();
-		StringBuffer worseStr = new StringBuffer();
+		//List<Float> resultList = new ArrayList<Float>(inputSet.getRows().size()-1);	//用户输入集的List
+		List<Float> resultList = inputSet.getColumnValue(inputSet.getColumns().size()-1);
+		List<Float> caledList = null;	//经过计算后得到的List
+		try {
+			caledList = calculator.calculateInputSet(individual);
+		} catch (IllegalInputSet e) {
+			e.printStackTrace();
+		}
 		
+		StringBuffer oldStr = new StringBuffer();
+		StringBuffer newStr = new StringBuffer();
+		
+		oldStr.append("o={");
+		newStr.append("n={");
 		
 		for (int i = 0; i < inputSet.getRows().size(); i++) {
 			
+			oldStr.append(resultList.get(i)+",");
+			newStr.append(caledList.get(i)+",");
 		}
 		
 		
+		oldStr.delete(oldStr.length()-2, oldStr.length());
+		newStr.delete(newStr.length()-2, newStr.length());
+		
+		oldStr.append("};");
+		newStr.append("};");
+		
+		String str = "MultipleListPlot[o, n, PlotJoined -> True,AxesLabel -> {样本数, 拟合值}, GridLines -> Automatic, PlotLabel -> Style[Framed[最佳个体的拟合曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
+		
+		mathCanvasA.setMathCommand("<< Graphics`MultipleListPlot`");
+		mathCanvasA.setMathCommand(oldStr.toString()+newStr.toString()+str);
 		
 		
-		
-		
-		
-		
-		
-		
-		return null;
+		return mathCanvasA;
 	}
 
 	
@@ -171,40 +190,37 @@ public class DefalutGepOutput implements IgepOutput{
 		MathCanvas mathCanvasB = new MathCanvas(ml);
 		
 		Set<OutputPopulation> popSet = output.getPopulationSet();
-		StringBuffer generationStr = new StringBuffer();
+		//StringBuffer generationStr = new StringBuffer();
 		StringBuffer bestStr = new StringBuffer();
 		StringBuffer worseStr = new StringBuffer();
 		
-		generationStr.append("x={");
+		//generationStr.append("x={");
 		bestStr.append("yb={");
 		worseStr.append("yw={");
 		
-		System.out.println("最差个体：");
+		//System.out.println("最差个体：");
 		
 		
 		Iterator<OutputPopulation> iterator = popSet.iterator();
 		while (iterator.hasNext()) {
 			OutputPopulation outputPopulation = (OutputPopulation) iterator.next();
-			
-			generationStr.append(outputPopulation.getGeneration() + ",");
+			//generationStr.append(outputPopulation.getGeneration() + ",");
 			bestStr.append(outputPopulation.getBestOutputIndividual().getFitness() + ",");
 			worseStr.append(outputPopulation.getWorstOutputIndividual().getFitness() + ",");
-			
-			System.out.println(outputPopulation.getWorstOutputIndividual().getFitness());
-			
+			//System.out.println(outputPopulation.getWorstOutputIndividual().getFitness());
 		}
-		generationStr.delete(generationStr.length()-2, generationStr.length());
+		//generationStr.delete(generationStr.length()-2, generationStr.length());
 		bestStr.delete(bestStr.length()-2, bestStr.length());
 		worseStr.delete(worseStr.length()-2, worseStr.length());
 		
-		generationStr.append("};");
+		//generationStr.append("};");
 		bestStr.append("};");
 		worseStr.append("};");
 		
 		String str = "MultipleListPlot[yb, yw, PlotJoined -> True,AxesLabel -> {代数, 适应值}, GridLines -> Automatic, PlotLabel -> Style[Framed[每代最佳个体、最差个体的演化曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
 		
 		mathCanvasB.setMathCommand("<< Graphics`MultipleListPlot`");
-		mathCanvasB.setMathCommand(generationStr.toString()+bestStr.toString()+worseStr.toString()+str);
+		mathCanvasB.setMathCommand(bestStr.toString()+worseStr.toString()+str);
 		
 		
 		
