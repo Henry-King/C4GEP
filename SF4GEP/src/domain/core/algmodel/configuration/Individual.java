@@ -139,7 +139,8 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 		return homeoticGenePieces;
 	}
 	/**
-	 * 此方法只需要在初始的时候调用，勿在其他的情况下调用，这个方法将自动产生个体所包含的普通基因和同源基因，并设置好基因的头部，尾部等信息
+	 * 此方法只需要在初始的时候调用，勿在其他的情况下调用，这个方法将自动产生个体所包含的普通基因和同源基因，并自动设置好基因的头部，尾部等信息。
+	 * 对这些基因的修改将直接影响个体中的基因片段的List，反之依然。
 	 * @param genePieces 个体中所有同源基因和所有非同源的基因片段
 	 * @param normalGeneNumber 普通基因的数量
 	 * @param normalGeneHeaderLength 普通基因的头部长度
