@@ -338,6 +338,7 @@ public class New2 extends JFrame {
 		    		    else{
 		    		    	
 		    		    	JOptionPane.showMessageDialog(null, "配置文件已更改请重新保存");
+		    		    	OutputPanelController.drawPicture(myGepService, outputPanel);
      	    		    	panel_0.setVisible(false);
 							jcomboBoxConfiguration.setVisible(false);
 							footPanel.setVisible(false);

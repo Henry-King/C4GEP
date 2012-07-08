@@ -16,7 +16,6 @@ import com.wolfram.jlink.MathCanvas;
 public class JPanelForOutput extends JPanel {
     
 	
-	
 	JLabel label = new JLabel("\u7B97\u6CD5\u8BA1\u7B97\u7ED3\u679C\u7684\u8F93\u51FA\u8DEF\u5F84");
 	JLabel label_37 = new JLabel("\u8F93\u51FA\u4EE3\u6570");
 	JButton btnBrowseOfOutput = new JButton("\u6D4F\u89C8");
