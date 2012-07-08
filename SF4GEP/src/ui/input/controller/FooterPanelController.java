@@ -200,7 +200,13 @@ public class FooterPanelController {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
+		
+		
+		
        myGepService.run();
+       
+       
+       
        if (flag == -1) {
 				if (myParameter.equals(myConfigurationFromDB) == false) {
 					return false;

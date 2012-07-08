@@ -321,8 +321,15 @@ public class New2 extends JFrame {
 							result.append(str + ",");
 						}
 					    ModelForJPanelFunction function=new ModelForJPanelFunction(result);
+					    
+					    
+					    /**
+					     * 点击执行计算按钮触发
+					     */
 					    if(FooterPanelController.btnRunController(config, inputPath, population, gene, function, myParameter, myGepService, myConfigurationFromDB, flag)==true){
-		    		    	outputPanel.setVisible(true);
+					    	OutputPanelController.drawPicture(myGepService, outputPanel);
+					    	
+					    	outputPanel.setVisible(true);//显示输出面板
 					    	panel_0.setVisible(false);
 		    				treePanel.setVisible(false);
 		    				footPanel.setVisible(false);
@@ -349,6 +356,7 @@ public class New2 extends JFrame {
 	      //------------------------------------------------
 	      
 	      outputPanel=new JPanelForOutput();
+	      OutputPanelController.init(outputPanel);
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
 	      contentPane.add(outputPanel);
@@ -364,7 +372,4 @@ public class New2 extends JFrame {
 		    contentPane.add(treePanel);
 	      
 	}
-
-
-	
 }

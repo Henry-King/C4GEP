@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.wolfram.jlink.MathCanvas;
+
 public class JPanelForOutput extends JPanel {
     
 	
@@ -24,10 +26,13 @@ public class JPanelForOutput extends JPanel {
 	JTextField textGeneration = new JTextField();
 	JPanel panelForGeneRationFrom = new JPanel();
 	JPanel panelPaint = new JPanel();
-	JPanel outPutPanel_1 = new JPanel();
-	JPanel outputPanel_2 = new JPanel();
+	public JPanel outPutPanel_1 = new JPanel();
+	public JPanel outputPanel_2 = new JPanel();
 	JTextField txtGenerationTo = new JTextField();
 	JTextField txtGenerationFrom = new JTextField();
+	
+	public MathCanvas mathCanvasA = null;
+	public MathCanvas mathCanvasB = null;
 	public JPanelForOutput() {
 		
 		setBackground(Color.WHITE);
