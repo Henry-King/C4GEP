@@ -66,10 +66,10 @@ public class AbsoluteCalculator extends Calculator{
 		float value;
 		for(int i=0;i<rows.size();i++){
 			try {
+				clearFunctionFlag(individual);
 				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
 //				rows.get(i).setValue(rows.getColumns().size()-1, value);
 				result.add(value);
-				clearFunctionFlag(individual);
 			} catch (ArithmeticException e) {
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
 				illegalInputSet.initCause(e);
