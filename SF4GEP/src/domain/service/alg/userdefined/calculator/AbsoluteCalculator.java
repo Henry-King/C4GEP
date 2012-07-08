@@ -68,7 +68,6 @@ public class AbsoluteCalculator extends Calculator{
 			try {
 				clearFunctionFlag(individual);
 				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
-//				rows.get(i).setValue(rows.getColumns().size()-1, value);
 				result.add(value);
 			} catch (ArithmeticException e) {
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
