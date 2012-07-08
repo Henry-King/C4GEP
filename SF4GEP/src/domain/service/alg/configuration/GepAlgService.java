@@ -217,7 +217,7 @@ public class GepAlgService implements IgepAlgService {
 		System.out.println("end");
 		System.out.println("hahahaha~");*/
 		
-		//writeDataToDB(outputPopulations);
+		writeDataToDB(outputPopulations);
 	}
 	
 	
