@@ -1,4 +1,4 @@
-package domain.service.alg.userdefined.selector;
+package domain.service.alg.userdefined;
 
 import java.util.ArrayList;
 import java.util.Deque;

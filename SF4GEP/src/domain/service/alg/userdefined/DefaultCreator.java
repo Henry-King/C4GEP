@@ -1,4 +1,4 @@
-package domain.service.alg.userdefined.creator;
+package domain.service.alg.userdefined;
 
 import java.util.ArrayList;
 import java.util.List;

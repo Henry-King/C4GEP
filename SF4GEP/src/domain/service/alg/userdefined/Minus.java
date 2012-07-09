@@ -1,25 +1,25 @@
-package domain.service.alg.userdefined.function;
+package domain.service.alg.userdefined;
 
 import java.util.Deque;
 
 import domain.core.algmodel.genecomponent.Function;
 
-public class Divide extends Function {
+public class Minus extends Function {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3356166328450491371L;
+	private static final long serialVersionUID = 3358438185571026193L;
 
-	public Divide() {
-		super("/", 2,"/");
+	public Minus() {
+		super("-", 2,"-");
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public float operate(Deque<Float> operators) {
 		// TODO Auto-generated method stub
-		return operators.removeFirst()/operators.removeFirst();
+		return operators.removeFirst()-operators.removeFirst();
 	}
 
 }

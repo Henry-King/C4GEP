@@ -1,4 +1,4 @@
-package domain.service.alg.userdefined.calculator;
+package domain.service.alg.userdefined;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
