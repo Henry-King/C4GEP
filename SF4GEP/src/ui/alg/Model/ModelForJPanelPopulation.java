@@ -1,4 +1,4 @@
-package ui.alg.view;
+package ui.alg.Model;
 
 public class ModelForJPanelPopulation {
 	

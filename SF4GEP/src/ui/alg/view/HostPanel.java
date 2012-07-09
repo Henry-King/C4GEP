@@ -22,9 +22,7 @@ public class HostPanel extends JPanel {
 	
 	int count=0;
 	public JComboBox jcomboBoxConfiguration;
-	public JButton btnRunButton = new JButton("\u6267\u884C\u7B97\u6CD5"),
-			       btnChangeConfig = new JButton("\u66F4\u6539\u914D\u7F6E"),
-                   btnNext0=new JButton(),
+	public JButton btnNext0=new JButton(),
                    btnSetConfig=new JButton();
 	
 	public HostPanel(JComboBox jcomboBoxConfiguration) {
@@ -59,18 +57,6 @@ public class HostPanel extends JPanel {
 		btnSetConfig.setBounds(515, 67, 93, 23);
 		btnSetConfig.setVisible(true);
 		add(btnSetConfig);
-		
-	   
-	   
-		btnRunButton.setBounds(193, 120, 93, 23);
-		btnRunButton.setVisible(false);
-		add(btnRunButton);
-		
-	    
-	    
-		btnChangeConfig.setBounds(398, 120, 93, 23);
-		btnChangeConfig.setVisible(false);
-		add(btnChangeConfig);
 		
 		
 		JLabel lblNewLabel_27 = new JLabel("\u8F93\u5165\u7B97\u6CD5\u540D\u79F0/\u9009\u62E9\u7B97\u6CD5");

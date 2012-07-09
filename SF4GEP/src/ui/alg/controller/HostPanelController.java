@@ -21,7 +21,7 @@ import jxl.read.biff.BiffException;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.view.*;
 
@@ -29,14 +29,12 @@ import ui.input.view.*;
 
 public class HostPanelController {
    
-   static int count=0;
+ 
    
    
-   public static void scrollBtnController(){
-	    count=1;
-   }
+  
    
-   public static void btnNext0Controller(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel) {
+   public static void btnNext0Controller(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForStopSetting inputPathPanel) {
 		
 		TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node1));
 		tree_1.setSelectionPath(visiblePath);
@@ -44,56 +42,51 @@ public class HostPanelController {
 	    inputPathPanel.setVisible(true);
 	   
 	}
-	public static void btnSetConfigController(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel) {
+	public static void btnSetConfigController(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForStopSetting inputPathPanel) {
 		TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node1));
 		tree_1.setSelectionPath(visiblePath);
 		configurationPanel.setVisible(false);
 		inputPathPanel.setVisible(true);
 		
 	}
-	public static String jcomboBoxItemController(ItemEvent ie,HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-			JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,JPanelForFooter footerPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
+	public static String jcomboBoxItemController(ItemEvent ie,HostPanel configurationPanel,JPanelForStopSetting stopSettingPanel,
+			JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,JPanelForFooter footerPanel,JPanelForInputFile  inputFilePanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
 			IgepAlgService myGepService) {
 		
 		if (ie.getStateChange()==ItemEvent.SELECTED){
-	  		 if(count!=2){
-	  			footerPanel.setVisible(true);
-	       	   configurationPanel.btnChangeConfig.setVisible(true);
+	  		
+	  		   footerPanel.setVisible(true);
 	       	   configurationPanel.btnSetConfig.setVisible(false);
 	       	   configurationPanel.setVisible(false);
-	       	   inputPathPanel.setVisible(true);
-	       	  
-	  		 }
+	       	   stopSettingPanel.setVisible(true);
 	    }
-		return handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
+		return handler(configurationPanel, stopSettingPanel, populationPanel, genePanel, functionPanel,inputFilePanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
    }
 
-	public static void jcomboBoxEditorController(KeyEvent e,JButton btnSetConfig, JButton btnNewButton, JButton btnChangeConfig) {
+	public static void jcomboBoxEditorController(KeyEvent e,JButton btnSetConfig) {
 		 if(e.getKeyCode() == KeyEvent.VK_ENTER){  
 	        	btnSetConfig.setVisible(true);
-	        	btnNewButton.setVisible(false);
-	        	btnChangeConfig.setVisible(false);
-	        	count=2;
-	        	
-	        }  
+	       }
 		
 	}
 	
-	public static String handler(HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
+	public static String handler(HostPanel configurationPanel,JPanelForStopSetting stopSettingPanel,
+		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,
+		    JPanelForInputFile  inputFilePanel,
+		    GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
 		    IgepAlgService myGepService){
-		    	System.out.print("有问题qqq");
-		    	inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());
-				inputPathPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
+		    	
+		    	inputFilePanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());
+				stopSettingPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
 				functionPanel.txtConstantListSize.setText(myConfigurationFromDB.getConstantListSize());
 				genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB.getOnePointRecombineRate());
 				genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB.getGeneRecombineRate());
 				genePanel.txtGeneTransportRate.setText(myConfigurationFromDB.getGeneTransportRate());
 				genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB.getHomeoticGeneNumber());
 				genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB.getHomeoticHeaderLength());
-				inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());// 文件输入路径
+				
 				genePanel.txtIsTransportRate.setText(myConfigurationFromDB.getIsTransportRate());
-				inputPathPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
+				stopSettingPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
 				genePanel.txtMutateRate.setText(myConfigurationFromDB.getMutateRate());
 				genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB.getNormalGeneNumber());
 				genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB.getNormalHeaderLength());
@@ -110,15 +103,11 @@ public class HostPanelController {
 						.split(",");
 				for (int i = 0; i < functions.length; i++) {
 					System.out.println(functions[i].toString());
-					if (functions[i]
-							.toString()
-							.equals("domain.service.alg.userdefined.function.Additioin")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Minus")) {
+					if (functions[i].toString().equals("domain.service.alg.userdefined.function.Additioin")) {
+					   functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Minus")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Multiply")) {
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Multiply")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
 					} else {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
@@ -128,9 +117,38 @@ public class HostPanelController {
 				genePanel.JComboBoxOfAvailableModifyings.setSelectedItem(myConfigurationFromDB.getModify());
 				populationPanel.JComboBoxAvailableCalculator.setSelectedItem(myConfigurationFromDB.getCalculator());
 				configurationPanel.setVisible(false);
-				inputPathPanel.setVisible(true);
-				inputPathPanel.txtInputPath.grabFocus();
+				stopSettingPanel.setVisible(true);
+				stopSettingPanel.txtMaxGeneration.grabFocus();
 				return null;
 		    }
+	public static void btnSetConfigController(JPanelForStopSetting stopSettingPanel,
+		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,
+		    JPanelForInputFile  inputFilePanel){
+		    initialiseController(stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel);
+	}
+	private static void initialiseController(JPanelForStopSetting stopSettingPanel,JPanelForPopulation populationPanel, JPanelForGene genePanel,JPanelForFunction functionPanel, JPanelForInputFile inputFilePanel) {
+		inputFilePanel.txtInputPath.setText("");
+		stopSettingPanel.txtAccuracy.setText("");
+		functionPanel.txtConstantListSize.setText("");
+		genePanel.txtGeneOnePointRecombineRate.setText("");
+		genePanel.txtGeneRecombineRate.setText("");
+		genePanel.txtGeneTransportRate.setText("");
+		genePanel.txtHomeoticGeneNums.setText("");
+		genePanel.txtHomeoticHeaderLength.setText("");
+		
+		genePanel.txtIsTransportRate.setText("");
+		stopSettingPanel.txtMaxGeneration.setText("");
+		genePanel.txtMutateRate.setText("");
+		genePanel.txtNormalGeneNumber.setText("");
+		genePanel.txtNormalHeaderLength.setText("");
+		genePanel.txtofIsElement.setText("");
+		genePanel.txtofRisElement.setText("");
+		populationPanel.txtPopulationSize.setText("");
+		functionPanel.txtRandomConstantStart.setText("");
+		genePanel.txtRisTransportRate.setText("");
+		populationPanel.txtSelectionRange.setText("");
+		genePanel.txtTwoPointRecombineRate.setText("");
+		
+	}
 
 }
