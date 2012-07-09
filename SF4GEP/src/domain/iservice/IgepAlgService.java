@@ -9,10 +9,10 @@ import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
-import domain.service.alg.configuration.Calculator;
-import domain.service.alg.configuration.Creator;
-import domain.service.alg.configuration.Modifying;
-import domain.service.alg.configuration.Selector;
+import domain.service.alg.baseclass.Calculator;
+import domain.service.alg.baseclass.Creator;
+import domain.service.alg.baseclass.Modifying;
+import domain.service.alg.baseclass.Selector;
 import exception.Duplicated;
 
 public interface IgepAlgService {
