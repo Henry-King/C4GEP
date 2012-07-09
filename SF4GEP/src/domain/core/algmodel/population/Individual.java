@@ -1,4 +1,4 @@
-package domain.core.algmodel.configuration;
+package domain.core.algmodel.population;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,9 +9,9 @@ import java.util.List;
 
 import common.ICopy;
 
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.individualcomponent.HomeoticGene;
-import domain.core.algmodel.individualcomponent.NormalGene;
+import domain.core.algmodel.gene.HomeoticGene;
+import domain.core.algmodel.gene.NormalGene;
+import domain.core.algmodel.genepiece.GenePiece;
 
 /**
  * 个体类,种群中保存着个体的List

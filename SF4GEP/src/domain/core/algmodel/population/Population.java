@@ -1,4 +1,4 @@
-package domain.core.algmodel.configuration;
+package domain.core.algmodel.population;
 
 import java.io.Serializable;
 import java.util.ArrayList;

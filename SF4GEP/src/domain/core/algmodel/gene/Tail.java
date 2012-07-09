@@ -1,4 +1,4 @@
-package domain.core.algmodel.individualcomponent;
+package domain.core.algmodel.gene;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import common.ICopy;
 
-import domain.core.algmodel.genecomponent.Computable;
-import domain.core.algmodel.genecomponent.GenePiece;
+import domain.core.algmodel.genepiece.Computable;
+import domain.core.algmodel.genepiece.GenePiece;
 
 /**
  * 基因尾部实体的基类，是一个抽象类

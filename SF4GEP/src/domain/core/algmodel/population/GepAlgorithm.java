@@ -1,12 +1,12 @@
-package domain.core.algmodel.configuration;
+package domain.core.algmodel.population;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.Variable;
 
 /**
  * 本类是算法子系统实体类的入口，本类中保存有两部分内容，第一部分是有关算法实体类的参数，第二部分是一个对种群队列的引用

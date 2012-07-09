@@ -1,4 +1,4 @@
-package domain.core.algmodel.individualcomponent;
+package domain.core.algmodel.gene;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import common.ICopy;
 
-import domain.core.algmodel.genecomponent.GenePiece;
+import domain.core.algmodel.genepiece.GenePiece;
 
 /**
  * 基因类，此类为抽象类，提供了基因的通用的信息

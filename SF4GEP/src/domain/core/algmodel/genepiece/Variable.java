@@ -1,4 +1,4 @@
-package domain.core.algmodel.genecomponent;
+package domain.core.algmodel.genepiece;
 
 /**
  * 变量类，用户输入的所有的变量信息都将变换为类

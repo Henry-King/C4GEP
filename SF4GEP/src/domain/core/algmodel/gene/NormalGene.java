@@ -1,8 +1,8 @@
-package domain.core.algmodel.individualcomponent;
+package domain.core.algmodel.gene;
 
 import java.util.List;
 
-import domain.core.algmodel.genecomponent.GenePiece;
+import domain.core.algmodel.genepiece.GenePiece;
 
 /**
  * 普通基因实体类

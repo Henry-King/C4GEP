@@ -1,4 +1,4 @@
-package domain.core.algmodel.genecomponent;
+package domain.core.algmodel.genepiece;
 
 /**
  * 抽象类，表示当前实体可做为函数的参数，例如常数和变量

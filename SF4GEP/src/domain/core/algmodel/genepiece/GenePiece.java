@@ -1,4 +1,4 @@
-package domain.core.algmodel.genecomponent;
+package domain.core.algmodel.genepiece;
 
 import java.io.Serializable;
 
