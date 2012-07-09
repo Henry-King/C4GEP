@@ -34,14 +34,8 @@ public class OutputPanelController {
 	
 	public static void init(JPanelForOutput outputPanel){
 		try {
-			
-			
-			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			
+			ml = MathLinkFactory.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
 			ml.discardAnswer();
-			
-			
 		} catch (MathLinkException e1) {
 			System.out.println("An error occurred connecting to the kernel.");
 			if (ml != null)

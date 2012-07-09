@@ -162,6 +162,7 @@ public class New2 extends JFrame {
 		    		treePanel.tree_1.setSelectionPath(visiblePath);
 					jcount=2;
 					footPanel.btnRun.setEnabled(false);
+					count=1;
 				}
 				
 			});
@@ -246,6 +247,7 @@ public class New2 extends JFrame {
 		  try {
 				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
 					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
+					System.out.println();
 				}
 			} catch (ClassNotFoundException e1) {
 				
@@ -310,18 +312,18 @@ public class New2 extends JFrame {
 						for (int i = 0; i < functionPanel.JComboBoxOfSelectdFunctions.getItemCount(); i++) {
 							if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i).toString()
 									.equals("+")) {
-								str = "domain.service.alg.userdefined.function.Additioin";
+								str = "domain.service.alg.userdefined.Additioin";
 
 							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
 									.toString().equals("-")) {
-								str = "domain.service.alg.userdefined.function.Minus";
+								str = "domain.service.alg.userdefined.Minus";
 
 							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
 									.toString().equals("*")) {
-								str = "domain.service.alg.userdefined.function.Multiply";
+								str = "domain.service.alg.userdefined.Multiply";
 
 							} else {
-								str = "domain.service.alg.userdefined.function.Divide";
+								str = "domain.service.alg.userdefined.Divide";
 
 							}
 
