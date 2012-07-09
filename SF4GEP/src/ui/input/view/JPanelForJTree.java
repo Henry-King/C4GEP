@@ -15,28 +15,44 @@ import javax.swing.tree.DefaultTreeModel;
 
 public class JPanelForJTree extends JPanel {
 	  
-	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("菜单");
+	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("所有系统");
+	  DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("算法系统");
 	  final DefaultMutableTreeNode node0 = new DefaultMutableTreeNode("算法名称");
-	  final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("数据输入路径");
+	  final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("算法终止条件");
 	  final DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("种群信息");
 	  final DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("基因信息");
 	  final DefaultMutableTreeNode node4 = new DefaultMutableTreeNode("所需函数和随机数");
-	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("上传接口");
-	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5};
+	  DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("输入系统");
+	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("上传/下载接口");
+	  final DefaultMutableTreeNode node6 = new DefaultMutableTreeNode("输入路径");
+	  DefaultMutableTreeNode root3 = new DefaultMutableTreeNode("输出系统");
+	  final DefaultMutableTreeNode node7 = new DefaultMutableTreeNode("输出结果");
+	  
+	  
+	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5,node6,node7};
 	  DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	  final JTree tree_1 ;
-	 public JPanelForJTree() {
+	  public JPanelForJTree() {
 	 	setBackground(Color.WHITE);
 		//树
-		 
-		  treeModel.insertNodeInto(node0, root, root.getChildCount());
-		  treeModel.insertNodeInto(node1, root, root.getChildCount());
-		  treeModel.insertNodeInto(node2, root, root.getChildCount());
-		  treeModel.insertNodeInto(node3, root, root.getChildCount());
-		  treeModel.insertNodeInto(node4, root, root.getChildCount());
-		  treeModel.insertNodeInto(node5, root, root.getChildCount());
+	 	  treeModel.insertNodeInto(root1, root, root.getChildCount());
+		  treeModel.insertNodeInto(root2, root, root.getChildCount());
+		  treeModel.insertNodeInto(root3, root, root.getChildCount());
 		  
+		  treeModel.insertNodeInto(node0, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node1, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node2, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node3, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node4, root1, root1.getChildCount());
+		 
+		  
+		  treeModel.insertNodeInto(node5, root2, root2.getChildCount());
+		  treeModel.insertNodeInto(node6, root2, root2.getChildCount());
 	      
+		  treeModel.insertNodeInto(node7, root3, root3.getChildCount());
+		  
+		  
+		  
 		  UIManager.getLookAndFeelDefaults().put("ClassLoader",getClass().getClassLoader());
 		  tree_1 = new JTree(treeModel);
 		  tree_1.setRowHeight(20);

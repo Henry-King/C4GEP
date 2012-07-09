@@ -16,29 +16,34 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import org.jvnet.substance.SubstanceLookAndFeel;
+
 import ui.alg.Model.ModelForJPanelConfig;
 import ui.alg.Model.ModelForJPanelFunction;
 import ui.alg.Model.ModelForJPanelGEne;
+import ui.alg.Model.ModelForJPanelPopulation;
 import ui.alg.controller.FunctionPanelController;
 import ui.alg.controller.HostPanelController;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
-import ui.alg.view.ModelForJPanelInputPath;
-import ui.alg.view.ModelForJPanelPopulation;
 import ui.input.controller.*;
+import ui.input.model.ModelForJPanelInputPath;
 import ui.input.model.ModelForUploadInterface;
+import ui.output.controller.OutputPanelController;
 import ui.output.view.JPanelForOutput;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
@@ -54,15 +59,18 @@ public class New2 extends JFrame {
 
     JPanel contentPane;
     HostPanel configurationPanel;
-	JPanelForInputPathSetting inputPathPanel=new JPanelForInputPathSetting();
+	JPanelForStopSetting stopSettingPanel=new JPanelForStopSetting();
 	JPanelForPopulation populationPanel=new JPanelForPopulation();
 	JPanelForGene genePanel=new JPanelForGene();
 	JPanelForFunction functionPanel=new JPanelForFunction();
 	JPanelForFooter footPanel=new JPanelForFooter();
 	JPanelForUploadInterface uploadInterfacePanel=new JPanelForUploadInterface();
+	JPanelForInputFile inputFilePanel=new JPanelForInputFile();
 	JPanelForJTree  treePanel;
-	JPanelForSaveConfig scfigNamePanel;
-	JPanelForOutput outputPanel;
+	JPanelForSaveConfig scfigNamePanel=new JPanelForSaveConfig();
+	JPanelForOutput outputPanel=new JPanelForOutput();
+    JPanel panel_0 = new JPanel();
+   
 	CardLayout card;
 	
    
@@ -72,7 +80,8 @@ public class New2 extends JFrame {
 	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
 	IgepInput input =new DefaultGepInput();
 	int flag=0;//是否读取配置文件
-	int count=0;//标记第几个panel
+	int count=0;
+	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -94,11 +103,13 @@ public class New2 extends JFrame {
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+		javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel"); 
+		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 686);
 		contentPane = new JPanel();
@@ -108,7 +119,7 @@ public class New2 extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		final JPanel panel_0 = new JPanel();
+		
 		panel_0.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_0.setBackground(Color.WHITE);
 		panel_0.setBounds(165, 115, 659, 399);
@@ -140,54 +151,51 @@ public class New2 extends JFrame {
 			configurationPanel.setVisible(true);
 		    scrollBtn.addMouseListener(new MouseAdapter() {
 		       public void mouseClicked(MouseEvent arg0) {
-		    	   HostPanelController.scrollBtnController();
+		    	   jcount=1;
 		       }
            });
 		  configurationPanel.btnSetConfig.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
+					HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
 					card.next(panel_0);
 					TreePath visiblePath=new TreePath(((DefaultTreeModel)treePanel.tree_1.getModel()).getPathToRoot(treePanel.node1));
 		    		treePanel.tree_1.setSelectionPath(visiblePath);
-					count=2;
+					jcount=2;
 					footPanel.btnRun.setEnabled(false);
 				}
 				
 			});
+		  jcomboBoxConfiguration.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){    
+			    public void keyPressed(KeyEvent e) {
+			    	HostPanelController.jcomboBoxEditorController(e,configurationPanel.btnSetConfig);
+			        footPanel.btnRun.setEnabled(false);
+			        HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
+			        jcount=2;
+			    }  
+			    
+			});
+		  
 		  jcomboBoxConfiguration.addItemListener(new  ItemListener(){ 
-              public void  itemStateChanged(ItemEvent   ie)   { 
+              public void  itemStateChanged(ItemEvent   ie){ 
+            	if(jcount!=2){
             	 myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
             	 System.out.println(myConfigurationFromDB.toString());
             	 flag=-1;
             	 setTitle(myConfigurationFromDB.toString());
                  footPanel.btnRun.setEnabled(true);
-            	 
-                HostPanelController.jcomboBoxItemController(ie,configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, footPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
-                
+            	 HostPanelController.jcomboBoxItemController(ie,configurationPanel, stopSettingPanel, populationPanel, genePanel, functionPanel, footPanel,inputFilePanel ,myConfigurationFromDB, configurationsOfHistory, myGepService);
+            	 jcount=1;
+            	}
                }
              }
 		  );
-		 jcomboBoxConfiguration.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){    
-			    public void keyPressed(KeyEvent e) {
-			    	HostPanelController.jcomboBoxEditorController(e,configurationPanel.btnSetConfig,configurationPanel.btnRunButton,configurationPanel.btnChangeConfig);
-			        footPanel.btnRun.setEnabled(true);
-			    }  
-			    
-			});
-		  configurationPanel.btnChangeConfig.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		flag=-1;
-	    		myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
-	    		setTitle(myConfigurationFromDB.toString());
-	    		HostPanelController.handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
-	    		footPanel.btnRun.setEnabled(true);
-	    	}
-	      });
+		
 		  panel_0.add(configurationPanel,"p1");
 		  
 		  //选择输入路径面板-------------------------------------------------
-		  inputPathPanel.setBorder(null);
-		  inputPathPanel.setVisible(false);
-		  panel_0.add(inputPathPanel,"p2");
+		  stopSettingPanel.setBorder(null);
+		  stopSettingPanel.setVisible(false);
+		  panel_0.add(stopSettingPanel,"p2");
 		  
 		  //种群面板------------------------------------------------
 		  
@@ -195,11 +203,10 @@ public class New2 extends JFrame {
 		  populationPanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableSelector().size(); i++) {
-					populationPanel.JComboBoxofSelectionStrategy.addItem(myGepService
-							.getAvailableSelector().get(i).toString());
+					populationPanel.JComboBoxofSelectionStrategy.addItem(myGepService.getAvailableSelector().get(i).toString());
 				}
 				for (int i = 0; i < myGepService.getAvailableCalculator().size(); i++) {
-					populationPanel.JComboBoxAvailableCalculator.addItem(myGepService.getAvailableCalculator().get(i).toString());
+	                 populationPanel.JComboBoxAvailableCalculator.addItem(myGepService.getAvailableCalculator().get(i).toString());
 				}
 				for (int i = 0; i < myGepService.getAvailableCreator().size(); i++) {
 					populationPanel.JcomboBoxOfPopulationCreator.addItem(myGepService.getAvailableCreator().get(i).toString());
@@ -222,8 +229,7 @@ public class New2 extends JFrame {
 		  genePanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableModifyings().size(); i++) {
-					genePanel.JComboBoxOfAvailableModifyings.addItem(myGepService
-							.getAvailableModifyings().get(i).toString());
+					genePanel.JComboBoxOfAvailableModifyings.addItem(myGepService.getAvailableModifyings().get(i).toString());
 				}
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
@@ -259,7 +265,7 @@ public class New2 extends JFrame {
 	      panel_0.add(functionPanel,"p5");
 	      
 	      //保存配置面板-------------------------------
-	      scfigNamePanel=new JPanelForSaveConfig();
+	      
 	      scfigNamePanel.setSize(659, 399);
 	      scfigNamePanel.setVisible(false);
 	      scfigNamePanel.btnSave.addActionListener(new ActionListener() {
@@ -270,11 +276,12 @@ public class New2 extends JFrame {
 			});
 	      contentPane.add(scfigNamePanel);
 	      //----------------------------------------
-	     
+	      uploadInterfacePanel.setBounds(165, 115, 659, 450);
 	      uploadInterfacePanel.setVisible(false);
-	      
-	      
-	      panel_0.add(uploadInterfacePanel,"p6");
+	      contentPane.add(uploadInterfacePanel,"p6");
+	      inputFilePanel.setBounds(165, 115, 659, 455);
+	      inputFilePanel.setVisible(false);
+	      contentPane.add(inputFilePanel);
 	      //底部按钮面板-----------------------------------
 	      
 	      footPanel.setBounds(165, 520, 659, 50);
@@ -288,7 +295,7 @@ public class New2 extends JFrame {
 		    	public void actionPerformed(ActionEvent e) {
 		    		   
 		    		    ModelForJPanelConfig config=new ModelForJPanelConfig(jcomboBoxConfiguration.getSelectedItem().toString());
-		    		    ModelForJPanelInputPath inputPath=new ModelForJPanelInputPath(inputPathPanel.txtInputPath.getText(),inputPathPanel.txtMaxGeneration.getText(),inputPathPanel.txtAccuracy.getText());
+		    		    ModelForJPanelInputPath inputPath=new ModelForJPanelInputPath(inputFilePanel.txtInputPath.getText(),stopSettingPanel.txtMaxGeneration.getText(),stopSettingPanel.txtAccuracy.getText());
 		    		    int creatorSelectedIndex = populationPanel.JcomboBoxOfPopulationCreator.getSelectedIndex();
 		    		    System.out.print("ww"+creatorSelectedIndex);
 						int calculatorSelectedIndex = populationPanel.JComboBoxAvailableCalculator.getSelectedIndex();
@@ -345,6 +352,7 @@ public class New2 extends JFrame {
 							scfigNamePanel.setVisible(true);
 							
 		    		    }
+					    jcomboBoxConfiguration.setVisible(true);
 		    	}
 		      });
 	      footPanel.btnNext.addActionListener(new ActionListener() {
@@ -356,18 +364,28 @@ public class New2 extends JFrame {
 	      contentPane.add(footPanel);
 	      //------------------------------------------------
 	      
-	      outputPanel=new JPanelForOutput();
+	      
 	      OutputPanelController.init(outputPanel);
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
+	      outputPanel.btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					outputPanel.setVisible(false);
+					panel_0.setVisible(true);
+					footPanel.setVisible(true);
+					treePanel.setVisible(true);
+				}
+			});
 	      contentPane.add(outputPanel);
 	      //菜单面板---------------------------------------
-	      final JPanel[] panels={configurationPanel,inputPathPanel,populationPanel,genePanel,functionPanel,uploadInterfacePanel};
-	      treePanel=new JPanelForJTree();
+	     
+	      
+	        treePanel=new JPanelForJTree();
 			treePanel.setBounds(5, 115, 155, 455);
+			final JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,uploadInterfacePanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
 			treePanel.tree_1.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent e) {
-					TreePanelController.treeMouseListener(e, panels);
+					count=TreePanelController.treeMouseListener(e, panels,footPanel.btnBefore,footPanel.btnNext,count);
 				}
 			});
 		    contentPane.add(treePanel);

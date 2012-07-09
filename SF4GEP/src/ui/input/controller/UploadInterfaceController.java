@@ -25,7 +25,7 @@ import domain.iservice.IgepAlgService;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.model.ModelForUploadInterface;
 
@@ -210,81 +210,6 @@ public class UploadInterfaceController {
 	    
 	     return 0;//可以上传
 	   }
-	  public static String btnChangeConfigController(HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-				JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
-				IgepAlgService myGepService) {
-				
-				myConfigurationFromDB = configurationsOfHistory.get(configurationPanel.jcomboBoxConfiguration.getSelectedIndex());
-		        try {
-					myGepService.setParameters(myConfigurationFromDB);
-				} catch (BiffException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				inputPathPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
-				functionPanel.txtConstantListSize.setText(myConfigurationFromDB.getConstantListSize());
-				genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB.getOnePointRecombineRate());
-				genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB.getGeneRecombineRate());
-				genePanel.txtGeneTransportRate.setText(myConfigurationFromDB.getGeneTransportRate());
-				genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB.getHomeoticGeneNumber());
-				genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB.getHomeoticHeaderLength());
-				inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());// 文件输入路径
-				genePanel.txtIsTransportRate.setText(myConfigurationFromDB.getIsTransportRate());
-				inputPathPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
-				genePanel.txtMutateRate.setText(myConfigurationFromDB.getMutateRate());
-				genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB.getNormalGeneNumber());
-				genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB.getNormalHeaderLength());
-				genePanel.txtofIsElement.setText(myConfigurationFromDB.getIsElement());
-				genePanel.txtofRisElement.setText(myConfigurationFromDB.getRisElement());
-				populationPanel.txtPopulationSize.setText(myConfigurationFromDB.getPopulationSize());
-				functionPanel.txtRandomConstantStart.setText(myConfigurationFromDB.getRandomConstantStart());
-				genePanel.txtRisTransportRate.setText(myConfigurationFromDB.getRisTransportRate());
-				populationPanel.txtSelectionRange.setText(myConfigurationFromDB.getSelectionRange());
-				genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB.getTwoPointRecombineRate());
-				configurationPanel.jcomboBoxConfiguration.setSelectedItem(myConfigurationFromDB.getName());
-
-				String[] functions = myConfigurationFromDB.getFunctionList()
-						.split(",");
-				for (int i = 0; i < functions.length; i++) {
-					System.out.println(functions[i].toString());
-					if (functions[i]
-							.toString()
-							.equals("domain.service.alg.userdefined.function.Additioin")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Minus")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Multiply")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
-					} else {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
-					}
-				}
-				populationPanel.JcomboBoxOfPopulationCreator.setSelectedItem(myConfigurationFromDB.getCreator());
-				genePanel.JComboBoxOfAvailableModifyings.setSelectedItem(myConfigurationFromDB.getModify());
-				populationPanel.JComboBoxAvailableCalculator.setSelectedItem(myConfigurationFromDB.getCalculator());
-				configurationPanel.setVisible(false);
-				inputPathPanel.setVisible(true);
-				inputPathPanel.txtInputPath.grabFocus();
-				return configurationPanel.jcomboBoxConfiguration.getSelectedItem().toString();
-				
-			} 
-	 
- 
-	  }
+}
 	  
 

@@ -2,14 +2,13 @@ package ui.input.view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+
 
 public class JPanelForSaveConfig extends JPanel {
 
@@ -17,11 +16,9 @@ public class JPanelForSaveConfig extends JPanel {
 	JTextField txtConfigurationName = new JTextField();
 	public JPanelForSaveConfig() {
 		
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBounds(155, 115, 631, 447);
 		setBackground(Color.WHITE);
-		setBounds(155, 115, 659, 447);
 		setLayout(null);
-		
 		
 		JLabel lblNewLabel_33 = new JLabel("\u8BF7\u4E3A\u66F4\u6539\u7684\u914D\u7F6E\u6587\u4EF6\u91CD\u547D\u540D");
 		lblNewLabel_33.setFont(new Font("ËÎÌו", Font.PLAIN, 18));
