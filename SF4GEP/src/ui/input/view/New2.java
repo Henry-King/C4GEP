@@ -158,6 +158,7 @@ public class New2 extends JFrame {
 					jcount=2;
 					footPanel.btnRun.setEnabled(false);
 					count=1;
+					flag=0;
 				}
 				
 			});
@@ -167,6 +168,7 @@ public class New2 extends JFrame {
 			        footPanel.btnRun.setEnabled(false);
 			        HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
 			        jcount=2;
+			        flag=0;
 			    }  
 			    
 			});
@@ -325,6 +327,7 @@ public class New2 extends JFrame {
 
 							result.append(str + ",");
 						}
+						System.out.println("º¯Êý"+result.toString());
 					    ModelForJPanelFunction function=new ModelForJPanelFunction(result);
 					    
 					    /**

@@ -80,7 +80,7 @@ public class DownLoadInterfaceController {
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newInterface),"GBK"));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generate d catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

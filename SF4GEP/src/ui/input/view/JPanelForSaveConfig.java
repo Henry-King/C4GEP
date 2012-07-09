@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 
 public class JPanelForSaveConfig extends JPanel {
@@ -15,8 +16,9 @@ public class JPanelForSaveConfig extends JPanel {
 	JButton btnSave = new JButton("\u4FDD\u5B58");
 	JTextField txtConfigurationName = new JTextField();
 	public JPanelForSaveConfig() {
+		setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		setBounds(155, 115, 631, 447);
+		setBounds(155, 115, 673, 479);
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
