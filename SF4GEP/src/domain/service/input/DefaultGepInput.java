@@ -12,7 +12,7 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Variable;
 import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataTable;
 
