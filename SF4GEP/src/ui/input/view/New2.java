@@ -360,7 +360,6 @@ public class New2 extends JFrame {
 		    		count=FooterPanelController.btnNextController(treePanel.Node,treePanel.tree_1,footPanel,panel_0,card,count);
 		    	}
 		      });
-
 	      contentPane.add(footPanel);
 	      //------------------------------------------------
 	      
