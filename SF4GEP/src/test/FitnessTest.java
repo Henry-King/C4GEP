@@ -8,7 +8,7 @@ import jxl.read.biff.BiffException;
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 
 public class FitnessTest {
 

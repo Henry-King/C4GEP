@@ -8,7 +8,7 @@ import jxl.read.biff.BiffException;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 
 public class ConfigurationTest {
 	public static void main(String argv[]) throws BiffException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException{

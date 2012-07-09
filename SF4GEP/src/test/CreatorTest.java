@@ -9,11 +9,11 @@ import domain.core.algmodel.configuration.Population;
 import domain.core.algmodel.genecomponent.Constant;
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.genecomponent.Variable;
-import domain.service.alg.configuration.Creator;
-import domain.service.alg.userdefined.function.Additioin;
-import domain.service.alg.userdefined.function.Divide;
-import domain.service.alg.userdefined.function.Minus;
-import domain.service.alg.userdefined.function.Multiply;
+import domain.service.alg.baseclass.Creator;
+import domain.service.alg.userdefined.Additioin;
+import domain.service.alg.userdefined.Divide;
+import domain.service.alg.userdefined.Minus;
+import domain.service.alg.userdefined.Multiply;
 
 /**
  * 需要把此类保存到对应的文件夹中才可运行

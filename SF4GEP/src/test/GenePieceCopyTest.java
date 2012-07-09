@@ -1,7 +1,7 @@
 package test;
 
 import domain.core.algmodel.genecomponent.GenePiece;
-import domain.service.alg.userdefined.function.Additioin;
+import domain.service.alg.userdefined.Additioin;
 
 public class GenePieceCopyTest {
 
