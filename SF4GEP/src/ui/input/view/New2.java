@@ -288,6 +288,7 @@ public class New2 extends JFrame {
 		    	}
 		      });
 	      footPanel.btnRun.setEnabled(false);
+	      
 	      footPanel.btnRun.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		    		   
@@ -326,13 +327,10 @@ public class New2 extends JFrame {
 						}
 					    ModelForJPanelFunction function=new ModelForJPanelFunction(result);
 					    
-					    
 					    /**
 					     * 点击执行计算按钮触发
 					     */
 					    if(FooterPanelController.btnRunController(config, inputPath, population, gene, function, myParameter, myGepService, myConfigurationFromDB, flag)==true){
-					    	OutputPanelController.drawPicture(myGepService, outputPanel);
-					    	
 					    	outputPanel.setVisible(true);//显示输出面板
 					    	panel_0.setVisible(false);
 		    				treePanel.setVisible(false);
@@ -342,16 +340,22 @@ public class New2 extends JFrame {
 		    		    else{
 		    		    	
 		    		    	JOptionPane.showMessageDialog(null, "配置文件已更改请重新保存");
-		    		    	OutputPanelController.drawPicture(myGepService, outputPanel);
      	    		    	panel_0.setVisible(false);
 							jcomboBoxConfiguration.setVisible(false);
 							footPanel.setVisible(false);
 							scfigNamePanel.setVisible(true);
-							
 		    		    }
+					    
+					    OutputPanelController.drawPicture(myGepService, outputPanel);
+					    
 					    jcomboBoxConfiguration.setVisible(true);
+					    
+					    
+					    
 		    	}
 		      });
+	      
+	      
 	      footPanel.btnNext.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		    		count=FooterPanelController.btnNextController(treePanel.Node,treePanel.tree_1,footPanel,panel_0,card,count);

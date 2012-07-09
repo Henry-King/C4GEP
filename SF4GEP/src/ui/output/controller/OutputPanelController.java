@@ -35,7 +35,6 @@ public class OutputPanelController {
 		try {
 			ml = MathLinkFactory
 			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			ml = MathLinkFactory.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
 			ml.discardAnswer();
 		} catch (MathLinkException e1) {
 			System.out.println("An error occurred connecting to the kernel.");
@@ -53,32 +52,6 @@ public class OutputPanelController {
 	
 	
 	
-	
-	public static void start(MathCanvas a,MathCanvas b){
-		
-		try {
-			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			ml.discardAnswer();
-		} catch (MathLinkException e1) {
-			System.out.println("An error occurred connecting to the kernel.");
-			if (ml != null)
-				ml.close();
-			return;
-		}
-		
-		/*mathCanvasA = new MathCanvas(ml);
-		mathCanvasB = new MathCanvas(ml);
-		
-		a = mathCanvasA;
-		b = mathCanvasA;
-		
-		*/
-		
-		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
-		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
-		
-	}
 	
 	
 	
