@@ -60,25 +60,40 @@ public class MergeFile {
 		stringBuilder.append(file.getPath().substring(4)+"\n");
 		
 		//Pattern pattern = Pattern.compile("([\t]{1}|\n+|\r+|\r\n+)");
-		//Pattern pattern = Pattern.compile("(|)");
-		while((s=bufferedReader.readLine())!=null){
-			if (s.equals("")||s=="null"||s.equals(null)||s.equals("" +
-					"\r")) {
+		Pattern pattern = Pattern.compile("(\r?\n(\\s*\r?\n)+)");
+		while(true){
+			if((s=bufferedReader.readLine())!=null){
+				/*if (s.equals("")||s==null||s.equals(null)||s.equals("\r")||s.equals("	 ")||s.equals("\t")||s.equals("\t\t")||s.equals("\t\t\t")||s.equals("\t\t"+"  ")){
+					
+					
+				}else {
+					stringBuilder.append(s+"\n");
+					continue;
+				}*/
 				
-			}else {
-				stringBuilder.append(s+"\n");
+				if (s.equals("")) {
+					
+				}
+				else {
+					
+					Matcher matcher = pattern.matcher(s);
+					if (matcher.find()) {
+						//System.out.println(matcher.group());
+						//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
+						//s = matcher.replaceAll("\n");	//\r\n
+						//System.out.print(s);
+						
+						
+					}else{
+						//System.out.println("no found");
+						stringBuilder.append(s+"\n");
+					}
+				}
+				
+			}else{
+				stringBuilder.deleteCharAt(stringBuilder.length()-1);
+				break;
 			}
-			//Matcher matcher = pattern.matcher(s);
-			//if (matcher.find()) {
-				//System.out.println(matcher.group());
-				//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
-				//s = matcher.replaceAll("\n");	//\r\n
-				//System.out.print(s);
-			//}else{
-				//System.out.println("no found");
-			//}
-			
-			
 		}
 		return stringBuilder.toString();
 	}

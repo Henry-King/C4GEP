@@ -34,7 +34,7 @@ public class UploadInterfaceController {
 
    private static String fileName;
    private static boolean available;
-   private static String defaultFileSavePath=".\\bin\\domain\\service\\input\\";
+   private static String defaultFileSavePath=".\\bin\\domain\\service\\alg\\userdefined\\";
    private static File file;
    private static File saveDir;
    static String packagePath;
@@ -64,7 +64,7 @@ public class UploadInterfaceController {
 	       StringBuffer buffer=new StringBuffer();
 	       
 	     
-	    	 buffer.append("package domain.service.input;"+"\n"); 
+	    	 buffer.append("package domain.service.alg.userdefined;"+"\n"); 
 	    	//会报错
 	       
 	       
@@ -162,7 +162,7 @@ public class UploadInterfaceController {
 			System.out.println(classfiles.toString());
 			//---检查实现的接口
 			List<T> resultList=new ArrayList<T>(classfiles.list().length);
-			Class<?> myClass=Class.forName("domain.service.input."+fileName);
+			Class<?> myClass=Class.forName("domain.service.alg.userdefined"+fileName);
 			for(String string:classfiles.list()){
 				
 				available=myClass.isInstance(string);

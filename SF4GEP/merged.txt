@@ -13,7 +13,6 @@ public interface ICopy<T extends ICopy<T>> {
 	 */
 	public T copy();
 }
-
 common\ObjectCopy.java
 package common;
 import java.io.ByteArrayInputStream;
@@ -62,7 +61,6 @@ public class ObjectCopy {
 		return result;
 	}
 }
-
 data\dao\HibernateDataContext.java
 package data.dao;
 import java.io.Serializable;
@@ -633,7 +631,6 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		 
 		}
 }
-
 data\dao\HibernateSessionFactory.java
 package data.dao;
 import org.hibernate.HibernateException;
@@ -740,7 +737,6 @@ public class HibernateSessionFactory {
 		return configuration;
 	}
 }
-
 data\dao\IHibernateDataContext.java
 package data.dao;
 import java.io.Serializable;
@@ -832,7 +828,6 @@ public interface IHibernateDataContext {
 	*/ 
 	public List searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject);
 }
-
 domain\core\algmodel\configuration\GepAlgorithm.java
 package domain.core.algmodel.configuration;
 import java.io.Serializable;
@@ -1078,7 +1073,6 @@ public class GepAlgorithm implements Serializable{
 		this.functionList = functionList;
 	}
 }
-
 domain\core\algmodel\configuration\Individual.java
 package domain.core.algmodel.configuration;
 import java.io.IOException;
@@ -1307,7 +1301,6 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 		return individual;
 	}
 }
-
 domain\core\algmodel\configuration\Population.java
 package domain.core.algmodel.configuration;
 import java.io.Serializable;
@@ -1413,7 +1406,6 @@ public class Population implements Serializable,ICopy<Population>{
 		return population;
 	}
 }
-
 domain\core\algmodel\genecomponent\Computable.java
 package domain.core.algmodel.genecomponent;
 /**
@@ -1425,7 +1417,6 @@ public abstract class Computable extends GenePiece{
 	
 	private static final long serialVersionUID = 8680281835665872726L;
 }
-
 domain\core\algmodel\genecomponent\Constant.java
 package domain.core.algmodel.genecomponent;
 import java.util.Random;
@@ -1480,7 +1471,6 @@ public class Constant extends Computable {
 		return getSymbol();
 	}
 }
-
 domain\core\algmodel\genecomponent\Function.java
 package domain.core.algmodel.genecomponent;
 import java.util.Deque;
@@ -1515,7 +1505,6 @@ public abstract class Function extends GenePiece{
 	 */
 	public abstract float operate(Deque<Float> operators);
 }
-
 domain\core\algmodel\genecomponent\GenePiece.java
 package domain.core.algmodel.genecomponent;
 import java.io.Serializable;
@@ -1605,7 +1594,6 @@ public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiec
 		return clone();
 	}
 }
-
 domain\core\algmodel\genecomponent\Variable.java
 package domain.core.algmodel.genecomponent;
 /**
@@ -1629,7 +1617,6 @@ public class Variable extends Computable{
 		this.name = name;
 	}
 }
-
 domain\core\algmodel\individualcomponent\Gene.java
 package domain.core.algmodel.individualcomponent;
 import java.io.IOException;
@@ -1742,7 +1729,6 @@ public abstract class Gene implements Serializable,ICopy<Gene> {
 		return gene;
 	}
 }
-
 domain\core\algmodel\individualcomponent\Header.java
 package domain.core.algmodel.individualcomponent;
 import java.io.IOException;
@@ -1819,7 +1805,6 @@ public abstract class Header implements Serializable,ICopy<Header>{
 		return header;
 	}
 }
-
 domain\core\algmodel\individualcomponent\HomeoticGene.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1855,7 +1840,6 @@ public class HomeoticGene extends Gene{
 		return (HomeoticGeneTail) tail;
 	}
 }
-
 domain\core\algmodel\individualcomponent\HomeoticGeneHeader.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1879,7 +1863,6 @@ public class HomeoticGeneHeader extends Header{
 	}
 	
 }
-
 domain\core\algmodel\individualcomponent\HomeoticGeneTail.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1902,7 +1885,6 @@ public class HomeoticGeneTail extends Tail{
 		// TODO Auto-generated constructor stub
 	}
 }
-
 domain\core\algmodel\individualcomponent\NormalGene.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1938,7 +1920,6 @@ public class NormalGene extends Gene{
 		return (NormalGeneTail) tail;
 	}
 }
-
 domain\core\algmodel\individualcomponent\NormalGeneHeader.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1961,7 +1942,6 @@ public class NormalGeneHeader extends Header {
 		// TODO Auto-generated constructor stub
 	}
 }
-
 domain\core\algmodel\individualcomponent\NormalGeneTail.java
 package domain.core.algmodel.individualcomponent;
 import java.util.List;
@@ -1984,7 +1964,6 @@ public class NormalGeneTail extends Tail {
 		// TODO Auto-generated constructor stub
 	}
 }
-
 domain\core\algmodel\individualcomponent\Tail.java
 package domain.core.algmodel.individualcomponent;
 import java.io.IOException;
@@ -2063,7 +2042,6 @@ public abstract class Tail implements Serializable,ICopy<Tail>{
 		return tail;
 	}
 }
-
 domain\core\inputmodel\DataColumn.java
 package domain.core.inputmodel;
 public class DataColumn {
@@ -2134,7 +2112,6 @@ public class DataColumn {
 		return this.columnName;
 	}
 }
-
 domain\core\inputmodel\DataColumnCollection.java
 package domain.core.inputmodel;
 import java.util.ArrayList;
@@ -2209,7 +2186,6 @@ public class DataColumnCollection {
 		return variableList;
 	}
 }
-
 domain\core\inputmodel\DataRow.java
 package domain.core.inputmodel;
 import java.util.LinkedHashMap;
@@ -2283,7 +2259,6 @@ public class DataRow {
 	 * row.getValue(c.toString())); } }
 	 */
 }
-
 domain\core\inputmodel\DataRowCollection.java
 package domain.core.inputmodel;
 import java.util.ArrayList;
@@ -2324,7 +2299,6 @@ public class DataRowCollection {
 		this.columns = columns2;
 	}
 }
-
 domain\core\inputmodel\DataTable.java
 package domain.core.inputmodel;
 import java.util.ArrayList;
@@ -2597,7 +2571,6 @@ public void addColumn(String  columnName) {
 	
 }
 }
-
 domain\core\outputmodel\AlgInstance.java
 package domain.core.outputmodel;
 import java.io.Serializable;
@@ -2646,7 +2619,6 @@ public class AlgInstance implements Serializable{
 		populationSet.add(population);
 	}
 }
-
 domain\core\outputmodel\BestIndividual.java
 package domain.core.outputmodel;
 /**
@@ -2707,7 +2679,6 @@ public class BestIndividual  implements java.io.Serializable {
     }
    */
 }
-
 domain\core\outputmodel\GepConfiguration.java
 package domain.core.outputmodel;
 import java.io.Serializable;
@@ -2962,7 +2933,6 @@ public class GepConfiguration implements Serializable{
 		return name;
 	}
 }
-
 domain\core\outputmodel\OutputIndividual.java
 package domain.core.outputmodel;
 import java.io.Serializable;
@@ -2993,7 +2963,6 @@ public class OutputIndividual implements Serializable{
 		this.expression = expression;
 	}
 }
-
 domain\core\outputmodel\OutputPopulation.java
 package domain.core.outputmodel;
 import java.io.Serializable;
@@ -3052,7 +3021,6 @@ public class OutputPopulation implements Serializable{
 		return worstIndividual; 
 	}
 }
-
 domain\iservice\IgepAlgService.java
 package domain.iservice;
 import java.io.IOException;
@@ -3087,7 +3055,6 @@ public interface IgepAlgService {
 	public GepAlgorithm getMyGepAlgorithm();
 	
 }
-
 domain\iservice\IgepInputService.java
 package domain.iservice;
 import java.io.File;
@@ -3097,7 +3064,6 @@ import domain.core.inputmodel.DataTable;
 public interface IgepInputService {
 	public void uploadFile (DataTable set,File file) throws IOException, BiffException;
 }
-
 domain\iservice\IgepOutputService.java
 package domain.iservice;
 import java.io.File;
@@ -3119,7 +3085,6 @@ public interface IgepOutputService {
 	public ImageIcon drawImage(AlgInstance outPut);
 	public ImageIcon drawImage(Calculator calculator,Individual individual);
 }
-
 domain\service\alg\configuration\Calculator.java
 package domain.service.alg.configuration;
 import java.util.List;
@@ -3206,7 +3171,6 @@ public abstract class Calculator {
 		return name;
 	}
 }
-
 domain\service\alg\configuration\Creator.java
 package domain.service.alg.configuration;
 import java.util.List;
@@ -3266,7 +3230,6 @@ public abstract class Creator {
 	}
 	public abstract void create(GepAlgorithm algorithm);
 }
-
 domain\service\alg\configuration\GepAlgService.java
 package domain.service.alg.configuration;
 import java.io.File;
@@ -3585,7 +3548,6 @@ public class GepAlgService implements IgepAlgService {
 		return myGepAlgorithm;
 	}
 }
-
 domain\service\alg\configuration\Modifying.java
 package domain.service.alg.configuration;
 import java.util.LinkedList;
@@ -3788,7 +3750,6 @@ public abstract class Modifying {
 	 */
 	public abstract void geneRecombine(GepAlgorithm myGepAlgorithm);
 }
-
 domain\service\alg\configuration\Selector.java
 package domain.service.alg.configuration;
 import java.util.Deque;
@@ -3812,7 +3773,6 @@ public abstract class Selector {
 	 */
 	public abstract Population select(Deque<Population> population);
 }
-
 domain\service\alg\userdefined\calculator\AbsoluteCalculator.java
 package domain.service.alg.userdefined.calculator;
 import java.util.ArrayDeque;
@@ -4041,7 +4001,6 @@ public class AbsoluteCalculator extends Calculator{
 		}
 	}
 }
-
 domain\service\alg\userdefined\creator\DefaultCreator.java
 package domain.service.alg.userdefined.creator;
 import java.util.ArrayList;
@@ -4155,7 +4114,6 @@ public class DefaultCreator extends Creator{
 	}
 	
 }
-
 domain\service\alg\userdefined\function\Additioin.java
 package domain.service.alg.userdefined.function;
 import java.util.Deque;
@@ -4175,7 +4133,6 @@ public class Additioin extends Function {
 		return operators.removeFirst()+operators.removeFirst();
 	}
 }
-
 domain\service\alg\userdefined\function\Divide.java
 package domain.service.alg.userdefined.function;
 import java.util.Deque;
@@ -4195,7 +4152,6 @@ public class Divide extends Function {
 		return operators.removeFirst()/operators.removeFirst();
 	}
 }
-
 domain\service\alg\userdefined\function\Minus.java
 package domain.service.alg.userdefined.function;
 import java.util.Deque;
@@ -4215,7 +4171,6 @@ public class Minus extends Function {
 		return operators.removeFirst()-operators.removeFirst();
 	}
 }
-
 domain\service\alg\userdefined\function\Multiply.java
 package domain.service.alg.userdefined.function;
 import java.util.Deque;
@@ -4235,7 +4190,6 @@ public class Multiply extends Function{
 		return operators.removeFirst()*operators.removeFirst();
 	}
 }
-
 domain\service\alg\userdefined\modify\DefaultModifying.java
 package domain.service.alg.userdefined.modify;
 import java.util.ArrayList;
@@ -4552,7 +4506,6 @@ public class DefaultModifying extends Modifying {
 		}
 	}
 }
-
 domain\service\alg\userdefined\selector\DefaultSelector.java
 package domain.service.alg.userdefined.selector;
 import java.util.ArrayList;
@@ -4630,376 +4583,6 @@ public class DefaultSelector extends Selector{
 		return floats.size()-1;
 	}
 }
-
-domain\service\input\DataColumn.java
-package domain.service.input;
-public class DataColumn {
-   
-	private boolean readOnly;//只读
-    private DataTable table;//dataTable的引用
-    private String columnName;//列名
-    private String captionName;//显示名称
-    private int columnIndex;//列索引
-    private int dataType;//数据类型名称
-    public DataColumn(){
-    	this("default1");
-    }
-    public DataColumn(int dataType){
-    	this("default1",dataType);
-    }
-    public DataColumn(String columnName){
-    	this(columnName,0);
-    	
-    }
-    public DataColumn(String columnName,int dataType){
-    	this.setDataType(dataType);
-    	this.columnName=columnName;
-    }
-    public boolean isReadOnly() {
-		return readOnly;
-	}
-	public void setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
-	}
-	public DataTable getTable() {
-		return table;
-	}
-	public void setTable(DataTable table) {
-		this.table = table;
-	}
-	public String getColumnName() {
-		return columnName;
-	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-	public String getCaptionName() {
-		return captionName;
-	}
-	public void setCaptionName(String captionName) {
-		this.captionName = captionName;
-	}
-	public int getColumnIndex() {
-		return columnIndex;
-	}
-	public void setColumnIndex(int columnIndex) {
-		this.columnIndex = columnIndex;
-	}
-	public int getDataType() {
-		return dataType;
-	}
-	public void setDataType(int dataType) {
-		this.dataType = dataType;
-	}
-	
-	public Object convertTo(Object value){
-		return value;
-		
-	}
-	public String toString(){
-		return this.columnName;
-	}
-}
-
-domain\service\input\DataColumnCollection.java
-package domain.service.input;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-public class DataColumnCollection {
-  List<DataColumn> columns;
-  HashMap<String,DataColumn> nameMap;
-  
-  public DataColumnCollection(){
-	  columns=new ArrayList<DataColumn>();
-	  nameMap=new HashMap<String, DataColumn>();
-  }
-  public DataColumnCollection(List<DataColumn> columns,HashMap<String,DataColumn> nameMap){
-	  this.columns=columns;
-	  this.nameMap=nameMap;
-  }
-  
-  public void add(int index,DataColumn column){
-	 if(index<columns.size())
-	  columns.add(index, column);
-	 else
-	  columns.add(columns.size(),column);
-  }
-  public void add(DataColumn column){
-	  columns.add(column);
-  }
-  public void add(Object obj){
-	  columns.add((DataColumn) obj);
-  }
-public DataColumn addColumn(String columnName, int dataType) {
-	DataColumn column=new DataColumn(columnName, dataType);
-	nameMap.put(columnName, column);
-	columns.add(column);
-	return column;
-}
-public void addColumn(String columnName) {
-	DataColumn column=new DataColumn(columnName);
-	nameMap.put(columnName, column);
-	columns.add(column);
-	
-}
-public DataColumn get(int index) {
-    return columns.get(index);
-}
-public DataColumn get(String columnName) {
-	
-	return nameMap.get(columnName);
-	
-}
-public int size() {
-	// TODO Auto-generated method stub
-	return columns.size();
-}
-  
-}
-
-domain\service\input\DataRow.java
-package domain.service.input;
-import java.util.LinkedHashMap;
-import java.util.Map;
-public class DataRow {
-   private int rowIndex=-1;//定义该行记录在table所处的行数
-   private DataColumnCollection columns;
-   
-   public void setTable(DataTable table) {
-	this.table = table;
-}
-public void setItemMap(Map<String, Object> itemMap) {
-	this.itemMap = itemMap;
-}
-private DataTable table; //table的一个引用
-   private Map<String,Object> itemMap=new LinkedHashMap<String, Object>();
- //用于存储数据的Map对象，这里保存的对象不包括顺序信息，数据获取的索引通过行信息标识
-   public DataRow() {
-   }   
-   public DataRow(DataTable table) {
-	            this.table = table;
-	}
-   //获取当前行所属的数据表对象
-   public DataTable getTable(){
-	   return this.table;
-   }
-   public DataColumnCollection getColumns() {
-		return columns;
-	}
-	public void setColumns(DataColumnCollection columns) {
-		this.columns = columns;
-	}
-	public void setValue(String columnName,Object value){
-		setValue(this.columns.get(columnName),value);
-	}
-	public void setValue(DataColumn column,Object value){
-		if(column!=null){
-			String lowerColumnName=column.getColumnName().toLowerCase();
-			 if (getItemMap().containsKey(lowerColumnName))
-	                  getItemMap().remove(lowerColumnName);
-				      getItemMap().put(lowerColumnName, column.convertTo(value));
-		}
-	}
-	public Object getValue(int index) {
-		   String colName = this.columns.get(index).getColumnName().toLowerCase();
-		   return this.getItemMap().get(colName);
-    }
-		     
-    public Object getValue(String columnName) {
-		   return this.getItemMap().get(columnName.toLowerCase());
-    }
-		 
-    public Map<String, Object> getItemMap() {
-		   return itemMap;
-    }
-		  
-    public void setRowIndex(int rowIndex) {
-		   this.rowIndex = rowIndex;
-	 }
-	public void setValue(int col, Object value) {
-		String lowerColumnName=this.columns.get(col).getColumnName().toLowerCase();
-		if (getItemMap().containsKey(lowerColumnName))
-            getItemMap().remove(lowerColumnName);
-		      getItemMap().put(lowerColumnName, columns.get(col).convertTo(value));
-		
-	}
-	public int getRowIndex() {
-		
-		return rowIndex;
-	}
-		   
-    /*public void copyFrom(DataRow row) {
-		   this.itemMap.clear();//首先请客当前记录
-		   for (Object c : this.columns) {
-		                this.itemMap.put(c.toString().toLowerCase(), row.getValue(c.toString()));
-		          }
-		    }*/
-	
-   
-}
-
-domain\service\input\DataRowCollection.java
-package domain.service.input;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-public class DataRowCollection {
-     DataColumnCollection columns;
-     List<DataRow> dataRows;
-     public DataRowCollection(){
-   	  columns=new DataColumnCollection();
-   	  dataRows=new ArrayList<DataRow>();
-     }
-     public DataRowCollection(List<DataRow> rows,DataColumnCollection columns){
-    	 this.columns=columns;
-      	  this.dataRows=rows;
-     }
-     public void add(int index,DataRow row){
-    	 if(index<dataRows.size())
-    	  dataRows.add(index,row);
-    	 else
-    	  dataRows.add(dataRows.size(),row);
-      }
-      public void add(DataRow row){
-    	  dataRows.add(row);
-      }
-      public void add(Object obj){
-    	  dataRows.add((DataRow) obj);
-      }
-      public void add(int index,Object obj){
-    	  dataRows.add(index,(DataRow) obj);
-      }
-	public int size() {
-		
-		return dataRows.size();
-	}
-	public DataRow get(int index) {
-		
-		return dataRows.get(index);
-	}
-	public void setColumns(DataColumnCollection columns2) {
-		this.columns=columns2;
-		
-	}
-     
-}
-
-domain\service\input\DataTable.java
-package domain.service.input;
-import java.util.Iterator;
-import java.util.Map.Entry;
-public final class DataTable {
-	private DataRowCollection rows; //用于保存DataRow的集合对象
-	private DataColumnCollection columns; //用于保存DataColumn的对象
-	private String tableName; //表名
-    private boolean readOnly = false;
-	private int nextRowIndex = 0;
-	private Object tag;
-	
-	public DataTable() {
-		  this.columns = new DataColumnCollection();
-		  this.rows = new DataRowCollection();
-		  this.rows.setColumns(columns);
-    }
-	public DataTable(String dataTableName) {
-          this();
-		  this.tableName = dataTableName;
-    }
-	public int getTotalCount() {
-          return rows.size();
-	} 
-    public boolean isReadOnly() {
-		  return this.readOnly;
-    }   
-	public void setReadOnly(boolean readOnly) {
-		  this.readOnly = readOnly;
-	}
-	public String getTableName() {
-         return this.tableName;
-	}
-	
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-	}
-    public DataRowCollection getRows() {
-            return this.rows;
-     }
-    public DataColumnCollection getColumns() {
-    	    return this.columns;
-    }
-    public Object getValue(int row,String colName) {
-    		return this.rows.get(row).getValue(colName);
-    }
-    public Object getValue(int row,int col) {
-    	     return this.rows.get(row).getValue(col);
-    }
-    public DataRow newRow() throws Exception {
-             DataRow tempRow = new DataRow(this);
-             nextRowIndex = nextRowIndex < this.rows.size() ? this.rows.size(): nextRowIndex;
-    	     tempRow.setColumns(this.columns);
-    	     tempRow.setRowIndex(nextRowIndex++);
-    	     return tempRow;      
-    }
-    public void setValue(int row,int col,Object value) {
-             this.rows.get(row).setValue(col, value);
-    }
-       
-    public void setValue(int row,String colName,Object value) {
-    		 this.rows.get(row).setValue(colName, value);
-    }
-    public Object getTag() {
-		return tag;
-	}
-	public void setTag(Object tag) {
-		this.tag = tag;
-	}
-	public DataColumn addColumn(String columnName,
-        int dataType) throws Exception {
-		return this.columns.addColumn(columnName, dataType);
-	}
-	public void addRow(DataRow row) throws Exception {
-		if (row.getRowIndex() > this.rows.size())
-		    row.setRowIndex(this.rows.size());
-			 this.rows.add(row);
-	}
-    public String getColumnName(int index){
-    	
-		return columns.get(index).getColumnName();
-    	
-    }
-   public String getColumnName(Object obj){
-	 for(int i=0;i<this.rows.size();i++){
-	     DataRow row=this.rows.get(i);
-	     //System.out.println("ww"+row.getValue(i));
-	     for(int j=0;j<this.columns.size();j++){
-	    	 Object obj2=this.getValue(i, j);
-	    	 //System.out.println("obj2"+obj2.toString()+"  "+obj.toString());
-	    	 if(obj2.toString().equals(obj.toString())){
-		    	  return row.getColumns().get(j).getColumnName().toLowerCase();
-		     }
-	     }
-	    
-    	 
-    	
-	   }	
-	 return "没有找到";		
-   }
-   /* Iterator it=columns.nameMap.entrySet().iterator();
-    * while(it.hasNext()){
-		Entry entry=(Entry) it.next();
-		System.out.println("ww"+entry.getKey());
-		if(entry.getValue().equals(obj)){
-			return (String) entry.getKey();
-		}
-		
-	}*/
-public void addColumn(String  columnName) {
-	this.columns.addColumn(columnName);
-	
-}
-}
-
 domain\service\input\DefaultGepInput.java
 package domain.service.input;
 import java.io.File;
@@ -5067,7 +4650,6 @@ public class DefaultGepInput implements IgepInput {
 		
 	}
 }
-
 domain\service\input\DefaultGepInputTest.java
 package domain.service.input;
 import static org.junit.Assert.*;
@@ -5101,7 +4683,6 @@ public class DefaultGepInputTest {
 		
 	}
 }
-
 domain\service\input\GepInputService.java
 package domain.service.input;
 import java.io.File;
@@ -5120,7 +4701,6 @@ public class GepInputService implements IgepInputService {
 	
 }
 */
-
 domain\service\input\IgepInput.java
 package domain.service.input;
 import java.io.File;
@@ -5142,7 +4722,6 @@ public interface IgepInput {
 	 */
 	void read(DataTable input) throws IOException, BiffException;
 }
-
 domain\service\output\DefalutGepOutput.java
 package domain.service.output;
 import java.io.File;
@@ -5363,7 +4942,6 @@ public class DefalutGepOutput implements IgepOutput{
 	}
 	
 }
-
 domain\service\output\GepOutputService.java
 package domain.service.output;
 import java.io.File;
@@ -5408,7 +4986,6 @@ public class GepOutputService implements IgepOutputService {
 		return null;
 	}
 }
-
 domain\service\output\IgepOutput.java
 package domain.service.output;
 import java.io.File;
@@ -5461,7 +5038,6 @@ public interface IgepOutput {
 	
 	
 }
-
 exception\Duplicated.java
 package exception;
 public class Duplicated extends Exception {
@@ -5470,7 +5046,6 @@ public class Duplicated extends Exception {
 	 */
 	private static final long serialVersionUID = 8940856307517070718L;
 }
-
 exception\IllegalInputSet.java
 package exception;
 public class IllegalInputSet extends Exception {
@@ -5479,7 +5054,6 @@ public class IllegalInputSet extends Exception {
 	 */
 	private static final long serialVersionUID = -2292135742688459906L;
 }
-
 test\ConfigurationTest.java
 package test;
 import java.io.IOException;
@@ -5542,7 +5116,6 @@ public class ConfigurationTest {
 		return result.toString();
 	}
 }
-
 test\CreatePopulation.java
 package test;
 import java.io.File;
@@ -5601,7 +5174,6 @@ public class CreatePopulation {
 			System.out.println(individual);
 	}
 }
-
 test\CreatorTest.java
 package test;
 import java.util.ArrayList;
@@ -5720,7 +5292,6 @@ public class CreatorTest extends Creator{
 		algorithm.addPopulation(population);
 	}
 }
-
 test\FitnessTest.java
 package test;
 import java.io.IOException;
@@ -5763,7 +5334,6 @@ public class FitnessTest {
 	}
 	
 }
-
 test\GenePieceCopyTest.java
 package test;
 import domain.core.algmodel.genecomponent.GenePiece;
@@ -5782,7 +5352,6 @@ public class GenePieceCopyTest {
 		System.out.println(genePiece2.getSymbol());
 	}
 }
-
 test\IndividualCopyTest.java
 package test;
 import java.util.ArrayList;
@@ -5886,7 +5455,6 @@ public class IndividualCopyTest {
 		System.out.println(individual2);
 	}
 }
-
 test\InputTest.java
 package test;
 import java.io.File;
@@ -5923,7 +5491,6 @@ import domain.service.input.IgepInput;
 		}
 	}
 }*/
-
 tool\Directory.java
 package tool;
 import java.util.regex.*;
@@ -5991,7 +5558,6 @@ public final class Directory {
 				System.out.println(walk(arg));
 	}
 }
-
 tool\HibernateSchemaExport.java
 package tool;
 import java.io.File;
@@ -6047,7 +5613,6 @@ public class HibernateSchemaExport {
 		}
 	}
 }
-
 tool\MergeFile.java
 package tool;
 import java.io.BufferedReader;
@@ -6107,25 +5672,40 @@ public class MergeFile {
 		stringBuilder.append(file.getPath().substring(4)+"\n");
 		
 		//Pattern pattern = Pattern.compile("([\t]{1}|\n+|\r+|\r\n+)");
-		//Pattern pattern = Pattern.compile("(|)");
-		while((s=bufferedReader.readLine())!=null){
-			if (s.equals("")||s=="null"||s.equals(null)||s.equals("" +
-					"\r")) {
+		Pattern pattern = Pattern.compile("(\r?\n(\\s*\r?\n)+)");
+		while(true){
+			if((s=bufferedReader.readLine())!=null){
+				/*if (s.equals("")||s==null||s.equals(null)||s.equals("\r")||s.equals("	 ")||s.equals("\t")||s.equals("\t\t")||s.equals("\t\t\t")||s.equals("\t\t"+"  ")){
+					
+					
+				}else {
+					stringBuilder.append(s+"\n");
+					continue;
+				}*/
 				
-			}else {
-				stringBuilder.append(s+"\n");
+				if (s.equals("")) {
+					
+				}
+				else {
+					
+					Matcher matcher = pattern.matcher(s);
+					if (matcher.find()) {
+						//System.out.println(matcher.group());
+						//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
+						//s = matcher.replaceAll("\n");	//\r\n
+						//System.out.print(s);
+						
+						
+					}else{
+						//System.out.println("no found");
+						stringBuilder.append(s+"\n");
+					}
+				}
+				
+			}else{
+				stringBuilder.deleteCharAt(stringBuilder.length()-1);
+				break;
 			}
-			//Matcher matcher = pattern.matcher(s);
-			//if (matcher.find()) {
-				//System.out.println(matcher.group());
-				//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
-				//s = matcher.replaceAll("\n");	//\r\n
-				//System.out.print(s);
-			//}else{
-				//System.out.println("no found");
-			//}
-			
-			
 		}
 		return stringBuilder.toString();
 	}
@@ -6140,7 +5720,6 @@ public class MergeFile {
 		return result;
 	}
 }
-
 ui\alg\controller\FunctionPanelController.java
 package ui.alg.controller;
 import java.util.ArrayList;
@@ -6176,7 +5755,6 @@ public class FunctionPanelController {
 	}
     
 }
-
 ui\alg\controller\HostPanelController.java
 package ui.alg.controller;
 import java.awt.event.ItemEvent;
@@ -6197,19 +5775,17 @@ import jxl.read.biff.BiffException;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.view.*;
 public class HostPanelController {
    
-   static int count=0;
+ 
    
    
-   public static void scrollBtnController(){
-	    count=1;
-   }
+  
    
-   public static void btnNext0Controller(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel) {
+   public static void btnNext0Controller(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForStopSetting inputPathPanel) {
 		
 		TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node1));
 		tree_1.setSelectionPath(visiblePath);
@@ -6217,55 +5793,50 @@ public class HostPanelController {
 	    inputPathPanel.setVisible(true);
 	   
 	}
-	public static void btnSetConfigController(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel) {
+	public static void btnSetConfigController(DefaultMutableTreeNode node1,JTree tree_1, HostPanel configurationPanel,JPanelForStopSetting inputPathPanel) {
 		TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node1));
 		tree_1.setSelectionPath(visiblePath);
 		configurationPanel.setVisible(false);
 		inputPathPanel.setVisible(true);
 		
 	}
-	public static String jcomboBoxItemController(ItemEvent ie,HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-			JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,JPanelForFooter footerPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
+	public static String jcomboBoxItemController(ItemEvent ie,HostPanel configurationPanel,JPanelForStopSetting stopSettingPanel,
+			JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,JPanelForFooter footerPanel,JPanelForInputFile  inputFilePanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
 			IgepAlgService myGepService) {
 		
 		if (ie.getStateChange()==ItemEvent.SELECTED){
-	  		 if(count!=2){
-	  			footerPanel.setVisible(true);
-	       	   configurationPanel.btnChangeConfig.setVisible(true);
+	  		
+	  		   footerPanel.setVisible(true);
 	       	   configurationPanel.btnSetConfig.setVisible(false);
 	       	   configurationPanel.setVisible(false);
-	       	   inputPathPanel.setVisible(true);
-	       	  
-	  		 }
+	       	   stopSettingPanel.setVisible(true);
 	    }
-		return handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
+		return handler(configurationPanel, stopSettingPanel, populationPanel, genePanel, functionPanel,inputFilePanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
    }
-	public static void jcomboBoxEditorController(KeyEvent e,JButton btnSetConfig, JButton btnNewButton, JButton btnChangeConfig) {
+	public static void jcomboBoxEditorController(KeyEvent e,JButton btnSetConfig) {
 		 if(e.getKeyCode() == KeyEvent.VK_ENTER){  
 	        	btnSetConfig.setVisible(true);
-	        	btnNewButton.setVisible(false);
-	        	btnChangeConfig.setVisible(false);
-	        	count=2;
-	        	
-	        }  
+	       }
 		
 	}
 	
-	public static String handler(HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
+	public static String handler(HostPanel configurationPanel,JPanelForStopSetting stopSettingPanel,
+		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,
+		    JPanelForInputFile  inputFilePanel,
+		    GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
 		    IgepAlgService myGepService){
-		    	System.out.print("有问题qqq");
-		    	inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());
-				inputPathPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
+		    	
+		    	inputFilePanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());
+				stopSettingPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
 				functionPanel.txtConstantListSize.setText(myConfigurationFromDB.getConstantListSize());
 				genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB.getOnePointRecombineRate());
 				genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB.getGeneRecombineRate());
 				genePanel.txtGeneTransportRate.setText(myConfigurationFromDB.getGeneTransportRate());
 				genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB.getHomeoticGeneNumber());
 				genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB.getHomeoticHeaderLength());
-				inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());// 文件输入路径
+				
 				genePanel.txtIsTransportRate.setText(myConfigurationFromDB.getIsTransportRate());
-				inputPathPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
+				stopSettingPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
 				genePanel.txtMutateRate.setText(myConfigurationFromDB.getMutateRate());
 				genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB.getNormalGeneNumber());
 				genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB.getNormalHeaderLength());
@@ -6281,15 +5852,11 @@ public class HostPanelController {
 						.split(",");
 				for (int i = 0; i < functions.length; i++) {
 					System.out.println(functions[i].toString());
-					if (functions[i]
-							.toString()
-							.equals("domain.service.alg.userdefined.function.Additioin")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Minus")) {
+					if (functions[i].toString().equals("domain.service.alg.userdefined.function.Additioin")) {
+					   functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Minus")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Multiply")) {
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Multiply")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
 					} else {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
@@ -6299,12 +5866,40 @@ public class HostPanelController {
 				genePanel.JComboBoxOfAvailableModifyings.setSelectedItem(myConfigurationFromDB.getModify());
 				populationPanel.JComboBoxAvailableCalculator.setSelectedItem(myConfigurationFromDB.getCalculator());
 				configurationPanel.setVisible(false);
-				inputPathPanel.setVisible(true);
-				inputPathPanel.txtInputPath.grabFocus();
+				stopSettingPanel.setVisible(true);
+				stopSettingPanel.txtMaxGeneration.grabFocus();
 				return null;
 		    }
+	public static void btnSetConfigController(JPanelForStopSetting stopSettingPanel,
+		    JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,
+		    JPanelForInputFile  inputFilePanel){
+		    initialiseController(stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel);
+	}
+	private static void initialiseController(JPanelForStopSetting stopSettingPanel,JPanelForPopulation populationPanel, JPanelForGene genePanel,JPanelForFunction functionPanel, JPanelForInputFile inputFilePanel) {
+		inputFilePanel.txtInputPath.setText("");
+		stopSettingPanel.txtAccuracy.setText("");
+		functionPanel.txtConstantListSize.setText("");
+		genePanel.txtGeneOnePointRecombineRate.setText("");
+		genePanel.txtGeneRecombineRate.setText("");
+		genePanel.txtGeneTransportRate.setText("");
+		genePanel.txtHomeoticGeneNums.setText("");
+		genePanel.txtHomeoticHeaderLength.setText("");
+		
+		genePanel.txtIsTransportRate.setText("");
+		stopSettingPanel.txtMaxGeneration.setText("");
+		genePanel.txtMutateRate.setText("");
+		genePanel.txtNormalGeneNumber.setText("");
+		genePanel.txtNormalHeaderLength.setText("");
+		genePanel.txtofIsElement.setText("");
+		genePanel.txtofRisElement.setText("");
+		populationPanel.txtPopulationSize.setText("");
+		functionPanel.txtRandomConstantStart.setText("");
+		genePanel.txtRisTransportRate.setText("");
+		populationPanel.txtSelectionRange.setText("");
+		genePanel.txtTwoPointRecombineRate.setText("");
+		
+	}
 }
-
 ui\alg\Model\ModelForJPanelConfig.java
 package ui.alg.Model;
 public class ModelForJPanelConfig {
@@ -6319,7 +5914,6 @@ public class ModelForJPanelConfig {
     	return this.configName;
     }
 }
-
 ui\alg\Model\ModelForJPanelFunction.java
 package ui.alg.Model;
 public class ModelForJPanelFunction {
@@ -6337,7 +5931,6 @@ public class ModelForJPanelFunction {
 	}
    
 }
-
 ui\alg\Model\ModelForJPanelGEne.java
 package ui.alg.Model;
 public class ModelForJPanelGEne {
@@ -6459,7 +6052,54 @@ public class ModelForJPanelGEne {
 		this.availableModifyingsIndex = availableModifyings;
 	}
 }
-
+ui\alg\Model\ModelForJPanelPopulation.java
+package ui.alg.Model;
+public class ModelForJPanelPopulation {
+	
+	String populationSize;
+	String selectionRange;
+    int populationCreatorIndex;
+    int selectionStrategyIndex;
+    int availableCalculatorIndex;
+    public ModelForJPanelPopulation(String populationSize,String selectionRange,int populationCreator,int selectionStrategy,int availableCalculator){
+    	this.availableCalculatorIndex=availableCalculator;
+    	this.populationCreatorIndex=populationCreator;
+    	this.selectionStrategyIndex=selectionStrategy;
+    	this.selectionRange=selectionRange;
+    	this.populationSize=populationSize;
+    	
+    }
+    public String getPopulationSize() {
+		return populationSize;
+	}
+	public void setPopulationSize(String populationSize) {
+		this.populationSize = populationSize;
+	}
+	public String getSelectionRange() {
+		return selectionRange;
+	}
+	public void setSelectionRange(String selectionRange) {
+		this.selectionRange = selectionRange;
+	}
+	public int getPopulationCreatorIndex() {
+		return populationCreatorIndex;
+	}
+	public void setPopulationCreatorIndex(int populationCreatorIndex) {
+		this.populationCreatorIndex = populationCreatorIndex;
+	}
+	public int getSelectionStrategyIndex() {
+		return selectionStrategyIndex;
+	}
+	public void setSelectionStrategyIndex(int selectionStrategyIndex) {
+		this.selectionStrategyIndex = selectionStrategyIndex;
+	}
+	public int getAvailableCalculatorIndex() {
+		return availableCalculatorIndex;
+	}
+	public void setAvailableCalculatorIndex(int availableCalculatorIndex) {
+		this.availableCalculatorIndex = availableCalculatorIndex;
+	}
+}
 ui\alg\view\HostPanel.java
 package ui.alg.view;
 import java.awt.Color;
@@ -6481,9 +6121,7 @@ public class HostPanel extends JPanel {
 	
 	int count=0;
 	public JComboBox jcomboBoxConfiguration;
-	public JButton btnRunButton = new JButton("\u6267\u884C\u7B97\u6CD5"),
-			       btnChangeConfig = new JButton("\u66F4\u6539\u914D\u7F6E"),
-                   btnNext0=new JButton(),
+	public JButton btnNext0=new JButton(),
                    btnSetConfig=new JButton();
 	
 	public HostPanel(JComboBox jcomboBoxConfiguration) {
@@ -6519,18 +6157,6 @@ public class HostPanel extends JPanel {
 		btnSetConfig.setVisible(true);
 		add(btnSetConfig);
 		
-	   
-	   
-		btnRunButton.setBounds(193, 120, 93, 23);
-		btnRunButton.setVisible(false);
-		add(btnRunButton);
-		
-	    
-	    
-		btnChangeConfig.setBounds(398, 120, 93, 23);
-		btnChangeConfig.setVisible(false);
-		add(btnChangeConfig);
-		
 		
 		JLabel lblNewLabel_27 = new JLabel("\u8F93\u5165\u7B97\u6CD5\u540D\u79F0/\u9009\u62E9\u7B97\u6CD5");
 		lblNewLabel_27.setFont(new Font("宋体", Font.PLAIN, 18));
@@ -6546,7 +6172,6 @@ public class HostPanel extends JPanel {
 		
 	}
 }
-
 ui\alg\view\JPanelForFunction.java
 package ui.alg.view;
 import java.awt.Color;
@@ -6625,7 +6250,6 @@ public class JPanelForFunction extends JPanel {
 			
 	}
 }
-
 ui\alg\view\JPanelForGene.java
 package ui.alg.view;
 import java.awt.Color;
@@ -6894,112 +6518,6 @@ public class JPanelForGene extends JPanel {
 		//panel_0.add(panel_3);
 	}
 }
-
-ui\alg\view\JPanelForInputPathSetting.java
-package ui.alg.view;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-public class JPanelForInputPathSetting extends JPanel {
-	
-	public JTextField txtInputPath = new JTextField(),
-	                  txtMaxGeneration=new JTextField(),
-	                  txtAccuracy=new JTextField();
-	
-	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
-	
-	public JPanelForInputPathSetting() {
-		   
-		    setBounds(155, 115, 631, 447);
-		    setVisible(false);
-		    setBorder(new LineBorder(new Color(0, 0, 0)));
-		    setBackground(Color.WHITE);
-		    setLayout(null);
-		    
-		    JLabel lblNewLabel_25 = new JLabel("\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
-		    lblNewLabel_25.setBackground(SystemColor.inactiveCaptionBorder);
-		    lblNewLabel_25.setFont(new Font("宋体", Font.PLAIN, 17));
-		    lblNewLabel_25.setBounds(20, 60, 120, 33);
-		    add(lblNewLabel_25);
-		    
-		   
-		    txtInputPath.setBounds(160, 60, 362, 33);
-		    add(txtInputPath);
-		    txtInputPath.setColumns(10);
-		    
-		    
-		   
-		    btnInputBrowse.setBounds(532, 60, 93, 23);
-		    btnInputBrowse.addActionListener(new OpenHandler());
-		    add(btnInputBrowse);
-		    
-		    JLabel lblNewLabel_26 = new JLabel("\u586B\u5199\u6240\u9700\u7684\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
-		    lblNewLabel_26.setFont(new Font("宋体", Font.PLAIN, 18));
-		    lblNewLabel_26.setBounds(20, 20, 208, 25);
-		    add(lblNewLabel_26);
-		    
-		    JPanel panel = new JPanel();
-		    panel.setBounds(0, 561, 813, 87);
-		    
-		    panel.setLayout(null);
-		    
-		    JLabel lblNewLabel_38 = new JLabel("-----------1.0\u7248\u672C\uFF08c\uFF09Miscrosoft Cooperation------------");
-		    lblNewLabel_38.setBounds(162, 35, 463, 28);
-		    lblNewLabel_38.setFont(new Font("宋体", Font.PLAIN, 13));
-		    lblNewLabel_38.setForeground(Color.RED);
-		    panel.add(lblNewLabel_38);
-		    JLabel lblNewLabel_40 = new JLabel("\u586B\u5199\u6240\u9700\u7684\u7B97\u6CD5\u7EC8\u6B62\u6761\u4EF6");
-		    lblNewLabel_40.setFont(new Font("宋体", Font.PLAIN, 18));
-		    lblNewLabel_40.setBounds(20, 130, 208, 25);
-		    add(lblNewLabel_40);
-		    
-		    JLabel lblNewLabel_41 = new JLabel("\u6F14\u5316\u4EE3\u6570");
-		    lblNewLabel_41.setFont(new Font("宋体", Font.PLAIN, 17));
-		    lblNewLabel_41.setBounds(20, 170, 120, 25);
-		    add(lblNewLabel_41);
-		    
-		    txtMaxGeneration.setBounds(160, 170, 160, 25);
-		    add(txtMaxGeneration);
-		    txtMaxGeneration.setColumns(10);
-		    
-		    JLabel lblNewLabel_42 = new JLabel("\u7B97\u6CD5\u7ED3\u679C\u7684\u7CBE\u5EA6");
-		    lblNewLabel_42.setFont(new Font("宋体", Font.PLAIN, 17));
-		    lblNewLabel_42.setBounds(20, 220, 120, 25);
-		    add(lblNewLabel_42);
-		    
-		    txtAccuracy = new JTextField();
-		    txtAccuracy.setBounds(160, 220, 160, 25);
-		    add(txtAccuracy);
-		    txtAccuracy.setColumns(10);
-		
-		}
-	   class OpenHandler implements  ActionListener{
-         public void actionPerformed(ActionEvent e) {
-			JFileChooser jc=new JFileChooser();
-			int rVal=jc.showOpenDialog(JPanelForInputPathSetting.this);
-			if(rVal==JFileChooser.APPROVE_OPTION){
-				File dir=jc.getCurrentDirectory();
-				File file=jc.getSelectedFile();
-				txtInputPath.setText(file.toString());
-			}
-			if(rVal==JFileChooser.CANCEL_OPTION){
-				 txtInputPath.setText("You pressed cancel");
-			
-			}
-		}
-	}
-}
-
 ui\alg\view\JPanelForPopulation.java
 package ui.alg.view;
 import java.awt.Color;
@@ -7102,88 +6620,147 @@ public class JPanelForPopulation extends JPanel {
 		});*/
 	}
 }
-
-ui\alg\view\ModelForJPanelInputPath.java
+ui\alg\view\JPanelForStopSetting.java
 package ui.alg.view;
-public class ModelForJPanelInputPath {
-    String inputPath;
-    String maxGeneration;
-    String accuracy;
-    public ModelForJPanelInputPath(String inputPath,String maxGeneration,String accuracy){
-    	this.inputPath=inputPath;
-    	this.maxGeneration=maxGeneration;
-    	this.accuracy=accuracy;
-    	
-    }
-    public void setInputPath(String inputPath){
-    	this.inputPath=inputPath;
-    }
-    public void setMaxGeneration(String maxGeneration){
-    	this.maxGeneration=maxGeneration;
-    }
-    public void setAccuracy(String accuracy){
-    	this.accuracy=accuracy;
-    }
-    public String getInputPath(){
-        return inputPath;
-    }
-    public String getMaxgeneration(){
-    	return maxGeneration;
-    }
-    public String getAccuracy(){
-    	return accuracy;
-    }
-}
-
-ui\alg\view\ModelForJPanelPopulation.java
-package ui.alg.view;
-public class ModelForJPanelPopulation {
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+public class JPanelForStopSetting extends JPanel {
 	
-	String populationSize;
-	String selectionRange;
-    int populationCreatorIndex;
-    int selectionStrategyIndex;
-    int availableCalculatorIndex;
-    public ModelForJPanelPopulation(String populationSize,String selectionRange,int populationCreator,int selectionStrategy,int availableCalculator){
-    	this.availableCalculatorIndex=availableCalculator;
-    	this.populationCreatorIndex=populationCreator;
-    	this.selectionStrategyIndex=selectionStrategy;
-    	this.selectionRange=selectionRange;
-    	this.populationSize=populationSize;
-    	
+	public JTextField txtMaxGeneration=new JTextField(),
+	                  txtAccuracy=new JTextField();
+	
+	
+	
+	public JPanelForStopSetting() {
+		   
+		    setBounds(155, 115, 631, 447);
+		    setVisible(false);
+		    setBorder(new LineBorder(new Color(0, 0, 0)));
+		    setBackground(Color.WHITE);
+		    setLayout(null);
+		    
+		  
+		    
+		    JPanel panel = new JPanel();
+		    panel.setBounds(0, 561, 813, 87);
+		    
+		    panel.setLayout(null);
+		    
+		    JLabel lblNewLabel_38 = new JLabel("-----------1.0\u7248\u672C\uFF08c\uFF09Miscrosoft Cooperation------------");
+		    lblNewLabel_38.setBounds(162, 35, 463, 28);
+		    lblNewLabel_38.setFont(new Font("宋体", Font.PLAIN, 13));
+		    lblNewLabel_38.setForeground(Color.RED);
+		    panel.add(lblNewLabel_38);
+		    JLabel lblNewLabel_40 = new JLabel("\u586B\u5199\u6240\u9700\u7684\u7B97\u6CD5\u7EC8\u6B62\u6761\u4EF6");
+		    lblNewLabel_40.setFont(new Font("宋体", Font.PLAIN, 18));
+		    lblNewLabel_40.setBounds(20, 20, 208, 25);
+		    add(lblNewLabel_40);
+		    
+		    JLabel lblNewLabel_41 = new JLabel("\u6F14\u5316\u4EE3\u6570");
+		    lblNewLabel_41.setFont(new Font("宋体", Font.PLAIN, 17));
+		    lblNewLabel_41.setBounds(20, 60, 120, 25);
+		    add(lblNewLabel_41);
+		    
+		    txtMaxGeneration.setBounds(160, 60, 160, 25);
+		    add(txtMaxGeneration);
+		    txtMaxGeneration.setColumns(10);
+		    
+		    JLabel lblNewLabel_42 = new JLabel("\u7B97\u6CD5\u7ED3\u679C\u7684\u7CBE\u5EA6");
+		    lblNewLabel_42.setFont(new Font("宋体", Font.PLAIN, 17));
+		    lblNewLabel_42.setBounds(20, 120, 120, 25);
+		    add(lblNewLabel_42);
+		    
+		    txtAccuracy = new JTextField();
+		    txtAccuracy.setBounds(160, 120, 160, 25);
+		    add(txtAccuracy);
+		    txtAccuracy.setColumns(10);
+		
+		}
+	  
+}
+ui\input\controller\DownLoadInterfaceController.java
+package ui.input.controller;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import javax.tools.JavaCompiler.CompilationTask;
+public class DownLoadInterfaceController {
+	   private static String fileName;
+	   private static String defaultFileSavePath=".\\bin\\domain\\service\\input\\";
+	   private static File file;
+	   private static File saveDir;
+	   static StringBuffer buffer;
+	   public static int btnDownLoadController(ModelForDownLoadInterface downLoadInterface) throws IOException{
+		   file=downLoadInterface.getFile();
+		   saveDir=new File(defaultFileSavePath);
+		   buffer=ReadFile(file,saveDir);
+		   return WriteFile(buffer,file.getName());
+	   }
+	
+	private static StringBuffer ReadFile(File file, File saveDir) {
+		try{
+		       
+		       BufferedReader reader=new BufferedReader(new InputStreamReader(new FileInputStream(file),"GBK"));
+		       String data=null;
+		       StringBuffer buffer=new StringBuffer();
+		       while((data=reader.readLine())!=null){
+		    	
+		    	   buffer.append(data+"\n");
+		       }
+		        reader.close();
+		        return buffer;
+		 }catch(IOException e){
+			     throw new RuntimeException();
+		}
     }
-    public String getPopulationSize() {
-		return populationSize;
-	}
-	public void setPopulationSize(String populationSize) {
-		this.populationSize = populationSize;
-	}
-	public String getSelectionRange() {
-		return selectionRange;
-	}
-	public void setSelectionRange(String selectionRange) {
-		this.selectionRange = selectionRange;
-	}
-	public int getPopulationCreatorIndex() {
-		return populationCreatorIndex;
-	}
-	public void setPopulationCreatorIndex(int populationCreatorIndex) {
-		this.populationCreatorIndex = populationCreatorIndex;
-	}
-	public int getSelectionStrategyIndex() {
-		return selectionStrategyIndex;
-	}
-	public void setSelectionStrategyIndex(int selectionStrategyIndex) {
-		this.selectionStrategyIndex = selectionStrategyIndex;
-	}
-	public int getAvailableCalculatorIndex() {
-		return availableCalculatorIndex;
-	}
-	public void setAvailableCalculatorIndex(int availableCalculatorIndex) {
-		this.availableCalculatorIndex = availableCalculatorIndex;
+	private static int WriteFile(StringBuffer buffer, String name) throws IOException {
+		 //检查指定路径是否存在
+		 File newInterface=new File(saveDir.getName()+file.getName());
+		 
+		 if(!saveDir.exists()&&!saveDir.isDirectory()){//检查文件夹是否存在，不存在就生成
+			 saveDir.mkdirs();
+			 
+		 }
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newInterface),"GBK"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	     writer.write(buffer.toString());
+		 writer.flush();
+	     writer.close();
+	     return 0;
 	}
 }
-
 ui\input\controller\FooterPanelController.java
 package ui.input.controller;
 import java.awt.CardLayout;
@@ -7199,13 +6776,13 @@ import javax.swing.tree.TreePath;
 import ui.alg.Model.ModelForJPanelConfig;
 import ui.alg.Model.ModelForJPanelFunction;
 import ui.alg.Model.ModelForJPanelGEne;
+import ui.alg.Model.ModelForJPanelPopulation;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
-import ui.alg.view.ModelForJPanelInputPath;
-import ui.alg.view.ModelForJPanelPopulation;
+import ui.input.model.ModelForJPanelInputPath;
 import ui.input.view.JPanelForFooter;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
@@ -7221,31 +6798,41 @@ public class FooterPanelController {
 		footPanel.btnBefore.setEnabled(true);
   		card.next(panel_0);
   		switch(count){
-  		  case 1:{
+  		  case 0:{
   			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[1]));
     		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第-个Node"+node[1].toString());
+    		break; 
+  		  }
+  		  case 1:{
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
+    		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第二个Node"+node[2].toString());
     		break;
   		  }
   		  case 2:{
-  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
     		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第三个Node"+node[3].toString());
     		break;
   		  }
   		  case 3:{
-  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[4]));
     		tree_1.setSelectionPath(visiblePath);
+    	    System.out.println("第四个Node"+node[4].toString());
     		break;
   		  }
   		 default:{
-  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[4]));
-    		tree_1.setSelectionPath(visiblePath);
-    		
-    		break;
+  			break;
+  			
   		  }
   		}
-  		if(count==4){
+  		if(count==3){
   			footPanel.btnNext.setEnabled(false);
   			footPanel.btnRun.setEnabled(true);
+  		}
+  		if(count==4){
+  			return count;
   		}
   		count++;
   		System.out.println(count);
@@ -7253,30 +6840,41 @@ public class FooterPanelController {
 	}
     public static int btnBeforeController(DefaultMutableTreeNode node[],JTree tree_1,JButton  btnNext,JButton btnBefore,JPanel panel_0,CardLayout card,int count) {
     	count--;
-  		if(count==1){
+  		if(count==0){
   			btnBefore.setEnabled(false);
-  			btnNext.setEnabled(true);
   		}
+  			btnNext.setEnabled(true);
+  		
   		System.out.println(count);
   		switch(count){
-  		  case 1:{
+  		  case 0:{
   			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[0]));
     		tree_1.setSelectionPath(visiblePath);
+    	    System.out.println("第0个Node"+node[0].toString());
+    		break;
+  		  }
+  		  case 1:{
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[1]));
+    		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第1个Node"+node[1].toString());
     		break;
   		  }
   		  case 2:{
-  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[1]));
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
     		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第2个Node"+node[2].toString());
     		break;
   		  }
   		  case 3:{
-  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
+  			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
     		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第3个Node"+node[3].toString());
     		break;
   		  }
   		 default:{
   			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
     		tree_1.setSelectionPath(visiblePath);
+    		System.out.println("第3个Node"+node[3].toString());
     		break;
   		  }
   		}
@@ -7409,124 +7007,51 @@ public class FooterPanelController {
 	}
     
 }
-
-ui\input\controller\OutputPanelController.java
+ui\input\controller\ModelForDownLoadInterface.java
 package ui.input.controller;
-import ui.output.view.JPanelForOutput;
-import com.wolfram.jlink.KernelLink;
-import com.wolfram.jlink.MathCanvas;
-import com.wolfram.jlink.MathLinkException;
-import com.wolfram.jlink.MathLinkFactory;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.outputmodel.AlgInstance;
-import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.Calculator;
-import domain.service.output.DefalutGepOutput;
-import domain.service.output.IgepOutput;
-/**
- * 输出Panel的控制器
- * @author 滕凌哲
- */
-public class OutputPanelController {
-	
-	
-	
-	static KernelLink ml = null;
-	
-	MathCanvas mathCanvasA;
-	MathCanvas mathCanvasB;
-	
-	public OutputPanelController() {
-		
-	}
-	
-	public static void init(JPanelForOutput outputPanel){
-		try {
-			
-			
-			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			
-			ml.discardAnswer();
-			
-			
-		} catch (MathLinkException e1) {
-			System.out.println("An error occurred connecting to the kernel.");
-			if (ml != null)
-				ml.close();
-			return;
+import java.io.File;
+public class ModelForDownLoadInterface {
+	   String fileName;
+	   String interfacePath;
+	   File file;
+	   File saveDir;
+	   
+	   public String getFileName() {
+			return fileName;
+		}
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
 		}
 		
-		
-		outputPanel.mathCanvasA = new MathCanvas(ml);
-		outputPanel.mathCanvasB = new MathCanvas(ml);
-		
-		
-		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
-		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
-		
-	}
-	
-	
-	
-	
-	public static void start(MathCanvas a,MathCanvas b){
-		try {
-			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			ml.discardAnswer();
-		} catch (MathLinkException e1) {
-			System.out.println("An error occurred connecting to the kernel.");
-			if (ml != null)
-				ml.close();
-			return;
+		public String getInterfacePath() {
+				return interfacePath;
+		}
+		public void setInterfacePath(String interfacePath) {
+				this.interfacePath = interfacePath;
 		}
 		
+		public void setFile(File file) {
+				this.file = file;
+		}
+		public File getFile() {
+			   return file;
+		}
+		 public File getSaveDir() {
+				return saveDir;
+		}
+		public void setDir(File dir) {
+				this.saveDir = dir;
+	    }
 		
-		/*mathCanvasA = new MathCanvas(ml);
-		mathCanvasB = new MathCanvas(ml);
+		public ModelForDownLoadInterface(File file,File dir,String fileName, String interfacePath) {
+			super();
+			this.file=file;
+			this.saveDir=dir;
+			this.fileName = fileName;
+			this.interfacePath=interfacePath;
+		}
 		
-		a = mathCanvasA;
-		b = mathCanvasA;
-		
-		*/
-		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
-		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
-	}
-	
-	
-	
-	
-	public static void drawPicture(IgepAlgService gepService,JPanelForOutput outputPanel){
-		IgepOutput gepOutput = new DefalutGepOutput();
-		IgepAlgService myGepService = gepService;
-		AlgInstance algInstance = myGepService.getMyAlgInstance();
-		GepAlgorithm gepAlgorithm = myGepService.getMyGepAlgorithm();
-		Calculator calculator = myGepService.getCalculator();
-		 
-		 
-		Individual bestIndividual = gepAlgorithm.getPopulationQueue().getLast().getBestIndividual();
-		outputPanel.mathCanvasA = gepOutput.drawImageA(calculator, bestIndividual, ml);
-		outputPanel.mathCanvasB = gepOutput.drawImageB(algInstance,ml);
-		
-		
-		outputPanel.mathCanvasA.setBounds(0, 0, 410, 310);
-		outputPanel.outPutPanel_1.add(outputPanel.mathCanvasA);
-		
-		outputPanel.mathCanvasB.setBounds(0, 0, 418, 310);
-		outputPanel.outputPanel_2.add(outputPanel.mathCanvasB);
-		
-	}
-	
-	
-	
-	
-	
-	
-	
 }
-
 ui\input\controller\SaveConfigPanelController.java
 package ui.input.controller;
 import javax.swing.JPanel;
@@ -7545,16 +7070,16 @@ public class SaveConfigPanelController {
 		treePanel.setVisible(false);
    }
 }
-
 ui\input\controller\TreePanelController.java
 package ui.input.controller;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 public class TreePanelController {
-   public static void  treeMouseListener(MouseEvent e,JPanel[] panels){
+   public static int  treeMouseListener(MouseEvent e,JPanel[] panels,JButton btnBefore,JButton btnNext,int count){
 	   JTree tree = (JTree) e.getSource();
        int selRow = tree.getRowForLocation(e.getX(), e.getY());
       TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
@@ -7563,19 +7088,50 @@ public class TreePanelController {
           if (e.getClickCount() == 1)
           {
           	TreeNode node = (TreeNode) selPath.getLastPathComponent();
+          	if(node.toString()=="算法系统"){
+          		panels[0].setVisible(true);
+          		panels[1].setVisible(false);
+          		panels[2].setVisible(false);
+          		panels[3].setVisible(false);
+          		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(false);
+          		btnNext.setEnabled(true);
+          		count=0;
+          	}
           	if(node.toString()=="算法名称"){
           		panels[0].setVisible(true);
           		panels[1].setVisible(false);
           		panels[2].setVisible(false);
           		panels[3].setVisible(false);
           		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(true);
+          		btnNext.setEnabled(true);
+          		count=0;
           	}
-          	if(node.toString()=="数据输入路径"){
+          	if(node.toString()=="算法终止条件"){
           		panels[0].setVisible(false);
           		panels[1].setVisible(true);
           		panels[2].setVisible(false);
           		panels[3].setVisible(false);
           		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(true);
+          		btnNext.setEnabled(true);
+          		count=1;
           	}
           	if(node.toString()=="种群信息"){
           		panels[0].setVisible(false);
@@ -7583,14 +7139,29 @@ public class TreePanelController {
           		panels[2].setVisible(true);
           		panels[3].setVisible(false);
           		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(true);
+          		btnNext.setEnabled(true);
+          		count=2;
           	}
           	if(node.toString()=="基因信息"){
-          		//txtNormalGeneNumber.grabFocus();
           		panels[0].setVisible(false);
           		panels[1].setVisible(false);
           		panels[2].setVisible(false);
           		panels[3].setVisible(true);
           		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(true);
+          		btnNext.setEnabled(true);
+          		count=3;
           	}
           	if(node.toString()=="所需函数和随机数"){
           		panels[0].setVisible(false);
@@ -7598,24 +7169,83 @@ public class TreePanelController {
           		panels[2].setVisible(false);
           		panels[3].setVisible(false);
           		panels[4].setVisible(true);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(true);
+          		panels[9].setVisible(true);
+          		btnBefore.setEnabled(true);
+          		btnNext.setEnabled(false);
+          		count=4;
           	}
-          	if(node.toString()=="上传接口"){
+          	if(node.toString()=="输入系统"){
           		panels[0].setVisible(false);
           		panels[1].setVisible(false);
           		panels[2].setVisible(false);
           		panels[3].setVisible(false);
           		panels[4].setVisible(false);
           		panels[5].setVisible(true);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(false);
+          		panels[9].setVisible(false);
+          	} 
+          	if(node.toString()=="上传/下载接口"){
+          		panels[0].setVisible(false);
+          		panels[1].setVisible(false);
+          		panels[2].setVisible(false);
+          		panels[3].setVisible(false);
+          		panels[4].setVisible(false);
+          		panels[5].setVisible(true);
+          		panels[6].setVisible(false);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(false);
+          		panels[9].setVisible(false);
+          	} 
+          	if(node.toString()=="输入路径"){
+          		panels[0].setVisible(false);
+          		panels[1].setVisible(false);
+          		panels[2].setVisible(false);
+          		panels[3].setVisible(false);
+          		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(true);
+          		panels[7].setVisible(false);
+          		panels[8].setVisible(false);
+          		panels[9].setVisible(false);
           	}
-              //单击
-          } else if (e.getClickCount() == 2)
-          {
+          	if(node.toString()=="输出系统"){
+          		panels[0].setVisible(false);
+          		panels[1].setVisible(false);
+          		panels[2].setVisible(false);
+          		panels[3].setVisible(false);
+          		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[8].setVisible(false);
+          	    panels[9].setVisible(false);
+          		panels[7].setVisible(true);
+          		panels[10].setVisible(false);
+          	}  
+          	if(node.toString()=="输出结果"){
+          		panels[0].setVisible(false);
+          		panels[1].setVisible(false);
+          		panels[2].setVisible(false);
+          		panels[3].setVisible(false);
+          		panels[4].setVisible(false);
+          		panels[5].setVisible(false);
+          		panels[6].setVisible(false);
+          		panels[8].setVisible(false);
+          	    panels[9].setVisible(false);
+          		panels[7].setVisible(true);
+          		panels[10].setVisible(false);
+          	}  
           	
-          }
+          } 
       }
+	return count;
    }
 }
-
 ui\input\controller\UploadInterfaceController.java
 package ui.input.controller;
 import java.io.BufferedReader;
@@ -7640,7 +7270,7 @@ import domain.iservice.IgepAlgService;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.model.ModelForUploadInterface;
 public class UploadInterfaceController {
@@ -7817,82 +7447,39 @@ public class UploadInterfaceController {
 	    
 	     return 0;//可以上传
 	   }
-	  public static String btnChangeConfigController(HostPanel configurationPanel,JPanelForInputPathSetting inputPathPanel,
-				JPanelForPopulation populationPanel,JPanelForGene genePanel,JPanelForFunction functionPanel,GepConfiguration myConfigurationFromDB,List<GepConfiguration> configurationsOfHistory,
-				IgepAlgService myGepService) {
-				
-				myConfigurationFromDB = configurationsOfHistory.get(configurationPanel.jcomboBoxConfiguration.getSelectedIndex());
-		        try {
-					myGepService.setParameters(myConfigurationFromDB);
-				} catch (BiffException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				inputPathPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
-				functionPanel.txtConstantListSize.setText(myConfigurationFromDB.getConstantListSize());
-				genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB.getOnePointRecombineRate());
-				genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB.getGeneRecombineRate());
-				genePanel.txtGeneTransportRate.setText(myConfigurationFromDB.getGeneTransportRate());
-				genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB.getHomeoticGeneNumber());
-				genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB.getHomeoticHeaderLength());
-				inputPathPanel.txtInputPath.setText(myConfigurationFromDB.getInputFile());// 文件输入路径
-				genePanel.txtIsTransportRate.setText(myConfigurationFromDB.getIsTransportRate());
-				inputPathPanel.txtMaxGeneration.setText(myConfigurationFromDB.getMaxGeneration());
-				genePanel.txtMutateRate.setText(myConfigurationFromDB.getMutateRate());
-				genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB.getNormalGeneNumber());
-				genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB.getNormalHeaderLength());
-				genePanel.txtofIsElement.setText(myConfigurationFromDB.getIsElement());
-				genePanel.txtofRisElement.setText(myConfigurationFromDB.getRisElement());
-				populationPanel.txtPopulationSize.setText(myConfigurationFromDB.getPopulationSize());
-				functionPanel.txtRandomConstantStart.setText(myConfigurationFromDB.getRandomConstantStart());
-				genePanel.txtRisTransportRate.setText(myConfigurationFromDB.getRisTransportRate());
-				populationPanel.txtSelectionRange.setText(myConfigurationFromDB.getSelectionRange());
-				genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB.getTwoPointRecombineRate());
-				configurationPanel.jcomboBoxConfiguration.setSelectedItem(myConfigurationFromDB.getName());
-				String[] functions = myConfigurationFromDB.getFunctionList()
-						.split(",");
-				for (int i = 0; i < functions.length; i++) {
-					System.out.println(functions[i].toString());
-					if (functions[i]
-							.toString()
-							.equals("domain.service.alg.userdefined.function.Additioin")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Minus")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-					} else if (functions[i].toString().equals(
-							"domain.service.alg.userdefined.function.Multiply")) {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
-					} else {
-						functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
-					}
-				}
-				populationPanel.JcomboBoxOfPopulationCreator.setSelectedItem(myConfigurationFromDB.getCreator());
-				genePanel.JComboBoxOfAvailableModifyings.setSelectedItem(myConfigurationFromDB.getModify());
-				populationPanel.JComboBoxAvailableCalculator.setSelectedItem(myConfigurationFromDB.getCalculator());
-				configurationPanel.setVisible(false);
-				inputPathPanel.setVisible(true);
-				inputPathPanel.txtInputPath.grabFocus();
-				return configurationPanel.jcomboBoxConfiguration.getSelectedItem().toString();
-				
-			} 
-	 
- 
-	  }
+}
 	  
-
+ui\input\model\ModelForJPanelInputPath.java
+package ui.input.model;
+public class ModelForJPanelInputPath {
+    String inputPath;
+    String maxGeneration;
+    String accuracy;
+    public ModelForJPanelInputPath(String inputPath,String maxGeneration,String accuracy){
+    	this.inputPath=inputPath;
+    	this.maxGeneration=maxGeneration;
+    	this.accuracy=accuracy;
+    	
+    }
+    public void setInputPath(String inputPath){
+    	this.inputPath=inputPath;
+    }
+    public void setMaxGeneration(String maxGeneration){
+    	this.maxGeneration=maxGeneration;
+    }
+    public void setAccuracy(String accuracy){
+    	this.accuracy=accuracy;
+    }
+    public String getInputPath(){
+        return inputPath;
+    }
+    public String getMaxgeneration(){
+    	return maxGeneration;
+    }
+    public String getAccuracy(){
+    	return accuracy;
+    }
+}
 ui\input\model\ModelForUploadInterface.java
 package ui.input.model;
 import java.io.File;
@@ -7938,7 +7525,6 @@ public class ModelForUploadInterface {
 	}
 	
 }
-
 ui\input\view\JPanelForFooter.java
 package ui.input.view;
 import java.awt.Color;
@@ -7974,7 +7560,76 @@ public class JPanelForFooter extends JPanel {
 	      add(btnRun);
 	}
 }
-
+ui\input\view\JPanelForInputFile.java
+package ui.input.view;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import ui.alg.view.JPanelForStopSetting;
+import ui.input.controller.ModelForDownLoadInterface;
+import ui.input.controller.UploadInterfaceController;
+import ui.input.model.ModelForUploadInterface;
+import ui.input.view.JPanelForUploadInterface.OpenHandler;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+public class JPanelForInputFile extends JPanel {
+	public JTextField txtInputPath = new JTextField();
+	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
+	public JPanelForInputFile() {
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBounds(155, 115, 631, 532);
+		setBackground(Color.WHITE);
+		setLayout(null);
+		setVisible(true);
+		
+		 JLabel lblNewLabel_26 = new JLabel("\u586B\u5199\u6240\u9700\u7684\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
+		 lblNewLabel_26.setFont(new Font("宋体", Font.PLAIN, 18));
+		 lblNewLabel_26.setBounds(20, 20, 208, 25);
+		 add(lblNewLabel_26);
+		
+		 JLabel lblNewLabel_25 = new JLabel("\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
+		 lblNewLabel_25.setBackground(SystemColor.inactiveCaptionBorder);
+		 lblNewLabel_25.setFont(new Font("宋体", Font.PLAIN, 17));
+		 lblNewLabel_25.setBounds(20, 60, 120, 33);
+		 add(lblNewLabel_25);
+		    
+		   
+		 txtInputPath.setBounds(160, 60, 362, 33);
+		 add(txtInputPath);
+		 txtInputPath.setColumns(10);
+		    
+		    
+		   
+		 btnInputBrowse.setBounds(532, 66, 93, 23);
+		 btnInputBrowse.addActionListener(new OpenHandler());
+		 add(btnInputBrowse);
+	}
+	 class OpenHandler implements  ActionListener{
+         public void actionPerformed(ActionEvent e) {
+			JFileChooser jc=new JFileChooser();
+			int rVal=jc.showOpenDialog(JPanelForInputFile.this);
+			if(rVal==JFileChooser.APPROVE_OPTION){
+				File dir=jc.getCurrentDirectory();
+				File file=jc.getSelectedFile();
+				txtInputPath.setText(file.toString());
+			}
+			if(rVal==JFileChooser.CANCEL_OPTION){
+				 txtInputPath.setText("You pressed cancel");
+			
+			}
+		}
+	}
+}
 ui\input\view\JPanelForJTree.java
 package ui.input.view;
 import java.awt.Color;
@@ -7990,28 +7645,44 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 public class JPanelForJTree extends JPanel {
 	  
-	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("菜单");
+	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("所有系统");
+	  DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("算法系统");
 	  final DefaultMutableTreeNode node0 = new DefaultMutableTreeNode("算法名称");
-	  final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("数据输入路径");
+	  final DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("算法终止条件");
 	  final DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("种群信息");
 	  final DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("基因信息");
 	  final DefaultMutableTreeNode node4 = new DefaultMutableTreeNode("所需函数和随机数");
-	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("上传接口");
-	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5};
+	  DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("输入系统");
+	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("上传/下载接口");
+	  final DefaultMutableTreeNode node6 = new DefaultMutableTreeNode("输入路径");
+	  DefaultMutableTreeNode root3 = new DefaultMutableTreeNode("输出系统");
+	  final DefaultMutableTreeNode node7 = new DefaultMutableTreeNode("输出结果");
+	  
+	  
+	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5,node6,node7};
 	  DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	  final JTree tree_1 ;
-	 public JPanelForJTree() {
+	  public JPanelForJTree() {
 	 	setBackground(Color.WHITE);
 		//树
-		 
-		  treeModel.insertNodeInto(node0, root, root.getChildCount());
-		  treeModel.insertNodeInto(node1, root, root.getChildCount());
-		  treeModel.insertNodeInto(node2, root, root.getChildCount());
-		  treeModel.insertNodeInto(node3, root, root.getChildCount());
-		  treeModel.insertNodeInto(node4, root, root.getChildCount());
-		  treeModel.insertNodeInto(node5, root, root.getChildCount());
+	 	  treeModel.insertNodeInto(root1, root, root.getChildCount());
+		  treeModel.insertNodeInto(root2, root, root.getChildCount());
+		  treeModel.insertNodeInto(root3, root, root.getChildCount());
 		  
+		  treeModel.insertNodeInto(node0, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node1, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node2, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node3, root1, root1.getChildCount());
+		  treeModel.insertNodeInto(node4, root1, root1.getChildCount());
+		 
+		  
+		  treeModel.insertNodeInto(node5, root2, root2.getChildCount());
+		  treeModel.insertNodeInto(node6, root2, root2.getChildCount());
 	      
+		  treeModel.insertNodeInto(node7, root3, root3.getChildCount());
+		  
+		  
+		  
 		  UIManager.getLookAndFeelDefaults().put("ClassLoader",getClass().getClassLoader());
 		  tree_1 = new JTree(treeModel);
 		  tree_1.setRowHeight(20);
@@ -8042,28 +7713,22 @@ public class JPanelForJTree extends JPanel {
 		  add(scrollPane);
 	}
 }
-
 ui\input\view\JPanelForSaveConfig.java
 package ui.input.view;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 public class JPanelForSaveConfig extends JPanel {
 	JButton btnSave = new JButton("\u4FDD\u5B58");
 	JTextField txtConfigurationName = new JTextField();
 	public JPanelForSaveConfig() {
 		
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBounds(155, 115, 631, 447);
 		setBackground(Color.WHITE);
-		setBounds(155, 115, 659, 447);
 		setLayout(null);
-		
 		
 		JLabel lblNewLabel_33 = new JLabel("\u8BF7\u4E3A\u66F4\u6539\u7684\u914D\u7F6E\u6587\u4EF6\u91CD\u547D\u540D");
 		lblNewLabel_33.setFont(new Font("宋体", Font.PLAIN, 18));
@@ -8086,10 +7751,10 @@ public class JPanelForSaveConfig extends JPanel {
 		add(btnSave);
 	}
 }
-
 ui\input\view\JPanelForUploadInterface.java
 package ui.input.view;
 import java.awt.Color;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -8097,35 +7762,47 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import ui.input.controller.ModelForDownLoadInterface;
 import ui.input.controller.UploadInterfaceController;
 import ui.input.model.ModelForUploadInterface;
+import ui.input.view.JPanelForInputFile.OpenHandler;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.border.LineBorder;
 public class JPanelForUploadInterface extends JPanel {
     public JTextField textInterfaceName = new JTextField();
 	public JLabel lblNewLabel = new JLabel("\u63A5\u53E3\u540D");
 	public JButton button = new JButton("\u6D4F\u89C8");
-	public JButton btnUpload = new JButton("\u786E\u5B9A");
+	public JButton btnUpload = new JButton("\u4E0A\u4F20");
 	public JTextField textInterfacePath = new JTextField();
 	public JLabel lblNewLabel_2 = new JLabel("\u63A5\u53E3\u8DEF\u5F84");
 	public File dir,file;
+	//
+	public JLabel lblNewLabel2 = new JLabel("\u53EF\u4F9B\u4E0B\u8F7D\u7684\u63A5\u53E3");
+	public JButton buttonSaveDirBrowse = new JButton("\u6D4F\u89C8");
+	public JButton btnDownLoad = new JButton("\u4E0B\u8F7D");
+	public JTextField textInterfaceSavePath = new JTextField();
+	public JLabel lblNewLabel3 = new JLabel("\u4FDD\u5B58\u8DEF\u5F84");
+	public File dirForSavePath,fileForSeleInterface;
+	JComboBox interfaceComboBox = new JComboBox();
 	/**
 	 * Create the panel.
 	 */
 	public JPanelForUploadInterface() {
-		setBounds(155, 115, 631, 447);
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBounds(155, 115, 673, 479);
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
 		
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 60, 76, 23);
+		lblNewLabel.setBounds(30, 80, 76, 23);
 		add(lblNewLabel);
 		
 		
-		textInterfaceName.setBounds(143, 60, 262, 25);
+		textInterfaceName.setBounds(192, 80, 262, 25);
 		add(textInterfaceName);
 		textInterfaceName.setColumns(10);
 		
@@ -8133,7 +7810,7 @@ public class JPanelForUploadInterface extends JPanel {
 		button.addActionListener(
 				new OpenHandler()
 		);
-		button.setBounds(425, 60, 93, 23);
+		button.setBounds(505, 80, 93, 23);
 		add(button);
 		btnUpload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -8167,18 +7844,73 @@ public class JPanelForUploadInterface extends JPanel {
 		});
 		
 		
-		btnUpload.setBounds(425, 212, 93, 23);
+		btnUpload.setBounds(505, 140, 93, 23);
 		add(btnUpload);
 		
 		
 		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 18));
-		lblNewLabel_2.setBounds(10, 122, 76, 25);
+		lblNewLabel_2.setBounds(30, 140, 76, 25);
 		add(lblNewLabel_2);
 		
 		
-		textInterfacePath.setBounds(143, 124, 262, 25);
+		textInterfacePath.setBounds(192, 140, 262, 25);
 		add(textInterfacePath);
 		textInterfacePath.setColumns(10);
+		setVisible(true);
+		
+		
+		
+		
+		
+		
+		
+		
+		//------------------------------------------------------
+		lblNewLabel2.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel2.setBounds(30, 260, 141, 23);
+		add(lblNewLabel2);
+		
+		
+		buttonSaveDirBrowse.addActionListener(
+				new OpenHandler()
+		);
+		buttonSaveDirBrowse.setBounds(505, 320, 93, 23);
+		add(buttonSaveDirBrowse);
+		btnDownLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModelForDownLoadInterface downLoadInterface=new ModelForDownLoadInterface(file,dir,textInterfaceSavePath.getText(),textInterfaceSavePath.getText());
+				
+			}
+		});
+		
+		
+		btnDownLoad.setBounds(505, 390, 93, 23);
+		add(btnDownLoad);
+		
+		
+		lblNewLabel3.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel3.setBounds(30, 320, 76, 25);
+		add(lblNewLabel3);
+		
+		
+		textInterfaceSavePath.setBounds(192, 320, 262, 25);
+		add(textInterfaceSavePath);
+		textInterfaceSavePath.setColumns(10);
+		
+		
+		interfaceComboBox.setBounds(192, 260, 262, 25);
+		add(interfaceComboBox);
+		
+		JLabel label = new JLabel("\u4E0A\u4F20\u63A5\u53E3");
+		label.setForeground(new Color(0, 0, 0));
+		label.setFont(new Font("宋体", Font.PLAIN, 18));
+		label.setBounds(30, 25, 84, 23);
+		add(label);
+		
+		JLabel lblNewLabel_1 = new JLabel("\u4E0B\u8F7D\u63A5\u53E3");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_1.setBounds(30, 203, 72, 30);
+		add(lblNewLabel_1);
 		setVisible(true);
 	}
 	class OpenHandler implements  ActionListener{
@@ -8198,7 +7930,6 @@ public class JPanelForUploadInterface extends JPanel {
 		}
 	}
 }
-
 ui\input\view\New2.java
 package ui.input.view;
 import java.awt.CardLayout;
@@ -8216,28 +7947,32 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import org.jvnet.substance.SubstanceLookAndFeel;
 import ui.alg.Model.ModelForJPanelConfig;
 import ui.alg.Model.ModelForJPanelFunction;
 import ui.alg.Model.ModelForJPanelGEne;
+import ui.alg.Model.ModelForJPanelPopulation;
 import ui.alg.controller.FunctionPanelController;
 import ui.alg.controller.HostPanelController;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
-import ui.alg.view.JPanelForInputPathSetting;
+import ui.alg.view.JPanelForStopSetting;
 import ui.alg.view.JPanelForPopulation;
-import ui.alg.view.ModelForJPanelInputPath;
-import ui.alg.view.ModelForJPanelPopulation;
 import ui.input.controller.*;
+import ui.input.model.ModelForJPanelInputPath;
 import ui.input.model.ModelForUploadInterface;
+import ui.output.controller.OutputPanelController;
 import ui.output.view.JPanelForOutput;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
@@ -8248,15 +7983,18 @@ import exception.Duplicated;
 public class New2 extends JFrame {
     JPanel contentPane;
     HostPanel configurationPanel;
-	JPanelForInputPathSetting inputPathPanel=new JPanelForInputPathSetting();
+	JPanelForStopSetting stopSettingPanel=new JPanelForStopSetting();
 	JPanelForPopulation populationPanel=new JPanelForPopulation();
 	JPanelForGene genePanel=new JPanelForGene();
 	JPanelForFunction functionPanel=new JPanelForFunction();
 	JPanelForFooter footPanel=new JPanelForFooter();
 	JPanelForUploadInterface uploadInterfacePanel=new JPanelForUploadInterface();
+	JPanelForInputFile inputFilePanel=new JPanelForInputFile();
 	JPanelForJTree  treePanel;
-	JPanelForSaveConfig scfigNamePanel;
-	JPanelForOutput outputPanel;
+	JPanelForSaveConfig scfigNamePanel=new JPanelForSaveConfig();
+	JPanelForOutput outputPanel=new JPanelForOutput();
+    JPanel panel_0 = new JPanel();
+   
 	CardLayout card;
 	
    
@@ -8266,7 +8004,8 @@ public class New2 extends JFrame {
 	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
 	IgepInput input =new DefaultGepInput();
 	int flag=0;//是否读取配置文件
-	int count=0;//标记第几个panel
+	int count=0;
+	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -8287,11 +8026,12 @@ public class New2 extends JFrame {
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
+		javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel"); 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 686);
 		contentPane = new JPanel();
@@ -8301,7 +8041,7 @@ public class New2 extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		final JPanel panel_0 = new JPanel();
+		
 		panel_0.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_0.setBackground(Color.WHITE);
 		panel_0.setBounds(165, 115, 659, 399);
@@ -8333,54 +8073,51 @@ public class New2 extends JFrame {
 			configurationPanel.setVisible(true);
 		    scrollBtn.addMouseListener(new MouseAdapter() {
 		       public void mouseClicked(MouseEvent arg0) {
-		    	   HostPanelController.scrollBtnController();
+		    	   jcount=1;
 		       }
            });
 		  configurationPanel.btnSetConfig.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
+					HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
 					card.next(panel_0);
 					TreePath visiblePath=new TreePath(((DefaultTreeModel)treePanel.tree_1.getModel()).getPathToRoot(treePanel.node1));
 		    		treePanel.tree_1.setSelectionPath(visiblePath);
-					count=2;
+					jcount=2;
 					footPanel.btnRun.setEnabled(false);
 				}
 				
 			});
+		  jcomboBoxConfiguration.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){    
+			    public void keyPressed(KeyEvent e) {
+			    	HostPanelController.jcomboBoxEditorController(e,configurationPanel.btnSetConfig);
+			        footPanel.btnRun.setEnabled(false);
+			        HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
+			        jcount=2;
+			    }  
+			    
+			});
+		  
 		  jcomboBoxConfiguration.addItemListener(new  ItemListener(){ 
-              public void  itemStateChanged(ItemEvent   ie)   { 
+              public void  itemStateChanged(ItemEvent   ie){ 
+            	if(jcount!=2){
             	 myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
             	 System.out.println(myConfigurationFromDB.toString());
             	 flag=-1;
             	 setTitle(myConfigurationFromDB.toString());
                  footPanel.btnRun.setEnabled(true);
-            	 
-                HostPanelController.jcomboBoxItemController(ie,configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, footPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
-                
+            	 HostPanelController.jcomboBoxItemController(ie,configurationPanel, stopSettingPanel, populationPanel, genePanel, functionPanel, footPanel,inputFilePanel ,myConfigurationFromDB, configurationsOfHistory, myGepService);
+            	 jcount=1;
+            	}
                }
              }
 		  );
-		 jcomboBoxConfiguration.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){    
-			    public void keyPressed(KeyEvent e) {
-			    	HostPanelController.jcomboBoxEditorController(e,configurationPanel.btnSetConfig,configurationPanel.btnRunButton,configurationPanel.btnChangeConfig);
-			        footPanel.btnRun.setEnabled(true);
-			    }  
-			    
-			});
-		  configurationPanel.btnChangeConfig.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		flag=-1;
-	    		myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
-	    		setTitle(myConfigurationFromDB.toString());
-	    		HostPanelController.handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
-	    		footPanel.btnRun.setEnabled(true);
-	    	}
-	      });
+		
 		  panel_0.add(configurationPanel,"p1");
 		  
 		  //选择输入路径面板-------------------------------------------------
-		  inputPathPanel.setBorder(null);
-		  inputPathPanel.setVisible(false);
-		  panel_0.add(inputPathPanel,"p2");
+		  stopSettingPanel.setBorder(null);
+		  stopSettingPanel.setVisible(false);
+		  panel_0.add(stopSettingPanel,"p2");
 		  
 		  //种群面板------------------------------------------------
 		  
@@ -8388,11 +8125,10 @@ public class New2 extends JFrame {
 		  populationPanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableSelector().size(); i++) {
-					populationPanel.JComboBoxofSelectionStrategy.addItem(myGepService
-							.getAvailableSelector().get(i).toString());
+					populationPanel.JComboBoxofSelectionStrategy.addItem(myGepService.getAvailableSelector().get(i).toString());
 				}
 				for (int i = 0; i < myGepService.getAvailableCalculator().size(); i++) {
-					populationPanel.JComboBoxAvailableCalculator.addItem(myGepService.getAvailableCalculator().get(i).toString());
+	                 populationPanel.JComboBoxAvailableCalculator.addItem(myGepService.getAvailableCalculator().get(i).toString());
 				}
 				for (int i = 0; i < myGepService.getAvailableCreator().size(); i++) {
 					populationPanel.JcomboBoxOfPopulationCreator.addItem(myGepService.getAvailableCreator().get(i).toString());
@@ -8414,8 +8150,7 @@ public class New2 extends JFrame {
 		  genePanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableModifyings().size(); i++) {
-					genePanel.JComboBoxOfAvailableModifyings.addItem(myGepService
-							.getAvailableModifyings().get(i).toString());
+					genePanel.JComboBoxOfAvailableModifyings.addItem(myGepService.getAvailableModifyings().get(i).toString());
 				}
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
@@ -8431,72 +8166,4 @@ public class New2 extends JFrame {
 		  functionPanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
-					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
-				}
-			} catch (ClassNotFoundException e1) {
-				
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-			   
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				e1.printStackTrace();
-			}
-		  functionPanel.comboBox.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					FunctionPanelController.functionComboBoxController(functionPanel.comboBox, functionPanel.JComboBoxOfSelectdFunctions);
-				}	
-			});
-			
-	      panel_0.add(functionPanel,"p5");
-	      
-	      //保存配置面板-------------------------------
-	      scfigNamePanel=new JPanelForSaveConfig();
-	      scfigNamePanel.setSize(659, 399);
-	      scfigNamePanel.setVisible(false);
-	      scfigNamePanel.btnSave.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					SaveConfigPanelController.btnSaveController(myGepService, myParameter, outputPanel, scfigNamePanel, treePanel,panel_0);
-				}
-			});
-	      contentPane.add(scfigNamePanel);
-	      //----------------------------------------
-	     
-	      uploadInterfacePanel.setVisible(false);
-	      
-	      
-	      panel_0.add(uploadInterfacePanel,"p6");
-	      //底部按钮面板-----------------------------------
-	      
-	      footPanel.setBounds(165, 520, 659, 50);
-	      footPanel.btnBefore.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		count=FooterPanelController.btnBeforeController(treePanel.Node,treePanel.tree_1,footPanel.btnNext,footPanel.btnBefore,panel_0,card,count);
-		    	}
-		      });
-	      footPanel.btnRun.setEnabled(false);
-	      footPanel.btnRun.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		   
-		    		    ModelForJPanelConfig config=new ModelForJPanelConfig(jcomboBoxConfiguration.getSelectedItem().toString());
-		    		    ModelForJPanelInputPath inputPath=new ModelForJPanelInputPath(inputPathPanel.txtInputPath.getText(),inputPathPanel.txtMaxGeneration.getText(),inputPathPanel.txtAccuracy.getText());
-		    		    int creatorSelectedIndex = populationPanel.JcomboBoxOfPopulationCreator.getSelectedIndex();
-		    		    System.out.print("ww"+creatorSelectedIndex);
-						int calculatorSelectedIndex = populationPanel.JComboBoxAvailableCalculator.getSelectedIndex();
-						int strategySelectedIndex =populationPanel.JComboBoxofSelectionStrategy.getSelectedIndex();;
-					    ModelForJPanelPopulation population=new ModelForJPanelPopulation(populationPanel.txtPopulationSize.getText(), populationPanel.txtSelectionRange.getText(), creatorSelectedIndex, strategySelectedIndex,calculatorSelectedIndex);
-					   //--------
-					    int modifyingSelectedIndex = genePanel.JComboBoxOfAvailableModifyings.getSelectedIndex();
-					    ModelForJPanelGEne gene=new ModelForJPanelGEne(genePanel.txtNormalGeneNumber.getText(), genePanel.txtNormalHeaderLength.getText(), genePanel.txtHomeoticGeneNums.getText(),genePanel.txtHomeoticHeaderLength.getText(), genePanel.txtGeneRecombineRate.getText(), genePanel.txtRisTransportRate.getText(), genePanel.txtofRisElement.getText().trim(),genePanel.txtIsTransportRate.getText() ,genePanel.txtofRisElement.getText().trim(),genePanel.txtGeneTransportRate.getText() ,genePanel.txtMutateRate.getText(),genePanel.txtTwoPointRecombineRate.getText(),genePanel.txtGeneOnePointRecombineRate.getText(),modifyingSelectedIndex);
-		    		    //----
-					    StringBuffer result = new StringBuffer();
-						String str = new String();
-						for (int i = 0; i < functionPanel.JComboBoxOfSelectdFunctions.getItemCount(); i++) {
-							if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i).toString()
-									.equals("+")) {
-								str = "domain.service.alg.userdefined.function.Additioin";
-							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
-									.toString().equals("-")) {
-								str = "domain.service.alg.userdefined.function.Minus";
-							} else if (functionPanel.JComboBoxOfSelectdF
+					functionPanel.comboBox.addItem(myGepServ
