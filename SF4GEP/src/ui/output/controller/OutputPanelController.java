@@ -6,8 +6,8 @@ import com.wolfram.jlink.MathCanvas;
 import com.wolfram.jlink.MathLinkException;
 import com.wolfram.jlink.MathLinkFactory;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.baseclass.Calculator;
