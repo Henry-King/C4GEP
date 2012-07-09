@@ -1,5 +1,6 @@
 common\ICopy.java
 package common;
+
 /**
  * 本接口表示当前对象可被快速复制，不需要提供序列化接口，但速度要远快于序列化。
  * @author 申远
@@ -16,12 +17,14 @@ public interface ICopy<T extends ICopy<T>> {
 
 common\ObjectCopy.java
 package common;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 /**
  * 实现对象的深度复制
  * @author 申远
@@ -65,6 +68,7 @@ public class ObjectCopy {
 
 data\dao\HibernateDataContext.java
 package data.dao;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +82,9 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
+
 public class HibernateDataContext implements  IHibernateDataContext {
 	
 	 private static final Logger log = LoggerFactory.getLogger(HibernateDataContext.class);
@@ -85,9 +92,11 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	 private Transaction tran;
 	 //private boolean IsInTransaction;
 	 
+
 //	public void setIsInTransaction(boolean isInTransaction) {
 //		IsInTransaction = isInTransaction;
 //	}
+
 	public HibernateDataContext()
 	 {
 		 session=HibernateSessionFactory.getSession();
@@ -97,6 +106,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#save(java.lang.Object)
 	 */
+
 	public void save(Object item) {
 		// TODO Auto-generated method stub
 		log.debug("saving item");
@@ -113,6 +123,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		}
 		
 		session.save(item);
+
 		if(!IsInTransaction()||tranFlag)
 		{
 			try 
@@ -130,9 +141,11 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		}
 		
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#delete(java.lang.Object)
 	 */
+
 	public void delete(Object item ) {
 		// TODO Auto-generated method stub
 		log.debug("deleting item");
@@ -147,7 +160,9 @@ public class HibernateDataContext implements  IHibernateDataContext {
 			this.BeginTransaction();
 			tranFlag=true;
 		}
+
 		session.delete(item);
+
 		if(!IsInTransaction()||tranFlag)
 		{
 			try 
@@ -164,9 +179,11 @@ public class HibernateDataContext implements  IHibernateDataContext {
 			}
 		}
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#update(java.lang.Object)
 	 */
+
 	public void update(Object item)
 	{
 		//先清空一下Session
@@ -186,6 +203,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		}
 		
 		session.update(item);
+
 		if(!IsInTransaction()||tranFlag)
 		{
 			try 
@@ -208,6 +226,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	 * @see dao.IHibernateDataContext#findById(java.lang.Class, java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
+
 	public<T> T findById(Class<T> clazz,Serializable id)
 	{
 		log.debug("getting Object instance with id: " + id);
@@ -225,9 +244,11 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		
 		
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#findByExample(java.lang.Object)
 	 */
+
 	public<T> List<T> findByExample(Object instance) {
 		log.debug("finding instance instance by example");
 		try {
@@ -236,6 +257,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
           				.add(Example.create(instance)).list();
                   //.createCriteria("Student")
                   //.add(Example.create(instance))
+
           log.debug("find by example successful, result size: " + results.size());
           return results;
       } catch (RuntimeException re) {
@@ -244,9 +266,11 @@ public class HibernateDataContext implements  IHibernateDataContext {
       }
 		
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#findByProperty(java.lang.Class, java.lang.String, java.lang.Object)
 	 */
+
 	public<T> List<T> findByProperty(Class<T> clazz,String propertyName, Object value) {
 		log.debug("finding Student instance with property: " + propertyName
 	            + ", value: " + value);
@@ -262,6 +286,8 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	         throw re;
 	      }
 	}
+
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#findAll(java.lang.Class)
 	 */
@@ -310,6 +336,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		}
 			
 	}
+
 	
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#merge(java.lang.Class, java.lang.Object)
@@ -347,6 +374,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
          }
 		return result;
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#getCount(java.lang.Class)
 	 */
@@ -377,7 +405,9 @@ public class HibernateDataContext implements  IHibernateDataContext {
 			this.BeginTransaction();
 			tranFlag=true;
 		}
+
 		session.saveOrUpdate(item);
+
 		if(!IsInTransaction()||tranFlag)
 		{
 			try 
@@ -393,12 +423,15 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		        throw re;
 			}
 		}
+
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#attachClean(java.lang.Object)
 	 */
 	
 	public void attachClean(Object item) {
+
 		log.debug("attaching clean object instance");
 		if(item==null)
 		{
@@ -411,7 +444,9 @@ public class HibernateDataContext implements  IHibernateDataContext {
 			this.BeginTransaction();
 			tranFlag=true;
 		}
+
 		session.lock(item, LockMode.NONE);
+
 		if(!IsInTransaction()||tranFlag)
 		{
 			try 
@@ -427,12 +462,16 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		        throw re;
 			}
 		}
+
+
 	}
+
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#getSession()
 	 */
 	
 	public Session getSession() {
+
 		if(this.session!=null)
 		{
 			return this.session;
@@ -448,6 +487,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	 public boolean IsInTransaction() {
 			return tran != null && tran.isActive();
 		}
+
 	 /* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#BeginTransaction()
 	 */
@@ -636,15 +676,18 @@ public class HibernateDataContext implements  IHibernateDataContext {
 
 data\dao\HibernateSessionFactory.java
 package data.dao;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+
 /**
  * Configures and provides access to Hibernate sessions, tied to the
  * current thread of execution.  Follows the Thread Local Session
  * pattern, see {@link http://hibernate.org/42.html }.
  */
 public class HibernateSessionFactory {
+
     /** 
      * Location of hibernate.cfg.xml file.
      * Location should be on the classpath as Hibernate uses  
@@ -658,6 +701,7 @@ public class HibernateSessionFactory {
     private  static Configuration configuration = new Configuration();    
     private static org.hibernate.SessionFactory sessionFactory;
     private static String configFile = CONFIG_FILE_LOCATION;
+
 	static {
     	try {
 			configuration.configure(configFile);
@@ -680,6 +724,7 @@ public class HibernateSessionFactory {
      */
     public static Session getSession() throws HibernateException {
         Session session = (Session) threadLocal.get();
+
 		if (session == null || !session.isOpen()) {
 			if (sessionFactory == null) {
 				rebuildSessionFactory();
@@ -688,8 +733,10 @@ public class HibernateSessionFactory {
 					: null;
 			threadLocal.set(session);
 		}
+
         return session;
     }
+
 	/**
      *  Rebuild hibernate session factory
      *
@@ -704,6 +751,7 @@ public class HibernateSessionFactory {
 			e.printStackTrace();
 		}
 	}
+
 	/**
      *  Close the single hibernate session instance.
      *
@@ -712,10 +760,12 @@ public class HibernateSessionFactory {
     public static void closeSession() throws HibernateException {
         Session session = (Session) threadLocal.get();
         threadLocal.set(null);
+
         if (session != null) {
             session.close();
         }
     }
+
 	/**
      *  return session factory
      *
@@ -723,6 +773,7 @@ public class HibernateSessionFactory {
 	public static org.hibernate.SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	/**
      *  return session factory
      *
@@ -732,6 +783,7 @@ public class HibernateSessionFactory {
 		HibernateSessionFactory.configFile = configFile;
 		sessionFactory = null;
 	}
+
 	/**
      *  return hibernate configuration
      *
@@ -739,34 +791,44 @@ public class HibernateSessionFactory {
 	public static Configuration getConfiguration() {
 		return configuration;
 	}
+
 }
 
 data\dao\IHibernateDataContext.java
 package data.dao;
+
 import java.io.Serializable;
 import java.util.List;
+
 import org.hibernate.Session;
+
 public interface IHibernateDataContext {
+
 	/**
 	 * ADD方法
 	 */
 	public abstract void save(Object item);
+
 	/**
 	 * DELETE
 	 */
 	public abstract void delete(Object item);
+
 	/**
 	 * UPDATE
 	 */
 	public abstract void update(Object item);
+
 	/**
 	 * 根据ID获取对象
 	 */
 	public abstract <T> T findById(Class<T> clazz, Serializable id);
+
 	/**
 	 * 根据对象进行查询
 	 */
 	public abstract <T> List<T> findByExample(Object instance);
+
 	public abstract <T> List<T> findByProperty(Class<T> clazz,
 			String propertyName, Object value);
 	
@@ -774,10 +836,12 @@ public interface IHibernateDataContext {
 	 * 根据HQL语句查询对象
 	 */
 	public abstract <T> List<T> queryByHql(String hql);
+
 	/**
 	 * 获取全部
 	 */
 	public abstract <T> List<T> findAll(Class<T> clazz);
+
 	/**
 	 * 
 	 * @param <T>
@@ -788,34 +852,44 @@ public interface IHibernateDataContext {
 	 */
 	public abstract <T> List<T> findAll(Class<T> clazz, int pageIndex,
 			int pageSize);
+
 	/**
 	 * MERGE
 	 */
 	public abstract <T> T merge(Class<T> clazz, Object detachedInstance);
+
 	/**
 	 * 计数
 	 */
 	public abstract <T> int getCount(Class<T> clazz);
+
 	public abstract void attachDirty(Object item);
+
 	public abstract void attachClean(Object item);
+
 	public abstract Session getSession();
+
 	/**
 	 * 是否在事务中
 	 * @return true or false
 	 */
 	public abstract boolean IsInTransaction();
+
 	/**
 	 * 开启一个事务
 	 */
 	public abstract void BeginTransaction();
+
 	/**
 	 * 提交事务
 	 */
 	public abstract void Commit();
+
 	/**
 	 * 事务回滚
 	 */
 	public abstract void Rollback();
+
 	/**
 	 * 脏数据
 	 * @return true or false
@@ -835,12 +909,15 @@ public interface IHibernateDataContext {
 
 domain\core\algmodel\configuration\GepAlgorithm.java
 package domain.core.algmodel.configuration;
+
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.algmodel.genecomponent.Variable;
+
 /**
  * 本类是算法子系统实体类的入口，本类中保存有两部分内容，第一部分是有关算法实体类的参数，第二部分是一个对种群队列的引用
  * @author 申远
@@ -1081,16 +1158,20 @@ public class GepAlgorithm implements Serializable{
 
 domain\core\algmodel\configuration\Individual.java
 package domain.core.algmodel.configuration;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import common.ICopy;
+
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
+
 /**
  * 个体类,种群中保存着个体的List
  * @author 个体类
@@ -1115,6 +1196,7 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 	private Float fitness;
 	private int selectedHomeoticGeneNumber;
 	public Individual(){
+
 	}
 	/**
 	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部Genepiece信息。
@@ -1310,10 +1392,13 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 
 domain\core\algmodel\configuration\Population.java
 package domain.core.algmodel.configuration;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import common.ICopy;
+
 /**
  * 种群实体类
  * @author 申远
@@ -1416,6 +1501,7 @@ public class Population implements Serializable,ICopy<Population>{
 
 domain\core\algmodel\genecomponent\Computable.java
 package domain.core.algmodel.genecomponent;
+
 /**
  * 抽象类，表示当前实体可做为函数的参数，例如常数和变量
  * @author 申远
@@ -1428,7 +1514,9 @@ public abstract class Computable extends GenePiece{
 
 domain\core\algmodel\genecomponent\Constant.java
 package domain.core.algmodel.genecomponent;
+
 import java.util.Random;
+
 /**
  * 整型常数类，这个类主要用来做为同源基因中函数的
  * @author 申远
@@ -1483,7 +1571,10 @@ public class Constant extends Computable {
 
 domain\core\algmodel\genecomponent\Function.java
 package domain.core.algmodel.genecomponent;
+
 import java.util.Deque;
+
+
 /**
  * 函数抽象类，请确保任何继承此类的子类都具有默认构造函数，否则系统会出现错误
  */
@@ -1518,8 +1609,11 @@ public abstract class Function extends GenePiece{
 
 domain\core\algmodel\genecomponent\GenePiece.java
 package domain.core.algmodel.genecomponent;
+
 import java.io.Serializable;
+
 import common.ICopy;
+
 /**
  * 基因片段类，或称基因位类，在每一个头部或者尾部中，最终包含的都是此类GenePiece
  * @author 申远
@@ -1608,6 +1702,7 @@ public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiec
 
 domain\core\algmodel\genecomponent\Variable.java
 package domain.core.algmodel.genecomponent;
+
 /**
  * 变量类，用户输入的所有的变量信息都将变换为类
  * @author 申远
@@ -1632,13 +1727,17 @@ public class Variable extends Computable{
 
 domain\core\algmodel\individualcomponent\Gene.java
 package domain.core.algmodel.individualcomponent;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+
 import common.ICopy;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 基因类，此类为抽象类，提供了基因的通用的信息
  * @author 申远
@@ -1745,13 +1844,17 @@ public abstract class Gene implements Serializable,ICopy<Gene> {
 
 domain\core\algmodel\individualcomponent\Header.java
 package domain.core.algmodel.individualcomponent;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+
 import common.ICopy;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 基因头部实体的基类，是个抽象类
  * @author 申远
@@ -1822,8 +1925,11 @@ public abstract class Header implements Serializable,ICopy<Header>{
 
 domain\core\algmodel\individualcomponent\HomeoticGene.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 同源基因实体类
  * @author 申远
@@ -1854,12 +1960,17 @@ public class HomeoticGene extends Gene{
 		// TODO Auto-generated method stub
 		return (HomeoticGeneTail) tail;
 	}
+
+
 }
 
 domain\core\algmodel\individualcomponent\HomeoticGeneHeader.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 同源基因头部的实体类
  * @author 申远
@@ -1882,14 +1993,18 @@ public class HomeoticGeneHeader extends Header{
 
 domain\core\algmodel\individualcomponent\HomeoticGeneTail.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 同源基因尾部实体类
  * @author 申远
  *
  */
 public class HomeoticGeneTail extends Tail{
+
 	private static final long serialVersionUID = -3919750383832279100L;
 	/**
 	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
@@ -1901,12 +2016,16 @@ public class HomeoticGeneTail extends Tail{
 		super(genePieces,start,end);
 		// TODO Auto-generated constructor stub
 	}
+
 }
 
 domain\core\algmodel\individualcomponent\NormalGene.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 普通基因实体类
  * @author 申远
@@ -1927,6 +2046,7 @@ public class NormalGene extends Gene{
 		header=new NormalGeneHeader(genePieces,start,start+headerLength);
 		tail=new NormalGeneTail(genePieces,start+headerLength, end);
 	}
+
 	@Override
 	public NormalGeneHeader getHeader() {
 		// TODO Auto-generated method stub
@@ -1937,12 +2057,16 @@ public class NormalGene extends Gene{
 		// TODO Auto-generated method stub
 		return (NormalGeneTail) tail;
 	}
+
 }
 
 domain\core\algmodel\individualcomponent\NormalGeneHeader.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 普通基因头部的实体类
  * @author 申远
@@ -1950,6 +2074,7 @@ import domain.core.algmodel.genecomponent.GenePiece;
  */
 public class NormalGeneHeader extends Header {
 	private static final long serialVersionUID = 6872200051330701939L;
+
 	/**
 	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
 	 * @param genePieces 基因片段List
@@ -1964,14 +2089,18 @@ public class NormalGeneHeader extends Header {
 
 domain\core\algmodel\individualcomponent\NormalGeneTail.java
 package domain.core.algmodel.individualcomponent;
+
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 普通基因尾部的实体类
  * @author 申远
  *
  */
 public class NormalGeneTail extends Tail {
+
 	private static final long serialVersionUID = -3087000575324792050L;
 	/**
 	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
@@ -1983,18 +2112,23 @@ public class NormalGeneTail extends Tail {
 		super(genePieces,start,end);
 		// TODO Auto-generated constructor stub
 	}
+
 }
 
 domain\core\algmodel\individualcomponent\Tail.java
 package domain.core.algmodel.individualcomponent;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+
 import common.ICopy;
+
 import domain.core.algmodel.genecomponent.Computable;
 import domain.core.algmodel.genecomponent.GenePiece;
+
 /**
  * 基因尾部实体的基类，是一个抽象类
  * @author 申远
@@ -2006,6 +2140,7 @@ public abstract class Tail implements Serializable,ICopy<Tail>{
 	private List<GenePiece> genePieces;
 	private int start;
 	private int end;
+
 	/**
 	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
 	 * @param genePieces 基因片段List
@@ -2066,6 +2201,7 @@ public abstract class Tail implements Serializable,ICopy<Tail>{
 
 domain\core\inputmodel\DataColumn.java
 package domain.core.inputmodel;
+
 public class DataColumn {
    
 	
@@ -2137,24 +2273,30 @@ public class DataColumn {
 
 domain\core\inputmodel\DataColumnCollection.java
 package domain.core.inputmodel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import domain.core.algmodel.genecomponent.Variable;
+
 public class DataColumnCollection {
 	List<DataColumn> columns;
 	HashMap<String, DataColumn> nameMap;
 	
 	List<Variable> variableList = new ArrayList<Variable>();
+
 	public DataColumnCollection() {
 		columns = new ArrayList<DataColumn>();
 		nameMap = new HashMap<String, DataColumn>();
 	}
+
 	public DataColumnCollection(List<DataColumn> columns,
 			HashMap<String, DataColumn> nameMap) {
 		this.columns = columns;
 		this.nameMap = nameMap;
 	}
+
 	public void add(int index, DataColumn column) {
 		if (index < columns.size())
 			columns.add(index, column);
@@ -2167,17 +2309,20 @@ public class DataColumnCollection {
 		
 		
 	}
+
 	public void add(DataColumn column) {
 		
 		columns.add(column);
 		variableList.add(new Variable(column.getColumnName()));
 	}
+
 	public void add(Object obj) {
 		
 		DataColumn column = (DataColumn) obj;
 		columns.add(column);
 		variableList.add(new Variable(column.getColumnName()));
 	}
+
 	public DataColumn addColumn(String columnName, int dataType) {
 		DataColumn column = new DataColumn(columnName, dataType);
 		nameMap.put(columnName, column);
@@ -2185,6 +2330,7 @@ public class DataColumnCollection {
 		variableList.add(new Variable(column.getColumnName()));
 		return column;
 	}
+
 	public void addColumn(String columnName) {
 		DataColumn column = new DataColumn(columnName);
 		nameMap.put(columnName, column);
@@ -2193,12 +2339,17 @@ public class DataColumnCollection {
 	}
 	
 	
+
 	public DataColumn get(int index) {
 		return columns.get(index);
 	}
+
 	public DataColumn get(String columnName) {
+
 		return nameMap.get(columnName);
+
 	}
+
 	public int size() {
 		// TODO Auto-generated method stub
 		return columns.size();
@@ -2208,65 +2359,84 @@ public class DataColumnCollection {
 	public List<Variable> getVariableList(){
 		return variableList;
 	}
+
 }
 
 domain\core\inputmodel\DataRow.java
 package domain.core.inputmodel;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 public class DataRow {
 	private int rowIndex = -1;// 定义该行记录在table所处的行数
 	private DataColumnCollection columns;
+
 	public void setTable(DataTable table) {
 		this.table = table;
 		this.columns = table.getColumns();
 	}
+
 	public void setItemMap(Map<String, Object> itemMap) {
 		this.itemMap = itemMap;
 	}
+
 	private DataTable table; // table的一个引用
 	private Map<String, Object> itemMap = new LinkedHashMap<String, Object>();
+
 	// 用于存储数据的Map对象，这里保存的对象不包括顺序信息，数据获取的索引通过行信息标识
 	public DataRow() {
 	}
+
 	public DataRow(DataTable table) {
 		this.table = table;
 		this.columns = table.getColumns();
 	}
+
 	// 获取当前行所属的数据表对象
 	public DataTable getTable() {
 		return this.table;
 	}
+
 	public DataColumnCollection getColumns() {
 		return columns;
 	}
+
 	public void setColumns(DataColumnCollection columns) {
 		this.columns = columns;
 	}
+
 	public void setValue(String columnName, Object value) {
 		setValue(this.columns.get(columnName), value);
 	}
+
 	public void setValue(DataColumn column, Object value) {
 		if (column != null) {
 			String lowerColumnName = column.getColumnName().toLowerCase();
 			if (getItemMap().containsKey(lowerColumnName))
 				getItemMap().remove(lowerColumnName);
 			getItemMap().put(lowerColumnName, column.convertTo(value));
+
 		}
 	}
+
 	public Object getValue(int index) {
 		String colName = this.columns.get(index).getColumnName().toLowerCase();
 		return this.getItemMap().get(colName);
 	}
+
 	public Object getValue(String columnName) {
 		return this.getItemMap().get(columnName.toLowerCase());
 	}
+
 	public Map<String, Object> getItemMap() {
 		return itemMap;
 	}
+
 	public void setRowIndex(int rowIndex) {
 		this.rowIndex = rowIndex;
 	}
+
 	public void setValue(int col, Object value) {
 		String lowerColumnName = this.columns.get(col).getColumnName()
 				.toLowerCase();
@@ -2274,55 +2444,74 @@ public class DataRow {
 			getItemMap().remove(lowerColumnName);
 		getItemMap().put(lowerColumnName, columns.get(col).convertTo(value));
 	}
+
 	public int getRowIndex() {
+
 		return rowIndex;
 	}
+
 	/*
 	 * public void copyFrom(DataRow row) { this.itemMap.clear();//首先请客当前记录 for
 	 * (Object c : this.columns) { this.itemMap.put(c.toString().toLowerCase(),
 	 * row.getValue(c.toString())); } }
 	 */
+
 }
 
 domain\core\inputmodel\DataRowCollection.java
 package domain.core.inputmodel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class DataRowCollection {
 	DataColumnCollection columns;
 	List<DataRow> dataRows;
+
 	public DataRowCollection() {
 		columns = new DataColumnCollection();
 		dataRows = new ArrayList<DataRow>();
 	}
+
 	public DataRowCollection(List<DataRow> rows, DataColumnCollection columns) {
 		this.columns = columns;
 		this.dataRows = rows;
 	}
+
 	public void add(int index, DataRow row) {
 		if (index < dataRows.size())
 			dataRows.add(index, row);
 		else
 			dataRows.add(dataRows.size(), row);
 	}
+
 	public void add(DataRow row) {
 		dataRows.add(row);
 	}
+
 	public void add(Object obj) {
 		dataRows.add((DataRow) obj);
 	}
+
 	public void add(int index, Object obj) {
 		dataRows.add(index, (DataRow) obj);
 	}
+
 	public int size() {
+
 		return dataRows.size();
 	}
+
 	public DataRow get(int index) {
+
 		return dataRows.get(index);
 	}
+
 	public void setColumns(DataColumnCollection columns2) {
 		this.columns = columns2;
+
 	}
+
 }
 
 domain\core\inputmodel\DataTable.java
@@ -2331,6 +2520,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+
 public final class DataTable {
 	
 	/**
@@ -2596,12 +2786,17 @@ public void addColumn(String  columnName) {
 	this.columns.addColumn(columnName);
 	
 }
+
+
+
 }
 
 domain\core\outputmodel\AlgInstance.java
 package domain.core.outputmodel;
+
 import java.io.Serializable;
 import java.util.Set;
+
 public class AlgInstance implements Serializable{
 	/**
 	 * 
@@ -2649,11 +2844,18 @@ public class AlgInstance implements Serializable{
 
 domain\core\outputmodel\BestIndividual.java
 package domain.core.outputmodel;
+
+
+
 /**
  * BestIndividual entity. @author MyEclipse Persistence Tools
  */
+
 public class BestIndividual  implements java.io.Serializable {
+
+
     // Fields    
+
      /**
 	 * 
 	 */
@@ -2666,10 +2868,14 @@ public class BestIndividual  implements java.io.Serializable {
 	private Long id;
     private byte[] individual;
    // private AlgInstance algInstance;
+
+
     // Constructors
+
     /** default constructor */
     public BestIndividual() {
     }
+
     
     public BestIndividual(byte[] individual) {
         this.individual = individual;
@@ -2681,8 +2887,10 @@ public class BestIndividual  implements java.io.Serializable {
         this.individual = individual;
         this.algInstance = algInstance;
     }*/
+
    
     // Property accessors
+
     public Long getId() {
         return this.id;
     }
@@ -2690,6 +2898,7 @@ public class BestIndividual  implements java.io.Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
     public byte[] getIndividual() {
         return this.individual;
     }
@@ -2706,11 +2915,21 @@ public class BestIndividual  implements java.io.Serializable {
         this.algInstance = algInstance;
     }
    */
+
+
+
+
+
+
+
+
 }
 
 domain\core\outputmodel\GepConfiguration.java
 package domain.core.outputmodel;
+
 import java.io.Serializable;
+
 public class GepConfiguration implements Serializable{
 	/**
 	 * 
@@ -2719,6 +2938,7 @@ public class GepConfiguration implements Serializable{
 	/**
 	 * 
 	 */
+
 	private Long id;
 	private String name;
 	private String inputFile;
@@ -2965,7 +3185,9 @@ public class GepConfiguration implements Serializable{
 
 domain\core\outputmodel\OutputIndividual.java
 package domain.core.outputmodel;
+
 import java.io.Serializable;
+
 public class OutputIndividual implements Serializable{
 	/**
 	 * 
@@ -2996,9 +3218,11 @@ public class OutputIndividual implements Serializable{
 
 domain\core\outputmodel\OutputPopulation.java
 package domain.core.outputmodel;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
+
 public class OutputPopulation implements Serializable{
 	/**
 	 * 
@@ -3055,9 +3279,12 @@ public class OutputPopulation implements Serializable{
 
 domain\iservice\IgepAlgService.java
 package domain.iservice;
+
 import java.io.IOException;
 import java.util.List;
+
 import jxl.read.biff.BiffException;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.outputmodel.AlgInstance;
@@ -3067,6 +3294,7 @@ import domain.service.alg.configuration.Creator;
 import domain.service.alg.configuration.Modifying;
 import domain.service.alg.configuration.Selector;
 import exception.Duplicated;
+
 public interface IgepAlgService {
 	public List<GepConfiguration> readArgumentsFromDb();
 	public void setParameters(GepConfiguration myConfiguration) throws InstantiationException, IllegalAccessException, ClassNotFoundException, BiffException, IOException;
@@ -3090,23 +3318,32 @@ public interface IgepAlgService {
 
 domain\iservice\IgepInputService.java
 package domain.iservice;
+
 import java.io.File;
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
+
 import domain.core.inputmodel.DataTable;
+
 public interface IgepInputService {
 	public void uploadFile (DataTable set,File file) throws IOException, BiffException;
 }
 
 domain\iservice\IgepOutputService.java
 package domain.iservice;
+
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
+
 import jxl.write.WriteException;
+
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.service.alg.configuration.Calculator;
+
 public interface IgepOutputService {
 	/**
 	 * 不用实现
@@ -3116,17 +3353,21 @@ public interface IgepOutputService {
 	public void setGeneration(long generation);
 	public void setGeneration(long start,long end);
 	public void writeExcel (AlgInstance set,File path) throws IOException, WriteException;
+
 	public ImageIcon drawImage(AlgInstance outPut);
 	public ImageIcon drawImage(Calculator calculator,Individual individual);
 }
 
 domain\service\alg\configuration\Calculator.java
 package domain.service.alg.configuration;
+
 import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.inputmodel.DataTable;
 import exception.IllegalInputSet;
+
 /**
  * 抽象类，所有的适应值计算方法均需继承此类，请确保继承此类的所有子类具有一个无参数的构造函数，否则会出现异常
  * @author 申远
@@ -3205,14 +3446,18 @@ public abstract class Calculator {
 		// TODO Auto-generated method stub
 		return name;
 	}
+
 }
 
 domain\service\alg\configuration\Creator.java
 package domain.service.alg.configuration;
+
 import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.algmodel.genecomponent.Variable;
+
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3269,6 +3514,7 @@ public abstract class Creator {
 
 domain\service\alg\configuration\GepAlgService.java
 package domain.service.alg.configuration;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -3278,7 +3524,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
 import jxl.read.biff.BiffException;
+
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
 import domain.core.algmodel.configuration.GepAlgorithm;
@@ -3294,6 +3542,7 @@ import domain.iservice.IgepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
 import exception.Duplicated;
+
 /**
  * 这个参数配置一个方法就可以完成了，非常简洁了
  */
@@ -3306,6 +3555,7 @@ public class GepAlgService implements IgepAlgService {
 	private GepConfiguration myConfiguration;
 	private IgepInput igepInput=new DefaultGepInput();
 	private AlgInstance myAlgInstance = new AlgInstance();
+
 	
 	
 	
@@ -3331,6 +3581,7 @@ public class GepAlgService implements IgepAlgService {
 			throw newDuplicated;
 		}
 	}
+
 	@Override
 	public List<GepConfiguration> readArgumentsFromDb() {
 		// TODO Auto-generated method stub
@@ -3347,9 +3598,11 @@ public class GepAlgService implements IgepAlgService {
 		myCalculator=(Calculator) Class.forName(myConfiguration.getCalculator()).newInstance();
 		myCalculator.setAccuray(Float.parseFloat(myConfiguration.getAccuray()));
 		myCalculator.setSelectionRange(Float.parseFloat(myConfiguration.getSelectionRange()));
+
 		mySelector=(Selector) Class.forName(myConfiguration.getSelector()).newInstance();
 		myModifying=(Modifying) Class.forName(myConfiguration.getModify()).newInstance();
 		
+
 		
 		myModifying.setGeneRecombineRate(Float.parseFloat(myConfiguration.getGeneRecombineRate()));
 		myModifying.setGeneTransportRate(Float.parseFloat(myConfiguration.getGeneTransportRate()));
@@ -3368,6 +3621,7 @@ public class GepAlgService implements IgepAlgService {
 		myGepAlgorithm.setNormalHeaderLength(Integer.parseInt(myConfiguration.getNormalHeaderLength()));
 		myGepAlgorithm.setHomeoticHeaderLength(Integer.parseInt(myConfiguration.getHomeoticHeaderLength()));
 		myGepAlgorithm.setPopulationSize(Integer.parseInt(myConfiguration.getPopulationSize()));
+
 		int maxArity=getMaxFunctionArity(myCreator.getSelectedFunctions());
 		int normalTailLength=myGepAlgorithm.getNormalHeaderLength()*(maxArity-1)+1;
 		int homeoticTailLength=myGepAlgorithm.getHomeoticHeaderLength()*(maxArity-1)+1;
@@ -3380,30 +3634,35 @@ public class GepAlgService implements IgepAlgService {
 		igepInput.read(is);
 		setInputSet(is);
 	}
+
 	@Override
 	public List<Function> getAvailableFunctions() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
 		String binaryPath="domain.service.alg.userdefined.function";
 		return getClassBinaryName(binaryPath, Function.class);
 	}
+
 	@Override
 	public List<Selector> getAvailableSelector() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
 		String binaryPath="domain.service.alg.userdefined.selector";
 		return getClassBinaryName(binaryPath, Selector.class);
 	}
+
 	@Override
 	public List<Calculator> getAvailableCalculator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
 		String binaryPath="domain.service.alg.userdefined.calculator";
 		return getClassBinaryName(binaryPath, Calculator.class);
 	}
+
 	@Override
 	public List<Creator> getAvailableCreator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
 		String binaryPath="domain.service.alg.userdefined.creator";
 		return getClassBinaryName(binaryPath, Creator.class);
 	}
+
 	@Override
 	public List<Modifying> getAvailableModifyings() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
@@ -3432,6 +3691,7 @@ public class GepAlgService implements IgepAlgService {
 			System.out.println("最大适应值: "+myGepAlgorithm.getPopulationQueue().getLast().getBestIndividual().getFitness());
 			for(Individual individual:myGepAlgorithm.getPopulationQueue().getLast().getIndividuals())
 				System.out.println(individual.getFitness());
+
 			Population newPopulation=null;
 			
 			newPopulation = mySelector.select(copyPopulations(myGepAlgorithm.getPopulationQueue()));
@@ -3443,6 +3703,7 @@ public class GepAlgService implements IgepAlgService {
 			for(Individual individual:myGepAlgorithm.getPopulationQueue().getLast().getIndividuals())
 				System.out.println(individual.getFitness());
 			*/
+
 			float maxFitness=myGepAlgorithm.getPopulationQueue().getLast().getBestIndividual().getFitness();
 			if(Math.abs(maxFitness-myGepAlgorithm.getMaxFitness())<myCalculator.getAccuray())
 				return;
@@ -3580,6 +3841,7 @@ public class GepAlgService implements IgepAlgService {
 		result.add(populations.getLast().copy());
 		return result;
 	}
+
 	@Override
 	public GepAlgorithm getMyGepAlgorithm() {
 		return myGepAlgorithm;
@@ -3588,9 +3850,12 @@ public class GepAlgService implements IgepAlgService {
 
 domain\service\alg\configuration\Modifying.java
 package domain.service.alg.configuration;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
+
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3791,8 +4056,11 @@ public abstract class Modifying {
 
 domain\service\alg\configuration\Selector.java
 package domain.service.alg.configuration;
+
 import java.util.Deque;
+
 import domain.core.algmodel.configuration.Population;
+
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3811,14 +4079,17 @@ public abstract class Selector {
 	 * @return TODO
 	 */
 	public abstract Population select(Deque<Population> population);
+
 }
 
 domain\service\alg\userdefined\calculator\AbsoluteCalculator.java
 package domain.service.alg.userdefined.calculator;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.genecomponent.Constant;
@@ -3832,6 +4103,7 @@ import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataRowCollection;
 import domain.service.alg.configuration.Calculator;
 import exception.IllegalInputSet;
+
 public class AbsoluteCalculator extends Calculator{
 	private GepAlgorithm gepAlgorithm;
 	public AbsoluteCalculator(){
@@ -3879,9 +4151,10 @@ public class AbsoluteCalculator extends Calculator{
 		float value;
 		for(int i=0;i<rows.size();i++){
 			try {
-				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
-				result.add(value);
 				clearFunctionFlag(individual);
+				value=calculateIndividualValueWithMulHomeGene(individual, rows.get(i)).get(individual.getSelectedHomeoticGeneNumber());
+//				rows.get(i).setValue(rows.getColumns().size()-1, value);
+				result.add(value);
 			} catch (ArithmeticException e) {
 				IllegalInputSet illegalInputSet=new IllegalInputSet();
 				illegalInputSet.initCause(e);
@@ -3922,6 +4195,7 @@ public class AbsoluteCalculator extends Calculator{
 		return result;
 	}
 	private void addToFitnessSum(List<Float>  row,List<Float> sum){
+
 		for(int i=0;i<row.size();i++)
 			sum.set(i, row.get(i)+sum.get(i));
 			
@@ -4044,10 +4318,13 @@ public class AbsoluteCalculator extends Calculator{
 
 domain\service\alg\userdefined\creator\DefaultCreator.java
 package domain.service.alg.userdefined.creator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import common.ObjectCopy;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
@@ -4056,6 +4333,7 @@ import domain.core.algmodel.genecomponent.Function;
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.genecomponent.Variable;
 import domain.service.alg.configuration.Creator;
+
 public class DefaultCreator extends Creator{
 	private GepAlgorithm algorithm;
 	private int funcNumber;
@@ -4066,6 +4344,7 @@ public class DefaultCreator extends Creator{
 		super("随机生成种群");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public void create(GepAlgorithm algorithm){
 		// TODO Auto-generated method stub
@@ -4113,6 +4392,7 @@ public class DefaultCreator extends Creator{
 				Variable newVariable=(Variable)ObjectCopy.newInstance(getVariables().get(variableRand.nextInt(getVariables().size())));
 				containedGenePieces.add(newVariable);
 			}
+
 		}
 	}
 	private void fillNormalGeneTail(List<GenePiece> containedGenePieces){
@@ -4158,90 +4438,121 @@ public class DefaultCreator extends Creator{
 
 domain\service\alg\userdefined\function\Additioin.java
 package domain.service.alg.userdefined.function;
+
 import java.util.Deque;
+
 import domain.core.algmodel.genecomponent.Function;
+
 public class Additioin extends Function {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8408096285882718047L;
+
 	public Additioin() {
 		super("+", 2,"+");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public float operate(Deque<Float> operators) {
 		// TODO Auto-generated method stub
 		return operators.removeFirst()+operators.removeFirst();
 	}
+
 }
 
 domain\service\alg\userdefined\function\Divide.java
 package domain.service.alg.userdefined.function;
+
 import java.util.Deque;
+
 import domain.core.algmodel.genecomponent.Function;
+
 public class Divide extends Function {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3356166328450491371L;
+
 	public Divide() {
 		super("/", 2,"/");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public float operate(Deque<Float> operators) {
 		// TODO Auto-generated method stub
 		return operators.removeFirst()/operators.removeFirst();
 	}
+
 }
 
 domain\service\alg\userdefined\function\Minus.java
 package domain.service.alg.userdefined.function;
+
 import java.util.Deque;
+
 import domain.core.algmodel.genecomponent.Function;
+
 public class Minus extends Function {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3358438185571026193L;
+
 	public Minus() {
 		super("-", 2,"-");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public float operate(Deque<Float> operators) {
 		// TODO Auto-generated method stub
 		return operators.removeFirst()-operators.removeFirst();
 	}
+
 }
 
 domain\service\alg\userdefined\function\Multiply.java
 package domain.service.alg.userdefined.function;
+
 import java.util.Deque;
+
 import domain.core.algmodel.genecomponent.Function;
+
 public class Multiply extends Function{
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6877986033210887194L;
+
 	public Multiply() {
 		super("*",2,"*");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public float operate(Deque<Float> operators) {
 		// TODO Auto-generated method stub
 		return operators.removeFirst()*operators.removeFirst();
 	}
+
 }
 
 domain\service\alg\userdefined\modify\DefaultModifying.java
 package domain.service.alg.userdefined.modify;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import common.ObjectCopy;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
@@ -4252,6 +4563,7 @@ import domain.core.algmodel.individualcomponent.Gene;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 import domain.service.alg.configuration.Modifying;
+
 /**
  * 遗传算子类，实现变异，is转座，ris转座，基因转座，单点重组，多点重组等功能。
  * @author 申远
@@ -4363,6 +4675,7 @@ public class DefaultModifying extends Modifying {
 			}
 		}
 	}
+
 	@Override
 	public void isTransport(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4371,6 +4684,7 @@ public class DefaultModifying extends Modifying {
 		isTransportEnum.setTransportElement(getIsElements());
 		transportIterateInGene(myGepAlgorithm, isTransportEnum);
 	}
+
 	@Override
 	public void risTransport(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4379,6 +4693,7 @@ public class DefaultModifying extends Modifying {
 		risTransportEnum.setTransportElement(getRisElements());
 		transportIterateInGene(myGepAlgorithm,risTransportEnum);
 	}
+
 	@Override
 	public void geneTransport(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4386,6 +4701,7 @@ public class DefaultModifying extends Modifying {
 		geneTransportEnum.setRate(getGeneTransportRate());
 		transportIterateInGene(myGepAlgorithm, geneTransportEnum);
 	}
+
 	@Override
 	public void onePointRecombine(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4393,6 +4709,7 @@ public class DefaultModifying extends Modifying {
 		recombine.setRate(getOnePointRecombineRate());
 		recombineIterate(myGepAlgorithm, recombine);
 	}
+
 	@Override
 	public void twoPointRecombine(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4400,6 +4717,7 @@ public class DefaultModifying extends Modifying {
 		recombine.setRate(getTwoPointRecombineRate());
 		recombineIterate(myGepAlgorithm, recombine);
 	}
+
 	@Override
 	public void geneRecombine(GepAlgorithm myGepAlgorithm) {
 		// TODO Auto-generated method stub
@@ -4555,14 +4873,18 @@ public class DefaultModifying extends Modifying {
 
 domain\service\alg\userdefined\selector\DefaultSelector.java
 package domain.service.alg.userdefined.selector;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Random;
+
 import common.ObjectCopy;
+
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
 import domain.service.alg.configuration.Selector;
+
 public class DefaultSelector extends Selector{
 	private long maxGeneration;
 	public DefaultSelector() {
@@ -4580,6 +4902,7 @@ public class DefaultSelector extends Selector{
 		// TODO Auto-generated method stub
 		Population lastPopulation=population.getLast();
 		float sumFitness=addFitness(lastPopulation);
+
 		List<Float> probability=calculateProbability(lastPopulation, sumFitness);
 		calculateCumulative(probability);
 		Population newPopulation=createNewPopulation(lastPopulation, probability);
@@ -4633,6 +4956,7 @@ public class DefaultSelector extends Selector{
 
 domain\service\input\DataColumn.java
 package domain.service.input;
+
 public class DataColumn {
    
 	private boolean readOnly;//只读
@@ -4703,9 +5027,13 @@ public class DataColumn {
 
 domain\service\input\DataColumnCollection.java
 package domain.service.input;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
+
 public class DataColumnCollection {
   List<DataColumn> columns;
   HashMap<String,DataColumn> nameMap;
@@ -4755,13 +5083,16 @@ public int size() {
 	// TODO Auto-generated method stub
 	return columns.size();
 }
+
   
 }
 
 domain\service\input\DataRow.java
 package domain.service.input;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 public class DataRow {
    private int rowIndex=-1;//定义该行记录在table所处的行数
    private DataColumnCollection columns;
@@ -4799,6 +5130,7 @@ private DataTable table; //table的一个引用
 			 if (getItemMap().containsKey(lowerColumnName))
 	                  getItemMap().remove(lowerColumnName);
 				      getItemMap().put(lowerColumnName, column.convertTo(value));
+
 		}
 	}
 	public Object getValue(int index) {
@@ -4822,6 +5154,7 @@ private DataTable table; //table的一个引用
 		if (getItemMap().containsKey(lowerColumnName))
             getItemMap().remove(lowerColumnName);
 		      getItemMap().put(lowerColumnName, columns.get(col).convertTo(value));
+
 		
 	}
 	public int getRowIndex() {
@@ -4836,14 +5169,17 @@ private DataTable table; //table的一个引用
 		          }
 		    }*/
 	
+
    
 }
 
 domain\service\input\DataRowCollection.java
 package domain.service.input;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 public class DataRowCollection {
      DataColumnCollection columns;
      List<DataRow> dataRows;
@@ -4887,8 +5223,10 @@ public class DataRowCollection {
 
 domain\service\input\DataTable.java
 package domain.service.input;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 public final class DataTable {
 	private DataRowCollection rows; //用于保存DataRow的集合对象
 	private DataColumnCollection columns; //用于保存DataColumn的对象
@@ -4998,21 +5336,32 @@ public void addColumn(String  columnName) {
 	this.columns.addColumn(columnName);
 	
 }
+
+
+
 }
 
 domain\service\input\DefaultGepInput.java
 package domain.service.input;
+
 import java.io.File;
 import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
+
+
+
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+
 import domain.core.algmodel.genecomponent.Variable;
 import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataTable;
+
 public class DefaultGepInput implements IgepInput {
+
 	private File Path;
 	
 	public DefaultGepInput(){
@@ -5023,16 +5372,21 @@ public class DefaultGepInput implements IgepInput {
 		// TODO Auto-generated method stub
 		Path=path;
 	}
+
 	@Override
 	public void read(DataTable input) throws BiffException, IOException {
 		// TODO Auto-generated method stub
 		InputStream is = new FileInputStream(Path);
+
 		// 声名一个工作薄
 		Workbook rwb = Workbook.getWorkbook(is);
+
 		// 获得工作薄的个数
 		rwb.getNumberOfSheets();
+
 		// 在Excel文档中，第一张工作表的缺省索引是0
 		Sheet st = rwb.getSheet(0);
+
 		// 通用的获取cell值的方式,getCell(int column, int row) 行和列
 		
 		
@@ -5070,20 +5424,29 @@ public class DefaultGepInput implements IgepInput {
 
 domain\service\input\DefaultGepInputTest.java
 package domain.service.input;
+
 import static org.junit.Assert.*;
+
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import domain.core.inputmodel.DataTable;
+
 public class DefaultGepInputTest {
+
 	@Before
 	public void setUp() throws Exception {
 	}
+
 	@After
 	public void tearDown() throws Exception {
 	}
+
 	@Test
 	public void testRead() {
 		IgepInput di = new DefaultGepInput();
@@ -5100,17 +5463,22 @@ public class DefaultGepInputTest {
 		
 		
 	}
+
 }
 
 domain\service\input\GepInputService.java
 package domain.service.input;
+
 import java.io.File;
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
+
 import domain.iservice.IgepInputService;
 /*
 public class GepInputService implements IgepInputService {
 	private IgepInput input=new DefaultGepInput();
+
 	@Override
 	public void uploadFile(InputSet set, File file) throws IOException,BiffException {
 		// TODO Auto-generated method stub
@@ -5118,15 +5486,20 @@ public class GepInputService implements IgepInputService {
 		input.read(set);
 	}
 	
+
 }
 */
 
 domain\service\input\IgepInput.java
 package domain.service.input;
+
 import java.io.File;
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
+
 import domain.core.inputmodel.DataTable;
+
 public interface IgepInput {
 	/**
 	 * 设置输入路径
@@ -5145,6 +5518,7 @@ public interface IgepInput {
 
 domain\service\output\DefalutGepOutput.java
 package domain.service.output;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -5153,9 +5527,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import javax.swing.ImageIcon;
+
+
+
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
+
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.NumberFormats;
@@ -5170,6 +5549,7 @@ import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
 import domain.service.alg.configuration.Calculator;
 import exception.IllegalInputSet;
+
 public class DefalutGepOutput implements IgepOutput{
 	
 	private long start=-1;
@@ -5180,11 +5560,13 @@ public class DefalutGepOutput implements IgepOutput{
 		this.start=start;
 		this.end=end;
 	}
+
 	@Override
 	public void setRange(long end) {
 		// TODO Auto-generated method stub
 		this.end=end;
 	}
+
 	@Override
 	public void writeExcel(File path, AlgInstance output) throws IOException,
 			WriteException {
@@ -5267,6 +5649,7 @@ public class DefalutGepOutput implements IgepOutput{
 		      // 关闭文件
 		      wwb.close();
 		}
+
 	@Override
 	/**
 	 * 最佳个体的拟合曲线图
@@ -5314,6 +5697,7 @@ public class DefalutGepOutput implements IgepOutput{
 		
 		return mathCanvasA;
 	}
+
 	
 	
 	@Override
@@ -5361,65 +5745,88 @@ public class DefalutGepOutput implements IgepOutput{
 		
 		return mathCanvasB;
 	}
+
+
 	
 }
 
 domain\service\output\GepOutputService.java
 package domain.service.output;
+
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
+
 import jxl.write.WriteException;
+
+
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepOutputService;
 import domain.service.alg.configuration.Calculator;
+
 public class GepOutputService implements IgepOutputService {
 	private IgepOutput igepOutput=new DefalutGepOutput();
+
 	@Override
 	public void setImplement(File path) {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public void setGeneration(long generation) {
 		// TODO Auto-generated method stub
 		igepOutput.setRange(generation);
 	}
+
 	@Override
 	public void setGeneration(long start, long end) {
 		// TODO Auto-generated method stub
 		igepOutput.setRange(start, end);
 	}
+
 	@Override
 	public void writeExcel(AlgInstance set, File path) throws IOException,
 			WriteException {
 		// TODO Auto-generated method stub
 //		igepOutput.writeExcel(path, set);
 	}
+
 	@Override
 	public ImageIcon drawImage(AlgInstance outPut) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public ImageIcon drawImage(Calculator calculator, Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
 
 domain\service\output\IgepOutput.java
 package domain.service.output;
+
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.ImageIcon;
+
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
+
 import jxl.write.WriteException;
+
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.service.alg.configuration.Calculator;
+
+
+
 public interface IgepOutput {
 	/**
 	 * 设置输出代数，从start代到end代的结果,这个方法只影响写excel文件，不影响画函数图像与写数据库
@@ -5464,31 +5871,41 @@ public interface IgepOutput {
 
 exception\Duplicated.java
 package exception;
+
 public class Duplicated extends Exception {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8940856307517070718L;
+
 }
 
 exception\IllegalInputSet.java
 package exception;
+
 public class IllegalInputSet extends Exception {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2292135742688459906L;
+
 }
 
 test\ConfigurationTest.java
 package test;
+
 import java.io.IOException;
 import java.util.List;
+
 import jxl.read.biff.BiffException;
+
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.GepAlgService;
+
 public class ConfigurationTest {
 	public static void main(String argv[]) throws BiffException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException{
 		IgepAlgService myGepService=iniAlg();
@@ -5545,17 +5962,22 @@ public class ConfigurationTest {
 
 test\CreatePopulation.java
 package test;
+
 import java.io.File;
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
 import domain.iservice.IgepAlgService;
 import domain.iservice.IgepOutputService;
 import domain.service.output.GepOutputService;
+
 public class CreatePopulation {
+
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -5604,8 +6026,10 @@ public class CreatePopulation {
 
 test\CreatorTest.java
 package test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
@@ -5617,14 +6041,17 @@ import domain.service.alg.userdefined.function.Additioin;
 import domain.service.alg.userdefined.function.Divide;
 import domain.service.alg.userdefined.function.Minus;
 import domain.service.alg.userdefined.function.Multiply;
+
 /**
  * 需要把此类保存到对应的文件夹中才可运行
  */
 public class CreatorTest extends Creator{
+
 	public CreatorTest() {
 		super("测试Create");
 		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public void create(GepAlgorithm algorithm) {
 		// TODO Auto-generated method stub
@@ -5719,19 +6146,24 @@ public class CreatorTest extends Creator{
 			population.addIndividual(individual.copy());
 		algorithm.addPopulation(population);
 	}
+
 }
 
 test\FitnessTest.java
 package test;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
+
 import jxl.read.biff.BiffException;
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.GepAlgService;
+
 public class FitnessTest {
+
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -5766,9 +6198,12 @@ public class FitnessTest {
 
 test\GenePieceCopyTest.java
 package test;
+
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.service.alg.userdefined.function.Additioin;
+
 public class GenePieceCopyTest {
+
 	/**
 	 * @param args
 	 */
@@ -5781,12 +6216,15 @@ public class GenePieceCopyTest {
 		System.out.println(genePiece.getSymbol());
 		System.out.println(genePiece2.getSymbol());
 	}
+
 }
 
 test\IndividualCopyTest.java
 package test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.genecomponent.Constant;
 import domain.core.algmodel.genecomponent.GenePiece;
@@ -5795,7 +6233,9 @@ import domain.service.alg.userdefined.function.Additioin;
 import domain.service.alg.userdefined.function.Divide;
 import domain.service.alg.userdefined.function.Minus;
 import domain.service.alg.userdefined.function.Multiply;
+
 public class IndividualCopyTest {
+
 	/**
 	 * @param args
 	 */
@@ -5885,16 +6325,22 @@ public class IndividualCopyTest {
 		System.out.println(individual);
 		System.out.println(individual2);
 	}
+
 }
 
 test\InputTest.java
 package test;
+
 import java.io.File;
 import java.io.IOException;
+
 import jxl.read.biff.BiffException;
+
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
+
 /**public class InputTest {
+
 	
 	 * @param args
 	 * @throws IOException 
@@ -5922,6 +6368,7 @@ import domain.service.input.IgepInput;
 			System.out.println();
 		}
 	}
+
 }*/
 
 tool\Directory.java
@@ -5929,47 +6376,59 @@ package tool;
 import java.util.regex.*;
 import java.io.*;
 import java.util.*;
+
 public final class Directory {
 	
 	public static File[] local(File dir, final String regex) {
 		return dir.listFiles(new FilenameFilter() {
 			private Pattern pattern = Pattern.compile(regex);
+
 			public boolean accept(File dir, String name) {
 				return pattern.matcher(new File(name).getName()).matches();
 			}
 		});
 	}
+
 	public static File[] local(String path, final String regex) { // Overloaded
 		return local(new File(path), regex);
 	}
+
 	// A two-tuple for returning a pair of objects:
 	public static class TreeInfo implements Iterable<File> {
 		public List<File> files = new ArrayList<File>();
 		public List<File> dirs = new ArrayList<File>();
+
 		// The default iterable element is the file list:
 		public Iterator<File> iterator() {
 			return files.iterator();
 		}
+
 		void addAll(TreeInfo other) {
 			files.addAll(other.files);
 			dirs.addAll(other.dirs);
 		}
+
 		public String toString() {
 			return "dirs: " + dirs + "\n\nfiles: " + files;
 		}
 	}
+
 	public static TreeInfo walk(String start, String regex) { // Begin recursion
 		return recurseDirs(new File(start), regex);
 	}
+
 	public static TreeInfo walk(File start, String regex) { // Overloaded
 		return recurseDirs(start, regex);
 	}
+
 	public static TreeInfo walk(File start) { // Everything
 		return recurseDirs(start, ".*");
 	}
+
 	public static TreeInfo walk(String start) {
 		return recurseDirs(new File(start), ".*");
 	}
+
 	static TreeInfo recurseDirs(File startDir, String regex) {
 		TreeInfo result = new TreeInfo();
 		for (File item : startDir.listFiles()) {
@@ -5982,6 +6441,7 @@ public final class Directory {
 		}
 		return result;
 	}
+
 	// Simple validation test:
 	public static void main(String[] args) {
 		if (args.length == 0)
@@ -5994,14 +6454,20 @@ public final class Directory {
 
 tool\HibernateSchemaExport.java
 package tool;
+
+
 import java.io.File;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+
+
 public class HibernateSchemaExport {
+
 	static Session session;
 	static Configuration config = null;
 	static Transaction tx = null;
@@ -6018,16 +6484,22 @@ public class HibernateSchemaExport {
 		try {
 			config = new Configuration().configure(new File(
 					"src/data/configure/hibernate.cfg.xml"));
+
 			System.out.println("Creating tables...");
+
 			sessionFactory = config.buildSessionFactory();
 			session = sessionFactory.openSession();
+
 			SchemaExport schemaExport = new SchemaExport(config);
 			schemaExport.setOutputFile("src\\data\\sql\\sql.sql");
 			schemaExport.setFormat(true);
 			schemaExport.setHaltOnError(true);
 			schemaExport.create(true, true);
+
 			System.out.println("Table created.");
+
 			session.flush();
+
 		} 
 		catch (HibernateException e)
 		{
@@ -6046,10 +6518,12 @@ public class HibernateSchemaExport {
 			
 		}
 	}
+
 }
 
 tool\MergeFile.java
 package tool;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6060,19 +6534,22 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class MergeFile {
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Iterator<File> allFile=Directory.walk("src",".+java").iterator();
-		File mergedFile=new File("merged.txt");
+		File mergedFile=new File("merged.doc");
 		File nextFile;
 		BufferedWriter bufferedWriter;
 		String contextString;
 		try {
 			bufferedWriter=new BufferedWriter(new FileWriter(mergedFile));
+
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("目标文件无法打开");
@@ -6106,26 +6583,22 @@ public class MergeFile {
 		StringBuilder stringBuilder=new StringBuilder();
 		stringBuilder.append(file.getPath().substring(4)+"\n");
 		
-		//Pattern pattern = Pattern.compile("([\t]{1}|\n+|\r+|\r\n+)");
-		//Pattern pattern = Pattern.compile("(|)");
+		Pattern pattern = Pattern.compile("([\t]{1})");
+		
 		while((s=bufferedReader.readLine())!=null){
-			if (s.equals("")||s=="null"||s.equals(null)||s.equals("" +
-					"\r")) {
-				
-			}else {
-				stringBuilder.append(s+"\n");
-			}
-			//Matcher matcher = pattern.matcher(s);
-			//if (matcher.find()) {
+			
+			Matcher matcher = pattern.matcher(s);
+			if (matcher.find()) {
 				//System.out.println(matcher.group());
 				//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
-				//s = matcher.replaceAll("\n");	//\r\n
+				//s = matcher.replaceAll(" ");	//\r\n
 				//System.out.print(s);
-			//}else{
+			}else{
 				//System.out.println("no found");
-			//}
+			}
 			
 			
+			stringBuilder.append(s+"\n");
 		}
 		return stringBuilder.toString();
 	}
@@ -6143,8 +6616,11 @@ public class MergeFile {
 
 ui\alg\controller\FunctionPanelController.java
 package ui.alg.controller;
+
 import java.util.ArrayList;
+
 import javax.swing.JComboBox;
+
 public class FunctionPanelController {
 	static int addTime=0;
 	static ArrayList<String> items = new ArrayList<String>();
@@ -6172,17 +6648,21 @@ public class FunctionPanelController {
 						.getSelectedItem().toString());
 			}
 		}
+
 		addTime++;
+
 	}
     
 }
 
 ui\alg\controller\HostPanelController.java
 package ui.alg.controller;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -6191,8 +6671,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
+
 import jxl.read.biff.BiffException;
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
@@ -6200,6 +6682,9 @@ import ui.alg.view.JPanelForGene;
 import ui.alg.view.JPanelForInputPathSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.view.*;
+
+
+
 public class HostPanelController {
    
    static int count=0;
@@ -6240,6 +6725,7 @@ public class HostPanelController {
 	    }
 		return handler(configurationPanel, inputPathPanel, populationPanel, genePanel, functionPanel, myConfigurationFromDB, configurationsOfHistory, myGepService);
    }
+
 	public static void jcomboBoxEditorController(KeyEvent e,JButton btnSetConfig, JButton btnNewButton, JButton btnChangeConfig) {
 		 if(e.getKeyCode() == KeyEvent.VK_ENTER){  
 	        	btnSetConfig.setVisible(true);
@@ -6277,6 +6763,7 @@ public class HostPanelController {
 				populationPanel.txtSelectionRange.setText(myConfigurationFromDB.getSelectionRange());
 				genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB.getTwoPointRecombineRate());
 				
+
 				String[] functions = myConfigurationFromDB.getFunctionList()
 						.split(",");
 				for (int i = 0; i < functions.length; i++) {
@@ -6303,10 +6790,12 @@ public class HostPanelController {
 				inputPathPanel.txtInputPath.grabFocus();
 				return null;
 		    }
+
 }
 
 ui\alg\Model\ModelForJPanelConfig.java
 package ui.alg.Model;
+
 public class ModelForJPanelConfig {
     String configName;
     public ModelForJPanelConfig(String configName){
@@ -6322,6 +6811,9 @@ public class ModelForJPanelConfig {
 
 ui\alg\Model\ModelForJPanelFunction.java
 package ui.alg.Model;
+
+
+
 public class ModelForJPanelFunction {
   
    StringBuffer functions;
@@ -6332,14 +6824,18 @@ public class ModelForJPanelFunction {
    public StringBuffer getFunctions() {
 		return functions;
 	}
+
 	public void setFunctions(StringBuffer functions) {
 		this.functions = functions;
 	}
+
    
 }
 
 ui\alg\Model\ModelForJPanelGEne.java
 package ui.alg.Model;
+
+
 public class ModelForJPanelGEne {
 	
 	String normalGeneNumber;
@@ -6471,13 +6967,17 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ComboBoxEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+
 public class HostPanel extends JPanel {
+
 	
 	int count=0;
 	public JComboBox jcomboBoxConfiguration;
@@ -6545,10 +7045,12 @@ public class HostPanel extends JPanel {
 	    
 		
 	}
+
 }
 
 ui\alg\view\JPanelForFunction.java
 package ui.alg.view;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -6557,6 +7059,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -6564,7 +7067,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+
 public class JPanelForFunction extends JPanel {
+
 	
 	public  JTextField txtConstantListSize=new JTextField(),
 	                   txtRandomConstantStart=new JTextField();
@@ -6601,6 +7107,7 @@ public class JPanelForFunction extends JPanel {
 			add(lblNewLabel_19);
 			
 			
+
 			
 			
 			btnDelFunction.setBounds(323, 102, 104, 20);
@@ -6624,21 +7131,27 @@ public class JPanelForFunction extends JPanel {
 			add(JComboBoxOfSelectdFunctions);
 			
 	}
+
 }
 
 ui\alg\view\JPanelForGene.java
 package ui.alg.view;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+
 public class JPanelForGene extends JPanel {
+
 	
 	public JTextField txtNormalGeneNumber=new JTextField(),
 	                   txtNormalHeaderLength=new JTextField(),
@@ -6893,10 +7406,12 @@ public class JPanelForGene extends JPanel {
 			});*/
 		//panel_0.add(panel_3);
 	}
+
 }
 
 ui\alg\view\JPanelForInputPathSetting.java
 package ui.alg.view;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -6904,13 +7419,21 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+
+
+
+
+
 public class JPanelForInputPathSetting extends JPanel {
+
 	
 	public JTextField txtInputPath = new JTextField(),
 	                  txtMaxGeneration=new JTextField(),
@@ -6918,6 +7441,7 @@ public class JPanelForInputPathSetting extends JPanel {
 	
 	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
 	
+
 	public JPanelForInputPathSetting() {
 		   
 		    setBounds(155, 115, 631, 447);
@@ -7002,17 +7526,23 @@ public class JPanelForInputPathSetting extends JPanel {
 
 ui\alg\view\JPanelForPopulation.java
 package ui.alg.view;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+
 public class JPanelForPopulation extends JPanel {
+
+
 	
     public JTextField 
 	txtPopulationSize = new JTextField();
@@ -7091,6 +7621,7 @@ public class JPanelForPopulation extends JPanel {
 				tree_1.setSelectionPath(visiblePath);
 				
 				
+
 				HostPane.setVisible(false);
         		panel_1.setVisible(false);
         		panel_2.setVisible(true);
@@ -7101,10 +7632,12 @@ public class JPanelForPopulation extends JPanel {
 			
 		});*/
 	}
+
 }
 
 ui\alg\view\ModelForJPanelInputPath.java
 package ui.alg.view;
+
 public class ModelForJPanelInputPath {
     String inputPath;
     String maxGeneration;
@@ -7137,6 +7670,7 @@ public class ModelForJPanelInputPath {
 
 ui\alg\view\ModelForJPanelPopulation.java
 package ui.alg.view;
+
 public class ModelForJPanelPopulation {
 	
 	String populationSize;
@@ -7186,9 +7720,11 @@ public class ModelForJPanelPopulation {
 
 ui\input\controller\FooterPanelController.java
 package ui.input.controller;
+
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -7196,6 +7732,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
 import ui.alg.Model.ModelForJPanelConfig;
 import ui.alg.Model.ModelForJPanelFunction;
 import ui.alg.Model.ModelForJPanelGEne;
@@ -7207,13 +7744,17 @@ import ui.alg.view.JPanelForPopulation;
 import ui.alg.view.ModelForJPanelInputPath;
 import ui.alg.view.ModelForJPanelPopulation;
 import ui.input.view.JPanelForFooter;
+
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
+
 import jxl.read.biff.BiffException;
 import exception.Duplicated;
+
+
 public class FooterPanelController {
 	
     
@@ -7340,6 +7881,7 @@ public class FooterPanelController {
 	    myParameter.setHomeoticHeaderLength(gene.getHomeoticHeaderLength());
 		myParameter.setFunctionList(function.getFunctions().toString());
 		myParameter.setMutateRate(gene.getMutateRate());
+
 				
 	    try {
 			myParameter.setSelector(myGepService.getAvailableSelector().get(population.getSelectionStrategyIndex()).getClass().getName());
@@ -7357,6 +7899,7 @@ public class FooterPanelController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 			
 			
 		    
@@ -7406,17 +7949,20 @@ public class FooterPanelController {
 		}
 		
 		
+
 	}
     
 }
 
 ui\input\controller\OutputPanelController.java
 package ui.input.controller;
+
 import ui.output.view.JPanelForOutput;
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
 import com.wolfram.jlink.MathLinkException;
 import com.wolfram.jlink.MathLinkFactory;
+
 import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
@@ -7424,6 +7970,8 @@ import domain.iservice.IgepAlgService;
 import domain.service.alg.configuration.Calculator;
 import domain.service.output.DefalutGepOutput;
 import domain.service.output.IgepOutput;
+
+
 /**
  * 输出Panel的控制器
  * @author 滕凌哲
@@ -7518,6 +8066,7 @@ public class OutputPanelController {
 		outputPanel.outputPanel_2.add(outputPanel.mathCanvasB);
 		
 	}
+
 	
 	
 	
@@ -7529,13 +8078,16 @@ public class OutputPanelController {
 
 ui\input\controller\SaveConfigPanelController.java
 package ui.input.controller;
+
 import javax.swing.JPanel;
+
 import ui.input.view.JPanelForJTree;
 import ui.output.view.JPanelForOutput;
 import ui.input.view.JPanelForSaveConfig;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import exception.Duplicated;
+
 public class SaveConfigPanelController {
 	
    public static void btnSaveController(IgepAlgService myGepService,GepConfiguration myParameter,ui.output.view.JPanelForOutput outputPanel,JPanelForSaveConfig savePanel,JPanelForJTree treePanel,JPanel panel_0){
@@ -7548,11 +8100,14 @@ public class SaveConfigPanelController {
 
 ui\input\controller\TreePanelController.java
 package ui.input.controller;
+
 import java.awt.event.MouseEvent;
+
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
 public class TreePanelController {
    public static void  treeMouseListener(MouseEvent e,JPanel[] panels){
 	   JTree tree = (JTree) e.getSource();
@@ -7613,11 +8168,13 @@ public class TreePanelController {
           	
           }
       }
+
    }
 }
 
 ui\input\controller\UploadInterfaceController.java
 package ui.input.controller;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7630,20 +8187,26 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import javax.tools.JavaCompiler.CompilationTask;
+
 import jxl.read.biff.BiffException;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
+
 import ui.alg.view.HostPanel;
 import ui.alg.view.JPanelForFunction;
 import ui.alg.view.JPanelForGene;
 import ui.alg.view.JPanelForInputPathSetting;
 import ui.alg.view.JPanelForPopulation;
 import ui.input.model.ModelForUploadInterface;
+
+
 public class UploadInterfaceController {
+
    private static String fileName;
    private static boolean available;
    private static String defaultFileSavePath=".\\bin\\domain\\service\\input\\";
@@ -7662,6 +8225,11 @@ public class UploadInterfaceController {
 	}
 	   return WriteFile(buffer,file.getName());
    }
+
+
+
+
+
    public static StringBuffer ReadFile(File file,File saveDir)throws IOException{
 		
 	     try{
@@ -7840,6 +8408,7 @@ public class UploadInterfaceController {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+
 				inputPathPanel.txtAccuracy.setText(myConfigurationFromDB.getAccuray());
 				functionPanel.txtConstantListSize.setText(myConfigurationFromDB.getConstantListSize());
 				genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB.getOnePointRecombineRate());
@@ -7861,6 +8430,7 @@ public class UploadInterfaceController {
 				populationPanel.txtSelectionRange.setText(myConfigurationFromDB.getSelectionRange());
 				genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB.getTwoPointRecombineRate());
 				configurationPanel.jcomboBoxConfiguration.setSelectedItem(myConfigurationFromDB.getName());
+
 				String[] functions = myConfigurationFromDB.getFunctionList()
 						.split(",");
 				for (int i = 0; i < functions.length; i++) {
@@ -7893,9 +8463,12 @@ public class UploadInterfaceController {
 	  }
 	  
 
+
 ui\input\model\ModelForUploadInterface.java
 package ui.input.model;
+
 import java.io.File;
+
 public class ModelForUploadInterface {
    
    String fileName;
@@ -7941,12 +8514,16 @@ public class ModelForUploadInterface {
 
 ui\input\view\JPanelForFooter.java
 package ui.input.view;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+
 public class JPanelForFooter extends JPanel {
 	
 	public JButton btnNext = new JButton("下一步 >");
@@ -7973,13 +8550,16 @@ public class JPanelForFooter extends JPanel {
 	      btnRun.setBounds(312, 10, 93, 23);
 	      add(btnRun);
 	}
+
 }
 
 ui\input\view\JPanelForJTree.java
 package ui.input.view;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -7988,6 +8568,7 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+
 public class JPanelForJTree extends JPanel {
 	  
 	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("菜单");
@@ -8019,6 +8600,7 @@ public class JPanelForJTree extends JPanel {
 		  cellRenderer.setLeafIcon(new ImageIcon("//leaf.jpg"));
 		  cellRenderer.setOpenIcon(new ImageIcon("//leaf.jpg"));
 		  cellRenderer.setClosedIcon(new ImageIcon("//leaf.jpg"));
+
 		  cellRenderer.setFont(new Font("宋体", Font.PLAIN, 15));// 设置字体.
 		  cellRenderer.setBackgroundNonSelectionColor(Color.white);
 		  cellRenderer.setBorderSelectionColor(Color.red);
@@ -8041,20 +8623,25 @@ public class JPanelForJTree extends JPanel {
 		  setLayout(null);
 		  add(scrollPane);
 	}
+
 }
 
 ui\input\view\JPanelForSaveConfig.java
 package ui.input.view;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
 public class JPanelForSaveConfig extends JPanel {
+
 	JButton btnSave = new JButton("\u4FDD\u5B58");
 	JTextField txtConfigurationName = new JTextField();
 	public JPanelForSaveConfig() {
@@ -8085,11 +8672,14 @@ public class JPanelForSaveConfig extends JPanel {
 		btnSave.setBounds(423, 62, 78, 23);
 		add(btnSave);
 	}
+
 }
 
 ui\input\view\JPanelForUploadInterface.java
 package ui.input.view;
+
 import java.awt.Color;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -8097,12 +8687,16 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+
 import ui.input.controller.UploadInterfaceController;
 import ui.input.model.ModelForUploadInterface;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+
 public class JPanelForUploadInterface extends JPanel {
     public JTextField textInterfaceName = new JTextField();
 	public JLabel lblNewLabel = new JLabel("\u63A5\u53E3\u540D");
@@ -8201,6 +8795,7 @@ public class JPanelForUploadInterface extends JPanel {
 
 ui\input\view\New2.java
 package ui.input.view;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -8215,6 +8810,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -8224,6 +8820,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
 import ui.alg.Model.ModelForJPanelConfig;
 import ui.alg.Model.ModelForJPanelFunction;
 import ui.alg.Model.ModelForJPanelGEne;
@@ -8245,7 +8842,12 @@ import domain.service.alg.configuration.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
 import exception.Duplicated;
+
+
+
+
 public class New2 extends JFrame {
+
     JPanel contentPane;
     HostPanel configurationPanel;
 	JPanelForInputPathSetting inputPathPanel=new JPanelForInputPathSetting();
@@ -8279,6 +8881,7 @@ public class New2 extends JFrame {
 			}
 		});
 	}
+
 	
 	public New2() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
@@ -8407,6 +9010,7 @@ public class New2 extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			
 		  panel_0.add(populationPanel,"p3");
 		  //基因面板---------------------------------------------
@@ -8491,12 +9095,4 @@ public class New2 extends JFrame {
 					    ModelForJPanelGEne gene=new ModelForJPanelGEne(genePanel.txtNormalGeneNumber.getText(), genePanel.txtNormalHeaderLength.getText(), genePanel.txtHomeoticGeneNums.getText(),genePanel.txtHomeoticHeaderLength.getText(), genePanel.txtGeneRecombineRate.getText(), genePanel.txtRisTransportRate.getText(), genePanel.txtofRisElement.getText().trim(),genePanel.txtIsTransportRate.getText() ,genePanel.txtofRisElement.getText().trim(),genePanel.txtGeneTransportRate.getText() ,genePanel.txtMutateRate.getText(),genePanel.txtTwoPointRecombineRate.getText(),genePanel.txtGeneOnePointRecombineRate.getText(),modifyingSelectedIndex);
 		    		    //----
 					    StringBuffer result = new StringBuffer();
-						String str = new String();
-						for (int i = 0; i < functionPanel.JComboBoxOfSelectdFunctions.getItemCount(); i++) {
-							if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i).toString()
-									.equals("+")) {
-								str = "domain.service.alg.userdefined.function.Additioin";
-							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
-									.toString().equals("-")) {
-								str = "domain.service.alg.userdefined.function.Minus";
-							} else if (functionPanel.JComboBoxOfSelectdF
+						S

@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MergeFile {
 
@@ -47,7 +49,7 @@ public class MergeFile {
 					e.printStackTrace();
 					continue;
 				}
-				writeToFile(bufferedWriter, contextString);
+				//writeToFile(bufferedWriter, contextString);
 			}
 		}
 	}
@@ -56,8 +58,27 @@ public class MergeFile {
 		String s;
 		StringBuilder stringBuilder=new StringBuilder();
 		stringBuilder.append(file.getPath().substring(4)+"\n");
+		
+		//Pattern pattern = Pattern.compile("([\t]{1}|\n+|\r+|\r\n+)");
+		//Pattern pattern = Pattern.compile("(|)");
 		while((s=bufferedReader.readLine())!=null){
-			stringBuilder.append(s+"\n");
+			if (s.equals("")||s=="null"||s.equals(null)||s.equals("" +
+					"\r")) {
+				
+			}else {
+				stringBuilder.append(s+"\n");
+			}
+			//Matcher matcher = pattern.matcher(s);
+			//if (matcher.find()) {
+				//System.out.println(matcher.group());
+				//s.replaceAll("(\r?\n(\\s*\r?\n)+)", "\r\n"); 
+				//s = matcher.replaceAll("\n");	//\r\n
+				//System.out.print(s);
+			//}else{
+				//System.out.println("no found");
+			//}
+			
+			
 		}
 		return stringBuilder.toString();
 	}
