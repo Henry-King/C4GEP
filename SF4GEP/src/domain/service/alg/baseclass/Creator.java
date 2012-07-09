@@ -2,9 +2,9 @@ package domain.service.alg.baseclass;
 
 import java.util.List;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
 
 /**
  * 请确保子类有默认构造函数，否则会出现错误

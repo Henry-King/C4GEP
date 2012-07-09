@@ -7,8 +7,8 @@ import java.util.Random;
 
 import common.ObjectCopy;
 
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.service.alg.baseclass.Selector;
 
 public class DefaultSelector extends Selector{

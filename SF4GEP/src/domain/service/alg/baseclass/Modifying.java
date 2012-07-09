@@ -3,7 +3,7 @@ package domain.service.alg.baseclass;
 import java.util.LinkedList;
 import java.util.List;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
+import domain.core.algmodel.population.GepAlgorithm;
 
 /**
  * 请确保子类有默认构造函数，否则会出现错误

@@ -2,7 +2,7 @@ package domain.service.alg.baseclass;
 
 import java.util.Deque;
 
-import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.population.Population;
 
 /**
  * 请确保子类有默认构造函数，否则会出现错误

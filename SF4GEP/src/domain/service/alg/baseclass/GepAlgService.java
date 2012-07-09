@@ -14,10 +14,10 @@ import jxl.read.biff.BiffException;
 
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;

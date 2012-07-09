@@ -23,7 +23,7 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.Individual;
 import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;

@@ -2,7 +2,7 @@ package domain.service.alg.userdefined;
 
 import java.util.Deque;
 
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
 
 public class Additioin extends Function {
 

@@ -6,15 +6,15 @@ import java.util.Random;
 
 import common.ObjectCopy;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.individualcomponent.Gene;
-import domain.core.algmodel.individualcomponent.HomeoticGene;
-import domain.core.algmodel.individualcomponent.NormalGene;
+import domain.core.algmodel.gene.Gene;
+import domain.core.algmodel.gene.HomeoticGene;
+import domain.core.algmodel.gene.NormalGene;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.service.alg.baseclass.Modifying;
 
 /**

@@ -2,8 +2,8 @@ package domain.service.alg.baseclass;
 
 import java.util.List;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
 import domain.core.inputmodel.DataTable;
 import exception.IllegalInputSet;
 

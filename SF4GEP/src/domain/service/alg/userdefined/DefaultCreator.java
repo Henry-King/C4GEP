@@ -6,13 +6,13 @@ import java.util.Random;
 
 import common.ObjectCopy;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.service.alg.baseclass.Creator;
 
 public class DefaultCreator extends Creator{
