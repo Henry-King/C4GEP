@@ -5,8 +5,8 @@ import java.util.List;
 
 import jxl.read.biff.BiffException;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.population.GepAlgorithm;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
 import domain.service.alg.baseclass.Calculator;
