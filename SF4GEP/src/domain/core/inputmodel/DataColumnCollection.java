@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Variable;
 
 public class DataColumnCollection {
 	List<DataColumn> columns;
