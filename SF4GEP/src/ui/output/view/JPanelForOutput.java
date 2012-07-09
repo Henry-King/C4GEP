@@ -10,6 +10,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 
 import com.wolfram.jlink.MathCanvas;
 
@@ -29,9 +33,13 @@ public class JPanelForOutput extends JPanel {
 	public JPanel outputPanel_2 = new JPanel();
 	JTextField txtGenerationTo = new JTextField();
 	JTextField txtGenerationFrom = new JTextField();
+
+	public JButton btnNewButton = new JButton("\u8FD4\u56DE");
+
 	
 	public MathCanvas mathCanvasA = null;
 	public MathCanvas mathCanvasB = null;
+
 	public JPanelForOutput() {
 		
 		setBackground(Color.WHITE);
@@ -44,38 +52,38 @@ public class JPanelForOutput extends JPanel {
 		//计算结果的输出路径
 		
 		label.setFont(new Font("宋体", Font.PLAIN, 15));
-		label.setBounds(14, 341, 174, 26);
+		label.setBounds(14, 335, 174, 26);
 		add(label);
 		
 		
 		txtOutputPath.grabFocus();
-		txtOutputPath.setBounds(14, 387, 290, 25);
+		txtOutputPath.setBounds(14, 380, 290, 25);
         add(txtOutputPath);
 		txtOutputPath.setColumns(10);
 		
 		
 		//btnBrowseOfOutput.addActionListener(new OpenOutputHandler());
 		btnBrowseOfOutput.setFont(new Font("宋体", Font.PLAIN, 15));
-		btnBrowseOfOutput.setBounds(211, 438, 93, 23);
+		btnBrowseOfOutput.setBounds(225, 440, 93, 23);
 		add(btnBrowseOfOutput);
 		
 		
 		//输出代数
 		
 		label_37.setFont(new Font("宋体", Font.PLAIN, 15));
-		label_37.setBounds(439, 341, 82, 18);
+		label_37.setBounds(415, 335, 82, 18);
 		add(label_37);
 		
 		
 		tabbedPane.setBorder(null);
-		tabbedPane.setBounds(439, 387, 307, 60);
+		tabbedPane.setBounds(415, 380, 307, 60);
 		add(tabbedPane);
 		
 		//输出后多少代
 		
 		panelForGeneration.setBorder(null);
 		panelForGeneration.setBackground(Color.WHITE);
-		tabbedPane.addTab("后xx代", null, panelForGeneration, null);
+		tabbedPane.addTab("后x代", null, panelForGeneration, null);
 		panelForGeneration.setLayout(null);
 		
 		
@@ -88,7 +96,7 @@ public class JPanelForOutput extends JPanel {
 		
 		panelForGeneRationFrom.setBorder(null);
 		panelForGeneRationFrom.setBackground(Color.WHITE);
-		tabbedPane.addTab("从XX代到XX代", null, panelForGeneRationFrom, null);
+		tabbedPane.addTab("从X代到y代", null, panelForGeneRationFrom, null);
 		panelForGeneRationFrom.setLayout(null);
 		
 		
@@ -96,7 +104,7 @@ public class JPanelForOutput extends JPanel {
 		panelForGeneRationFrom.add(txtGenerationFrom);
 		txtGenerationFrom.setColumns(10);
 		txtGenerationFrom.grabFocus();
-		JLabel lblTo = new JLabel("----->");
+		JLabel lblTo = new JLabel("To");
 		lblTo.setBackground(Color.LIGHT_GRAY);
 		lblTo.setForeground(Color.BLACK);
 		lblTo.setBounds(131, 3, 42, 25);
@@ -109,30 +117,13 @@ public class JPanelForOutput extends JPanel {
 		txtGenerationTo.setColumns(10);
 		txtGenerationTo.grabFocus();
 		JButton btnRunGeneration = new JButton("\u786E\u5B9A");
-		btnRunGeneration.setFont(new Font("宋体", Font.PLAIN, 15));
-		btnRunGeneration.setBounds(653, 438, 93, 23);
-		/*btnRunGeneration.addActionListener(new ActionListener(){
+		btnRunGeneration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if((textGeneration.getText()!=null)||(textGeneration.getText()!="")){
-					long generation=Long.parseLong(textGeneration.getText());
-					output.setGeneration(generation);
-				}
-				else{
-				   long generationFrom=Long.parseLong(txtGenerationFrom.getText());
-				   long generationTo=Long.parseLong(txtGenerationTo.getText());
-				   output.setGeneration(generationFrom,generationTo);
-				}
-				try {
-					output.writeExcel(myGepService.getMyAlgInstance(), new File(txtOutputPath+"\\"+"Outputdemo.xls"));
-				} catch (WriteException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				myGepService.getMyAlgInstance();				
 			}
-			
-		});*/
+		});
+		btnRunGeneration.setFont(new Font("宋体", Font.PLAIN, 15));
+		btnRunGeneration.setBounds(698, 440, 93, 23);
+		
 		add(btnRunGeneration);
 	
 		
@@ -140,7 +131,7 @@ public class JPanelForOutput extends JPanel {
 		
 		
 		
-		panelPaint.setBounds(1, 1, 822, 310);
+		panelPaint.setBounds(1, 1, 822, 300);
 		panelPaint.setLayout(null);
 		add(panelPaint);
 		panelPaint.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -148,7 +139,7 @@ public class JPanelForOutput extends JPanel {
 		//画图区1---------------------------------------------------------------------------------------------------
 		outPutPanel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		outPutPanel_1.setBackground(Color.WHITE);
-		outPutPanel_1.setBounds(0, 0, 410, 310);
+		outPutPanel_1.setBounds(0, 0, 410, 300);
 		panelPaint.add(outPutPanel_1);
 		
 		
@@ -156,9 +147,17 @@ public class JPanelForOutput extends JPanel {
 		
 		outputPanel_2.setBackground(Color.WHITE);
 		outputPanel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		outputPanel_2.setBounds(402, 0, 418, 310);
+		outputPanel_2.setBounds(402, 0, 418, 300);
 		panelPaint.add(outputPanel_2);
 		outputPanel_2.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(1, 485, 820, 45);
+		add(panel);
+		panel.setLayout(null);
+		btnNewButton.setBounds(335, 10, 57, 23);
+		panel.add(btnNewButton);
 	}
-
 }
