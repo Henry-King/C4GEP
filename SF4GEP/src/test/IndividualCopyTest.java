@@ -3,10 +3,10 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.Individual;
 import domain.service.alg.userdefined.Additioin;
 import domain.service.alg.userdefined.Divide;
 import domain.service.alg.userdefined.Minus;

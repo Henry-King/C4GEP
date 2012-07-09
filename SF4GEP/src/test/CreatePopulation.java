@@ -6,9 +6,9 @@ import java.io.IOException;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.iservice.IgepAlgService;
 import domain.iservice.IgepOutputService;
 import domain.service.output.GepOutputService;
