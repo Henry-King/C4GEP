@@ -12,7 +12,7 @@ public class Additioin extends Function {
 	private static final long serialVersionUID = 8408096285882718047L;
 
 	public Additioin() {
-		super("+", 2,"+");
+		super("¼Ó·¨", 2,"+");
 		// TODO Auto-generated constructor stub
 	}
 

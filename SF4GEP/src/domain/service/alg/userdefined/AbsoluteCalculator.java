@@ -16,7 +16,7 @@ import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
 import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataRowCollection;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 import exception.IllegalInputSet;
 
 public class AbsoluteCalculator extends Calculator{

@@ -12,7 +12,7 @@ public class Divide extends Function {
 	private static final long serialVersionUID = -3356166328450491371L;
 
 	public Divide() {
-		super("/", 2,"/");
+		super("³ý·¨", 2,"/");
 		// TODO Auto-generated constructor stub
 	}
 

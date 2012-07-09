@@ -28,7 +28,7 @@ import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 import exception.IllegalInputSet;
 
 public class DefalutGepOutput implements IgepOutput{

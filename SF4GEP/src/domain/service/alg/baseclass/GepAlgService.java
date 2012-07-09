@@ -1,4 +1,4 @@
-package domain.service.alg.configuration;
+package domain.service.alg.baseclass;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,35 +123,35 @@ public class GepAlgService implements IgepAlgService {
 	@Override
 	public List<Function> getAvailableFunctions() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.function";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Function.class);
 	}
 
 	@Override
 	public List<Selector> getAvailableSelector() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.selector";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Selector.class);
 	}
 
 	@Override
 	public List<Calculator> getAvailableCalculator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.calculator";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Calculator.class);
 	}
 
 	@Override
 	public List<Creator> getAvailableCreator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.creator";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Creator.class);
 	}
 
 	@Override
 	public List<Modifying> getAvailableModifyings() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.modify";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Modifying.class);
 	}
 	
@@ -248,8 +248,13 @@ public class GepAlgService implements IgepAlgService {
 		for(String string:classfiles.list()){
 			if(!string.contains("$")){
 				Class<?> myClass=Class.forName(binaryPath+"."+string.subSequence(0, string.length()-6));
-				T newInstance=typeClass.cast(myClass.newInstance());
-				resultList.add(newInstance);				
+				T newInstance;
+				try {
+					newInstance = typeClass.cast(myClass.newInstance());
+					resultList.add(newInstance);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+				}	
 			}
 		}
 		return resultList;

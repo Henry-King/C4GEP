@@ -13,7 +13,7 @@ import domain.core.algmodel.genecomponent.Constant;
 import domain.core.algmodel.genecomponent.Function;
 import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.genecomponent.Variable;
-import domain.service.alg.configuration.Creator;
+import domain.service.alg.baseclass.Creator;
 
 public class DefaultCreator extends Creator{
 	private GepAlgorithm algorithm;

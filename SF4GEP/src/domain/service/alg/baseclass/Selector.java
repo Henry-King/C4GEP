@@ -1,4 +1,4 @@
-package domain.service.alg.configuration;
+package domain.service.alg.baseclass;
 
 import java.util.Deque;
 

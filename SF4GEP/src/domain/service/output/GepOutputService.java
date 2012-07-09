@@ -11,7 +11,7 @@ import jxl.write.WriteException;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepOutputService;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 
 public class GepOutputService implements IgepOutputService {
 	private IgepOutput igepOutput=new DefalutGepOutput();

@@ -15,7 +15,7 @@ import domain.core.algmodel.genecomponent.GenePiece;
 import domain.core.algmodel.individualcomponent.Gene;
 import domain.core.algmodel.individualcomponent.HomeoticGene;
 import domain.core.algmodel.individualcomponent.NormalGene;
-import domain.service.alg.configuration.Modifying;
+import domain.service.alg.baseclass.Modifying;
 
 /**
  * 遗传算子类，实现变异，is转座，ris转座，基因转座，单点重组，多点重组等功能。

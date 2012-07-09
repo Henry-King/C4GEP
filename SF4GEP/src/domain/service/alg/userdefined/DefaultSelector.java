@@ -9,7 +9,7 @@ import common.ObjectCopy;
 
 import domain.core.algmodel.configuration.Individual;
 import domain.core.algmodel.configuration.Population;
-import domain.service.alg.configuration.Selector;
+import domain.service.alg.baseclass.Selector;
 
 public class DefaultSelector extends Selector{
 	private long maxGeneration;
