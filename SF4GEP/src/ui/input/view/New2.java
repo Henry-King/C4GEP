@@ -47,16 +47,12 @@ import ui.output.controller.OutputPanelController;
 import ui.output.view.JPanelForOutput;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
+import domain.iservice.IgepInputService;
 import domain.service.alg.baseclass.GepAlgService;
-import domain.service.input.DefaultGepInput;
-import domain.service.input.IgepInput;
+import domain.service.input.GepInputService;
 import exception.Duplicated;
 
-
-
-
 public class New2 extends JFrame {
-
     JPanel contentPane;
     HostPanel configurationPanel;
 	JPanelForStopSetting stopSettingPanel=new JPanelForStopSetting();
@@ -70,15 +66,14 @@ public class New2 extends JFrame {
 	JPanelForSaveConfig scfigNamePanel=new JPanelForSaveConfig();
 	JPanelForOutput outputPanel=new JPanelForOutput();
     JPanel panel_0 = new JPanel();
-   
-	CardLayout card;
-	
+
+    CardLayout card;
    
 	GepConfiguration myParameter=new GepConfiguration();
 	IgepAlgService myGepService=new GepAlgService();	
 	GepConfiguration myConfigurationFromDB;
 	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
-	IgepInput input =new DefaultGepInput();
+	IgepInputService input =new GepInputService();
 	int flag=0;//是否读取配置文件
 	int count=0;
 	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件

@@ -24,8 +24,8 @@ import domain.core.outputmodel.GepConfiguration;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
 import domain.iservice.IgepAlgService;
-import domain.service.input.DefaultGepInput;
-import domain.service.input.IgepInput;
+import domain.iservice.IgepInputService;
+import domain.service.input.GepInputService;
 import exception.Duplicated;
 
 /**
@@ -38,7 +38,7 @@ public class GepAlgService implements IgepAlgService {
 	private Modifying myModifying;
 	private GepAlgorithm myGepAlgorithm=new GepAlgorithm();
 	private GepConfiguration myConfiguration;
-	private IgepInput igepInput=new DefaultGepInput();
+	private IgepInputService igepInput=new GepInputService();
 	private AlgInstance myAlgInstance = new AlgInstance();
 
 	

@@ -33,7 +33,7 @@ public class CreatePopulation {
 		 * Ð´excelÎÄ¼þ
 		 */
 		output.setGeneration(0,10);
-		output.writeExcel(myGepService.getMyAlgInstance(), new File("Outputdemo.xls"));
+		output.writeExcel( new File("Outputdemo.xls"),myGepService.getMyAlgInstance());
 		myGepService.getMyAlgInstance();
 		/*
 		Field[] myGepAlgFields=GepAlgService.class.getDeclaredFields();

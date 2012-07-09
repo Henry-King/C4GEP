@@ -27,8 +27,6 @@ import ui.input.view.JPanelForFooter;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
 import domain.service.alg.baseclass.GepAlgService;
-import domain.service.input.DefaultGepInput;
-import domain.service.input.IgepInput;
 
 import jxl.read.biff.BiffException;
 import exception.Duplicated;

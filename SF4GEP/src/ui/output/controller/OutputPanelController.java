@@ -10,9 +10,9 @@ import domain.core.algmodel.population.GepAlgorithm;
 import domain.core.algmodel.population.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepAlgService;
+import domain.iservice.IgepOutputService;
 import domain.service.alg.baseclass.Calculator;
-import domain.service.output.DefalutGepOutput;
-import domain.service.output.IgepOutput;
+import domain.service.output.GepOutputService;
 
 
 /**
@@ -20,8 +20,6 @@ import domain.service.output.IgepOutput;
  * @author Î¯¡Ë’‹
  */
 public class OutputPanelController {
-	
-	
 	
 	static KernelLink ml = null;
 	
@@ -33,7 +31,10 @@ public class OutputPanelController {
 	}
 	
 	public static void init(JPanelForOutput outputPanel){
+		
 		try {
+			ml = MathLinkFactory
+			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
 			ml = MathLinkFactory.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
 			ml.discardAnswer();
 		} catch (MathLinkException e1) {
@@ -43,20 +44,18 @@ public class OutputPanelController {
 			return;
 		}
 		
-		
 		outputPanel.mathCanvasA = new MathCanvas(ml);
 		outputPanel.mathCanvasB = new MathCanvas(ml);
 		
-		
 		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
 		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
-		
 	}
 	
 	
 	
 	
 	public static void start(MathCanvas a,MathCanvas b){
+		
 		try {
 			ml = MathLinkFactory
 			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
@@ -68,7 +67,6 @@ public class OutputPanelController {
 			return;
 		}
 		
-		
 		/*mathCanvasA = new MathCanvas(ml);
 		mathCanvasB = new MathCanvas(ml);
 		
@@ -76,15 +74,17 @@ public class OutputPanelController {
 		b = mathCanvasA;
 		
 		*/
+		
 		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
 		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
+		
 	}
 	
 	
 	
 	
 	public static void drawPicture(IgepAlgService gepService,JPanelForOutput outputPanel){
-		IgepOutput gepOutput = new DefalutGepOutput();
+		IgepOutputService gepOutput = new GepOutputService();
 		IgepAlgService myGepService = gepService;
 		AlgInstance algInstance = myGepService.getMyAlgInstance();
 		GepAlgorithm gepAlgorithm = myGepService.getMyGepAlgorithm();
