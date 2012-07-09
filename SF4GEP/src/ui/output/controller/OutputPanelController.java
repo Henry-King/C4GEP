@@ -10,7 +10,7 @@ import domain.core.algmodel.configuration.GepAlgorithm;
 import domain.core.algmodel.configuration.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 import domain.service.output.DefalutGepOutput;
 import domain.service.output.IgepOutput;
 
