@@ -22,18 +22,36 @@ import javax.tools.JavaCompiler.CompilationTask;
 
 public class DownLoadInterfaceController {
 	   private static String fileName;
-	   private static String defaultFileSavePath=".\\bin\\domain\\service\\input\\";
-	   private static File file;
 	   private static File saveDir;
 	   static StringBuffer buffer;
+	   static File file;
 	   public static int btnDownLoadController(ModelForDownLoadInterface downLoadInterface) throws IOException{
-		   file=downLoadInterface.getFile();
-		   saveDir=new File(defaultFileSavePath);
-		   buffer=ReadFile(file,saveDir);
+		   fileName=downLoadInterface.getInterfaceName();
+		   System.out.print("fileName"+fileName);
+		   saveDir=downLoadInterface.getSaveDir();
+		   System.out.println("saveDir"+saveDir.getName());
+		   buffer=ReadFile(fileName,saveDir);
 		   return WriteFile(buffer,file.getName());
 	   }
 	
-	private static StringBuffer ReadFile(File file, File saveDir) {
+	private static StringBuffer ReadFile(String interfaceName, File saveDir) {
+		
+		if(interfaceName.equals("Calculator")){
+			 file=new File(".\\src\\domain\\service\\alg\\baseclass\\Calculator.java");
+		}
+		else if(interfaceName.equals("Creator")){
+			file=new File(".\\src\\domain\\service\\alg\\baseclass\\Creator.java");
+		}
+		else if(interfaceName.equals("Selector")){
+		    file=new File(".\\src\\domain\\service\\alg\\baseclass\\Selector.java");
+		}
+		else if(interfaceName.equals("Modifying")){
+			 file=new File(".\\src\\domain\\service\\alg\\baseclass\\Modifying.java");
+		}
+		else{
+			 file=new File(".\\src\\domain\\core\\algmodel\\genepiece\\Function.java");
+		}
+		System.out.println(file.toString());
 		try{
 		       
 		       BufferedReader reader=new BufferedReader(new InputStreamReader(new FileInputStream(file),"GBK"));
@@ -51,12 +69,13 @@ public class DownLoadInterfaceController {
     }
 	private static int WriteFile(StringBuffer buffer, String name) throws IOException {
 		 //检查指定路径是否存在
-		 File newInterface=new File(saveDir.getName()+file.getName());
+		 File newInterface=new File(saveDir.toString()+"\\"+file.getName());
 		 
 		 if(!saveDir.exists()&&!saveDir.isDirectory()){//检查文件夹是否存在，不存在就生成
 			 saveDir.mkdirs();
 			 
 		 }
+		 System.out.println(newInterface.toString());
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newInterface),"GBK"));

@@ -247,7 +247,7 @@ public class New2 extends JFrame {
 		  try {
 				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
 					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
-					System.out.println();
+					
 				}
 			} catch (ClassNotFoundException e1) {
 				
@@ -280,7 +280,7 @@ public class New2 extends JFrame {
 	      //----------------------------------------
 	      uploadInterfacePanel.setBounds(165, 115, 659, 450);
 	      uploadInterfacePanel.setVisible(false);
-	      contentPane.add(uploadInterfacePanel,"p6");
+	      contentPane.add(uploadInterfacePanel);
 	      inputFilePanel.setBounds(165, 115, 659, 455);
 	      inputFilePanel.setVisible(false);
 	      contentPane.add(inputFilePanel);

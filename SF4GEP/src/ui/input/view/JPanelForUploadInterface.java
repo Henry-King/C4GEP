@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 
+import ui.input.controller.DownLoadInterfaceController;
 import ui.input.controller.ModelForDownLoadInterface;
 import ui.input.controller.UploadInterfaceController;
 import ui.input.model.ModelForUploadInterface;
@@ -38,7 +39,8 @@ public class JPanelForUploadInterface extends JPanel {
 	public JTextField textInterfaceSavePath = new JTextField();
 	public JLabel lblNewLabel3 = new JLabel("\u4FDD\u5B58\u8DEF\u5F84");
 	public File dirForSavePath,fileForSeleInterface;
-	JComboBox interfaceComboBox = new JComboBox();
+	String[] interfaceArr=new String[]{"Function","Calculator","Creator","Modifying","Selector"};
+	JComboBox interfaceComboBox = new JComboBox(interfaceArr);
 	/**
 	 * Create the panel.
 	 */
@@ -124,14 +126,21 @@ public class JPanelForUploadInterface extends JPanel {
 		
 		
 		buttonSaveDirBrowse.addActionListener(
-				new OpenHandler()
+				new SaveHandler()
 		);
 		buttonSaveDirBrowse.setBounds(505, 320, 93, 23);
 		add(buttonSaveDirBrowse);
 		btnDownLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModelForDownLoadInterface downLoadInterface=new ModelForDownLoadInterface(file,dir,textInterfaceSavePath.getText(),textInterfaceSavePath.getText());
-				
+				interfaceComboBox.setSelectedItem(interfaceComboBox.getSelectedItem());
+				System.out.println(interfaceComboBox.getSelectedItem().toString());
+				ModelForDownLoadInterface downLoadInterface=new ModelForDownLoadInterface(dirForSavePath,interfaceComboBox.getSelectedItem().toString(),textInterfaceSavePath.getText());
+				try {
+					DownLoadInterfaceController.btnDownLoadController(downLoadInterface);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -177,6 +186,21 @@ public class JPanelForUploadInterface extends JPanel {
 			}
 			if(rVal==JFileChooser.CANCEL_OPTION){
 				 textInterfaceName.setText("You pressed cancel");
+			
+			}
+		}
+	}
+	class SaveHandler implements  ActionListener{
+        public void actionPerformed(ActionEvent e) {
+			JFileChooser jc=new JFileChooser();
+			int rVal=jc.showOpenDialog(JPanelForUploadInterface.this);
+			if(rVal==JFileChooser.APPROVE_OPTION){
+			    dirForSavePath=jc.getCurrentDirectory();
+				fileForSeleInterface=jc.getSelectedFile();
+				textInterfaceSavePath.setText(dirForSavePath.toString());
+			}
+			if(rVal==JFileChooser.CANCEL_OPTION){
+				 textInterfaceSavePath.setText("You pressed cancel");
 			
 			}
 		}

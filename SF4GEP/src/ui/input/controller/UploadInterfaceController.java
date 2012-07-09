@@ -155,18 +155,18 @@ public class UploadInterfaceController {
 		
 		try {
 			fileName=file.getName().substring(0,file.getName().indexOf(".java"));//得到类名
-			String filePathString=defaultFileSavePath;
 			
-			File classfiles=new File(filePathString);
-			System.out.println(filePathString);
-			System.out.println(classfiles.toString());
+			File classfiles=new File(".\\bin\\domain\\service\\alg\\baseclass\\");
+		    System.out.println(classfiles.toString());
 			//---检查实现的接口
-			List<T> resultList=new ArrayList<T>(classfiles.list().length);
-			Class<?> myClass=Class.forName("domain.service.alg.userdefined"+fileName);
+			
+			Class<?> myClass=Class.forName("domain.service.alg.userdefined."+fileName);
 			for(String string:classfiles.list()){
-				
 				available=myClass.isInstance(string);
 			}
+			File classfileForfunction=new File(".\\bin\\domain\\core\\algmodel\\genepiece\\function");
+			available=myClass.isInstance(classfileForfunction.getName());
+			
 			if(available==false){
 				File[] filesAfterUpload=saveDir.listFiles();
 				
