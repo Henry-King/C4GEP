@@ -160,11 +160,9 @@ public class GepOutputService implements IgepOutputService {
 		newStr.append("n={");
 		
 		for (int i = 0; i < inputSet.getRows().size(); i++) {
-			
 			oldStr.append(resultList.get(i)+",");
 			newStr.append(caledList.get(i)+",");
 		}
-		
 		
 		oldStr.delete(oldStr.length()-2, oldStr.length());
 		newStr.delete(newStr.length()-2, newStr.length());
@@ -172,9 +170,17 @@ public class GepOutputService implements IgepOutputService {
 		oldStr.append("};");
 		newStr.append("};");
 		
-		String str = "MultipleListPlot[o, n, PlotJoined -> True,AxesLabel -> {样本数, 拟合值}, GridLines -> Automatic, PlotLabel -> Style[Framed[最佳个体的拟合曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
+		//String str = "MultipleListPlot[o, n, PlotJoined -> True,AxesLabel -> {样本数, 拟合值}, GridLines -> Automatic, PlotLabel -> Style[Framed[最佳个体的拟合曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
 		
-		mathCanvasA.setMathCommand("<< Graphics`MultipleListPlot`");
+		String str = "ListLinePlot[{o, n}, AxesLabel -> {样本数, 拟合值}, GridLines -> Automatic," +
+				"PlotLabel -> Style[Framed[ 最佳个体的拟合曲线图], 16, Blue," +
+				"Background -> Lighter[Yellow]]," +
+				"Epilog -> Inset[Panel[Grid[{" +
+				"{Graphics[{Thick, Yellow, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],用户输入}," +
+				"{Graphics[{Dashed,Black, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], 计算结果}" +
+				"}]],Offset[{-2, -180}, Scaled[{1, 1}]]," +
+				"{Right, Bottom}], PlotStyle -> {{Yellow,Thick}, {Black,Dashed}}]";
+		
 		mathCanvasA.setMathCommand(oldStr.toString()+newStr.toString()+str);
 		
 		
@@ -184,7 +190,6 @@ public class GepOutputService implements IgepOutputService {
 	@Override
 	public MathCanvas drawImageB(AlgInstance output, KernelLink ml) {
 MathCanvas mathCanvasB = new MathCanvas(ml);
-		
 		Set<OutputPopulation> popSet = output.getPopulationSet();
 		//StringBuffer generationStr = new StringBuffer();
 		StringBuffer bestStr = new StringBuffer();
@@ -196,7 +201,6 @@ MathCanvas mathCanvasB = new MathCanvas(ml);
 		
 		//System.out.println("最差个体：");
 		
-		
 		Iterator<OutputPopulation> iterator = popSet.iterator();
 		while (iterator.hasNext()) {
 			OutputPopulation outputPopulation = (OutputPopulation) iterator.next();
@@ -205,6 +209,7 @@ MathCanvas mathCanvasB = new MathCanvas(ml);
 			worseStr.append(outputPopulation.getWorstOutputIndividual().getFitness() + ",");
 			//System.out.println(outputPopulation.getWorstOutputIndividual().getFitness());
 		}
+		
 		//generationStr.delete(generationStr.length()-2, generationStr.length());
 		bestStr.delete(bestStr.length()-2, bestStr.length());
 		worseStr.delete(worseStr.length()-2, worseStr.length());
@@ -213,10 +218,23 @@ MathCanvas mathCanvasB = new MathCanvas(ml);
 		bestStr.append("};");
 		worseStr.append("};");
 		
-		String str = "MultipleListPlot[yb, yw, PlotJoined -> True,AxesLabel -> {代数, 适应值}, GridLines -> Automatic, PlotLabel -> Style[Framed[每代最佳个体、最差个体的演化曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
+		//String str = "MultipleListPlot[yb, yw, PlotJoined -> True,AxesLabel -> {代数, 适应值}, GridLines -> Automatic, PlotLabel -> Style[Framed[每代最佳个体、最差个体的演化曲线图], 16, Blue, Background -> Lighter[Yellow]]]";
 		
-		mathCanvasB.setMathCommand("<< Graphics`MultipleListPlot`");
+		
+		
+		//mathCanvasB.setMathCommand("<< Graphics`MultipleListPlot`");
+		String str = "ListLinePlot[{yb, yw}, AxesLabel -> {代数, 适应值}, GridLines -> Automatic,PlotLabel -> Style[Framed[ 每代最佳个体和最差个体的演化曲线图], 16, Blue,Background -> Lighter[Yellow]], " +
+				"Epilog -> Inset[Panel[Grid[{" +
+				"{Graphics[{Thick, Green, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],最佳个体}," +
+				"{Graphics[{Thick, Red, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], 最差个体}" +
+				"}]],Offset[{-2, -180}, Scaled[{1, 1}]], {Right, Bottom}], PlotStyle -> {{Green}, {Red}}]";
+		
 		mathCanvasB.setMathCommand(bestStr.toString()+worseStr.toString()+str);
+		
+		
+		
+		
+		
 		return mathCanvasB;
 	}
 

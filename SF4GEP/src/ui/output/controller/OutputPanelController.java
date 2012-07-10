@@ -27,7 +27,6 @@ public class OutputPanelController {
 	MathCanvas mathCanvasB;
 	
 	public OutputPanelController() {
-		
 	}
 	
 	public static void init(JPanelForOutput outputPanel){
