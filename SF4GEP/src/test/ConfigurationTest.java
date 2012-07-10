@@ -43,9 +43,6 @@ public class ConfigurationTest {
 		myParameter.setRisElement("1,2,3");
 		myParameter.setHomeoticGeneNumber("1");
 		myParameter.setHomeoticHeaderLength("5");
-		myParameter.setRandomConstantStart("0");
-		myParameter.setRandomConstantEnd("1");
-		myParameter.setConstantListSize("10");
 		IgepAlgService myGepService=new GepAlgService();	
 		myParameter.setCreator(myGepService.getAvailableCreator().get(0).getClass().getName());
 		myParameter.setCalculator(myGepService.getAvailableCalculator().get(0).getClass().getName());
