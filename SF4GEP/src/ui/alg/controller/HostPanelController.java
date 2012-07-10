@@ -103,11 +103,11 @@ public class HostPanelController {
 						.split(",");
 				for (int i = 0; i < functions.length; i++) {
 					System.out.println(functions[i].toString());
-					if (functions[i].toString().equals("domain.service.alg.userdefined.function.Additioin")) {
+					if (functions[i].toString().equals("domain.service.alg.userdefined.Additioin")) {
 					   functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Minus")) {
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.Minus")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-					} else if (functions[i].toString().equals("domain.service.alg.userdefined.function.Multiply")) {
+					} else if (functions[i].toString().equals("domain.service.alg.userdefined.Multiply")) {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
 					} else {
 						functionPanel.JComboBoxOfSelectdFunctions.addItem("/");

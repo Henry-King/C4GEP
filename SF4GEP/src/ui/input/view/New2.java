@@ -307,6 +307,7 @@ public class New2 extends JFrame {
 		    		    //----
 					    StringBuffer result = new StringBuffer();
 						String str = new String();
+						
 						for (int i = 0; i < functionPanel.JComboBoxOfSelectdFunctions.getItemCount(); i++) {
 							if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i).toString()
 									.equals("+")) {
