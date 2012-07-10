@@ -828,14 +828,650 @@ public interface IHibernateDataContext {
 	*/ 
 	public List searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject);
 }
-domain\core\algmodel\configuration\GepAlgorithm.java
-package domain.core.algmodel.configuration;
+domain\core\algmodel\gene\Gene.java
+package domain.core.algmodel.gene;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.List;
+import common.ICopy;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 基因类，此类为抽象类，提供了基因的通用的信息
+ * @author 申远
+ *
+ */
+public abstract class Gene implements Serializable,ICopy<Gene> {
+	private static final long serialVersionUID = 7104627974958183372L;
+	private float value;
+	private int start;
+	private int end;
+	private List<GenePiece> originalGenePiece;
+	protected List<GenePiece> containedGenePieces;
+	protected Header header;
+	protected Tail tail;
+	/**
+	 * 构造函数,创建一个新的基因，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
+	 * @param origGenePieces 当前基因对应的个体中全部的基因片段
+	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
+	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
+	 */
+	public Gene(List<GenePiece> origGenePieces,int start,int end){
+		this.originalGenePiece=origGenePieces;
+		this.start=start;
+		this.end=end;
+		containedGenePieces=origGenePieces.subList(start, end);
+	}
+	/**
+	 * 返回当前基因的头部
+	 * @return 当前基因的头部
+	 */
+	public abstract Header getHeader();
+	/**
+	 * 返回当前基因的尾部
+	 * @return 当前基因的尾部
+	 */
+	public abstract Tail getTail();
+	/**
+	 * 返回当前基因的值，通过使用同源基因连接各个基因的值，可以求得个体对某个输入集的解，通过对解集进行某种数学变换，可以得到个体的适应值。
+	 * @return 当前基因的值
+	 */
+	public float getValue() {
+		return value;
+	}
+	/**
+	 * 设置当前基因的值
+	 * @param value 当前基因的值
+	 */
+	public void setValue(float value) {
+		this.value = value;
+	}
+	/**
+	 * 返回当前基因所对应的基因片段
+	 * @return 包含当前基因所对应的基因片段的List
+	 */
+	public List<GenePiece> getContainedGenePieces(){
+		return containedGenePieces;
+	}
+	@SuppressWarnings("unchecked")
+	private void readObject(ObjectInputStream in){
+		try {
+			value=in.readFloat();
+			start=in.readInt();
+			end=in.readInt();
+			originalGenePiece=(List<GenePiece>) in.readObject();
+			containedGenePieces=originalGenePiece.subList(start, end);
+			header=(Header) in.readObject();
+			tail=(Tail) in.readObject();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	private void writeObject(ObjectOutputStream out){
+		try {
+			out.writeFloat(value);
+			out.writeInt(start);
+			out.writeInt(end);
+			out.writeObject(originalGenePiece);
+			out.writeObject(header);
+			out.writeObject(tail);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public Gene copy(){
+		// TODO Auto-generated method stub
+		Gene gene=null;
+		if(this instanceof NormalGene){
+			NormalGene normalGene=(NormalGene)this;
+			gene=new NormalGene(normalGene.getHeader().getContainedGenePieces().size(), normalGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
+		}
+		else if (this instanceof HomeoticGene) {
+			HomeoticGene homeoticGene=(HomeoticGene)this;
+			gene=new HomeoticGene(homeoticGene.getHeader().getContainedGenePieces().size(), homeoticGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
+		}
+		return gene;
+	}
+}
+domain\core\algmodel\gene\Header.java
+package domain.core.algmodel.gene;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.List;
+import common.ICopy;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 基因头部实体的基类，是个抽象类
+ * @author 申远
+ *
+ */
+public abstract class Header implements Serializable,ICopy<Header>{
+	private static final long serialVersionUID = -4787817859125343269L;
+	protected List<GenePiece> containedGenePieces;
+	private List<GenePiece> genePieces;
+	private int start;
+	private int end;
+	/**
+	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	public Header(List<GenePiece> genePieces,int start,int end){
+		this.genePieces=genePieces;
+		this.start=start;
+		this.end=end;
+		this.containedGenePieces=genePieces.subList(start, end);
+	}
+	/**
+	 * 返回头部所包含的基因片段。
+	 * @return 基因片段List
+	 */
+	public List<GenePiece> getContainedGenePieces(){
+		return containedGenePieces;
+	}
+	@SuppressWarnings("unchecked")
+	private void readObject(ObjectInputStream in){
+		try {
+			genePieces=(List<GenePiece>) in.readObject();
+			start=in.readInt();
+			end=in.readInt();
+			containedGenePieces=genePieces.subList(start, end);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	private void writeObject(ObjectOutputStream out){
+		try {
+			out.writeObject(genePieces);
+			out.writeInt(start);
+			out.writeInt(end);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public Header copy() {
+		// TODO Auto-generated method stub
+		Header header=null;
+		if(this instanceof NormalGeneHeader){
+			header=new NormalGeneHeader(genePieces, start, end);
+		}
+		else if(this instanceof HomeoticGeneHeader) {
+			header=new HomeoticGeneHeader(genePieces, start, end);
+		}
+		return header;
+	}
+}
+domain\core\algmodel\gene\HomeoticGene.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 同源基因实体类
+ * @author 申远
+ * 
+ */
+public class HomeoticGene extends Gene{
+	private static final long serialVersionUID = 4297205056477494966L;
+	/**
+	 * 创建同源基因的构造函数，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
+	 * @param headerLength 同源基因的头部长度
+	 * @param tailLength 同源基因的尾部长度
+	 * @param genePieces 个体中所包含的全部基因片段
+	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
+	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
+	 */
+	public HomeoticGene(int headerLength,int tailLength,List<GenePiece> genePieces,int start,int end){
+		super(genePieces,start,end);
+		header=new HomeoticGeneHeader(genePieces,start,start+headerLength);
+		tail=new HomeoticGeneTail(genePieces,start+headerLength, end);
+	}
+	@Override
+	public HomeoticGeneHeader getHeader() {
+		// TODO Auto-generated method stub
+		return (HomeoticGeneHeader) header;
+	}
+	@Override
+	public HomeoticGeneTail getTail() {
+		// TODO Auto-generated method stub
+		return (HomeoticGeneTail) tail;
+	}
+}
+domain\core\algmodel\gene\HomeoticGeneHeader.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 同源基因头部的实体类
+ * @author 申远
+ *
+ */
+public class HomeoticGeneHeader extends Header{
+	private static final long serialVersionUID = 5276198147420739676L;
+	/**
+	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	public HomeoticGeneHeader(List<GenePiece> genePieces,int start,int end) {
+		// TODO Auto-generated constructor stub
+		super(genePieces,start,end);
+	}
+	
+}
+domain\core\algmodel\gene\HomeoticGeneTail.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 同源基因尾部实体类
+ * @author 申远
+ *
+ */
+public class HomeoticGeneTail extends Tail{
+	private static final long serialVersionUID = -3919750383832279100L;
+	/**
+	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	public HomeoticGeneTail(List<GenePiece> genePieces,int start,int end) {
+		super(genePieces,start,end);
+		// TODO Auto-generated constructor stub
+	}
+}
+domain\core\algmodel\gene\NormalGene.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 普通基因实体类
+ * @author 申远
+ *
+ */
+public class NormalGene extends Gene{
+	private static final long serialVersionUID = -4798878563976876499L;
+	/**
+	 * 创建普通基因的构造函数，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
+	 * @param headerLength 普通基因的头部长度
+	 * @param tailLength 普通基因的尾部长度
+	 * @param genePieces 个体中所包含的全部基因片段
+	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
+	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
+	 */
+	public NormalGene(int headerLength,int tailLength,List<GenePiece> genePieces,int start,int end){
+		super(genePieces,start,end);
+		header=new NormalGeneHeader(genePieces,start,start+headerLength);
+		tail=new NormalGeneTail(genePieces,start+headerLength, end);
+	}
+	@Override
+	public NormalGeneHeader getHeader() {
+		// TODO Auto-generated method stub
+		return (NormalGeneHeader) header;
+	}
+	@Override
+	public NormalGeneTail getTail() {
+		// TODO Auto-generated method stub
+		return (NormalGeneTail) tail;
+	}
+}
+domain\core\algmodel\gene\NormalGeneHeader.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 普通基因头部的实体类
+ * @author 申远
+ *
+ */
+public class NormalGeneHeader extends Header {
+	private static final long serialVersionUID = 6872200051330701939L;
+	/**
+	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	public NormalGeneHeader(List<GenePiece> genePieces,int start,int end) {
+		super(genePieces,start,end);
+		// TODO Auto-generated constructor stub
+	}
+}
+domain\core\algmodel\gene\NormalGeneTail.java
+package domain.core.algmodel.gene;
+import java.util.List;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 普通基因尾部的实体类
+ * @author 申远
+ *
+ */
+public class NormalGeneTail extends Tail {
+	private static final long serialVersionUID = -3087000575324792050L;
+	/**
+	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	public NormalGeneTail(List<GenePiece> genePieces,int start,int end) {
+		super(genePieces,start,end);
+		// TODO Auto-generated constructor stub
+	}
+}
+domain\core\algmodel\gene\Tail.java
+package domain.core.algmodel.gene;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.List;
+import common.ICopy;
+import domain.core.algmodel.genepiece.Computable;
+import domain.core.algmodel.genepiece.GenePiece;
+/**
+ * 基因尾部实体的基类，是一个抽象类
+ * @author 申远
+ *
+ */
+public abstract class Tail implements Serializable,ICopy<Tail>{
+	private static final long serialVersionUID = -4667068182615591355L;
+	protected List<Computable> computable;
+	private List<GenePiece> genePieces;
+	private int start;
+	private int end;
+	/**
+	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
+	 * @param genePieces 基因片段List
+	 * @param start 基因头部开始的地址，包括
+	 * @param end 基因头部结束的地址，不包括
+	 */
+	@SuppressWarnings("unchecked")
+	public Tail(List<GenePiece> genePieces,int start,int end){
+		this.genePieces=genePieces;
+		this.start=start;
+		this.end=end;
+		this.computable=(List<Computable>)(Object)genePieces.subList(start, end);
+	}
+	/**
+	 * 基因尾部所包含的全部基因片段
+	 * @return 包含有尾部基因片段的List
+	 */
+	public List<Computable> getContainedGenePieces(){
+		return computable;
+	}
+	@SuppressWarnings("unchecked")
+	private void readObject(ObjectInputStream in){
+		try {
+			genePieces=(List<GenePiece>) in.readObject();
+			start=in.readInt();
+			end=in.readInt();
+			computable=(List<Computable>)(Object)genePieces.subList(start, end);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	private void writeObject(ObjectOutputStream out){
+		try {
+			out.writeObject(genePieces);
+			out.writeInt(start);
+			out.writeInt(end);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public Tail copy() {
+		// TODO Auto-generated method stub
+		Tail tail=null;
+		if(this instanceof NormalGeneTail){
+			tail=new NormalGeneTail(genePieces, start, end);
+		}
+		else if (this instanceof HomeoticGeneTail) {
+			tail=new HomeoticGeneTail(genePieces, start, end);
+		}
+		return tail;
+	}
+}
+domain\core\algmodel\genepiece\Computable.java
+package domain.core.algmodel.genepiece;
+/**
+ * 抽象类，表示当前实体可做为函数的参数，例如常数和变量
+ * @author 申远
+ *
+ */
+public abstract class Computable extends GenePiece{
+	
+	private static final long serialVersionUID = 8680281835665872726L;
+}
+domain\core\algmodel\genepiece\Constant.java
+package domain.core.algmodel.genepiece;
+import java.util.Random;
+/**
+ * 整型常数类，这个类主要用来做为同源基因中函数的
+ * @author 申远
+ *
+ */
+public class Constant extends Computable {
+	private static final long serialVersionUID = 5428175735104183458L;
+	/**
+	 * 初始化整型常数类，初始化后此方法将自动生成value值，代表普通基因的编号
+	 * @param max 普通基因的数量
+	 */
+	public Constant(int max){
+		Random random=new Random();
+		value=random.nextInt(max);
+	}
+	/**
+	 * 整型常数值不可设定，请不要调用此方法，调用后程序会抛出异常
+	 * @param value 设定常数值，此设定无效，而且会抛出异常
+	 */
+	@Deprecated
+	@Override
+	public void setValue(float value) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("整型常数类的值由程序自动生成，用户不能手动设置");
+	}
+	/**
+	 * 整型的符号表示不可设定，请不要调用此方法，调用后程序会抛出异常
+	 * @param symbol 设定符号表示，此设定无效，而且会抛出异常
+	 */
+	@Deprecated
+	@Override
+	public void setSymbol(String symbol) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("不能手动设定整型常数的符号表示，这个符号表示就是此整型常数的值，由程序自动生成");
+	}
+	/**
+	 * 返回整型常数的符号表示，即为整型常数的值的符号表示
+	 */
+	@Override
+	public String getSymbol() {
+		return Integer.toString((int)value);
+	}
+	/**
+	 * 返回整型常数的字符串表示，本方法将自动调用getSymbol方法
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getSymbol();
+	}
+}
+domain\core\algmodel\genepiece\Function.java
+package domain.core.algmodel.genepiece;
+import java.util.Deque;
+/**
+ * 函数抽象类，请确保任何继承此类的子类都具有默认构造函数，否则系统会出现错误
+ */
+public abstract class Function extends GenePiece{
+	private static final long serialVersionUID = -5233529550458131848L;
+	private final int arity;
+	/**
+	 * 构造函数，需要提供函数名，函数的符号表示，函数的目数
+	 * @param name 函数名
+	 * @param arity 函数的目数，即操作符数量，例如加法的目数为2，平方根的目数为1
+	 * @param symbol 函数的符号表示
+	 */
+	public Function(String name,int arity,String symbol){
+		value=Float.NaN;
+		this.name=name;
+		this.arity=arity;
+		this.symbol=symbol;
+	}
+	/**
+	 * 获得当前函数的目数
+	 */
+	public int getArity() {
+		return arity;
+	}
+	/**
+	 * 进行具体的函数运算，并返回运算结果
+	 * @param operators 操作符队列，请使用LIFO的方式进行计算，否则系统将出错
+	 * @return 函数进行运算后的返回值。
+	 */
+	public abstract float operate(Deque<Float> operators);
+}
+domain\core\algmodel\genepiece\GenePiece.java
+package domain.core.algmodel.genepiece;
+import java.io.Serializable;
+import common.ICopy;
+/**
+ * 基因片段类，或称基因位类，在每一个头部或者尾部中，最终包含的都是此类GenePiece
+ * @author 申远
+ *
+ */
+public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiece>{
+	private static final long serialVersionUID = 7648117930489664221L;
+	protected String symbol=new String();
+	protected String name=new String();
+	protected float value;
+	/**
+	 * 返回当前基因片段的符号表示，用String表示
+	 * @return 基因片段符号表示
+	 */
+	public String getSymbol() {
+		return symbol;
+	}
+	/**
+	 * 设置当前基因片段的符号表示，用String表示
+	 * @param symbol 基因片段符号表示
+	 */
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+	/**
+	 * 返回当前基因片段的名称
+	 * @return 基因片段名称的字符串表示
+	 */
+	public String getName(){
+		return name;
+	}
+	/**
+	 * 设置当前基因片段的名称
+	 * @param name 当前基因片段的名称
+	 */
+	public void setName(String name){
+		this.name=name;
+	}
+	/**
+	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getName();
+	}
+	/**
+	 * 获得当前基因片段的值
+	 * @return 当前基因片段的值
+	 */
+	public float getValue(){
+		return value;
+	}
+	/**
+	 * 设置当前基因片段的值
+	 * @param value 基因片段的值
+	 */
+	public void setValue(float value){
+		this.value=value;
+	}
+	/**
+	 * 克隆一份当前对象，这个方法调用了Object中的clone方法。
+	 * 这是一个深度克隆，即源对象和新对象具有相同的初值，但具有不同的内存地址。
+	 */
+	@Override
+	public GenePiece clone(){
+		// TODO Auto-generated method stub
+		GenePiece o=null;
+		try {
+			o=(GenePiece) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return o;
+	}
+	@Override
+	/**
+	 * 这个copy方法将直接调用clone方法实现深度复制
+	 */
+	public GenePiece copy() {
+		// TODO Auto-generated method stub
+		return clone();
+	}
+}
+domain\core\algmodel\genepiece\Variable.java
+package domain.core.algmodel.genepiece;
+/**
+ * 变量类，用户输入的所有的变量信息都将变换为类
+ * @author 申远
+ *
+ */
+public class Variable extends Computable{
+	private static final long serialVersionUID = 2304632426125416061L;
+	/**
+	 * 空构造函数，不进行任何操作
+	 */
+	public Variable() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * 构造函数，用户可以指定变量名称
+	 * @param name 变量名称
+	 */
+	public Variable(String name){
+		this.name = name;
+	}
+}
+domain\core\algmodel\population\GepAlgorithm.java
+package domain.core.algmodel.population;
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.Variable;
 /**
  * 本类是算法子系统实体类的入口，本类中保存有两部分内容，第一部分是有关算法实体类的参数，第二部分是一个对种群队列的引用
  * @author 申远
@@ -1073,8 +1709,8 @@ public class GepAlgorithm implements Serializable{
 		this.functionList = functionList;
 	}
 }
-domain\core\algmodel\configuration\Individual.java
-package domain.core.algmodel.configuration;
+domain\core\algmodel\population\Individual.java
+package domain.core.algmodel.population;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -1082,9 +1718,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import common.ICopy;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.individualcomponent.HomeoticGene;
-import domain.core.algmodel.individualcomponent.NormalGene;
+import domain.core.algmodel.gene.HomeoticGene;
+import domain.core.algmodel.gene.NormalGene;
+import domain.core.algmodel.genepiece.GenePiece;
 /**
  * 个体类,种群中保存着个体的List
  * @author 个体类
@@ -1301,8 +1937,8 @@ public class Individual implements Comparable<Individual>,Serializable,ICopy<Ind
 		return individual;
 	}
 }
-domain\core\algmodel\configuration\Population.java
-package domain.core.algmodel.configuration;
+domain\core\algmodel\population\Population.java
+package domain.core.algmodel.population;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -1406,642 +2042,6 @@ public class Population implements Serializable,ICopy<Population>{
 		return population;
 	}
 }
-domain\core\algmodel\genecomponent\Computable.java
-package domain.core.algmodel.genecomponent;
-/**
- * 抽象类，表示当前实体可做为函数的参数，例如常数和变量
- * @author 申远
- *
- */
-public abstract class Computable extends GenePiece{
-	
-	private static final long serialVersionUID = 8680281835665872726L;
-}
-domain\core\algmodel\genecomponent\Constant.java
-package domain.core.algmodel.genecomponent;
-import java.util.Random;
-/**
- * 整型常数类，这个类主要用来做为同源基因中函数的
- * @author 申远
- *
- */
-public class Constant extends Computable {
-	private static final long serialVersionUID = 5428175735104183458L;
-	/**
-	 * 初始化整型常数类，初始化后此方法将自动生成value值，代表普通基因的编号
-	 * @param max 普通基因的数量
-	 */
-	public Constant(int max){
-		Random random=new Random();
-		value=random.nextInt(max);
-	}
-	/**
-	 * 整型常数值不可设定，请不要调用此方法，调用后程序会抛出异常
-	 * @param value 设定常数值，此设定无效，而且会抛出异常
-	 */
-	@Deprecated
-	@Override
-	public void setValue(float value) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("整型常数类的值由程序自动生成，用户不能手动设置");
-	}
-	/**
-	 * 整型的符号表示不可设定，请不要调用此方法，调用后程序会抛出异常
-	 * @param symbol 设定符号表示，此设定无效，而且会抛出异常
-	 */
-	@Deprecated
-	@Override
-	public void setSymbol(String symbol) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("不能手动设定整型常数的符号表示，这个符号表示就是此整型常数的值，由程序自动生成");
-	}
-	/**
-	 * 返回整型常数的符号表示，即为整型常数的值的符号表示
-	 */
-	@Override
-	public String getSymbol() {
-		return Integer.toString((int)value);
-	}
-	/**
-	 * 返回整型常数的字符串表示，本方法将自动调用getSymbol方法
-	 */
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getSymbol();
-	}
-}
-domain\core\algmodel\genecomponent\Function.java
-package domain.core.algmodel.genecomponent;
-import java.util.Deque;
-/**
- * 函数抽象类，请确保任何继承此类的子类都具有默认构造函数，否则系统会出现错误
- */
-public abstract class Function extends GenePiece{
-	private static final long serialVersionUID = -5233529550458131848L;
-	private final int arity;
-	/**
-	 * 构造函数，需要提供函数名，函数的符号表示，函数的目数
-	 * @param name 函数名
-	 * @param arity 函数的目数，即操作符数量，例如加法的目数为2，平方根的目数为1
-	 * @param symbol 函数的符号表示
-	 */
-	public Function(String name,int arity,String symbol){
-		value=Float.NaN;
-		this.name=name;
-		this.arity=arity;
-		this.symbol=symbol;
-	}
-	/**
-	 * 获得当前函数的目数
-	 */
-	public int getArity() {
-		return arity;
-	}
-	/**
-	 * 进行具体的函数运算，并返回运算结果
-	 * @param operators 操作符队列，请使用LIFO的方式进行计算，否则系统将出错
-	 * @return 函数进行运算后的返回值。
-	 */
-	public abstract float operate(Deque<Float> operators);
-}
-domain\core\algmodel\genecomponent\GenePiece.java
-package domain.core.algmodel.genecomponent;
-import java.io.Serializable;
-import common.ICopy;
-/**
- * 基因片段类，或称基因位类，在每一个头部或者尾部中，最终包含的都是此类GenePiece
- * @author 申远
- *
- */
-public abstract class GenePiece implements Serializable,Cloneable,ICopy<GenePiece>{
-	private static final long serialVersionUID = 7648117930489664221L;
-	protected String symbol=new String();
-	protected String name=new String();
-	protected float value;
-	/**
-	 * 返回当前基因片段的符号表示，用String表示
-	 * @return 基因片段符号表示
-	 */
-	public String getSymbol() {
-		return symbol;
-	}
-	/**
-	 * 设置当前基因片段的符号表示，用String表示
-	 * @param symbol 基因片段符号表示
-	 */
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-	/**
-	 * 返回当前基因片段的名称
-	 * @return 基因片段名称的字符串表示
-	 */
-	public String getName(){
-		return name;
-	}
-	/**
-	 * 设置当前基因片段的名称
-	 * @param name 当前基因片段的名称
-	 */
-	public void setName(String name){
-		this.name=name;
-	}
-	/**
-	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
-	 */
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return getName();
-	}
-	/**
-	 * 获得当前基因片段的值
-	 * @return 当前基因片段的值
-	 */
-	public float getValue(){
-		return value;
-	}
-	/**
-	 * 设置当前基因片段的值
-	 * @param value 基因片段的值
-	 */
-	public void setValue(float value){
-		this.value=value;
-	}
-	/**
-	 * 克隆一份当前对象，这个方法调用了Object中的clone方法。
-	 * 这是一个深度克隆，即源对象和新对象具有相同的初值，但具有不同的内存地址。
-	 */
-	@Override
-	public GenePiece clone(){
-		// TODO Auto-generated method stub
-		GenePiece o=null;
-		try {
-			o=(GenePiece) super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return o;
-	}
-	@Override
-	/**
-	 * 这个copy方法将直接调用clone方法实现深度复制
-	 */
-	public GenePiece copy() {
-		// TODO Auto-generated method stub
-		return clone();
-	}
-}
-domain\core\algmodel\genecomponent\Variable.java
-package domain.core.algmodel.genecomponent;
-/**
- * 变量类，用户输入的所有的变量信息都将变换为类
- * @author 申远
- *
- */
-public class Variable extends Computable{
-	private static final long serialVersionUID = 2304632426125416061L;
-	/**
-	 * 空构造函数，不进行任何操作
-	 */
-	public Variable() {
-		// TODO Auto-generated constructor stub
-	}
-	/**
-	 * 构造函数，用户可以指定变量名称
-	 * @param name 变量名称
-	 */
-	public Variable(String name){
-		this.name = name;
-	}
-}
-domain\core\algmodel\individualcomponent\Gene.java
-package domain.core.algmodel.individualcomponent;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
-import common.ICopy;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 基因类，此类为抽象类，提供了基因的通用的信息
- * @author 申远
- *
- */
-public abstract class Gene implements Serializable,ICopy<Gene> {
-	private static final long serialVersionUID = 7104627974958183372L;
-	private float value;
-	private int start;
-	private int end;
-	private List<GenePiece> originalGenePiece;
-	protected List<GenePiece> containedGenePieces;
-	protected Header header;
-	protected Tail tail;
-	/**
-	 * 构造函数,创建一个新的基因，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
-	 * @param origGenePieces 当前基因对应的个体中全部的基因片段
-	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
-	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
-	 */
-	public Gene(List<GenePiece> origGenePieces,int start,int end){
-		this.originalGenePiece=origGenePieces;
-		this.start=start;
-		this.end=end;
-		containedGenePieces=origGenePieces.subList(start, end);
-	}
-	/**
-	 * 返回当前基因的头部
-	 * @return 当前基因的头部
-	 */
-	public abstract Header getHeader();
-	/**
-	 * 返回当前基因的尾部
-	 * @return 当前基因的尾部
-	 */
-	public abstract Tail getTail();
-	/**
-	 * 返回当前基因的值，通过使用同源基因连接各个基因的值，可以求得个体对某个输入集的解，通过对解集进行某种数学变换，可以得到个体的适应值。
-	 * @return 当前基因的值
-	 */
-	public float getValue() {
-		return value;
-	}
-	/**
-	 * 设置当前基因的值
-	 * @param value 当前基因的值
-	 */
-	public void setValue(float value) {
-		this.value = value;
-	}
-	/**
-	 * 返回当前基因所对应的基因片段
-	 * @return 包含当前基因所对应的基因片段的List
-	 */
-	public List<GenePiece> getContainedGenePieces(){
-		return containedGenePieces;
-	}
-	@SuppressWarnings("unchecked")
-	private void readObject(ObjectInputStream in){
-		try {
-			value=in.readFloat();
-			start=in.readInt();
-			end=in.readInt();
-			originalGenePiece=(List<GenePiece>) in.readObject();
-			containedGenePieces=originalGenePiece.subList(start, end);
-			header=(Header) in.readObject();
-			tail=(Tail) in.readObject();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-	}
-	private void writeObject(ObjectOutputStream out){
-		try {
-			out.writeFloat(value);
-			out.writeInt(start);
-			out.writeInt(end);
-			out.writeObject(originalGenePiece);
-			out.writeObject(header);
-			out.writeObject(tail);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Override
-	public Gene copy(){
-		// TODO Auto-generated method stub
-		Gene gene=null;
-		if(this instanceof NormalGene){
-			NormalGene normalGene=(NormalGene)this;
-			gene=new NormalGene(normalGene.getHeader().getContainedGenePieces().size(), normalGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
-		}
-		else if (this instanceof HomeoticGene) {
-			HomeoticGene homeoticGene=(HomeoticGene)this;
-			gene=new HomeoticGene(homeoticGene.getHeader().getContainedGenePieces().size(), homeoticGene.getTail().getContainedGenePieces().size(), originalGenePiece, start, end);
-		}
-		return gene;
-	}
-}
-domain\core\algmodel\individualcomponent\Header.java
-package domain.core.algmodel.individualcomponent;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
-import common.ICopy;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 基因头部实体的基类，是个抽象类
- * @author 申远
- *
- */
-public abstract class Header implements Serializable,ICopy<Header>{
-	private static final long serialVersionUID = -4787817859125343269L;
-	protected List<GenePiece> containedGenePieces;
-	private List<GenePiece> genePieces;
-	private int start;
-	private int end;
-	/**
-	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	public Header(List<GenePiece> genePieces,int start,int end){
-		this.genePieces=genePieces;
-		this.start=start;
-		this.end=end;
-		this.containedGenePieces=genePieces.subList(start, end);
-	}
-	/**
-	 * 返回头部所包含的基因片段。
-	 * @return 基因片段List
-	 */
-	public List<GenePiece> getContainedGenePieces(){
-		return containedGenePieces;
-	}
-	@SuppressWarnings("unchecked")
-	private void readObject(ObjectInputStream in){
-		try {
-			genePieces=(List<GenePiece>) in.readObject();
-			start=in.readInt();
-			end=in.readInt();
-			containedGenePieces=genePieces.subList(start, end);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-	}
-	private void writeObject(ObjectOutputStream out){
-		try {
-			out.writeObject(genePieces);
-			out.writeInt(start);
-			out.writeInt(end);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Override
-	public Header copy() {
-		// TODO Auto-generated method stub
-		Header header=null;
-		if(this instanceof NormalGeneHeader){
-			header=new NormalGeneHeader(genePieces, start, end);
-		}
-		else if(this instanceof HomeoticGeneHeader) {
-			header=new HomeoticGeneHeader(genePieces, start, end);
-		}
-		return header;
-	}
-}
-domain\core\algmodel\individualcomponent\HomeoticGene.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 同源基因实体类
- * @author 申远
- * 
- */
-public class HomeoticGene extends Gene{
-	private static final long serialVersionUID = 4297205056477494966L;
-	/**
-	 * 创建同源基因的构造函数，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
-	 * @param headerLength 同源基因的头部长度
-	 * @param tailLength 同源基因的尾部长度
-	 * @param genePieces 个体中所包含的全部基因片段
-	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
-	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
-	 */
-	public HomeoticGene(int headerLength,int tailLength,List<GenePiece> genePieces,int start,int end){
-		super(genePieces,start,end);
-		header=new HomeoticGeneHeader(genePieces,start,start+headerLength);
-		tail=new HomeoticGeneTail(genePieces,start+headerLength, end);
-	}
-	@Override
-	public HomeoticGeneHeader getHeader() {
-		// TODO Auto-generated method stub
-		return (HomeoticGeneHeader) header;
-	}
-	@Override
-	public HomeoticGeneTail getTail() {
-		// TODO Auto-generated method stub
-		return (HomeoticGeneTail) tail;
-	}
-}
-domain\core\algmodel\individualcomponent\HomeoticGeneHeader.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 同源基因头部的实体类
- * @author 申远
- *
- */
-public class HomeoticGeneHeader extends Header{
-	private static final long serialVersionUID = 5276198147420739676L;
-	/**
-	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	public HomeoticGeneHeader(List<GenePiece> genePieces,int start,int end) {
-		// TODO Auto-generated constructor stub
-		super(genePieces,start,end);
-	}
-	
-}
-domain\core\algmodel\individualcomponent\HomeoticGeneTail.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 同源基因尾部实体类
- * @author 申远
- *
- */
-public class HomeoticGeneTail extends Tail{
-	private static final long serialVersionUID = -3919750383832279100L;
-	/**
-	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	public HomeoticGeneTail(List<GenePiece> genePieces,int start,int end) {
-		super(genePieces,start,end);
-		// TODO Auto-generated constructor stub
-	}
-}
-domain\core\algmodel\individualcomponent\NormalGene.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 普通基因实体类
- * @author 申远
- *
- */
-public class NormalGene extends Gene{
-	private static final long serialVersionUID = -4798878563976876499L;
-	/**
-	 * 创建普通基因的构造函数，用户需要在当前基因对应的个体的全部基因片段中指定当前基因从基因片段的哪里开始，哪里结束。
-	 * @param headerLength 普通基因的头部长度
-	 * @param tailLength 普通基因的尾部长度
-	 * @param genePieces 个体中所包含的全部基因片段
-	 * @param start 当前基因在个体基因片段中开始的地方，包括这个地址
-	 * @param end 当前基因在个体基因片段中结束的地方，不包括这个地址
-	 */
-	public NormalGene(int headerLength,int tailLength,List<GenePiece> genePieces,int start,int end){
-		super(genePieces,start,end);
-		header=new NormalGeneHeader(genePieces,start,start+headerLength);
-		tail=new NormalGeneTail(genePieces,start+headerLength, end);
-	}
-	@Override
-	public NormalGeneHeader getHeader() {
-		// TODO Auto-generated method stub
-		return (NormalGeneHeader) header;
-	}
-	@Override
-	public NormalGeneTail getTail() {
-		// TODO Auto-generated method stub
-		return (NormalGeneTail) tail;
-	}
-}
-domain\core\algmodel\individualcomponent\NormalGeneHeader.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 普通基因头部的实体类
- * @author 申远
- *
- */
-public class NormalGeneHeader extends Header {
-	private static final long serialVersionUID = 6872200051330701939L;
-	/**
-	 * 创建基因头部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	public NormalGeneHeader(List<GenePiece> genePieces,int start,int end) {
-		super(genePieces,start,end);
-		// TODO Auto-generated constructor stub
-	}
-}
-domain\core\algmodel\individualcomponent\NormalGeneTail.java
-package domain.core.algmodel.individualcomponent;
-import java.util.List;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 普通基因尾部的实体类
- * @author 申远
- *
- */
-public class NormalGeneTail extends Tail {
-	private static final long serialVersionUID = -3087000575324792050L;
-	/**
-	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	public NormalGeneTail(List<GenePiece> genePieces,int start,int end) {
-		super(genePieces,start,end);
-		// TODO Auto-generated constructor stub
-	}
-}
-domain\core\algmodel\individualcomponent\Tail.java
-package domain.core.algmodel.individualcomponent;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
-import common.ICopy;
-import domain.core.algmodel.genecomponent.Computable;
-import domain.core.algmodel.genecomponent.GenePiece;
-/**
- * 基因尾部实体的基类，是一个抽象类
- * @author 申远
- *
- */
-public abstract class Tail implements Serializable,ICopy<Tail>{
-	private static final long serialVersionUID = -4667068182615591355L;
-	protected List<Computable> computable;
-	private List<GenePiece> genePieces;
-	private int start;
-	private int end;
-	/**
-	 * 创建基因尾部的构造函数，用户需要提供个体或或者基因中的基因片段List，并确定头部从哪个地址开始，到哪个地址结束
-	 * @param genePieces 基因片段List
-	 * @param start 基因头部开始的地址，包括
-	 * @param end 基因头部结束的地址，不包括
-	 */
-	@SuppressWarnings("unchecked")
-	public Tail(List<GenePiece> genePieces,int start,int end){
-		this.genePieces=genePieces;
-		this.start=start;
-		this.end=end;
-		this.computable=(List<Computable>)(Object)genePieces.subList(start, end);
-	}
-	/**
-	 * 基因尾部所包含的全部基因片段
-	 * @return 包含有尾部基因片段的List
-	 */
-	public List<Computable> getContainedGenePieces(){
-		return computable;
-	}
-	@SuppressWarnings("unchecked")
-	private void readObject(ObjectInputStream in){
-		try {
-			genePieces=(List<GenePiece>) in.readObject();
-			start=in.readInt();
-			end=in.readInt();
-			computable=(List<Computable>)(Object)genePieces.subList(start, end);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-	}
-	private void writeObject(ObjectOutputStream out){
-		try {
-			out.writeObject(genePieces);
-			out.writeInt(start);
-			out.writeInt(end);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Override
-	public Tail copy() {
-		// TODO Auto-generated method stub
-		Tail tail=null;
-		if(this instanceof NormalGeneTail){
-			tail=new NormalGeneTail(genePieces, start, end);
-		}
-		else if (this instanceof HomeoticGeneTail) {
-			tail=new HomeoticGeneTail(genePieces, start, end);
-		}
-		return tail;
-	}
-}
 domain\core\inputmodel\DataColumn.java
 package domain.core.inputmodel;
 public class DataColumn {
@@ -2117,7 +2117,7 @@ package domain.core.inputmodel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Variable;
 public class DataColumnCollection {
 	List<DataColumn> columns;
 	HashMap<String, DataColumn> nameMap;
@@ -3026,14 +3026,14 @@ package domain.iservice;
 import java.io.IOException;
 import java.util.List;
 import jxl.read.biff.BiffException;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.population.GepAlgorithm;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
-import domain.service.alg.configuration.Calculator;
-import domain.service.alg.configuration.Creator;
-import domain.service.alg.configuration.Modifying;
-import domain.service.alg.configuration.Selector;
+import domain.service.alg.baseclass.Calculator;
+import domain.service.alg.baseclass.Creator;
+import domain.service.alg.baseclass.Modifying;
+import domain.service.alg.baseclass.Selector;
 import exception.Duplicated;
 public interface IgepAlgService {
 	public List<GepConfiguration> readArgumentsFromDb();
@@ -3070,9 +3070,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.Individual;
 import domain.core.outputmodel.AlgInstance;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 public interface IgepOutputService {
 	/**
 	 * 不用实现
@@ -3085,11 +3085,11 @@ public interface IgepOutputService {
 	public ImageIcon drawImage(AlgInstance outPut);
 	public ImageIcon drawImage(Calculator calculator,Individual individual);
 }
-domain\service\alg\configuration\Calculator.java
-package domain.service.alg.configuration;
+domain\service\alg\baseclass\Calculator.java
+package domain.service.alg.baseclass;
 import java.util.List;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
 import domain.core.inputmodel.DataTable;
 import exception.IllegalInputSet;
 /**
@@ -3171,12 +3171,12 @@ public abstract class Calculator {
 		return name;
 	}
 }
-domain\service\alg\configuration\Creator.java
-package domain.service.alg.configuration;
+domain\service\alg\baseclass\Creator.java
+package domain.service.alg.baseclass;
 import java.util.List;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3230,8 +3230,8 @@ public abstract class Creator {
 	}
 	public abstract void create(GepAlgorithm algorithm);
 }
-domain\service\alg\configuration\GepAlgService.java
-package domain.service.alg.configuration;
+domain\service\alg\baseclass\GepAlgService.java
+package domain.service.alg.baseclass;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -3244,10 +3244,10 @@ import java.util.Set;
 import jxl.read.biff.BiffException;
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.GepConfiguration;
@@ -3346,31 +3346,31 @@ public class GepAlgService implements IgepAlgService {
 	@Override
 	public List<Function> getAvailableFunctions() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.function";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Function.class);
 	}
 	@Override
 	public List<Selector> getAvailableSelector() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.selector";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Selector.class);
 	}
 	@Override
 	public List<Calculator> getAvailableCalculator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.calculator";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Calculator.class);
 	}
 	@Override
 	public List<Creator> getAvailableCreator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.creator";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Creator.class);
 	}
 	@Override
 	public List<Modifying> getAvailableModifyings() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// TODO Auto-generated method stub
-		String binaryPath="domain.service.alg.userdefined.modify";
+		String binaryPath="domain.service.alg.userdefined";
 		return getClassBinaryName(binaryPath, Modifying.class);
 	}
 	
@@ -3465,8 +3465,13 @@ public class GepAlgService implements IgepAlgService {
 		for(String string:classfiles.list()){
 			if(!string.contains("$")){
 				Class<?> myClass=Class.forName(binaryPath+"."+string.subSequence(0, string.length()-6));
-				T newInstance=typeClass.cast(myClass.newInstance());
-				resultList.add(newInstance);				
+				T newInstance;
+				try {
+					newInstance = typeClass.cast(myClass.newInstance());
+					resultList.add(newInstance);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+				}	
 			}
 		}
 		return resultList;
@@ -3548,11 +3553,11 @@ public class GepAlgService implements IgepAlgService {
 		return myGepAlgorithm;
 	}
 }
-domain\service\alg\configuration\Modifying.java
-package domain.service.alg.configuration;
+domain\service\alg\baseclass\Modifying.java
+package domain.service.alg.baseclass;
 import java.util.LinkedList;
 import java.util.List;
-import domain.core.algmodel.configuration.GepAlgorithm;
+import domain.core.algmodel.population.GepAlgorithm;
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3750,10 +3755,10 @@ public abstract class Modifying {
 	 */
 	public abstract void geneRecombine(GepAlgorithm myGepAlgorithm);
 }
-domain\service\alg\configuration\Selector.java
-package domain.service.alg.configuration;
+domain\service\alg\baseclass\Selector.java
+package domain.service.alg.baseclass;
 import java.util.Deque;
-import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.population.Population;
 /**
  * 请确保子类有默认构造函数，否则会出现错误
  */
@@ -3773,24 +3778,24 @@ public abstract class Selector {
 	 */
 	public abstract Population select(Deque<Population> population);
 }
-domain\service\alg\userdefined\calculator\AbsoluteCalculator.java
-package domain.service.alg.userdefined.calculator;
+domain\service\alg\userdefined\AbsoluteCalculator.java
+package domain.service.alg.userdefined;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
-import domain.core.algmodel.individualcomponent.Gene;
-import domain.core.algmodel.individualcomponent.HomeoticGene;
-import domain.core.algmodel.individualcomponent.NormalGene;
+import domain.core.algmodel.gene.Gene;
+import domain.core.algmodel.gene.HomeoticGene;
+import domain.core.algmodel.gene.NormalGene;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
 import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataRowCollection;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 import exception.IllegalInputSet;
 public class AbsoluteCalculator extends Calculator{
 	private GepAlgorithm gepAlgorithm;
@@ -4001,20 +4006,39 @@ public class AbsoluteCalculator extends Calculator{
 		}
 	}
 }
-domain\service\alg\userdefined\creator\DefaultCreator.java
-package domain.service.alg.userdefined.creator;
+domain\service\alg\userdefined\Additioin.java
+package domain.service.alg.userdefined;
+import java.util.Deque;
+import domain.core.algmodel.genepiece.Function;
+public class Additioin extends Function {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8408096285882718047L;
+	public Additioin() {
+		super("加法", 2,"+");
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public float operate(Deque<Float> operators) {
+		// TODO Auto-generated method stub
+		return operators.removeFirst()+operators.removeFirst();
+	}
+}
+domain\service\alg\userdefined\DefaultCreator.java
+package domain.service.alg.userdefined;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import common.ObjectCopy;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
-import domain.service.alg.configuration.Creator;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
+import domain.service.alg.baseclass.Creator;
 public class DefaultCreator extends Creator{
 	private GepAlgorithm algorithm;
 	private int funcNumber;
@@ -4114,98 +4138,22 @@ public class DefaultCreator extends Creator{
 	}
 	
 }
-domain\service\alg\userdefined\function\Additioin.java
-package domain.service.alg.userdefined.function;
-import java.util.Deque;
-import domain.core.algmodel.genecomponent.Function;
-public class Additioin extends Function {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8408096285882718047L;
-	public Additioin() {
-		super("+", 2,"+");
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public float operate(Deque<Float> operators) {
-		// TODO Auto-generated method stub
-		return operators.removeFirst()+operators.removeFirst();
-	}
-}
-domain\service\alg\userdefined\function\Divide.java
-package domain.service.alg.userdefined.function;
-import java.util.Deque;
-import domain.core.algmodel.genecomponent.Function;
-public class Divide extends Function {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3356166328450491371L;
-	public Divide() {
-		super("/", 2,"/");
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public float operate(Deque<Float> operators) {
-		// TODO Auto-generated method stub
-		return operators.removeFirst()/operators.removeFirst();
-	}
-}
-domain\service\alg\userdefined\function\Minus.java
-package domain.service.alg.userdefined.function;
-import java.util.Deque;
-import domain.core.algmodel.genecomponent.Function;
-public class Minus extends Function {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3358438185571026193L;
-	public Minus() {
-		super("-", 2,"-");
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public float operate(Deque<Float> operators) {
-		// TODO Auto-generated method stub
-		return operators.removeFirst()-operators.removeFirst();
-	}
-}
-domain\service\alg\userdefined\function\Multiply.java
-package domain.service.alg.userdefined.function;
-import java.util.Deque;
-import domain.core.algmodel.genecomponent.Function;
-public class Multiply extends Function{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6877986033210887194L;
-	public Multiply() {
-		super("*",2,"*");
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public float operate(Deque<Float> operators) {
-		// TODO Auto-generated method stub
-		return operators.removeFirst()*operators.removeFirst();
-	}
-}
-domain\service\alg\userdefined\modify\DefaultModifying.java
-package domain.service.alg.userdefined.modify;
+domain\service\alg\userdefined\DefaultModifying.java
+package domain.service.alg.userdefined;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import common.ObjectCopy;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.Function;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.individualcomponent.Gene;
-import domain.core.algmodel.individualcomponent.HomeoticGene;
-import domain.core.algmodel.individualcomponent.NormalGene;
-import domain.service.alg.configuration.Modifying;
+import domain.core.algmodel.gene.Gene;
+import domain.core.algmodel.gene.HomeoticGene;
+import domain.core.algmodel.gene.NormalGene;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.Function;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
+import domain.service.alg.baseclass.Modifying;
 /**
  * 遗传算子类，实现变异，is转座，ris转座，基因转座，单点重组，多点重组等功能。
  * @author 申远
@@ -4506,16 +4454,16 @@ public class DefaultModifying extends Modifying {
 		}
 	}
 }
-domain\service\alg\userdefined\selector\DefaultSelector.java
-package domain.service.alg.userdefined.selector;
+domain\service\alg\userdefined\DefaultSelector.java
+package domain.service.alg.userdefined;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Random;
 import common.ObjectCopy;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.service.alg.configuration.Selector;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
+import domain.service.alg.baseclass.Selector;
 public class DefaultSelector extends Selector{
 	private long maxGeneration;
 	public DefaultSelector() {
@@ -4583,6 +4531,63 @@ public class DefaultSelector extends Selector{
 		return floats.size()-1;
 	}
 }
+domain\service\alg\userdefined\Divide.java
+package domain.service.alg.userdefined;
+import java.util.Deque;
+import domain.core.algmodel.genepiece.Function;
+public class Divide extends Function {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3356166328450491371L;
+	public Divide() {
+		super("除法", 2,"/");
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public float operate(Deque<Float> operators) {
+		// TODO Auto-generated method stub
+		return operators.removeFirst()/operators.removeFirst();
+	}
+}
+domain\service\alg\userdefined\Minus.java
+package domain.service.alg.userdefined;
+import java.util.Deque;
+import domain.core.algmodel.genepiece.Function;
+public class Minus extends Function {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3358438185571026193L;
+	public Minus() {
+		super("减法", 2,"-");
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public float operate(Deque<Float> operators) {
+		// TODO Auto-generated method stub
+		return operators.removeFirst()-operators.removeFirst();
+	}
+}
+domain\service\alg\userdefined\Multiply.java
+package domain.service.alg.userdefined;
+import java.util.Deque;
+import domain.core.algmodel.genepiece.Function;
+public class Multiply extends Function{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6877986033210887194L;
+	public Multiply() {
+		super("乘法",2,"*");
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public float operate(Deque<Float> operators) {
+		// TODO Auto-generated method stub
+		return operators.removeFirst()*operators.removeFirst();
+	}
+}
 domain\service\input\DefaultGepInput.java
 package domain.service.input;
 import java.io.File;
@@ -4592,7 +4597,7 @@ import java.io.InputStream;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import domain.core.algmodel.genecomponent.Variable;
+import domain.core.algmodel.genepiece.Variable;
 import domain.core.inputmodel.DataRow;
 import domain.core.inputmodel.DataTable;
 public class DefaultGepInput implements IgepInput {
@@ -4647,39 +4652,6 @@ public class DefaultGepInput implements IgepInput {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-}
-domain\service\input\DefaultGepInputTest.java
-package domain.service.input;
-import static org.junit.Assert.*;
-import java.io.IOException;
-import jxl.read.biff.BiffException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import domain.core.inputmodel.DataTable;
-public class DefaultGepInputTest {
-	@Before
-	public void setUp() throws Exception {
-	}
-	@After
-	public void tearDown() throws Exception {
-	}
-	@Test
-	public void testRead() {
-		IgepInput di = new DefaultGepInput();
-		DataTable dt = new DataTable();
-		try {
-			di.read(dt);
-		} catch (BiffException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
 		
 	}
 }
@@ -4742,12 +4714,12 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.Individual;
 import domain.core.inputmodel.DataTable;
 import domain.core.outputmodel.AlgInstance;
 import domain.core.outputmodel.OutputIndividual;
 import domain.core.outputmodel.OutputPopulation;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 import exception.IllegalInputSet;
 public class DefalutGepOutput implements IgepOutput{
 	
@@ -4948,10 +4920,10 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.Individual;
 import domain.core.outputmodel.AlgInstance;
 import domain.iservice.IgepOutputService;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 public class GepOutputService implements IgepOutputService {
 	private IgepOutput igepOutput=new DefalutGepOutput();
 	@Override
@@ -4994,9 +4966,9 @@ import javax.swing.ImageIcon;
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.Individual;
 import domain.core.outputmodel.AlgInstance;
-import domain.service.alg.configuration.Calculator;
+import domain.service.alg.baseclass.Calculator;
 public interface IgepOutput {
 	/**
 	 * 设置输出代数，从start代到end代的结果,这个方法只影响写excel文件，不影响画函数图像与写数据库
@@ -5059,10 +5031,10 @@ package test;
 import java.io.IOException;
 import java.util.List;
 import jxl.read.biff.BiffException;
-import domain.core.algmodel.genecomponent.Function;
+import domain.core.algmodel.genepiece.Function;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 public class ConfigurationTest {
 	public static void main(String argv[]) throws BiffException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException{
 		IgepAlgService myGepService=iniAlg();
@@ -5122,9 +5094,9 @@ import java.io.File;
 import java.io.IOException;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
 import domain.iservice.IgepAlgService;
 import domain.iservice.IgepOutputService;
 import domain.service.output.GepOutputService;
@@ -5178,17 +5150,17 @@ test\CreatorTest.java
 package test;
 import java.util.ArrayList;
 import java.util.List;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.configuration.Population;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
-import domain.service.alg.configuration.Creator;
-import domain.service.alg.userdefined.function.Additioin;
-import domain.service.alg.userdefined.function.Divide;
-import domain.service.alg.userdefined.function.Minus;
-import domain.service.alg.userdefined.function.Multiply;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
+import domain.core.algmodel.population.Population;
+import domain.service.alg.baseclass.Creator;
+import domain.service.alg.userdefined.Additioin;
+import domain.service.alg.userdefined.Divide;
+import domain.service.alg.userdefined.Minus;
+import domain.service.alg.userdefined.Multiply;
 /**
  * 需要把此类保存到对应的文件夹中才可运行
  */
@@ -5298,10 +5270,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import jxl.read.biff.BiffException;
-import domain.core.algmodel.configuration.GepAlgorithm;
-import domain.core.algmodel.configuration.Individual;
+import domain.core.algmodel.population.GepAlgorithm;
+import domain.core.algmodel.population.Individual;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 public class FitnessTest {
 	/**
 	 * @param args
@@ -5336,8 +5308,8 @@ public class FitnessTest {
 }
 test\GenePieceCopyTest.java
 package test;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.service.alg.userdefined.function.Additioin;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.service.alg.userdefined.Additioin;
 public class GenePieceCopyTest {
 	/**
 	 * @param args
@@ -5356,14 +5328,14 @@ test\IndividualCopyTest.java
 package test;
 import java.util.ArrayList;
 import java.util.List;
-import domain.core.algmodel.configuration.Individual;
-import domain.core.algmodel.genecomponent.Constant;
-import domain.core.algmodel.genecomponent.GenePiece;
-import domain.core.algmodel.genecomponent.Variable;
-import domain.service.alg.userdefined.function.Additioin;
-import domain.service.alg.userdefined.function.Divide;
-import domain.service.alg.userdefined.function.Minus;
-import domain.service.alg.userdefined.function.Multiply;
+import domain.core.algmodel.genepiece.Constant;
+import domain.core.algmodel.genepiece.GenePiece;
+import domain.core.algmodel.genepiece.Variable;
+import domain.core.algmodel.population.Individual;
+import domain.service.alg.userdefined.Additioin;
+import domain.service.alg.userdefined.Divide;
+import domain.service.alg.userdefined.Minus;
+import domain.service.alg.userdefined.Multiply;
 public class IndividualCopyTest {
 	/**
 	 * @param args
@@ -6786,7 +6758,7 @@ import ui.input.model.ModelForJPanelInputPath;
 import ui.input.view.JPanelForFooter;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
 import jxl.read.biff.BiffException;
@@ -7276,7 +7248,7 @@ import ui.input.model.ModelForUploadInterface;
 public class UploadInterfaceController {
    private static String fileName;
    private static boolean available;
-   private static String defaultFileSavePath=".\\bin\\domain\\service\\input\\";
+   private static String defaultFileSavePath=".\\bin\\domain\\service\\alg\\userdefined\\";
    private static File file;
    private static File saveDir;
    static String packagePath;
@@ -7301,7 +7273,7 @@ public class UploadInterfaceController {
 	       StringBuffer buffer=new StringBuffer();
 	       
 	     
-	    	 buffer.append("package domain.service.input;"+"\n"); 
+	    	 buffer.append("package domain.service.alg.userdefined;"+"\n"); 
 	    	//会报错
 	       
 	       
@@ -7399,7 +7371,7 @@ public class UploadInterfaceController {
 			System.out.println(classfiles.toString());
 			//---检查实现的接口
 			List<T> resultList=new ArrayList<T>(classfiles.list().length);
-			Class<?> myClass=Class.forName("domain.service.input."+fileName);
+			Class<?> myClass=Class.forName("domain.service.alg.userdefined"+fileName);
 			for(String string:classfiles.list()){
 				
 				available=myClass.isInstance(string);
@@ -7976,7 +7948,7 @@ import ui.output.controller.OutputPanelController;
 import ui.output.view.JPanelForOutput;
 import domain.core.outputmodel.GepConfiguration;
 import domain.iservice.IgepAlgService;
-import domain.service.alg.configuration.GepAlgService;
+import domain.service.alg.baseclass.GepAlgService;
 import domain.service.input.DefaultGepInput;
 import domain.service.input.IgepInput;
 import exception.Duplicated;
@@ -8166,4 +8138,46 @@ public class New2 extends JFrame {
 		  functionPanel.setVisible(false);
 		  try {
 				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
-					functionPanel.comboBox.addItem(myGepServ
+					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
+				}
+			} catch (ClassNotFoundException e1) {
+				
+				e1.printStackTrace();
+			} catch (InstantiationException e1) {
+			   
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				e1.printStackTrace();
+			}
+		  functionPanel.comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					FunctionPanelController.functionComboBoxController(functionPanel.comboBox, functionPanel.JComboBoxOfSelectdFunctions);
+				}	
+			});
+			
+	      panel_0.add(functionPanel,"p5");
+	      
+	      //保存配置面板-------------------------------
+	      
+	      scfigNamePanel.setSize(659, 399);
+	      scfigNamePanel.setVisible(false);
+	      scfigNamePanel.btnSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					SaveConfigPanelController.btnSaveController(myGepService, myParameter, outputPanel, scfigNamePanel, treePanel,panel_0);
+				}
+			});
+	      contentPane.add(scfigNamePanel);
+	      //----------------------------------------
+	      uploadInterfacePanel.setBounds(165, 115, 659, 450);
+	      uploadInterfacePanel.setVisible(false);
+	      contentPane.add(uploadInterfacePanel,"p6");
+	      inputFilePanel.setBounds(165, 115, 659, 455);
+	      inputFilePanel.setVisible(false);
+	      contentPane.add(inputFilePanel);
+	      //底部按钮面板-----------------------------------
+	      
+	      footPanel.setBounds(165, 520, 659, 50);
+	      footPanel.btnBefore.addActionListener(new ActionListener() {
+		    	public void actionPerformed(ActionEvent e) {
+		    		count=FooterPanelContr
