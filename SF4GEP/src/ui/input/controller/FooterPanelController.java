@@ -126,6 +126,38 @@ public class FooterPanelController {
 	public static boolean btnRunController(ModelForJPanelConfig configuration,ModelForJPanelInputPath inputPath,
 	   ModelForJPanelPopulation population,ModelForJPanelGEne gene,ModelForJPanelFunction function,
 	   GepConfiguration myParameter,IgepAlgService myGepService,GepConfiguration myConfigurationFromDB,int flag){
+		String risElement = gene.getRisElement();
+		String strRisElement = "";
+		for (int i = 0; i < risElement.length(); i++) {
+				if (i != 0) {
+					if (risElement.charAt(i) != ','
+							&& (risElement.substring(0, i).indexOf(
+									risElement.charAt(i)) < 0)) {
+						strRisElement = strRisElement
+								+ risElement.charAt(i);
+					}
+				} else {
+					if (risElement.charAt(i) != ',') {
+						strRisElement = strRisElement
+								+ risElement.charAt(i);
+					}
+				}
+			}
+		String isElement = gene.getIsElement();
+		String strIsElement = "";
+		for (int i = 0; i < isElement.length(); i++) {
+				if (i != 0) {
+					if (isElement.charAt(i) != ','
+							&& (isElement.substring(0, i).indexOf(
+									isElement.charAt(i)) < 0)) {
+						strIsElement = strIsElement + isElement.charAt(i);
+					}
+				} else {
+					if (isElement.charAt(i) != ',') {
+						strIsElement = strIsElement + isElement.charAt(i);
+					}
+				}
+			}
 		
 		myParameter.setInputFile(inputPath.getInputPath());
 		myParameter.setName(configuration.getConfig());
@@ -145,7 +177,6 @@ public class FooterPanelController {
         myParameter.setRisElement(gene.getRisElement());
 		myParameter.setHomeoticGeneNumber(gene.getHomeoticGeneNums());
 	    myParameter.setHomeoticHeaderLength(gene.getHomeoticHeaderLength());
-	    System.out.println("function"+function.getFunctions().toString());
 		myParameter.setFunctionList(function.getFunctions().toString());
 		myParameter.setMutateRate(gene.getMutateRate());
 
@@ -201,7 +232,6 @@ public class FooterPanelController {
 					return true;
 					}
 				else{
-					
 					return false;
 				}
 		} 
