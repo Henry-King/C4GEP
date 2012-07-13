@@ -13,7 +13,7 @@ public class Divide extends Function {
 		arity=2;
 	}
 	@Override
-	public float operate(Float[] operators) {
+	public float operate(float[] operators) {
 		// TODO Auto-generated method stub
 		return operators[0]/operators[1];
 	}

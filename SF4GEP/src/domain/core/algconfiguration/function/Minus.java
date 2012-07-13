@@ -14,7 +14,7 @@ public class Minus extends Function {
 	}
 	
 	@Override
-	public float operate(Float[] operators) {
+	public float operate(float[] operators) {
 		// TODO Auto-generated method stub
 		return operators[0]-operators[1];
 	}

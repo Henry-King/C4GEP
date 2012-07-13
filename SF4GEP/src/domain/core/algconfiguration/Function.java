@@ -52,5 +52,5 @@ public abstract class Function implements Serializable,Cloneable{
 	 * @param operators 函数参数数组，第一个参数在数组头部
 	 * @return 函数进行运算后的返回值。
 	 */
-	public abstract float operate(Float[] operators);
+	public abstract float operate(float[] operators);
 }
