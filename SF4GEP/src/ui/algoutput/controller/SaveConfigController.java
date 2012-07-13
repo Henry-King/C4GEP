@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import exception.Duplicated;
 
-public class SaveConfigPanelController {
+public class SaveConfigController {
 	
    
 }

@@ -5,32 +5,45 @@ package ui.alginputdataprocess.view;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import domain.core.algInputDataProcess.*;
 import domain.core.algconfiguration.*;
+import domain.iservice.algConfiguration.IgepConfigurationService;
+import domain.service.algConfiguration.GepConfigurationService;
 
+import ui.algconfiguration.controller.FunctionController;
+import ui.algconfiguration.controller.ConfigController;
+import ui.algconfiguration.model.ConfigModel;
+import ui.algconfiguration.model.FunctionModel;
+import ui.algconfiguration.model.GeneModel;
+import ui.algconfiguration.model.PopulationModel;
 import ui.algconfiguration.view.*;
 import ui.alginputdataprocess.controller.*;
 import ui.alginputdataprocess.model.*;
+import ui.algoutput.controller.OutputController;
+import ui.algoutput.controller.SaveConfigController;
 import ui.algoutput.view.*;
 
 
 public class MainFrame extends JFrame {
 	
     JPanel contentPane;
-    HostView configurationPanel;
+    ConfigView configurationPanel = new ConfigView(this);
 	StopSettingView stopSettingPanel=new StopSettingView(this);
 	PopulationView populationPanel=new PopulationView(this);
 	GeneView genePanel=new GeneView(this);
 	FunctionView functionPanel=new FunctionView(this);
 	FooterView footPanel=new FooterView(this);
-	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
 	InputFileView inputFilePanel=new InputFileView(this);
 	SaveConfigView scfigNamePanel=new SaveConfigView(this);
 	OutputView outputPanel=new OutputView(this);
-	
+	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
 	
 	TreeView  treePanel;
 	
@@ -48,7 +61,7 @@ public class MainFrame extends JFrame {
     
     public DataSet inputSet;
     public GepAlgConfiguration gepAlgConfiguration;
-    
+    public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
    
 /*GepConfiguration myParameter=new GepConfiguration();
 	IgepAlgService myGepService=new GepAlgService();	
@@ -58,27 +71,14 @@ public class MainFrame extends JFrame {
 	IgepInputService input =new GepInputService();
 */
 	
+    public List<GepAlgConfiguration> configurationsOfHistory = gepConfigurationService.getAllGepAlgConfiguration();
 	
-	
-	
+    
+    
 	int flag=0;//是否读取配置文件
 	int count=0;
 	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
+
 	
 	public MainFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
@@ -111,58 +111,7 @@ public class MainFrame extends JFrame {
 				String configName = configurationsOfHistory.get(i).getName();
 				configurations[i] = configName;
 			}
-			final JComboBox jcomboBoxConfiguration = new JComboBox(configurations);
 			
-			Component scrollBtn=jcomboBoxConfiguration.getComponent(0);
-			configurationPanel=new HostPanel(jcomboBoxConfiguration);
-			configurationPanel.setBorder(null);
-			configurationPanel.setBounds(155, 115, 631, 447);
-			configurationPanel.setVisible(true);
-		    scrollBtn.addMouseListener(new MouseAdapter() {
-		       public void mouseClicked(MouseEvent arg0) {
-		    	   jcount=1;
-		       }
-           });
-		  configurationPanel.btnSetConfig.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e) {
-					HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
-					card.next(panel_0);
-					TreePath visiblePath=new TreePath(((DefaultTreeModel)treePanel.tree_1.getModel()).getPathToRoot(treePanel.node1));
-		    		treePanel.tree_1.setSelectionPath(visiblePath);
-					jcount=2;
-					footPanel.btnRun.setEnabled(false);
-					count=1;
-					flag=0;
-				}
-				
-			});
-		  jcomboBoxConfiguration.getEditor().getEditorComponent().addKeyListener(new KeyAdapter(){    
-			    public void keyPressed(KeyEvent e) {
-			    	HostPanelController.jcomboBoxEditorController(e,configurationPanel.btnSetConfig);
-			        footPanel.btnRun.setEnabled(false);
-			        HostPanelController.btnSetConfigController(stopSettingPanel, populationPanel, genePanel, functionPanel, inputFilePanel);
-			        jcount=2;
-			        flag=0;
-			    }  
-			    
-			});
-		  
-		  jcomboBoxConfiguration.addItemListener(new  ItemListener(){ 
-              public void  itemStateChanged(ItemEvent   ie){ 
-            	if(jcount!=2){
-            	 myConfigurationFromDB = configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
-            	 System.out.println(myConfigurationFromDB.toString());
-            	 flag=-1;
-            	 setTitle(myConfigurationFromDB.toString());
-                 footPanel.btnRun.setEnabled(true);
-            	 HostPanelController.jcomboBoxItemController(ie,configurationPanel, stopSettingPanel, populationPanel, genePanel, functionPanel, footPanel,inputFilePanel ,myConfigurationFromDB, configurationsOfHistory, myGepService);
-            	 jcount=1;
-            	}
-               }
-             }
-		  );
-		
-		  panel_0.add(configurationPanel,"p1");
 		  
 		  //选择输入路径面板-------------------------------------------------
 		  stopSettingPanel.setBorder(null);
@@ -231,7 +180,7 @@ public class MainFrame extends JFrame {
 			}
 		  functionPanel.comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					FunctionPanelController.functionComboBoxController(functionPanel.comboBox, functionPanel.JComboBoxOfSelectdFunctions);
+					FunctionController.functionComboBoxController(functionPanel.comboBox, functionPanel.JComboBoxOfSelectdFunctions);
 				}	
 			});
 			
@@ -244,7 +193,7 @@ public class MainFrame extends JFrame {
 	      scfigNamePanel.btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					SaveConfigPanelController.btnSaveController(myGepService, myParameter, outputPanel, scfigNamePanel, treePanel,panel_0);
+					SaveConfigController.btnSaveController(myGepService, myParameter, outputPanel, scfigNamePanel, treePanel,panel_0);
 				}
 			});
 	      contentPane.add(scfigNamePanel);
@@ -269,7 +218,7 @@ public class MainFrame extends JFrame {
 		    	public void actionPerformed(ActionEvent e) {
 		    		   
 		    		    ConfigModel config=new ConfigModel(jcomboBoxConfiguration.getSelectedItem().toString());
-		    		    ModelForJPanelInputPath inputPath=new ModelForJPanelInputPath(inputFilePanel.txtInputPath.getText(),stopSettingPanel.txtMaxGeneration.getText(),stopSettingPanel.txtAccuracy.getText());
+		    		    InputPathModel inputPath=new InputPathModel(inputFilePanel.txtInputPath.getText(),stopSettingPanel.txtMaxGeneration.getText(),stopSettingPanel.txtAccuracy.getText());
 		    		    int creatorSelectedIndex = populationPanel.JcomboBoxOfPopulationCreator.getSelectedIndex();
 		    		    System.out.print("ww"+creatorSelectedIndex);
 						int calculatorSelectedIndex = populationPanel.JComboBoxAvailableCalculator.getSelectedIndex();
@@ -343,7 +292,7 @@ public class MainFrame extends JFrame {
 	      //------------------------------------------------
 	      
 	      
-	      OutputPanelController.init(outputPanel);
+	      OutputController.init(outputPanel);
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
 	      outputPanel.btnNewButton.addActionListener(new ActionListener() {
@@ -536,7 +485,18 @@ public class MainFrame extends JFrame {
 	
 	
 	
-	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainFrame frame = new MainFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
 	
 	

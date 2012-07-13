@@ -3,28 +3,35 @@ package ui.algconfiguration.view;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import domain.core.algconfiguration.GepAlgConfiguration;
+
+import ui.algconfiguration.controller.ConfigController;
+import ui.algconfiguration.model.ConfigModel;
 import ui.alginputdataprocess.view.MainFrame;
 
-public class HostView extends JPanel {
+public class ConfigView extends JPanel {
 
 	int count = 0;
-	public JComboBox jcomboBoxConfiguration;
+	public JComboBox jcomboBoxConfiguration = new JComboBox();
 	public JButton btnNext0 = new JButton(), btnSetConfig = new JButton();
 	int jcount = 1;// 标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
 	int flag = 0;// 是否读取配置文件
 	
+	ConfigController configController = new ConfigController();
+	ConfigModel configModel = new ConfigModel();
+	
+	
 	MainFrame parent;
 	
-	
-	
-	
-	
-	public HostView(MainFrame parent) {
+	public ConfigView(final MainFrame parent) {
+		
 		this.parent = parent;
 		setBounds(155, 115, 631, 447);
 		setBackground(Color.WHITE);
@@ -70,8 +77,7 @@ public class HostView extends JPanel {
 		btnSetConfig.setBounds(515, 67, 93, 23);
 		btnSetConfig.setVisible(true);
 		add(btnSetConfig);
-
-		jcomboBoxConfiguration = new JComboBox(configurations);
+		
 		// 加载配置信息
 		Component scrollBtn = jcomboBoxConfiguration.getComponent(0);
 		scrollBtn.addMouseListener(new MouseAdapter() {
@@ -80,6 +86,7 @@ public class HostView extends JPanel {
 			}
 		});
 
+		
 		jcomboBoxConfiguration.getEditor().getEditorComponent()
 				.addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
@@ -90,11 +97,12 @@ public class HostView extends JPanel {
 						// 将面板中的配置内容清空
 						initialiseController(stopSettingPanel, populationPanel,
 								genePanel, functionPanel, inputFilePanel);
-
+						
+						configController.resetConfiguration(parent);
+						
 						jcount = 2;
 						flag = 0;
 					}
-
 				});
 
 		jcomboBoxConfiguration.addItemListener(new ItemListener() {
@@ -131,6 +139,17 @@ public class HostView extends JPanel {
 		
 	}
 
+	
+	
+	@SuppressWarnings("unchecked")
+	public void refresh(){
+		//String configurations[] = new String[parent.configurationsOfHistory.size()];
+	   for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
+			String configName = parent.configurationsOfHistory.get(i).getName();
+			//configurations[i] = configName;
+			jcomboBoxConfiguration.addItem(configName);
+		}
+	}
 	
 	
 	

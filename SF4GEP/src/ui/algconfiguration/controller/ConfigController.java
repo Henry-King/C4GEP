@@ -15,7 +15,7 @@ import ui.alginputdataprocess.view.MainFrame;
 
 
 
-public class HostController {
+public class ConfigController {
 
 	
 	
@@ -24,6 +24,7 @@ public class HostController {
 	 * @param parent
 	 */
 	public void resetConfiguration(MainFrame parent){
+		
 		inputFilePanel.txtInputPath.setText("");
 		stopSettingPanel.txtAccuracy.setText("");
 		functionPanel.txtConstantListSize.setText("");
@@ -45,7 +46,6 @@ public class HostController {
 		genePanel.txtRisTransportRate.setText("");
 		populationPanel.txtSelectionRange.setText("");
 		genePanel.txtTwoPointRecombineRate.setText("");
-		
 	}
 	
 	
@@ -57,8 +57,6 @@ public class HostController {
 	 * @param parent
 	 */
 	public void fillConfiguration(MainFrame parent){
-		
-		
 		/*
 	(HostPanel configurationPanel,
 			JPanelForStopSetting stopSettingPanel,
@@ -68,13 +66,6 @@ public class HostController {
 			List<GepConfiguration> configurationsOfHistory,
 			IgepAlgService myGepService)  
 		 */
-		
-		
-		
-		
-		
-		
-		
 		inputFilePanel.txtInputPath.setText(myConfigurationFromDB
 				.getInputFile());
 		stopSettingPanel.txtAccuracy
