@@ -1,10 +1,12 @@
 package domain.iservice.algConfiguration;
 
+import java.util.List;
+
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 public interface IgepConfigurationService {
-	public GepAlgConfiguration getGepAlgConfigurationByName(String name);
+	public List<GepAlgConfiguration> getAllGepAlgConfiguration();
 	public boolean saveGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration);
 	/**
 	 * 配置信息中有些属性有简单的函数决定关系，例如b＝a+1，调用前只需要填充b，此方法会自动计算a的值
