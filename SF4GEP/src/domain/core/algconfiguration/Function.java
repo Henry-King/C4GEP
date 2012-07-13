@@ -1,16 +1,22 @@
 package domain.core.algconfiguration;
 
 import java.io.Serializable;
-import java.util.Deque;
 
 /**
  * 函数抽象类，请确保任何继承此类的子类都具有默认构造函数，否则系统会出现错误
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
+	private boolean used;
 	protected String name;
 	protected String symbol;
 	protected Integer arity;
+	public boolean isUsed() {
+		return used;
+	}
+	public void setUsed(boolean used) {
+		this.used = used;
+	}
 	public String getName() {
 		return name;
 	}
@@ -43,8 +49,8 @@ public abstract class Function implements Serializable,Cloneable{
 	}
 	/**
 	 * 进行具体的函数运算，并返回运算结果
-	 * @param operators 函数参数队列，第一个参数在队首
+	 * @param operators 函数参数数组，第一个参数在数组头部
 	 * @return 函数进行运算后的返回值。
 	 */
-	public abstract float operate(Deque<Float> operators);
+	public abstract float operate(Float[] operators);
 }

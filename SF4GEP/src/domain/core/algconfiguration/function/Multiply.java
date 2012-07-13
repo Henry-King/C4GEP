@@ -1,6 +1,5 @@
 package domain.core.algconfiguration.function;
 
-import java.util.Deque;
 
 import domain.core.algconfiguration.Function;
 
@@ -13,9 +12,9 @@ public class Multiply extends Function{
 		arity=2;
 	}
 	@Override
-	public float operate(Deque<Float> operators) {
+	public float operate(Float[] operators) {
 		// TODO Auto-generated method stub
-		return operators.removeFirst()*operators.removeFirst();
+		return operators[0]*operators[1];
 	}
 
 }

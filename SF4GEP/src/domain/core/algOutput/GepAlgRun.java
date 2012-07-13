@@ -1,6 +1,7 @@
 package domain.core.algOutput;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import domain.core.algInputDataProcess.DataColumn;
@@ -79,6 +80,9 @@ public class GepAlgRun {
 	}
 	public void setMinFitness(List<Float> minFitness) {
 		this.minFitness = minFitness;
+	}
+	public Individual getBestIndividual(){
+		return Collections.max(getCurrentPopulation().getIndividuals());
 	}
 	private void removeRedundancyPopulation(){
 		while(populations.size()>2)
