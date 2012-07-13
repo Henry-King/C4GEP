@@ -418,11 +418,21 @@ public class AlgRunStep implements IAlgRunStep {
 	 * @param individual 待清除个体
 	 */
 	private void clearFunctionFlag(Individual individual){
-		
-		for(Gene gene:individual.getGenes())
-			for(GenePiece genePiece:gene.getGenePieces())
-				if(genePiece.getGenePieceType()==GenePieceType.Function)
+		int geneNum=individual.getGenes().size();
+		List<Gene> genes=individual.getGenes();
+		List<GenePiece> genePieces;
+		Gene gene;
+		GenePiece genePiece;
+		int geneLength;
+		for(int i=0;i<geneNum;i++){
+			gene=genes.get(i);
+			genePieces=gene.getGenePieces();
+			geneLength=genePieces.size();
+			for(int j=0;j<geneLength;j++)
+				if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function)
 					genePiece.getFunction().setUsed(false);
+		}
+
 	}
 	/**
 	 * 本方法求指定适应度矩阵行的最大值，并返回最大值所在列的索引
