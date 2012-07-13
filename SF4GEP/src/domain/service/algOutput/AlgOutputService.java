@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
@@ -14,12 +15,14 @@ import domain.iservice.algOutput.IAlgRunStep;
 public class AlgOutputService implements IAlgOutputService {
 
 	@Override
-	public Individual run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep) {
+	public Individual run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
 		// TODO Auto-generated method stub
 		Individual bestIndividual=null;
 		List<Float> fitnessFloats;
 		Float maxFitness;
-		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, null);
+		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
+		for(Individual individual:gepAlgRun.getCurrentPopulation().getIndividuals())
+			System.out.println(individual+"\n"+"-----------------------------");
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
 			maxFitness=Collections.max(fitnessFloats);

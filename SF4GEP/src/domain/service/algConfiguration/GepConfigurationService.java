@@ -43,6 +43,10 @@ public class GepConfigurationService implements IgepConfigurationService {
 		return gepAlgConfiguration;
 	}
 	private int maxArity(List<Function> functions){
-		return 0;
+		int max=0;
+		for(Function function:functions)
+			if(function.getArity()>max)
+				max=function.getArity();
+		return max;
 	}
 }

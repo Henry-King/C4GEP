@@ -10,6 +10,7 @@ import domain.core.algOutput.FittedValue;
 import domain.core.algOutput.Gene;
 import domain.core.algOutput.GenePiece;
 import domain.core.algOutput.GenePieceType;
+import domain.core.algOutput.GeneType;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
@@ -24,6 +25,7 @@ public class AlgRunStep implements IAlgRunStep {
 	public GepAlgRun create(GepAlgConfiguration gepAlgConfiguration, DataSet dataSet) {
 		// TODO Auto-generated method stub
 		Individual individual;
+		Gene addedGene;
 		int j;
 		GeneConfiguration geneConfiguration=gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();
 		
@@ -41,12 +43,20 @@ public class AlgRunStep implements IAlgRunStep {
 			individual=new Individual();
 			individual.setGenes(new ArrayList<Gene>(gepAlgConfiguration.getIndividualConfiguration().getTotalGeneNumbers()));
 			for(j=0;j<geneConfiguration.getNormalGeneNumber();j++){
-				individual.getGenes().get(j).getGenePieces().addAll(generateNormalHeaderPieces(geneConfiguration,dataSet));
-				individual.getGenes().get(j).getGenePieces().addAll(generateNormalTailPieces(geneConfiguration,dataSet));
+				addedGene=new Gene();
+				addedGene.setGeneType(GeneType.NormalGene);
+				addedGene.setGenePieces(new ArrayList<GenePiece>(geneConfiguration.getNormalGeneLength()));
+				addedGene.getGenePieces().addAll(generateNormalHeaderPieces(geneConfiguration,dataSet));
+				addedGene.getGenePieces().addAll(generateNormalTailPieces(geneConfiguration,dataSet));
+				individual.getGenes().add(addedGene);
 			}
 			for(;j<geneConfiguration.getHomeoticGeneNumber();j++){
-				individual.getGenes().get(j).getGenePieces().addAll(generateHomeoticHeaderPieces(geneConfiguration));
-				individual.getGenes().get(j).getGenePieces().addAll(generateHomeoticTailPieces(geneConfiguration));
+				addedGene=new Gene();
+				addedGene.setGeneType(GeneType.HomeoticGene);
+				addedGene.setGenePieces(new ArrayList<GenePiece>(geneConfiguration.getHomeoticGeneLength()));
+				addedGene.getGenePieces().addAll(generateHomeoticHeaderPieces(geneConfiguration));
+				addedGene.getGenePieces().addAll(generateHomeoticTailPieces(geneConfiguration));
+				individual.getGenes().add(addedGene);
 			}
 			population.addIndividual(individual);
 		}
@@ -170,6 +180,7 @@ public class AlgRunStep implements IAlgRunStep {
 		addedGenePiece.setFunction(function);
 		addedGenePiece.setName(function.getName());
 		addedGenePiece.setSymbol(function.getSymbol());
+		genePieces.add(addedGenePiece);
 		for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
 			addedGenePiece=new GenePiece();
 			type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
@@ -184,7 +195,7 @@ public class AlgRunStep implements IAlgRunStep {
 				addedGenePiece.setGenePieceType(GenePieceType.Constant);
 				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
 				addedGenePiece.setName("");
-				addedGenePiece.setSymbol("");
+				addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
 			}
 			genePieces.add(addedGenePiece);
 		}
@@ -194,12 +205,13 @@ public class AlgRunStep implements IAlgRunStep {
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random constantRandom=new Random();
 		GenePiece addedGenePiece;
+		
 		for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
 			addedGenePiece=new GenePiece();
 			addedGenePiece.setGenePieceType(GenePieceType.Constant);
 			addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
 			addedGenePiece.setName("");
-			addedGenePiece.setSymbol("");
+			addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
 			genePieces.add(addedGenePiece);
 		}
 		return genePieces;
