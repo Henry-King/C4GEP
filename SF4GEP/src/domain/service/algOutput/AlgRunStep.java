@@ -270,14 +270,21 @@ public class AlgRunStep implements IAlgRunStep {
 	 */
 	private void assignValueToVariable(Gene gene, DataRow row) {
 		// TODO Auto-generated method stub
-		for(GenePiece genePiece:gene.getGenePieces())
-			if(genePiece.getGenePieceType()==GenePieceType.Variable)
-				for(DataColumn dataColumn:row.getDataColumns())
-					if(dataColumn.getColumnName().equals(genePiece.getSymbol())){
+		GenePiece genePiece;
+		DataColumn dataColumn;
+		int geneLength=gene.getGenePieces().size();
+		int columns=row.getDataColumns().size();
+		List<GenePiece> genePieces=gene.getGenePieces();
+		List<DataColumn> dataColumns=row.getDataColumns();
+		for(int i=0;i<geneLength;i++){
+			if((genePiece=genePieces.get(i)).getGenePieceType()==GenePieceType.Variable){
+				for(int j=0;j<columns;j++)
+					if((dataColumn=dataColumns.get(j)).getColumnName().equals(genePiece.getSymbol())){
 						genePiece.setValue(dataColumn.getValue());
 						break;
 					}
-		
+			}
+		}
 	}
 	/**
 	 * 计算给定基因的值，这个基因可能是普通基因，也可能是同源基因，并将结果保存到到基因对应的属性里面
@@ -353,7 +360,6 @@ public class AlgRunStep implements IAlgRunStep {
 		GenePiece[] genePieces=new GenePiece[arity];
 		for(int i=0;i<arity;i++)
 			genePieces[i]=gene.getGenePieces().get(efficientLength-i-1);
-	
 		if(gene.getGeneType()==GeneType.HomeoticGene){
 			int index;
 			GenePiece genePiece;
@@ -362,7 +368,7 @@ public class AlgRunStep implements IAlgRunStep {
 				if(genePiece.getGenePieceType()==GenePieceType.Function)
 					parameterArray[i]=genePiece.getValue();
 				else {
-					index=Math.round(genePiece.getValue());
+					index=(int)(float)genePiece.getValue();
 					parameterArray[i]=individual.getGenes().get(index).getValue();
 				}
 			}		
@@ -412,6 +418,7 @@ public class AlgRunStep implements IAlgRunStep {
 	 * @param individual 待清除个体
 	 */
 	private void clearFunctionFlag(Individual individual){
+		
 		for(Gene gene:individual.getGenes())
 			for(GenePiece genePiece:gene.getGenePieces())
 				if(genePiece.getGenePieceType()==GenePieceType.Function)
