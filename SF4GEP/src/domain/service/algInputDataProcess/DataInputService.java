@@ -58,5 +58,10 @@ public class DataInputService implements IDataInputService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public DataSet getDataSetByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
