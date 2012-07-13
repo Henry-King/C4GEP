@@ -3,9 +3,9 @@ package domain.core.algconfiguration;
 public class OperatorConfiguration {
 	private Float mutateRate;
 	private Float isTransportRate;
-	private int[] isElement;
+	private Integer[] isElement;
 	private Float risTransportRate;
-	private int[] risElement;
+	private Integer[] risElement;
 	private Float geneTransportRate;
 	private Float onePointRecombineRate;
 	private Float twoPointRecombineRate;
@@ -22,10 +22,10 @@ public class OperatorConfiguration {
 	public void setIsTransportRate(Float isTransportRate) {
 		this.isTransportRate = isTransportRate;
 	}
-	public int[] getIsElement() {
+	public Integer[] getIsElement() {
 		return isElement;
 	}
-	public void setIsElement(int[] isElement) {
+	public void setIsElement(Integer[] isElement) {
 		this.isElement = isElement;
 	}
 	public Float getRisTransportRate() {
@@ -34,10 +34,10 @@ public class OperatorConfiguration {
 	public void setRisTransportRate(Float risTransportRate) {
 		this.risTransportRate = risTransportRate;
 	}
-	public int[] getRisElement() {
+	public Integer[] getRisElement() {
 		return risElement;
 	}
-	public void setRisElement(int[] risElement) {
+	public void setRisElement(Integer[] risElement) {
 		this.risElement = risElement;
 	}
 	public Float getGeneTransportRate() {

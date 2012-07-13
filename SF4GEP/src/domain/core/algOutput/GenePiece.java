@@ -14,6 +14,7 @@ public class GenePiece implements Serializable,Cloneable{
 	private String symbol;
 	private String name;
 	private Float value;
+	private int variableIndex;
 	private GenePieceType genePieceType;
 	private Function function;
 	/**
@@ -57,6 +58,12 @@ public class GenePiece implements Serializable,Cloneable{
 	 */
 	public void setValue(Float value){
 		this.value=value;
+	}
+	public int getVariableIndex() {
+		return variableIndex;
+	}
+	public void setVariableIndex(int variableIndex) {
+		this.variableIndex = variableIndex;
 	}
 	public GenePieceType getGenePieceType() {
 		return genePieceType;
