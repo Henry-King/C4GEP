@@ -6,6 +6,7 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import ui.alginputdataprocess.view.MainFrame;
 import ui.algoutput.controller.OutputController;
 
 import com.wolfram.jlink.MathCanvas;
@@ -31,12 +32,10 @@ public class OutputView extends JPanel{
 	public MathCanvas mathCanvasB = null;
 	
 	OutputController outputController = new OutputController();
-	
-	
-	
-	JFrame parent;
 
-	public OutputView(JFrame parent) {
+	MainFrame parent;
+
+	public OutputView(MainFrame parent) {
 		
 		this.parent = parent;
 		
@@ -131,6 +130,8 @@ public class OutputView extends JPanel{
 		outPutPanel_1.setBackground(Color.WHITE);
 		outPutPanel_1.setBounds(0, 0, 410, 300);
 		panelPaint.add(outPutPanel_1);
+		mathCanvasA.setBounds(0, 0, 410, 310);
+		outPutPanel_1.add(mathCanvasA);
 		
 		
 		//»­Í¼Çø2--------------------------------------------------------------------------------------------------------------
@@ -140,6 +141,8 @@ public class OutputView extends JPanel{
 		outputPanel_2.setBounds(402, 0, 418, 300);
 		panelPaint.add(outputPanel_2);
 		outputPanel_2.setLayout(null);
+		mathCanvasB.setBounds(0, 0, 418, 310);
+		outputPanel_2.add(mathCanvasB);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -154,10 +157,9 @@ public class OutputView extends JPanel{
 	
 	
 	public void refresh(){
-		parent
-		outputController.setParameter(parent, gepAlgConfiguration);
-		
-		
+		outputController.setParameter(parent.inputSet, parent.gepAlgConfiguration);
+		outputController.drawFittingCurve(mathCanvasA);
+		outputController.drawEvolutionGraph(mathCanvasB);
 	}
 	
 	

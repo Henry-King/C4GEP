@@ -8,7 +8,7 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-public class TreePanelController {
+public class TreeController {
    public static int  treeMouseListener(MouseEvent e,JPanel[] panels,JButton btnBefore,JButton btnNext,int count){
 	   JTree tree = (JTree) e.getSource();
        int selRow = tree.getRowForLocation(e.getX(), e.getY());

@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
-public class JPanelForJTree extends JPanel {
+public class TreeView extends JPanel {
 	  
 	  DefaultMutableTreeNode root = new DefaultMutableTreeNode("所有系统");
 	  DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("算法系统");
@@ -32,7 +32,7 @@ public class JPanelForJTree extends JPanel {
 	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5,node6,node7};
 	  DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	  final JTree tree_1 ;
-	  public JPanelForJTree() {
+	  public TreeView() {
 	 	setBackground(Color.WHITE);
 		//树
 	 	  treeModel.insertNodeInto(root1, root, root.getChildCount());

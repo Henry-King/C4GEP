@@ -1,8 +1,8 @@
-package ui.alginputdataprocess.controller;
-
+package ui.alginputdataprocess.model;
+/*
 import java.io.File;
 
-public class ModelForDownLoadInterface {
+public class DownLoadInterfaceModel {
 	   String saveDirName;
 	   String interfaceName;
 	   File saveDir;
@@ -29,7 +29,7 @@ public class ModelForDownLoadInterface {
 				this.saveDir = dir;
 	    }
 		
-		public ModelForDownLoadInterface(File dir,String interfaceName, String interfacePath) {
+		public DownLoadInterfaceModel(File dir,String interfaceName, String interfacePath) {
 			super();
 			this.saveDir=dir;
             this.saveDirName =interfacePath;
@@ -38,3 +38,4 @@ public class ModelForDownLoadInterface {
 		
 		
 }
+*/

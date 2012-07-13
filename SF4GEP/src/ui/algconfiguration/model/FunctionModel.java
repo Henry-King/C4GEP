@@ -2,11 +2,11 @@ package ui.algconfiguration.model;
 
 
 
-public class ModelForJPanelFunction {
+public class FunctionModel {
   
    StringBuffer functions;
    
-   public ModelForJPanelFunction(StringBuffer functions){
+   public FunctionModel(StringBuffer functions){
 	   this.functions=functions;
    }
    public StringBuffer getFunctions() {

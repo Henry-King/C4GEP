@@ -1,7 +1,7 @@
 package ui.algconfiguration.model;
 
 
-public class ModelForJPanelGEne {
+public class GeneModel {
 	
 	String normalGeneNumber;
     String normalHeaderLength;
@@ -17,7 +17,7 @@ public class ModelForJPanelGEne {
     String twoPointRecombineRate;
     String geneOnePointRecombineRate;
     int availableModifyingsIndex;
-    public ModelForJPanelGEne(String normalGeneNumber,String normalHeaderLength,String homeoticGeneNums,String homeoticHeaderLength,String geneRecombineRate,
+    public GeneModel(String normalGeneNumber,String normalHeaderLength,String homeoticGeneNums,String homeoticHeaderLength,String geneRecombineRate,
     		String risTransportRate,String risElement,String isTransportRate, String isElement,String geneTransportRate,String mutateRate,String twoPointRecombineRate,String geneOnePointRecombineRate,int availableModifyings){
     	this.normalGeneNumber= normalGeneNumber;
         this.normalHeaderLength=normalHeaderLength;

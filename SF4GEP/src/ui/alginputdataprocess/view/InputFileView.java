@@ -6,27 +6,27 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-
-
-
 public class InputFileView extends JPanel{
+	
 	public JTextField txtInputPath = new JTextField();
 	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
-
-	public InputFileView() {
-
+	MainFrame parent;
+	
+	public InputFileView(MainFrame parent) {
+		
+		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBounds(155, 115, 631, 532);
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setVisible(true);
-
+		
 		JLabel lblNewLabel_26 = new JLabel(
 				"\u586B\u5199\u6240\u9700\u7684\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
 		lblNewLabel_26.setFont(new Font("ËÎÌו", Font.PLAIN, 18));
 		lblNewLabel_26.setBounds(20, 20, 208, 25);
 		add(lblNewLabel_26);
-
+		
 		JLabel lblNewLabel_25 = new JLabel(
 				"\u6570\u636E\u8F93\u5165\u8DEF\u5F84");
 		lblNewLabel_25.setBackground(SystemColor.inactiveCaptionBorder);

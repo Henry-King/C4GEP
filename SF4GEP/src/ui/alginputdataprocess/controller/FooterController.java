@@ -12,30 +12,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import ui.algconfiguration.model.ModelForJPanelConfig;
-import ui.algconfiguration.model.ModelForJPanelFunction;
-import ui.algconfiguration.model.ModelForJPanelGEne;
-import ui.algconfiguration.model.ModelForJPanelPopulation;
-import ui.algconfiguration.view.HostPanel;
-import ui.algconfiguration.view.JPanelForFunction;
-import ui.algconfiguration.view.JPanelForGene;
-import ui.algconfiguration.view.JPanelForPopulation;
-import ui.algconfiguration.view.JPanelForStopSetting;
-import ui.input.model.ModelForJPanelInputPath;
-import ui.input.view.JPanelForFooter;
-
-import domain.core.outputmodel.GepConfiguration;
-import domain.iservice.IgepAlgService;
-import domain.service.alg.baseclass.GepAlgService;
+import ui.algconfiguration.model.ConfigModel;
+import ui.algconfiguration.model.FunctionModel;
+import ui.algconfiguration.model.GeneModel;
+import ui.algconfiguration.model.PopulationModel;
+import ui.algconfiguration.view.GeneView;
+import ui.algconfiguration.view.PopulationView;
+import ui.algconfiguration.view.StopSettingView;
+import ui.alginputdataprocess.view.FooterView;
 
 import jxl.read.biff.BiffException;
 import exception.Duplicated;
 
 
-public class FooterPanelController {
+public class FooterController {
 	
     
-	 public static int btnNextController(DefaultMutableTreeNode[] node,JTree tree_1,JPanelForFooter footPanel,JPanel panel_0,CardLayout card,int count) {
+	 public static int btnNextController(DefaultMutableTreeNode[] node,JTree tree_1,FooterView footPanel,JPanel panel_0,CardLayout card,int count) {
 		footPanel.btnBefore.setEnabled(true);
   		card.next(panel_0);
   		switch(count){
@@ -123,8 +116,8 @@ public class FooterPanelController {
   		return count;
 		
 	}
-	public static boolean btnRunController(ModelForJPanelConfig configuration,ModelForJPanelInputPath inputPath,
-	   ModelForJPanelPopulation population,ModelForJPanelGEne gene,ModelForJPanelFunction function,
+	public static boolean btnRunController(ConfigModel configuration,ModelForJPanelInputPath inputPath,
+	   PopulationModel population,GeneModel gene,FunctionModel function,
 	   GepConfiguration myParameter,IgepAlgService myGepService,GepConfiguration myConfigurationFromDB,int flag){
 		String risElement = gene.getRisElement();
 		String strRisElement = "";

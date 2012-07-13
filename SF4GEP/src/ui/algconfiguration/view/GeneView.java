@@ -12,9 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import ui.alginputdataprocess.view.MainFrame;
 
-public class JPanelForGene extends JPanel {
 
+public class GeneView extends JPanel {
+
+	
+	
 	
 	public JTextField txtNormalGeneNumber=new JTextField(),
 	                   txtNormalHeaderLength=new JTextField(),
@@ -29,10 +33,11 @@ public class JPanelForGene extends JPanel {
 	                   txtMutateRate=new JTextField(),
 	                   txtTwoPointRecombineRate=new JTextField(),
 	                   txtGeneOnePointRecombineRate=new JTextField();
-	public JComboBox JComboBoxOfAvailableModifyings = new JComboBox();
 	
-	public JPanelForGene() {
-		
+	public JComboBox JComboBoxOfAvailableModifyings = new JComboBox();
+	MainFrame parent;
+	public GeneView(MainFrame parent) {
+		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		setBounds(155, 115, 631, 447);

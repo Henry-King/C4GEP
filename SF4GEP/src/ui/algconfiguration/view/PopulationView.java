@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import ui.alginputdataprocess.view.MainFrame;
 
-public class JPanelForPopulation extends JPanel {
+
+public class PopulationView extends JPanel {
 
 
 	
@@ -24,9 +26,9 @@ public class JPanelForPopulation extends JPanel {
 	          JComboBoxofSelectionStrategy = new JComboBox();
 	public JComboBox JComboBoxAvailableCalculator = new JComboBox();
 	
-	
-	public JPanelForPopulation() {
-		
+	MainFrame parent;
+	public PopulationView(MainFrame parent) {
+		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBounds(155, 115, 631, 447);
 		setForeground(Color.DARK_GRAY);

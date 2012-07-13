@@ -1,13 +1,13 @@
 package ui.algconfiguration.model;
 
-public class ModelForJPanelPopulation {
+public class PopulationModel {
 	
 	String populationSize;
 	String selectionRange;
     int populationCreatorIndex;
     int selectionStrategyIndex;
     int availableCalculatorIndex;
-    public ModelForJPanelPopulation(String populationSize,String selectionRange,int populationCreator,int selectionStrategy,int availableCalculator){
+    public PopulationModel(String populationSize,String selectionRange,int populationCreator,int selectionStrategy,int availableCalculator){
     	this.availableCalculatorIndex=availableCalculator;
     	this.populationCreatorIndex=populationCreator;
     	this.selectionStrategyIndex=selectionStrategy;

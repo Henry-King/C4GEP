@@ -15,12 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import ui.alginputdataprocess.view.MainFrame;
 
 
 
 
 
-public class JPanelForStopSetting extends JPanel {
+
+public class StopSettingView extends JPanel {
 
 	
 	public JTextField txtMaxGeneration=new JTextField(),
@@ -28,9 +30,9 @@ public class JPanelForStopSetting extends JPanel {
 	
 	
 	
-
-	public JPanelForStopSetting() {
-		   
+	MainFrame parent;
+	public StopSettingView(MainFrame parent) {
+		    this.parent = parent;
 		    setBounds(155, 115, 631, 447);
 		    setVisible(false);
 		    setBorder(new LineBorder(new Color(0, 0, 0)));

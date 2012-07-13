@@ -2,97 +2,61 @@ package ui.alginputdataprocess.view;
 
 
 
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
+import domain.core.algInputDataProcess.*;
+import domain.core.algconfiguration.*;
 
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
-import org.jvnet.substance.SubstanceLookAndFeel;
-
-import ui.algconfiguration.view.HostPanel;
-import ui.algconfiguration.view.JPanelForFunction;
-import ui.algconfiguration.view.JPanelForGene;
-import ui.algconfiguration.view.JPanelForPopulation;
-import ui.algconfiguration.view.JPanelForStopSetting;
-import ui.alginputdataprocess.controller.MainController;
-import ui.alginputdataprocess.model.MainModel;
-import ui.algoutput.view.JPanelForOutput;
-import ui.algoutput.view.OutputView;
-import domain.core.algInputDataProcess.DataSet;
-import domain.core.algconfiguration.GepAlgConfiguration;
-import domain.service.alg.baseclass.GepAlgService;
-import domain.service.input.GepInputService;
-import exception.Duplicated;
-
+import ui.algconfiguration.view.*;
+import ui.alginputdataprocess.controller.*;
+import ui.alginputdataprocess.model.*;
+import ui.algoutput.view.*;
 
 
 public class MainFrame extends JFrame {
 	
     JPanel contentPane;
-    HostPanel configurationPanel;
-	JPanelForStopSetting stopSettingPanel=new JPanelForStopSetting();
-	JPanelForPopulation populationPanel=new JPanelForPopulation();
-	JPanelForGene genePanel=new JPanelForGene();
-	JPanelForFunction functionPanel=new JPanelForFunction();
-	JPanelForFooter footPanel=new JPanelForFooter();
-	JPanelForUploadInterface uploadInterfacePanel=new JPanelForUploadInterface();
-	JPanelForInputFile inputFilePanel=new JPanelForInputFile();
-	JPanelForJTree  treePanel;
-	JPanelForSaveConfig scfigNamePanel=new JPanelForSaveConfig();
-	JPanelForOutput outputPanel=new JPanelForOutput();
+    HostView configurationPanel;
+	StopSettingView stopSettingPanel=new StopSettingView(this);
+	PopulationView populationPanel=new PopulationView(this);
+	GeneView genePanel=new GeneView(this);
+	FunctionView functionPanel=new FunctionView(this);
+	FooterView footPanel=new FooterView(this);
+	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
+	InputFileView inputFilePanel=new InputFileView(this);
+	SaveConfigView scfigNamePanel=new SaveConfigView(this);
+	OutputView outputPanel=new OutputView(this);
+	
+	
+	TreeView  treePanel;
+	
     JPanel panel_0 = new JPanel();
     
+    
+    
     CardLayout card;
-    
-    
-    
-    
-    
-    
     
     public MainController mainController = new MainController();
     public MainModel mainModel = new MainModel();
     
+    OutputView outputView = new OutputView(this);
+    
+    
     public DataSet inputSet;
     public GepAlgConfiguration gepAlgConfiguration;
     
-    
    
-	GepConfiguration myParameter=new GepConfiguration();
+/*GepConfiguration myParameter=new GepConfiguration();
 	IgepAlgService myGepService=new GepAlgService();	
 	GepConfiguration myConfigurationFromDB;
 	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
+	
 	IgepInputService input =new GepInputService();
-	
-	
-	
-	
-	
-	
-	
+*/
 	
 	
 	
@@ -100,6 +64,7 @@ public class MainFrame extends JFrame {
 	int flag=0;//是否读取配置文件
 	int count=0;
 	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -112,24 +77,10 @@ public class MainFrame extends JFrame {
 			}
 		});
 	}
-
+	
+	
 	
 	public MainFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		
-		OutputView outputView = new OutputView(this);
-		
-		
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-		javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-		//javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel"); 
 		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,16 +92,12 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		
 		panel_0.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_0.setBackground(Color.WHITE);
 		panel_0.setBounds(165, 115, 659, 399);
 	    card = new CardLayout(5, 5);
 		panel_0.setLayout(card);
 		contentPane.add(panel_0);
-		
-		
-		
 		
 		   
 		
@@ -313,7 +260,7 @@ public class MainFrame extends JFrame {
 	      footPanel.setBounds(165, 520, 659, 50);
 	      footPanel.btnBefore.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
-		    		count=FooterPanelController.btnBeforeController(treePanel.Node,treePanel.tree_1,footPanel.btnNext,footPanel.btnBefore,panel_0,card,count);
+		    		count=FooterController.btnBeforeController(treePanel.Node,treePanel.tree_1,footPanel.btnNext,footPanel.btnBefore,panel_0,card,count);
 		    	}
 		      });
 	      footPanel.btnRun.setEnabled(false);
@@ -321,16 +268,16 @@ public class MainFrame extends JFrame {
 	      footPanel.btnRun.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		    		   
-		    		    ModelForJPanelConfig config=new ModelForJPanelConfig(jcomboBoxConfiguration.getSelectedItem().toString());
+		    		    ConfigModel config=new ConfigModel(jcomboBoxConfiguration.getSelectedItem().toString());
 		    		    ModelForJPanelInputPath inputPath=new ModelForJPanelInputPath(inputFilePanel.txtInputPath.getText(),stopSettingPanel.txtMaxGeneration.getText(),stopSettingPanel.txtAccuracy.getText());
 		    		    int creatorSelectedIndex = populationPanel.JcomboBoxOfPopulationCreator.getSelectedIndex();
 		    		    System.out.print("ww"+creatorSelectedIndex);
 						int calculatorSelectedIndex = populationPanel.JComboBoxAvailableCalculator.getSelectedIndex();
 						int strategySelectedIndex =populationPanel.JComboBoxofSelectionStrategy.getSelectedIndex();;
-					    ModelForJPanelPopulation population=new ModelForJPanelPopulation(populationPanel.txtPopulationSize.getText(), populationPanel.txtSelectionRange.getText(), creatorSelectedIndex, strategySelectedIndex,calculatorSelectedIndex);
+					    PopulationModel population=new PopulationModel(populationPanel.txtPopulationSize.getText(), populationPanel.txtSelectionRange.getText(), creatorSelectedIndex, strategySelectedIndex,calculatorSelectedIndex);
 					   //--------
 					    int modifyingSelectedIndex = genePanel.JComboBoxOfAvailableModifyings.getSelectedIndex();
-					    ModelForJPanelGEne gene=new ModelForJPanelGEne(genePanel.txtNormalGeneNumber.getText(), genePanel.txtNormalHeaderLength.getText(), genePanel.txtHomeoticGeneNums.getText(),genePanel.txtHomeoticHeaderLength.getText(), genePanel.txtGeneRecombineRate.getText(), genePanel.txtRisTransportRate.getText(), genePanel.txtofRisElement.getText().trim(),genePanel.txtIsTransportRate.getText() ,genePanel.txtofRisElement.getText().trim(),genePanel.txtGeneTransportRate.getText() ,genePanel.txtMutateRate.getText(),genePanel.txtTwoPointRecombineRate.getText(),genePanel.txtGeneOnePointRecombineRate.getText(),modifyingSelectedIndex);
+					    GeneModel gene=new GeneModel(genePanel.txtNormalGeneNumber.getText(), genePanel.txtNormalHeaderLength.getText(), genePanel.txtHomeoticGeneNums.getText(),genePanel.txtHomeoticHeaderLength.getText(), genePanel.txtGeneRecombineRate.getText(), genePanel.txtRisTransportRate.getText(), genePanel.txtofRisElement.getText().trim(),genePanel.txtIsTransportRate.getText() ,genePanel.txtofRisElement.getText().trim(),genePanel.txtGeneTransportRate.getText() ,genePanel.txtMutateRate.getText(),genePanel.txtTwoPointRecombineRate.getText(),genePanel.txtGeneOnePointRecombineRate.getText(),modifyingSelectedIndex);
 		    		    //----
 					    StringBuffer result = new StringBuffer();
 						String str = new String();
@@ -356,12 +303,12 @@ public class MainFrame extends JFrame {
 							result.append(str + ",");
 						}
 						System.out.println("函数"+result.toString());
-					    ModelForJPanelFunction function=new ModelForJPanelFunction(result);
+					    FunctionModel function=new FunctionModel(result);
 					    
 					    /**
 					     * 点击执行计算按钮触发
 					     */
-					    if(FooterPanelController.btnRunController(config, inputPath, population, gene, function, myParameter, myGepService, myConfigurationFromDB, flag)==true){
+					    if(FooterController.btnRunController(config, inputPath, population, gene, function, myParameter, myGepService, myConfigurationFromDB, flag)==true){
 					    	outputPanel.setVisible(true);//显示输出面板
 					    	panel_0.setVisible(false);
 		    				treePanel.setVisible(false);
@@ -389,7 +336,7 @@ public class MainFrame extends JFrame {
 	      
 	      footPanel.btnNext.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
-		    		count=FooterPanelController.btnNextController(treePanel.Node,treePanel.tree_1,footPanel,panel_0,card,count);
+		    		count=FooterController.btnNextController(treePanel.Node,treePanel.tree_1,footPanel,panel_0,card,count);
 		    	}
 		      });
 	      contentPane.add(footPanel);
@@ -411,16 +358,178 @@ public class MainFrame extends JFrame {
 	      //菜单面板---------------------------------------
 	     
 	      
-	        treePanel=new JPanelForJTree();
+	        treePanel=new TreeView();
 			treePanel.setBounds(5, 115, 155, 455);
 			final JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,uploadInterfacePanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
 			treePanel.tree_1.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent e) {
-					count=TreePanelController.treeMouseListener(e, panels,footPanel.btnBefore,footPanel.btnNext,count);
+					 int selRow = tree.getRowForLocation(e.getX(), e.getY());
+				      TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+				      if (selRow != -1)
+				      {
+				          if (e.getClickCount() == 1)
+				          {
+				          	TreeNode node = (TreeNode) selPath.getLastPathComponent();
+				          	if(node.toString()=="算法系统"){
+				          		panels[0].setVisible(true);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		//footPanel的btnBefroe和btnNext
+				          		btnBefore.setEnabled(false);
+				          		btnNext.setEnabled(true);
+				          		count=0;
+				          	}
+				          	if(node.toString()=="算法名称"){
+				          		panels[0].setVisible(true);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		btnBefore.setEnabled(true);
+				          		btnNext.setEnabled(true);
+				          		count=0;
+				          	}
+				          	if(node.toString()=="算法终止条件"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(true);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		btnBefore.setEnabled(true);
+				          		btnNext.setEnabled(true);
+				          		count=1;
+				          	}
+				          	if(node.toString()=="种群信息"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(true);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		btnBefore.setEnabled(true);
+				          		btnNext.setEnabled(true);
+				          		count=2;
+				          	}
+				          	if(node.toString()=="基因信息"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(true);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		btnBefore.setEnabled(true);
+				          		btnNext.setEnabled(true);
+				          		count=3;
+				          	}
+				          	if(node.toString()=="所需函数和随机数"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(true);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(true);
+				          		panels[9].setVisible(true);
+				          		btnBefore.setEnabled(true);
+				          		btnNext.setEnabled(false);
+				          		count=4;
+				          	}
+				          	if(node.toString()=="输入系统"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(true);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(false);
+				          		panels[9].setVisible(false);
+				          	} 
+				          	if(node.toString()=="上传/下载接口"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(true);
+				          		panels[6].setVisible(false);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(false);
+				          		panels[9].setVisible(false);
+				          	} 
+				          	if(node.toString()=="输入路径"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(true);
+				          		panels[7].setVisible(false);
+				          		panels[8].setVisible(false);
+				          		panels[9].setVisible(false);
+				          	}
+				          	if(node.toString()=="输出系统"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[8].setVisible(false);
+				          	    panels[9].setVisible(false);
+				          		panels[7].setVisible(true);
+				          		panels[10].setVisible(false);
+				          	}  
+				          	if(node.toString()=="输出结果"){
+				          		panels[0].setVisible(false);
+				          		panels[1].setVisible(false);
+				          		panels[2].setVisible(false);
+				          		panels[3].setVisible(false);
+				          		panels[4].setVisible(false);
+				          		panels[5].setVisible(false);
+				          		panels[6].setVisible(false);
+				          		panels[8].setVisible(false);
+				          	    panels[9].setVisible(false);
+				          		panels[7].setVisible(true);
+				          		panels[10].setVisible(false);
+				          	}  
+				          } 
+				      }
+					
 				}
 			});
 		    contentPane.add(treePanel);
-	      
+		    
 	}
 	
 	

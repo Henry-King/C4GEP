@@ -1,8 +1,8 @@
 package ui.alginputdataprocess.model;
-
+/*
 import java.io.File;
 
-public class ModelForUploadInterface {
+public class UploadInterfaceModel {
    
    String fileName;
    String interfacePath;
@@ -39,7 +39,7 @@ public class ModelForUploadInterface {
 	
 	
 	
-	public ModelForUploadInterface(File file,File dir,String fileName, String interfacePath) {
+	public UploadInterfaceModel(File file,File dir,String fileName, String interfacePath) {
 		super();
 		this.file=file;
 		this.dir=dir;
@@ -48,3 +48,4 @@ public class ModelForUploadInterface {
 	}
 	
 }
+*/

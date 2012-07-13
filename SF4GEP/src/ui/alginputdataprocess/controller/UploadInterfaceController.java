@@ -1,5 +1,5 @@
 package ui.alginputdataprocess.controller;
-
+/*
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,10 +24,10 @@ import domain.iservice.IgepAlgService;
 
 import ui.algconfiguration.view.HostPanel;
 import ui.algconfiguration.view.JPanelForFunction;
-import ui.algconfiguration.view.JPanelForGene;
-import ui.algconfiguration.view.JPanelForPopulation;
-import ui.algconfiguration.view.JPanelForStopSetting;
-import ui.alginputdataprocess.model.ModelForUploadInterface;
+import ui.algconfiguration.view.GeneView;
+import ui.algconfiguration.view.PopulationView;
+import ui.algconfiguration.view.StopSettingView;
+import ui.alginputdataprocess.model.UploadInterfaceModel;
 
 public class UploadInterfaceController {
 
@@ -47,7 +47,7 @@ public class UploadInterfaceController {
 	
 	
 	public static int btnUploadController(
-			ModelForUploadInterface uploadInterface) throws IOException {
+			UploadInterfaceModel uploadInterface) throws IOException {
 		file = uploadInterface.getFile();
 		saveDir = new File(defaultFileSavePath);
 		try {
@@ -207,4 +207,4 @@ public class UploadInterfaceController {
 
 		return 0;// 可以上传
 	}
-}
+}*/

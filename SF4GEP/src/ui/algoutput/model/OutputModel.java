@@ -4,7 +4,6 @@ import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.Individual;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgRunStep;
-import domain.service.alg.baseclass.Calculator;
 
 
 
@@ -12,7 +11,6 @@ import domain.service.alg.baseclass.Calculator;
 public class OutputModel {
 	private Individual individual;
 	private GepAlgConfiguration gepAlgConfiguration;
-	private Calculator calculator;
 	private IAlgRunStep algRunStep;
 	private DataSet inputSet;
 	
@@ -34,12 +32,6 @@ public class OutputModel {
 	}
 	public void setGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration) {
 		this.gepAlgConfiguration = gepAlgConfiguration;
-	}
-	public Calculator getCalculator() {
-		return calculator;
-	}
-	public void setCalculator(Calculator calculator) {
-		this.calculator = calculator;
 	}
 	public IAlgRunStep getAlgRunStep() {
 		return algRunStep;

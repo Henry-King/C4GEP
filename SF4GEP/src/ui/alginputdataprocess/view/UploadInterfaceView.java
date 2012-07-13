@@ -19,11 +19,10 @@ import java.io.IOException;
 import javax.swing.border.LineBorder;
 
 import ui.alginputdataprocess.controller.DownLoadInterfaceController;
-import ui.alginputdataprocess.controller.ModelForDownLoadInterface;
 import ui.alginputdataprocess.controller.UploadInterfaceController;
-import ui.alginputdataprocess.model.ModelForUploadInterface;
-
-public class JPanelForUploadInterface extends JPanel {
+import ui.alginputdataprocess.model.UploadInterfaceModel;
+/*
+public class UploadInterfaceView extends JPanel {
     public JTextField textInterfaceName = new JTextField();
 	public JLabel lblNewLabel = new JLabel("\u63A5\u53E3\u540D");
 	public JButton button = new JButton("\u6D4F\u89C8");
@@ -40,10 +39,12 @@ public class JPanelForUploadInterface extends JPanel {
 	public File dirForSavePath,fileForSeleInterface;
 	String[] interfaceArr=new String[]{"Function","Calculator","Creator","Modifying","Selector"};
 	JComboBox interfaceComboBox = new JComboBox(interfaceArr);
-	/**
-	 * Create the panel.
-	 */
-	public JPanelForUploadInterface() {
+
+	
+	
+	MainFrame parent;
+	public UploadInterfaceView(MainFrame parent) {
+		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBounds(155, 115, 673, 479);
 		setBackground(Color.WHITE);
@@ -67,7 +68,7 @@ public class JPanelForUploadInterface extends JPanel {
 		add(button);
 		btnUpload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModelForUploadInterface uploadInterface=new ModelForUploadInterface(file,dir,textInterfaceName.getText(),textInterfacePath.getText());
+				UploadInterfaceModel uploadInterface=new UploadInterfaceModel(file,dir,textInterfaceName.getText(),textInterfacePath.getText());
 				try {
 					int result=UploadInterfaceController.btnUploadController(uploadInterface);
 					if(result==-1){
@@ -133,7 +134,7 @@ public class JPanelForUploadInterface extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				interfaceComboBox.setSelectedItem(interfaceComboBox.getSelectedItem());
 				System.out.println(interfaceComboBox.getSelectedItem().toString());
-				ModelForDownLoadInterface downLoadInterface=new ModelForDownLoadInterface(dirForSavePath,interfaceComboBox.getSelectedItem().toString(),textInterfaceSavePath.getText());
+				DownLoadInterfaceModel downLoadInterface=new DownLoadInterfaceModel(dirForSavePath,interfaceComboBox.getSelectedItem().toString(),textInterfaceSavePath.getText());
 				try {
 					DownLoadInterfaceController.btnDownLoadController(downLoadInterface);
 				} catch (IOException e1) {
@@ -176,7 +177,7 @@ public class JPanelForUploadInterface extends JPanel {
 	class OpenHandler implements  ActionListener{
         public void actionPerformed(ActionEvent e) {
 			JFileChooser jc=new JFileChooser();
-			int rVal=jc.showOpenDialog(JPanelForUploadInterface.this);
+			int rVal=jc.showOpenDialog(UploadInterfaceView.this);
 			if(rVal==JFileChooser.APPROVE_OPTION){
 			    dir=jc.getCurrentDirectory();
 				file=jc.getSelectedFile();
@@ -192,7 +193,7 @@ public class JPanelForUploadInterface extends JPanel {
 	class SaveHandler implements  ActionListener{
         public void actionPerformed(ActionEvent e) {
 			JFileChooser jc=new JFileChooser();
-			int rVal=jc.showOpenDialog(JPanelForUploadInterface.this);
+			int rVal=jc.showOpenDialog(UploadInterfaceView.this);
 			if(rVal==JFileChooser.APPROVE_OPTION){
 			    dirForSavePath=jc.getCurrentDirectory();
 				fileForSeleInterface=jc.getSelectedFile();
@@ -204,4 +205,4 @@ public class JPanelForUploadInterface extends JPanel {
 			}
 		}
 	}
-}
+}*/

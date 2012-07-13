@@ -1,5 +1,5 @@
 package ui.alginputdataprocess.controller;
-
+/*
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,7 +25,7 @@ public class DownLoadInterfaceController {
 	   private static File saveDir;
 	   static StringBuffer buffer;
 	   static File file;
-	   public static int btnDownLoadController(ModelForDownLoadInterface downLoadInterface) throws IOException{
+	   public static int btnDownLoadController(DownLoadInterfaceModel downLoadInterface) throws IOException{
 		   fileName=downLoadInterface.getInterfaceName();
 		   System.out.print("fileName"+fileName);
 		   saveDir=downLoadInterface.getSaveDir();
@@ -91,4 +91,4 @@ public class DownLoadInterfaceController {
 	     writer.close();
 	     return 0;
 	}
-}
+}*/
