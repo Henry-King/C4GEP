@@ -12,7 +12,7 @@ import domain.iservice.algConfiguration.IgepConfigurationService;
 public class GepConfigurationService implements IgepConfigurationService {
 
 	@Override
-	public GepAlgConfiguration getGepAlgConfigurationByName(String name) {
+	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
 		// TODO Auto-generated method stub
 		return null;
 	}
