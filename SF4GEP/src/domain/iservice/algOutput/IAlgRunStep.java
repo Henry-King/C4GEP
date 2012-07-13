@@ -5,12 +5,18 @@ import java.util.List;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.FittedValue;
 import domain.core.algOutput.GepAlgRun;
+import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 public interface IAlgRunStep {
 	public GepAlgRun create(GepAlgConfiguration gepAlgConfiguration, DataSet dataSet);
-	public List<FittedValue> calculateFittedValue(Population population);
+	public List<FittedValue> calculateFittedValue(Individual individual, DataSet dataSet);
+	/**
+	 * 此方法的实现要负责设置个体的适应值，所选择的同源基因等
+	 * @param population
+	 * @return
+	 */
 	public List<Float> calculateFitness(Population population);
 	public Population select(GepAlgRun gepAlgRun);
 	public boolean mutate(Population population);
