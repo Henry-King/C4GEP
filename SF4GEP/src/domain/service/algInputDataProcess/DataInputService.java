@@ -32,7 +32,7 @@ public class DataInputService implements IDataInputService {
 		Sheet sheet = readFile.getSheet(0);
 		int rows = sheet.getRows();
 		int columns = sheet.getColumns();
-		dataSet = new DataSet(rows, columns, path.getName());
+		dataSet = new DataSet(rows-1, columns-1, path.getName());
 		List<DataRow> sheetRows = new ArrayList<DataRow>(rows - 1);
 		for (int i = 1; i < rows; i++) {
 			sheetRow = new DataRow();

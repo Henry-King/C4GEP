@@ -20,15 +20,19 @@ public class AlgOutputService implements IAlgOutputService {
 		List<Float> fitnessFloats;
 		Float maxFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
-		for(Individual individual:gepAlgRun.getCurrentPopulation().getIndividuals())
-			System.out.println(individual+"\n"+"-----------------------------");
+		Population newPopulation;
+//		for(Individual individual:gepAlgRun.getCurrentPopulation().getIndividuals())
+//			System.out.println(individual+"\n"+"-----------------------------");
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
+			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
-			gepAlgRun.getPopulations().add(algRunStep.select(gepAlgRun));
+			newPopulation=algRunStep.select(gepAlgRun);
+			newPopulation.setGenerationNum(i+1);
+			gepAlgRun.getPopulations().add(newPopulation);
 			algRunStep.mutate(gepAlgRun.getCurrentPopulation());
 			algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
 			algRunStep.risTransport(gepAlgRun.getCurrentPopulation());

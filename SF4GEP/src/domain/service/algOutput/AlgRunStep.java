@@ -99,7 +99,12 @@ public class AlgRunStep implements IAlgRunStep {
 	@Override
 	public Population select(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		Population lastPopulation=gepAlgRun.getCurrentPopulation();
+		float sumFitness=addFitness(lastPopulation);
+		List<Float> probability=calculateProbability(lastPopulation, sumFitness);
+		calculateCumulative(probability);
+		Population newPopulation=createNewPopulation(lastPopulation, probability);
+		return newPopulation;
 	}
 
 	@Override
@@ -246,16 +251,14 @@ public class AlgRunStep implements IAlgRunStep {
 	private float [] calcFittedValue(Individual individual,DataRow row,GeneConfiguration geneConfiguration){
 		int normalGeneNum=geneConfiguration.getNormalGeneNumber();
 		int homeoticGeneNum=geneConfiguration.getHomeoticGeneNumber();
-		int geneNum=normalGeneNum+homeoticGeneNum;
-		int i;
-		for(i=0;i<normalGeneNum;i++){
+		for(int i=0;i<normalGeneNum;i++){
 			assignValueToVariable(individual.getGenes().get(i), row);
 			calculateGeneValue(individual.getGenes().get(i), individual);
 		}
 		float result;
 		float[] resulList=new float[homeoticGeneNum];
-		for(;i<geneNum;i++){
-			result=calculateGeneValue(individual.getGenes().get(i), individual);
+		for(int i=0;i<homeoticGeneNum;i++){
+			result=calculateGeneValue(individual.getGenes().get(i+normalGeneNum), individual);
 			resulList[i]=result;
 		}
 		return resulList;
@@ -464,5 +467,50 @@ public class AlgRunStep implements IAlgRunStep {
 			individual.setFittedValues(fittedValues);
 		}
 		return individual;
+	}
+	private float addFitness(Population population){
+		float sum=0;
+		for(Individual individual:population.getIndividuals())
+			sum+=individual.getFitness();
+		return sum;
+	}
+	private List<Float> calculateProbability(Population population,float sum){
+		float divide;
+		List<Float> floatList=new ArrayList<Float>(population.getIndividuals().size());
+		for(Individual individual:population.getIndividuals()){
+			divide=individual.getFitness()/sum;
+			floatList.add(divide);
+		}
+		return floatList;
+	}
+	private List<Float> calculateCumulative(List<Float> probability){
+		float sum=0;
+		for(int i=0;i<probability.size();i++){
+			sum+=probability.get(i);
+			probability.set(i, sum);
+		}
+		return probability;
+	}
+	private Population createNewPopulation(Population original,List<Float> cumulativeProbability){
+		Population resultPopulation=new Population(original.getIndividuals().size());
+		Individual bestIndividual=original.getBestIndividual().clone();
+		resultPopulation.addIndividual(bestIndividual);
+		Random random=new Random();
+		int position;
+		Individual insertedIndividual;
+		for(int i=1;i<cumulativeProbability.size();i++){
+			position=search(cumulativeProbability, random.nextFloat());
+			insertedIndividual=original.getIndividuals().get(position).clone();
+			resultPopulation.addIndividual(insertedIndividual);
+		}
+		resultPopulation.setGepAlgRun(original.getGepAlgRun());
+		return resultPopulation;
+	}
+	private int search(List<Float> floats,float random){
+		for(int i=0;i<floats.size();i++){
+			if(random<=floats.get(i))
+				return i;
+		}
+		return floats.size()-1;
 	}
 }
