@@ -20,10 +20,37 @@ import domain.core.algOutput.Population;
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
 import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgRunStep implements IAlgRunStep {
-
+	enum TransportEnum{
+		IS,RIS,GENE;
+		float rate;
+		Integer[] transportElement;
+		public void setRate(float rate){
+			this.rate=rate;
+		}
+		public float getRate(){
+			return rate;
+		}
+		public void setTransportElement(Integer[] transportElement){
+			this.transportElement=transportElement;
+		}
+		public Integer[] getTransportElement(){
+			return transportElement;
+		}
+	}
+	enum Recombine{
+		OnePoint,TwoPoint,GENE;
+		float rate;
+		public void setRate(float rate){
+			this.rate=rate;
+		}
+		public float getRate(){
+			return rate;
+		}
+	}
 	@Override
 	public GepAlgRun create(GepAlgConfiguration gepAlgConfiguration, DataSet dataSet) {
 		// TODO Auto-generated method stub
@@ -110,25 +137,133 @@ public class AlgRunStep implements IAlgRunStep {
 	@Override
 	public boolean mutate(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		Random mutateRandom=new Random();
+		Random funcOrVarRandom=new Random();
+		Random functionRandom=new Random();
+		Random variableRandom=new Random();
+		Random funcOrConsRandom=new Random();
+		Random constantRandom=new Random();
+		GeneConfiguration geneConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration();
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		List<Function> functionList=geneConfiguration.getFunctionUsed();
+		DataSet dataSet=population.getGepAlgRun().getDataSet();
+		int functionNum=functionList.size();
+		int variableNum=dataSet.getColumnNum();
+		int totalNum=functionNum+variableNum;
+		int type;
+		GenePiece mutatedGenePiece;
+		int variableIndex;
+		for(Individual mutatingIndividual:population.getIndividuals()){
+			for(Gene gene:mutatingIndividual.getGenes()){
+				if(gene.getGeneType()==GeneType.NormalGene){
+					for(int i=0;i<geneConfiguration.getNormalGeneHeaderLength();i++){
+						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+							mutatedGenePiece=new GenePiece();
+							type=funcOrVarRandom.nextInt(totalNum);
+							gene.getGenePieces().set(i, mutatedGenePiece);
+							if(type<functionNum){
+								mutatedGenePiece.setFunction(functionList.get(type).clone());
+								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
+								mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+							}
+							else {
+								mutatedGenePiece.setFunction(null);
+								mutatedGenePiece.setName(dataSet.getVariableUsed().get(type-functionNum).getColumnName());
+								mutatedGenePiece.setVariableIndex(type-functionNum);
+								mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getName());
+							}
+						}
+					}
+					for(int i=0;i<geneConfiguration.getNormalGeneTailLength();i++){
+						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+							mutatedGenePiece=new GenePiece();
+							gene.getGenePieces().set(i+geneConfiguration.getNormalGeneHeaderLength(),mutatedGenePiece);
+							mutatedGenePiece.setFunction(null);
+							mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
+							variableIndex=variableRandom.nextInt(variableNum);
+							mutatedGenePiece.setName(dataSet.getVariableUsed().get(variableIndex).getColumnName());
+							mutatedGenePiece.setSymbol(mutatedGenePiece.getName());
+						}
+					}
+				}
+				else if(gene.getGeneType()==GeneType.HomeoticGene) {
+					if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+						mutatedGenePiece=new GenePiece();
+						gene.getGenePieces().set(0, mutatedGenePiece);
+						mutatedGenePiece.setFunction(functionList.get(functionRandom.nextInt(functionList.size())).clone());
+						mutatedGenePiece.setGenePieceType(GenePieceType.Function);
+						mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
+						mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+					}
+					for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+							type=funcOrConsRandom.nextInt(functionNum+geneConfiguration.getNormalGeneNumber());
+							mutatedGenePiece=new GenePiece();
+							gene.getGenePieces().set(i, mutatedGenePiece);
+							if(type<functionNum){
+								mutatedGenePiece.setFunction(functionList.get(type).clone());
+								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
+								mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+							}
+							else {
+								mutatedGenePiece.setFunction(null);
+								mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
+								mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+								mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
+							}
+						}
+					}
+					for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
+						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+							mutatedGenePiece=new GenePiece();
+							gene.getGenePieces().set(i+geneConfiguration.getHomeoticGeneHeaderLength(), mutatedGenePiece);
+							mutatedGenePiece.setFunction(null);
+							mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
+							mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+							mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
+							mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public boolean isTransport(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		TransportEnum isTransportEnum=TransportEnum.IS;
+		isTransportEnum.setRate(operatorConfiguration.getIsTransportRate());
+		isTransportEnum.setTransportElement(operatorConfiguration.getIsElement());
+		iterateGeneInTransport(population, isTransportEnum);
+		return true;
 	}
 
 	@Override
 	public boolean risTransport(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		TransportEnum risTransportEnum=TransportEnum.RIS;
+		risTransportEnum.setRate(operatorConfiguration.getRisTransportRate());
+		risTransportEnum.setTransportElement(operatorConfiguration.getRisElement());
+		iterateGeneInTransport(population, risTransportEnum);
+		return true;
 	}
 
 	@Override
 	public boolean geneTransport(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		TransportEnum geneTransportEnum=TransportEnum.GENE;
+		geneTransportEnum.setRate(operatorConfiguration.getGeneTransportRate());
+		iterateGeneInTransport(population, geneTransportEnum);
+		return true;
 	}
 
 	@Override
@@ -148,6 +283,12 @@ public class AlgRunStep implements IAlgRunStep {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	/**
+	 * 产生一个普通基因的头部的所有基因位
+	 * @param geneConfiguration 基因配置信息
+	 * @param dataSet 输入数据集
+	 * @return 普通头部所有基因位组成的List
+	 */
 	private List<GenePiece> generateNormalHeaderPieces(GeneConfiguration geneConfiguration,DataSet dataSet){
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random functionRandom=new Random();
@@ -156,15 +297,18 @@ public class AlgRunStep implements IAlgRunStep {
 		DataColumn dataColumn;
 		Function function;
 		int type;
+		int variableIndex;
 		GenePiece addedGenePiece;
 		for(int i=0;i<geneConfiguration.getNormalGeneHeaderLength();i++){
 			type=typeRandom.nextInt(dataSet.getVariableUsed().size()+geneConfiguration.getFunctionUsed().size());
 			addedGenePiece=new GenePiece();
 			if(type<dataSet.getVariableUsed().size()){
 				addedGenePiece.setGenePieceType(GenePieceType.Variable);
-				dataColumn=dataSet.getVariableUsed().get(variableRandom.nextInt(dataSet.getVariableUsed().size()));
+				variableIndex=variableRandom.nextInt(dataSet.getVariableUsed().size());
+				dataColumn=dataSet.getVariableUsed().get(variableIndex);
 				addedGenePiece.setName(dataColumn.getColumnName());
 				addedGenePiece.setSymbol(dataColumn.getColumnName());
+				addedGenePiece.setVariableIndex(variableIndex);
 			}
 			else {
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
@@ -177,21 +321,35 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return genePieces;
 	}
+	/**
+	 * 产生一个普通基因的尾部的所有基因位
+	 * @param geneConfiguration 基因配置信息
+	 * @param dataSet 输入数据集
+	 * @return 普通基因尾部所有基因位组成的List
+	 */
 	private List<GenePiece> generateNormalTailPieces(GeneConfiguration geneConfiguration,DataSet dataSet){
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random variableRandom=new Random();
 		DataColumn dataColumn;
 		GenePiece addedGenePiece;
+		int variableIndex;
 		for(int i=0;i<geneConfiguration.getNormalGeneTailLength();i++){
 			addedGenePiece=new GenePiece();
 			addedGenePiece.setGenePieceType(GenePieceType.Variable);
-			dataColumn=dataSet.getVariableUsed().get(variableRandom.nextInt(dataSet.getVariableUsed().size()));
+			variableIndex=variableRandom.nextInt(dataSet.getVariableUsed().size());
+			dataColumn=dataSet.getVariableUsed().get(variableIndex);
+			addedGenePiece.setVariableIndex(variableIndex);
 			addedGenePiece.setName(dataColumn.getColumnName());
 			addedGenePiece.setSymbol(dataColumn.getColumnName());
 			genePieces.add(addedGenePiece);
 		}
 		return genePieces;
 	}
+	/**
+	 * 产生一个同源基因的头部的所有基因位
+	 * @param geneConfiguration 基因配置信息
+	 * @return 同源基因头部所有基因位组成的List
+	 */
 	private List<GenePiece> generateHomeoticHeaderPieces(GeneConfiguration geneConfiguration){
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random functionRandom=new Random();
@@ -219,7 +377,7 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 			else {
 				addedGenePiece.setGenePieceType(GenePieceType.Constant);
-				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
+				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
 				addedGenePiece.setName("");
 				addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
 			}
@@ -227,6 +385,11 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return genePieces;
 	}
+	/**
+	 * 产生一个同源基因的尾部的所有基因位
+	 * @param geneConfiguration 基因配置信息
+	 * @return 同源基因尾部所有基因位组成的List
+	 */
 	private List<GenePiece> generateHomeoticTailPieces(GeneConfiguration geneConfiguration){
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random constantRandom=new Random();
@@ -235,7 +398,7 @@ public class AlgRunStep implements IAlgRunStep {
 		for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
 			addedGenePiece=new GenePiece();
 			addedGenePiece.setGenePieceType(GenePieceType.Constant);
-			addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
+			addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
 			addedGenePiece.setName("");
 			addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
 			genePieces.add(addedGenePiece);
@@ -264,25 +427,19 @@ public class AlgRunStep implements IAlgRunStep {
 		return resulList;
 	}
 	/**
-	 * 本方法给基因中的每一个变量赋值
+	 * 本方法给基因中的有效长度内的每一个变量赋值，目前是性能瓶颈，15%作用的CPU时间用来运行这个函数
 	 * @param gene 待赋值的基因
 	 * @param row 一个保存着变量值的输入行
 	 */
 	private void assignValueToVariable(Gene gene, DataRow row) {
 		// TODO Auto-generated method stub
 		GenePiece genePiece;
-		DataColumn dataColumn;
-		int geneLength=gene.getGenePieces().size();
-		int columns=row.getDataColumns().size();
+		int effectiveLength=calcEfficientLength(gene);
 		List<GenePiece> genePieces=gene.getGenePieces();
 		List<DataColumn> dataColumns=row.getDataColumns();
-		for(int i=0;i<geneLength;i++){
+		for(int i=0;i<effectiveLength;i++){
 			if((genePiece=genePieces.get(i)).getGenePieceType()==GenePieceType.Variable){
-				for(int j=0;j<columns;j++)
-					if((dataColumn=dataColumns.get(j)).getColumnName().equals(genePiece.getSymbol())){
-						genePiece.setValue(dataColumn.getValue());
-						break;
-					}
+				genePiece.setValue(dataColumns.get(genePiece.getVariableIndex()).getValue());
 			}
 		}
 	}
@@ -322,8 +479,7 @@ public class AlgRunStep implements IAlgRunStep {
 			if(genePiece.getGenePieceType()==GenePieceType.Function){
 				arity=genePiece.getFunction().getArity();
 				length+=arity;
-			}
-									
+			}					
 		}
 		return length;
 	}
@@ -485,12 +641,23 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return individual;
 	}
+	/**
+	 * 计算种群的总适应值
+	 * @param population 待计算的种群
+	 * @return 种群总适应值
+	 */
 	private float addFitness(Population population){
 		float sum=0;
 		for(Individual individual:population.getIndividuals())
 			sum+=individual.getFitness();
 		return sum;
 	}
+	/**
+	 * 计算个体比例适应值，即每个个体在种群适应值中所占的比例
+	 * @param population 待计算种群
+	 * @param sum 种群适应值之和
+	 * @return 保存有个体比例适应值的List
+	 */
 	private List<Float> calculateProbability(Population population,float sum){
 		float divide;
 		List<Float> floatList=new ArrayList<Float>(population.getIndividuals().size());
@@ -500,6 +667,11 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return floatList;
 	}
+	/**
+	 * 计算个体累加适应值，即第n项的累加适应值等于前n项个体比例适应值之和
+	 * @param probability 个体比例适应值之和
+	 * @return 个体累加适应值
+	 */
 	private List<Float> calculateCumulative(List<Float> probability){
 		float sum=0;
 		for(int i=0;i<probability.size();i++){
@@ -508,6 +680,12 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return probability;
 	}
+	/**
+	 * 创建一个新的种群，使用轮盘赌+冠军策略
+	 * @param original 原始种群
+	 * @param cumulativeProbability 个体累加适应值
+	 * @return 新的种群
+	 */
 	private Population createNewPopulation(Population original,List<Float> cumulativeProbability){
 		Population resultPopulation=new Population(original.getIndividuals().size());
 		Individual bestIndividual=original.getBestIndividual().clone();
@@ -523,11 +701,132 @@ public class AlgRunStep implements IAlgRunStep {
 		resultPopulation.setGepAlgRun(original.getGepAlgRun());
 		return resultPopulation;
 	}
+	/**
+	 * 查找在累加适应值中，某个小数值具体属于哪个范围，返回范围的下限（即使擦到上限）
+	 * @param floats 个体累加适应值
+	 * @param random 待查询的小数
+	 * @return 累加适应值所代表的个体的index
+	 */
 	private int search(List<Float> floats,float random){
 		for(int i=0;i<floats.size();i++){
 			if(random<=floats.get(i))
 				return i;
 		}
 		return floats.size()-1;
+	}
+	/**
+	 * 遍历每个基因，决定是否进行转座，如果进行转座，则调用下一级函数
+	 * @param population 要进行转座的种群
+	 * @param transportEnum 转座枚举类
+	 */
+	private void iterateGeneInTransport(Population population,TransportEnum transportEnum){
+		Random transportRandom=new Random();
+		GeneConfiguration geneConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration();
+		int headerLength;
+		int tailLength;
+		Gene gene;
+		for(Individual individual:population.getIndividuals()){
+			for(int i=0;i<individual.getGenes().size();i++){
+				gene=individual.getGenes().get(i);
+				if(transportRandom.nextFloat()<transportEnum.getRate()){
+					if(transportEnum==TransportEnum.GENE){
+						if(gene.getGeneType()==GeneType.HomeoticGene)
+							break;
+						else {
+							transportParaDetermination(individual.getGenes(), i);
+							break;
+						}
+					}
+					else {
+						if(gene.getGeneType()==GeneType.NormalGene){
+							headerLength=geneConfiguration.getNormalGeneHeaderLength();
+							tailLength=geneConfiguration.getNormalGeneTailLength();
+						}
+						else {
+							headerLength=geneConfiguration.getHomeoticGeneHeaderLength();
+							tailLength=geneConfiguration.getHomeoticGeneTailLength();
+						}
+						transportParaDetermination(gene, transportEnum, headerLength, tailLength);
+						break;
+					}
+				}			
+			}
+		}
+	}
+	/**
+	 * 普通基因的基因转座，即将指定基因插入个体的首位，成为第一个基因
+	 * @param genes 个体中所有的基因
+	 * @param sourceIndex 将要插入头部的基因
+	 */
+	private void transportParaDetermination(List<Gene> genes,int sourceIndex){
+		Gene gene=genes.remove(sourceIndex);
+		genes.add(0, gene);
+	}
+	/**
+	 * 确定IS和RIS转座相关的参数，并通过调用有关方法开始转座
+	 * @param gene 待转座基因
+	 * @param transportEnum 转座类型枚举类
+	 * @param headerLength 转座基因头长
+	 * @param tailLength 转座基因尾长
+	 */
+	private void transportParaDetermination(Gene gene,TransportEnum transportEnum,int headerLength,int tailLength){
+		Random sourceLocRandom=new Random();
+		Random destLocRandom=new Random();
+		Random elementLengthRandom=new Random();
+		int elementLength=0;
+		int sourceLoc=0;
+		int destLoc=0;
+		switch (transportEnum) {
+		case IS:
+			elementLength=transportEnum.transportElement[elementLengthRandom.nextInt(transportEnum.transportElement.length)];
+			sourceLoc=sourceLocRandom.nextInt(headerLength+tailLength-elementLength);
+			destLoc=destLocRandom.nextInt(headerLength-elementLength-1)+1;
+			break;
+		case RIS:
+			elementLength=transportEnum.transportElement[elementLengthRandom.nextInt(transportEnum.transportElement.length)];
+			sourceLoc=searchFunction(gene, destLocRandom.nextInt(headerLength));
+			destLoc=0;
+			break;
+		}
+		if(sourceLoc!=-1){
+			transportBegin(gene.getGenePieces(), sourceLoc, destLoc, elementLength, headerLength, transportEnum);
+		}
+	}
+	/**
+	 * 在给定的基因中指定为位置后面寻找第一个函数，若找到则返回函数的index，若找不到则返回－1
+	 * @param gene 待搜索的基因
+	 * @param index 开始搜索的位置
+	 * @return 结果
+	 */
+	private int searchFunction(Gene gene,int index){
+		int result=-1;
+		for(int i=index;i<gene.getGenePieces().size();i++){
+			if(gene.getGenePieces().get(i).getGenePieceType()==GenePieceType.Function){
+				result=i;
+				break;
+			}
+		}
+		return result;
+	}
+	/**
+	 * 开始转座
+	 * @param genePieces 待转座的基因片段
+	 * @param source 转座开始的地方
+	 * @param dest 转座的目标
+	 * @param length 转座的长度
+	 * @param headerLength 基因头长
+	 * @param transportEnum 转座枚举类型
+	 */
+	private void transportBegin(List<GenePiece> genePieces,int source,int dest,int length,int headerLength,TransportEnum transportEnum){
+		List<GenePiece> copiedSource=new ArrayList<GenePiece>(length);
+		for(int i=0;i<length;i++)
+			copiedSource.add((genePieces.get(i+source).clone()));
+		int forLength=headerLength-dest-length;
+		for(int i=0;i<forLength;i++){
+			genePieces.set(headerLength-i-1, genePieces.get(headerLength-i-1-length));
+		}
+		for(int i=0;i<length;i++){
+			genePieces.set(dest+i, copiedSource.get(i));
+		}
 	}
 }
