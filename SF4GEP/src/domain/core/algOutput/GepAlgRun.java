@@ -42,11 +42,17 @@ public class GepAlgRun {
 	}
 	public Population getCurrentPopulation(){
 		removeRedundancyPopulation();
-		return populations.get(populations.size());
+		if(populations.size()==0)
+			return null;
+		else
+			return populations.get(populations.size()-1);
 	}
 	public void setCurrentPopulation(Population population){
 		removeRedundancyPopulation();
-		populations.set(populations.size(), population);
+		if(populations.size()==0)
+			populations.add(population);
+		else
+			populations.set(populations.size()-1, population);
 	}
 	public List<Population> getPopulations() {
 		removeRedundancyPopulation();

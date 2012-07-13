@@ -16,21 +16,20 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	private Float fitness;
 	private int selectedHomeoticGeneNumber=-1;
 	/**
-	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部Genepiece信息。
+	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部GenePiece信息。
 	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		boolean isNormalGene=true;
 		StringBuffer result=new StringBuffer();
-		result.append("正常基因:");
 		for(Gene gene:genes){
-			if(gene.getGeneType()==GeneType.HomeoticGene&&isNormalGene){
-				isNormalGene=false;
-				result.append("\n同源基因：");
-			}
+			if(gene.getGeneType()==GeneType.HomeoticGene)
+				result.append("同源基因：");
+			else
+				result.append("正常基因:");
 			for(GenePiece genePiece:gene.getGenePieces())
 				result.append(genePiece.getSymbol()+" ");
+			result.append("\n");
 		}
 		return result.toString();
 	}
