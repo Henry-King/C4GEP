@@ -7,6 +7,14 @@ public class DataSet {
 	private Integer rowNum;
 	private Integer columnNum;
 	private List<DataRow> dataRow;
+	public DataSet(){
+		
+	}
+	public DataSet(int rows,int columns,String name){
+		rowNum=rows;
+		columnNum=columns;
+		this.name=name;
+	}
 	public String getName() {
 		return name;
 	}
@@ -30,5 +38,8 @@ public class DataSet {
 	}
 	public void setDataRow(List<DataRow> dataRow) {
 		this.dataRow = dataRow;
+	}
+	public List<DataColumn> getVariableUsed(){
+		return dataRow.get(0).getDataColumns();
 	}
 }

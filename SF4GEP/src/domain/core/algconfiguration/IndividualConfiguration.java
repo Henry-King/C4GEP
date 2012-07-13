@@ -1,34 +1,41 @@
 package domain.core.algconfiguration;
 
 public class IndividualConfiguration {
-	private int individualNumber;
-	private int normalGeneTotalLength;
-	private int homeoticGeneTotalLength;
-	private int geneTotalLenght;
+	private Integer individualNumber;
+	private Integer totalGeneNumbers;
+	private Integer normalGeneTotalLength;
+	private Integer homeoticGeneTotalLength;
+	private Integer geneTotalLength;
 	private GeneConfiguration geneConfiguration;
-	public int getIndividualNumber() {
+	public Integer getIndividualNumber() {
 		return individualNumber;
 	}
-	public void setIndividualNumber(int individualNumber) {
+	public void setIndividualNumber(Integer individualNumber) {
 		this.individualNumber = individualNumber;
 	}
-	public int getNormalGeneTotalLength() {
+	public Integer getTotalGeneNumbers() {
+		return totalGeneNumbers;
+	}
+	public void setTotalGeneNumbers(Integer totalGeneNumbers) {
+		this.totalGeneNumbers = totalGeneNumbers;
+	}
+	public Integer getNormalGeneTotalLength() {
 		return normalGeneTotalLength;
 	}
-	public void setNormalGeneTotalLength(int normalGeneTotalLength) {
+	public void setNormalGeneTotalLength(Integer normalGeneTotalLength) {
 		this.normalGeneTotalLength = normalGeneTotalLength;
 	}
-	public int getHomeoticGeneTotalLength() {
+	public Integer getHomeoticGeneTotalLength() {
 		return homeoticGeneTotalLength;
 	}
-	public void setHomeoticGeneTotalLength(int homeoticGeneTotalLength) {
+	public void setHomeoticGeneTotalLength(Integer homeoticGeneTotalLength) {
 		this.homeoticGeneTotalLength = homeoticGeneTotalLength;
 	}
-	public int getGeneTotalLenght() {
-		return geneTotalLenght;
+	public Integer getGeneTotalLength() {
+		return geneTotalLength;
 	}
-	public void setGeneTotalLenght(int geneTotalLenght) {
-		this.geneTotalLenght = geneTotalLenght;
+	public void setGeneTotalLength(Integer geneTotalLength) {
+		this.geneTotalLength = geneTotalLength;
 	}
 	public GeneConfiguration getGeneConfiguration() {
 		return geneConfiguration;

@@ -8,9 +8,9 @@ import java.util.Deque;
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
-	private String name;
-	private String symbol;
-	private int arity;
+	protected String name;
+	protected String symbol;
+	protected Integer arity;
 	public String getName() {
 		return name;
 	}
@@ -23,10 +23,10 @@ public abstract class Function implements Serializable,Cloneable{
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	public int getArity() {
+	public Integer getArity() {
 		return arity;
 	}
-	public void setArity(int arity) {
+	public void setArity(Integer arity) {
 		this.arity = arity;
 	}
 	@Override

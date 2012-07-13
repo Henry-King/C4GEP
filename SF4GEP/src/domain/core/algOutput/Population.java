@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Population implements Serializable,Cloneable{
 	private static final long serialVersionUID = -7846826225395737521L;
+	private GepAlgRun gepAlgRun;
 	private List<Individual> individuals;
 	private long generationNum;
 	/**
@@ -27,6 +28,12 @@ public class Population implements Serializable,Cloneable{
 	 */
 	public Population(int size){
 		individuals=new ArrayList<Individual>(size);
+	}
+	public GepAlgRun getGepAlgRun() {
+		return gepAlgRun;
+	}
+	public void setGepAlgRun(GepAlgRun gepAlgRun) {
+		this.gepAlgRun = gepAlgRun;
 	}
 	/**
 	 * 返回种群中所有的个体
@@ -86,8 +93,8 @@ public class Population implements Serializable,Cloneable{
 		this.generationNum = generationNum;
 	}
 	/**
-	 * 对当前种群进行复制，产生一个新的种群，对于string 这样的不可改变对象和int这样的基本数据类型，这是一个浅复制，对于其他的对象而言，这是一个深度复制
-	 * @return 一个新的种群，二者不共享内存空间，只是具有相同的初始化的值
+	 * 对当前种群进行复制，产生一个新的种群，对于string 这样的不可改变对象和int这样的基本数据类型和AlgRun，这是一个浅复制，对于其他的对象而言，这是一个深度复制
+	 * @return 一个新的种群，二者不共享内存空间，只是具有相同的初始化的值。
 	 */
 	@Override
 	public Population clone(){

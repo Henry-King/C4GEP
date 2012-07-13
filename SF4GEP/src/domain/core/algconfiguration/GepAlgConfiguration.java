@@ -2,10 +2,10 @@ package domain.core.algconfiguration;
 
 public class GepAlgConfiguration {
 	private String name;
-	private long maxGeneration;
-	private float selectionRange;
-	private float accuracy;
-	private float maxFitness;
+	private Long maxGeneration;
+	private Float selectionRange;
+	private Float accuracy;
+	private Float maxFitness;
 	private IndividualConfiguration individualConfiguration;
 	private OperatorConfiguration operatorConfiguration;
 	public String getName() {
@@ -14,28 +14,28 @@ public class GepAlgConfiguration {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getMaxGeneration() {
+	public Long getMaxGeneration() {
 		return maxGeneration;
 	}
-	public void setMaxGeneration(long maxGeneration) {
+	public void setMaxGeneration(Long maxGeneration) {
 		this.maxGeneration = maxGeneration;
 	}
-	public float getSelectionRange() {
+	public Float getSelectionRange() {
 		return selectionRange;
 	}
-	public void setSelectionRange(float selectionRange) {
+	public void setSelectionRange(Float selectionRange) {
 		this.selectionRange = selectionRange;
 	}
-	public float getAccuracy() {
+	public Float getAccuracy() {
 		return accuracy;
 	}
-	public void setAccuracy(float accuracy) {
+	public void setAccuracy(Float accuracy) {
 		this.accuracy = accuracy;
 	}
-	public float getMaxFitness() {
+	public Float getMaxFitness() {
 		return maxFitness;
 	}
-	public void setMaxFitness(float maxFitness) {
+	public void setMaxFitness(Float maxFitness) {
 		this.maxFitness = maxFitness;
 	}
 	public IndividualConfiguration getIndividualConfiguration() {

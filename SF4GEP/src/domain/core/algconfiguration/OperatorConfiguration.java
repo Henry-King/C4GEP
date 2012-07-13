@@ -1,25 +1,25 @@
 package domain.core.algconfiguration;
 
 public class OperatorConfiguration {
-	private float mutateRate;
-	private float isTransportRate;
+	private Float mutateRate;
+	private Float isTransportRate;
 	private int[] isElement;
-	private float risTransportRate;
+	private Float risTransportRate;
 	private int[] risElement;
-	private float geneTransportRate;
-	private float onePointRecombineRate;
-	private float twoPointRecombineRate;
-	private float geneRecombineRate;
-	public float getMutateRate() {
+	private Float geneTransportRate;
+	private Float onePointRecombineRate;
+	private Float twoPointRecombineRate;
+	private Float geneRecombineRate;
+	public Float getMutateRate() {
 		return mutateRate;
 	}
-	public void setMutateRate(float mutateRate) {
+	public void setMutateRate(Float mutateRate) {
 		this.mutateRate = mutateRate;
 	}
-	public float getIsTransportRate() {
+	public Float getIsTransportRate() {
 		return isTransportRate;
 	}
-	public void setIsTransportRate(float isTransportRate) {
+	public void setIsTransportRate(Float isTransportRate) {
 		this.isTransportRate = isTransportRate;
 	}
 	public int[] getIsElement() {
@@ -28,10 +28,10 @@ public class OperatorConfiguration {
 	public void setIsElement(int[] isElement) {
 		this.isElement = isElement;
 	}
-	public float getRisTransportRate() {
+	public Float getRisTransportRate() {
 		return risTransportRate;
 	}
-	public void setRisTransportRate(float risTransportRate) {
+	public void setRisTransportRate(Float risTransportRate) {
 		this.risTransportRate = risTransportRate;
 	}
 	public int[] getRisElement() {
@@ -40,28 +40,28 @@ public class OperatorConfiguration {
 	public void setRisElement(int[] risElement) {
 		this.risElement = risElement;
 	}
-	public float getGeneTransportRate() {
+	public Float getGeneTransportRate() {
 		return geneTransportRate;
 	}
-	public void setGeneTransportRate(float geneTransportRate) {
+	public void setGeneTransportRate(Float geneTransportRate) {
 		this.geneTransportRate = geneTransportRate;
 	}
-	public float getOnePointRecombineRate() {
+	public Float getOnePointRecombineRate() {
 		return onePointRecombineRate;
 	}
-	public void setOnePointRecombineRate(float onePointRecombineRate) {
+	public void setOnePointRecombineRate(Float onePointRecombineRate) {
 		this.onePointRecombineRate = onePointRecombineRate;
 	}
-	public float getTwoPointRecombineRate() {
+	public Float getTwoPointRecombineRate() {
 		return twoPointRecombineRate;
 	}
-	public void setTwoPointRecombineRate(float twoPointRecombineRate) {
+	public void setTwoPointRecombineRate(Float twoPointRecombineRate) {
 		this.twoPointRecombineRate = twoPointRecombineRate;
 	}
-	public float getGeneRecombineRate() {
+	public Float getGeneRecombineRate() {
 		return geneRecombineRate;
 	}
-	public void setGeneRecombineRate(float geneRecombineRate) {
+	public void setGeneRecombineRate(Float geneRecombineRate) {
 		this.geneRecombineRate = geneRecombineRate;
 	}
 }

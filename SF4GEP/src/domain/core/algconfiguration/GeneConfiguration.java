@@ -4,61 +4,61 @@ import java.util.List;
 
 
 public class GeneConfiguration {
-	private int normalGeneNumber;
-	private int normalGeneHeaderLength;
-	private int normalGeneTailLength;
-	private int normalGeneLength;
-	private int homeoticGeneNumber;
-	private int homeoticGeneHeaderLength;
-	private int homeoticGeneTailLength;
-	private int homeoticGeneLength;
+	private Integer normalGeneNumber;
+	private Integer normalGeneHeaderLength;
+	private Integer normalGeneTailLength;
+	private Integer normalGeneLength;
+	private Integer homeoticGeneNumber;
+	private Integer homeoticGeneHeaderLength;
+	private Integer homeoticGeneTailLength;
+	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
-	public int getNormalGeneNumber() {
+	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
 	}
-	public void setNormalGeneNumber(int normalGeneNumber) {
+	public void setNormalGeneNumber(Integer normalGeneNumber) {
 		this.normalGeneNumber = normalGeneNumber;
 	}
-	public int getNormalGeneHeaderLength() {
+	public Integer getNormalGeneHeaderLength() {
 		return normalGeneHeaderLength;
 	}
-	public void setNormalGeneHeaderLength(int normalGeneHeaderLength) {
+	public void setNormalGeneHeaderLength(Integer normalGeneHeaderLength) {
 		this.normalGeneHeaderLength = normalGeneHeaderLength;
 	}
-	public int getNormalGeneTailLength() {
+	public Integer getNormalGeneTailLength() {
 		return normalGeneTailLength;
 	}
-	public void setNormalGeneTailLength(int normalGeneTailLength) {
+	public void setNormalGeneTailLength(Integer normalGeneTailLength) {
 		this.normalGeneTailLength = normalGeneTailLength;
 	}
-	public int getNormalGeneLength() {
+	public Integer getNormalGeneLength() {
 		return normalGeneLength;
 	}
-	public void setNormalGeneLength(int normalGeneLength) {
+	public void setNormalGeneLength(Integer normalGeneLength) {
 		this.normalGeneLength = normalGeneLength;
 	}
-	public int getHomeoticGeneNumber() {
+	public Integer getHomeoticGeneNumber() {
 		return homeoticGeneNumber;
 	}
-	public void setHomeoticGeneNumber(int homeoticGeneNumber) {
+	public void setHomeoticGeneNumber(Integer homeoticGeneNumber) {
 		this.homeoticGeneNumber = homeoticGeneNumber;
 	}
-	public int getHomeoticGeneHeaderLength() {
+	public Integer getHomeoticGeneHeaderLength() {
 		return homeoticGeneHeaderLength;
 	}
-	public void setHomeoticGeneHeaderLength(int homeoticGeneHeaderLength) {
+	public void setHomeoticGeneHeaderLength(Integer homeoticGeneHeaderLength) {
 		this.homeoticGeneHeaderLength = homeoticGeneHeaderLength;
 	}
-	public int getHomeoticGeneTailLength() {
+	public Integer getHomeoticGeneTailLength() {
 		return homeoticGeneTailLength;
 	}
-	public void setHomeoticGeneTailLength(int homeoticGeneTailLength) {
+	public void setHomeoticGeneTailLength(Integer homeoticGeneTailLength) {
 		this.homeoticGeneTailLength = homeoticGeneTailLength;
 	}
-	public int getHomeoticGeneLength() {
+	public Integer getHomeoticGeneLength() {
 		return homeoticGeneLength;
 	}
-	public void setHomeoticGeneLength(int homeoticGeneLength) {
+	public void setHomeoticGeneLength(Integer homeoticGeneLength) {
 		this.homeoticGeneLength = homeoticGeneLength;
 	}
 	public List<Function> getFunctionUsed() {

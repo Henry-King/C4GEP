@@ -84,6 +84,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	public void setSelectedHomeoticGeneNumber(int selectedHomeoticGeneNumber) {
 		this.selectedHomeoticGeneNumber = selectedHomeoticGeneNumber;
 	}
+
 	@Override
 	public Individual clone(){
 		// TODO Auto-generated method stub
