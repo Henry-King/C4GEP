@@ -15,9 +15,8 @@ import domain.iservice.algOutput.IAlgRunStep;
 public class AlgOutputService implements IAlgOutputService {
 
 	@Override
-	public Individual run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
+	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
 		// TODO Auto-generated method stub
-		Individual bestIndividual=null;
 		List<Float> fitnessFloats;
 		Float maxFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
@@ -26,7 +25,6 @@ public class AlgOutputService implements IAlgOutputService {
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
 			maxFitness=Collections.max(fitnessFloats);
-			bestIndividual=gepAlgRun.getCurrentPopulation().getIndividuals().get(fitnessFloats.indexOf(maxFitness));
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
@@ -39,9 +37,8 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
-		setFittedValue(bestIndividual);
 		commit(gepAlgRun);
-		return bestIndividual;
+		return gepAlgRun;
 	}
 
 	@Override
@@ -66,8 +63,5 @@ public class AlgOutputService implements IAlgOutputService {
 	}
 	private boolean commit(GepAlgRun gepAlgRun){
 		return true;
-	}
-	private void setFittedValue(Individual individual){
-		
 	}
 }
