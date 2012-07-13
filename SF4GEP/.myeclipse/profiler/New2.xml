@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="profiler.settings.instrument.empty.methods">true</entry>
+<entry key="ProfilerCPUSettings_profile_runnables">true</entry>
+<entry key="ProfilerCPUSettings_filter_type">2</entry>
+<entry key="ProfilerMemorySettings_track_every">10</entry>
+<entry key="ProfilerMemorySettings_mode">4</entry>
+<entry key="ProfilerCPUSettings_root_classes">common.**
+data.dao.**
+domain.core.algInputDataProcess.**
+domain.core.algOutput.**
+domain.core.algconfiguration.**
+domain.iservice.algConfiguration.**
+domain.iservice.algInputDataProcess.**
+domain.iservice.algOutput.**
+domain.service.alg.baseclass.**
+domain.service.alg.userdefined.**
+domain.service.algConfiguration.**
+domain.service.algInputDataProcess.**
+domain.service.algOutput.**
+domain.service.input.**
+exception.**
+test.**
+tool.**
+ui.algconfiguration.controller.**
+ui.algconfiguration.model.**
+ui.algconfiguration.view.**
+ui.alginputdataprocess.controller.**
+ui.alginputdataprocess.model.**
+ui.alginputdataprocess.view.**
+ui.algoutput.controller.**
+ui.algoutput.model.**
+ui.algoutput.view.**
+</entry>
+<entry key="ProfilerCPUSettings_filter_value">common.*,
+data.dao.*,
+domain.core.algInputDataProcess.*,
+domain.core.algOutput.*,
+domain.core.algconfiguration.*,
+domain.iservice.algConfiguration.*,
+domain.iservice.algInputDataProcess.*,
+domain.iservice.algOutput.*,
+domain.service.alg.baseclass.*,
+domain.service.alg.userdefined.*,
+domain.service.algConfiguration.*,
+domain.service.algInputDataProcess.*,
+domain.service.algOutput.*,
+domain.service.input.*,
+exception.*,
+test.*,
+tool.*,
+ui.algconfiguration.controller.*,
+ui.algconfiguration.model.*,
+ui.algconfiguration.view.*,
+ui.alginputdataprocess.controller.*,
+ui.alginputdataprocess.model.*,
+ui.alginputdataprocess.view.*,
+ui.algoutput.controller.*,
+ui.algoutput.model.*,
+ui.algoutput.view.*</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">true</entry>
+<entry key="ProfilerMemorySettings_stacktraces">-1</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+</properties>

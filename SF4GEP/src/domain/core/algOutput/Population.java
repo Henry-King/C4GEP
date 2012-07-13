@@ -11,10 +11,12 @@ import java.util.List;
  *
  */
 public class Population implements Serializable,Cloneable{
+	
 	private static final long serialVersionUID = -7846826225395737521L;
 	private GepAlgRun gepAlgRun;
 	private List<Individual> individuals;
 	private long generationNum;
+	
 	/**
 	 * 创建一个种群，默认的种群大小为20
 	 */
@@ -22,6 +24,7 @@ public class Population implements Serializable,Cloneable{
 		// TODO Auto-generated constructor stub
 		individuals=new ArrayList<Individual>(20);
 	}
+	
 	/**
 	 * 创建一个种群，用户需要提供种群大小
 	 * @param size 种群大小
