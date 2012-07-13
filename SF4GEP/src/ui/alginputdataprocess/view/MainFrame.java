@@ -35,23 +35,23 @@ public class MainFrame extends JFrame {
 	
     JPanel contentPane;
     ConfigView configurationPanel = new ConfigView(this);
-	StopSettingView stopSettingPanel=new StopSettingView(this);
+	public StopSettingView stopSettingPanel=new StopSettingView(this);
 	PopulationView populationPanel=new PopulationView(this);
 	GeneView genePanel=new GeneView(this);
 	FunctionView functionPanel=new FunctionView(this);
-	FooterView footPanel=new FooterView(this);
+	public FooterView footPanel=new FooterView(this);
 	InputFileView inputFilePanel=new InputFileView(this);
-	SaveConfigView scfigNamePanel=new SaveConfigView(this);
-	OutputView outputPanel=new OutputView(this);
+	public SaveConfigView scfigNamePanel=new SaveConfigView(this);
+	public OutputView outputPanel=new OutputView(this);
 	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
 	
-	TreeView  treePanel;
+	public TreeView  treePanel;
 	
-    JPanel panel_0 = new JPanel();
+    public JPanel panel_0 = new JPanel();
+    JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
     
     
-    
-    CardLayout card;
+    public CardLayout card;
     
     public MainController mainController = new MainController();
     public MainModel mainModel = new MainModel();
@@ -122,49 +122,19 @@ public class MainFrame extends JFrame {
 		  
 		  populationPanel.setBorder(null);
 		  populationPanel.setVisible(false);
-		  try {
-				for (int i = 0; i < myGepService.getAvailableSelector().size(); i++) {
-					populationPanel.JComboBoxofSelectionStrategy.addItem(myGepService.getAvailableSelector().get(i).toString());
-				}
-				for (int i = 0; i < myGepService.getAvailableCalculator().size(); i++) {
-	                 populationPanel.JComboBoxAvailableCalculator.addItem(myGepService.getAvailableCalculator().get(i).toString());
-				}
-				for (int i = 0; i < myGepService.getAvailableCreator().size(); i++) {
-					populationPanel.JcomboBoxOfPopulationCreator.addItem(myGepService.getAvailableCreator().get(i).toString());
-				}
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		 
 
 			
 		  panel_0.add(populationPanel,"p3");
 		  //基因面板---------------------------------------------
 		  genePanel.setBorder(null);
 		  genePanel.setVisible(false);
-		  try {
-				for (int i = 0; i < myGepService.getAvailableModifyings().size(); i++) {
-					genePanel.JComboBoxOfAvailableModifyings.addItem(myGepService.getAvailableModifyings().get(i).toString());
-				}
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				e1.printStackTrace();
-			}
 		  panel_0.add(genePanel,"p4");
 		  //函数面板----------------------------------
 		 
 		  functionPanel.setBorder(null);
 		  functionPanel.setVisible(false);
-		  try {
+		  /*try {
 				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
 					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
 					
@@ -177,12 +147,8 @@ public class MainFrame extends JFrame {
 				e1.printStackTrace();
 			} catch (IllegalAccessException e1) {
 				e1.printStackTrace();
-			}
-		  functionPanel.comboBox.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					FunctionController.functionComboBoxController(functionPanel.comboBox, functionPanel.JComboBoxOfSelectdFunctions);
-				}	
-			});
+			}*/
+		  
 			
 	      panel_0.add(functionPanel,"p5");
 	      
@@ -190,104 +156,13 @@ public class MainFrame extends JFrame {
 	      
 	      scfigNamePanel.setSize(659, 399);
 	      scfigNamePanel.setVisible(false);
-	      scfigNamePanel.btnSave.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					SaveConfigController.btnSaveController(myGepService, myParameter, outputPanel, scfigNamePanel, treePanel,panel_0);
-				}
-			});
+	      
 	      contentPane.add(scfigNamePanel);
 	      //----------------------------------------
-	      uploadInterfacePanel.setBounds(165, 115, 659, 450);
-	      uploadInterfacePanel.setVisible(false);
-	      contentPane.add(uploadInterfacePanel);
-	      inputFilePanel.setBounds(165, 115, 659, 455);
-	      inputFilePanel.setVisible(false);
-	      contentPane.add(inputFilePanel);
+	    
 	      //底部按钮面板-----------------------------------
 	      
 	      footPanel.setBounds(165, 520, 659, 50);
-	      footPanel.btnBefore.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		count=FooterController.btnBeforeController(treePanel.Node,treePanel.tree_1,footPanel.btnNext,footPanel.btnBefore,panel_0,card,count);
-		    	}
-		      });
-	      footPanel.btnRun.setEnabled(false);
-	      
-	      footPanel.btnRun.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		   
-		    		    ConfigModel config=new ConfigModel(jcomboBoxConfiguration.getSelectedItem().toString());
-		    		    InputPathModel inputPath=new InputPathModel(inputFilePanel.txtInputPath.getText(),stopSettingPanel.txtMaxGeneration.getText(),stopSettingPanel.txtAccuracy.getText());
-		    		    int creatorSelectedIndex = populationPanel.JcomboBoxOfPopulationCreator.getSelectedIndex();
-		    		    System.out.print("ww"+creatorSelectedIndex);
-						int calculatorSelectedIndex = populationPanel.JComboBoxAvailableCalculator.getSelectedIndex();
-						int strategySelectedIndex =populationPanel.JComboBoxofSelectionStrategy.getSelectedIndex();;
-					    PopulationModel population=new PopulationModel(populationPanel.txtPopulationSize.getText(), populationPanel.txtSelectionRange.getText(), creatorSelectedIndex, strategySelectedIndex,calculatorSelectedIndex);
-					   //--------
-					    int modifyingSelectedIndex = genePanel.JComboBoxOfAvailableModifyings.getSelectedIndex();
-					    GeneModel gene=new GeneModel(genePanel.txtNormalGeneNumber.getText(), genePanel.txtNormalHeaderLength.getText(), genePanel.txtHomeoticGeneNums.getText(),genePanel.txtHomeoticHeaderLength.getText(), genePanel.txtGeneRecombineRate.getText(), genePanel.txtRisTransportRate.getText(), genePanel.txtofRisElement.getText().trim(),genePanel.txtIsTransportRate.getText() ,genePanel.txtofRisElement.getText().trim(),genePanel.txtGeneTransportRate.getText() ,genePanel.txtMutateRate.getText(),genePanel.txtTwoPointRecombineRate.getText(),genePanel.txtGeneOnePointRecombineRate.getText(),modifyingSelectedIndex);
-		    		    //----
-					    StringBuffer result = new StringBuffer();
-						String str = new String();
-						
-						for (int i = 0; i < functionPanel.JComboBoxOfSelectdFunctions.getItemCount(); i++) {
-							if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i).toString()
-									.equals("+")) {
-								str = "domain.service.alg.userdefined.Additioin";
-
-							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
-									.toString().equals("-")) {
-								str = "domain.service.alg.userdefined.Minus";
-
-							} else if (functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i)
-									.toString().equals("*")) {
-								str = "domain.service.alg.userdefined.Multiply";
-
-							} else {
-								str = "domain.service.alg.userdefined.Divide";
-
-							}
-
-							result.append(str + ",");
-						}
-						System.out.println("函数"+result.toString());
-					    FunctionModel function=new FunctionModel(result);
-					    
-					    /**
-					     * 点击执行计算按钮触发
-					     */
-					    if(FooterController.btnRunController(config, inputPath, population, gene, function, myParameter, myGepService, myConfigurationFromDB, flag)==true){
-					    	outputPanel.setVisible(true);//显示输出面板
-					    	panel_0.setVisible(false);
-		    				treePanel.setVisible(false);
-		    				footPanel.setVisible(false);
-		    				jcomboBoxConfiguration.setVisible(false);
-		    		    }
-		    		    else{
-		    		    	
-		    		    	JOptionPane.showMessageDialog(null, "配置文件已更改请重新保存");
-     	    		    	panel_0.setVisible(false);
-							jcomboBoxConfiguration.setVisible(false);
-							footPanel.setVisible(false);
-							scfigNamePanel.setVisible(true);
-		    		    }
-					    
-					    OutputPanelController.drawPicture(myGepService, outputPanel);
-					    
-					    jcomboBoxConfiguration.setVisible(true);
-					    
-					    
-					    
-		    	}
-		      });
-	      
-	      
-	      footPanel.btnNext.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		count=FooterController.btnNextController(treePanel.Node,treePanel.tree_1,footPanel,panel_0,card,count);
-		    	}
-		      });
 	      contentPane.add(footPanel);
 	      //------------------------------------------------
 	      
@@ -307,176 +182,8 @@ public class MainFrame extends JFrame {
 	      //菜单面板---------------------------------------
 	     
 	      
-	        treePanel=new TreeView();
+	        treePanel=new TreeView(this);
 			treePanel.setBounds(5, 115, 155, 455);
-			final JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,uploadInterfacePanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
-			treePanel.tree_1.addMouseListener(new MouseAdapter(){
-				public void mousePressed(MouseEvent e) {
-					 int selRow = tree.getRowForLocation(e.getX(), e.getY());
-				      TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
-				      if (selRow != -1)
-				      {
-				          if (e.getClickCount() == 1)
-				          {
-				          	TreeNode node = (TreeNode) selPath.getLastPathComponent();
-				          	if(node.toString()=="算法系统"){
-				          		panels[0].setVisible(true);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		//footPanel的btnBefroe和btnNext
-				          		btnBefore.setEnabled(false);
-				          		btnNext.setEnabled(true);
-				          		count=0;
-				          	}
-				          	if(node.toString()=="算法名称"){
-				          		panels[0].setVisible(true);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		btnBefore.setEnabled(true);
-				          		btnNext.setEnabled(true);
-				          		count=0;
-				          	}
-				          	if(node.toString()=="算法终止条件"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(true);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		btnBefore.setEnabled(true);
-				          		btnNext.setEnabled(true);
-				          		count=1;
-				          	}
-				          	if(node.toString()=="种群信息"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(true);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		btnBefore.setEnabled(true);
-				          		btnNext.setEnabled(true);
-				          		count=2;
-				          	}
-				          	if(node.toString()=="基因信息"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(true);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		btnBefore.setEnabled(true);
-				          		btnNext.setEnabled(true);
-				          		count=3;
-				          	}
-				          	if(node.toString()=="所需函数和随机数"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(true);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(true);
-				          		panels[9].setVisible(true);
-				          		btnBefore.setEnabled(true);
-				          		btnNext.setEnabled(false);
-				          		count=4;
-				          	}
-				          	if(node.toString()=="输入系统"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(true);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(false);
-				          		panels[9].setVisible(false);
-				          	} 
-				          	if(node.toString()=="上传/下载接口"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(true);
-				          		panels[6].setVisible(false);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(false);
-				          		panels[9].setVisible(false);
-				          	} 
-				          	if(node.toString()=="输入路径"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(true);
-				          		panels[7].setVisible(false);
-				          		panels[8].setVisible(false);
-				          		panels[9].setVisible(false);
-				          	}
-				          	if(node.toString()=="输出系统"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[8].setVisible(false);
-				          	    panels[9].setVisible(false);
-				          		panels[7].setVisible(true);
-				          		panels[10].setVisible(false);
-				          	}  
-				          	if(node.toString()=="输出结果"){
-				          		panels[0].setVisible(false);
-				          		panels[1].setVisible(false);
-				          		panels[2].setVisible(false);
-				          		panels[3].setVisible(false);
-				          		panels[4].setVisible(false);
-				          		panels[5].setVisible(false);
-				          		panels[6].setVisible(false);
-				          		panels[8].setVisible(false);
-				          	    panels[9].setVisible(false);
-				          		panels[7].setVisible(true);
-				          		panels[10].setVisible(false);
-				          	}  
-				          } 
-				      }
-					
-				}
-			});
 		    contentPane.add(treePanel);
 		    
 	}

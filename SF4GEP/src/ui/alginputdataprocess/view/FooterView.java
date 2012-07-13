@@ -29,13 +29,17 @@ import ui.alginputdataprocess.controller.ModelForJPanelInputPath;
 
 public class FooterView extends JPanel {
 	
+	
 	public JButton btnNext = new JButton("下一步 >");
     public JButton btnBefore = new JButton("< 上一步");
     public JButton btnRun = new JButton("\u6267\u884C\u7B97\u6CD5");
     
     MainFrame parent;
-	public FooterView(MainFrame parent) {
-		this.parent = parent;
+    
+  
+	
+	public FooterView(final MainFrame parent) {
+		  this.parent = parent;
 	      setBorder(new LineBorder(new Color(0, 0, 0)));
 	      setBackground(Color.WHITE);
 	      setBounds(160, 523, 669, 39);
@@ -44,31 +48,29 @@ public class FooterView extends JPanel {
 	      	public void actionPerformed(ActionEvent e) {
 	      		//btnNextController(DefaultMutableTreeNode[] node,JTree tree_1,JPanelForFooter footPanel,JPanel panel_0,CardLayout card,int count)
 	      		//count用于标记cardlayout跳到第几个面板
-	      		footPanel.btnBefore.setEnabled(true);
-	      		card.next(panel_0);
-	      		switch(count){
+	      		btnBefore.setEnabled(true);
+	      		parent.card.next(parent.panel_0);
+	      		switch(parent.count){
 	      		  case 0:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[1]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第-个Node"+node[1].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node1));
+	        		parent.treePanel.tree_1.setSelectionPath(visiblePath);
 	        		break; 
 	      		  }
 	      		  case 1:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第二个Node"+node[2].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node2));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
 	        		break;
 	      		  }
 	      		  case 2:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第三个Node"+node[3].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node3));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
+	        		
 	        		break;
 	      		  }
 	      		  case 3:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[4]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        	    System.out.println("第四个Node"+node[4].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node4));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
+	        	   
 	        		break;
 	      		  }
 	      		 default:{
@@ -76,16 +78,16 @@ public class FooterView extends JPanel {
 	      			
 	      		  }
 	      		}
-	      		if(count==3){
-	      			footPanel.btnNext.setEnabled(false);
-	      			footPanel.btnRun.setEnabled(true);
+	      		if(parent.count==3){
+	      			parent.footPanel.btnNext.setEnabled(false);
+	      			parent.footPanel.btnRun.setEnabled(true);
 	      		}
-	      		if(count==4){
-	      			return count;
+	      		if(parent.count==4){
+	      			return;
 	      		}
-	      		count++;
-	      		System.out.println(count);
-	      		return count;
+	      		parent.count++;
+	      		
+	      		
 	      	}
 	      });
 	      	      
@@ -94,47 +96,45 @@ public class FooterView extends JPanel {
 	      btnBefore.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
 	      		//btnBeforeController(DefaultMutableTreeNode node[],JTree tree_1,JButton  btnNext,JButton btnBefore,JPanel panel_0,CardLayout card,int count)
-	      		count--;
-	      		if(count==0){
+	      		parent.count--;
+	      		if(parent.count==0){
 	      			btnBefore.setEnabled(false);
 	      		}
 	      			btnNext.setEnabled(true);
 	      		
-	      		System.out.println(count);
-	      		switch(count){
+	      	
+	      		switch(parent.count){
 	      		  case 0:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[0]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        	    System.out.println("第0个Node"+node[0].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node0));
+	        		parent.treePanel.tree_1.setSelectionPath(visiblePath);
 	        		break;
 	      		  }
 	      		  case 1:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[1]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第1个Node"+node[1].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node1));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
 	        		break;
 	      		  }
 	      		  case 2:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[2]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第2个Node"+node[2].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node2));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
+	        		
 	        		break;
 	      		  }
 	      		  case 3:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第3个Node"+node[3].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node3));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
+	        		
 	        		break;
 	      		  }
 	      		 default:{
-	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)tree_1.getModel()).getPathToRoot(node[3]));
-	        		tree_1.setSelectionPath(visiblePath);
-	        		System.out.println("第3个Node"+node[3].toString());
+	      			TreePath visiblePath=new TreePath(((DefaultTreeModel)parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node4));
+	      			parent.treePanel.tree_1.setSelectionPath(visiblePath);
+	        		
 	        		break;
 	      		  }
 	      		}
-	      		card.previous(panel_0);
-	      		return count;
+	      		parent.card.previous(parent.panel_0);
+	      		
 	      	}
 	      });
 	      

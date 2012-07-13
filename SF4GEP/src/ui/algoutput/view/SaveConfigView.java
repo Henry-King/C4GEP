@@ -12,7 +12,7 @@ public class SaveConfigView extends JPanel {
 	JButton btnSave = new JButton("\u4FDD\u5B58");
 	JTextField txtConfigurationName = new JTextField();
 	MainFrame parent;
-	public SaveConfigView(MainFrame parent) {
+	public SaveConfigView(final MainFrame parent) {
 		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 
@@ -34,6 +34,13 @@ public class SaveConfigView extends JPanel {
 		txtConfigurationName.setBounds(132, 62, 271, 25);
 		add(txtConfigurationName);
 		txtConfigurationName.setColumns(10);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent.outputPanel.setVisible(true);
+				parent.scfigNamePanel.setVisible(false);
+				parent.treePanel.setVisible(false);
+			}
+		});
 
 		btnSave.setBounds(423, 62, 78, 23);
 		add(btnSave);

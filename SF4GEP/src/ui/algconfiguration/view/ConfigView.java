@@ -58,14 +58,14 @@ public class ConfigView extends JPanel {
 		
 		btnSetConfig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TreePath visiblePath = new TreePath(((DefaultTreeModel) tree_1.getModel()).getPathToRoot(node1));
-				tree_1.setSelectionPath(visiblePath);
+				TreePath visiblePath = new TreePath(((DefaultTreeModel) parent.treePanel.tree_1.getModel()).getPathToRoot(parent.treePanel.node1));
+				parent.treePanel.tree_1.setSelectionPath(visiblePath);
 				setVisible(false);
-				stopSettingPanel.setVisible(true);
-				card.next(panel_0);
-				treePanel.tree_1.setSelectionPath(visiblePath);
+				parent.stopSettingPanel.setVisible(true);
+				parent.card.next(parent.panel_0);
+				parent.treePanel.tree_1.setSelectionPath(visiblePath);
 				jcount = 2;
-				footPanel.btnRun.setEnabled(false);
+				parent.footPanel.btnRun.setEnabled(false);
 				count = 1;
 				flag = 0;
 			}
@@ -93,7 +93,7 @@ public class ConfigView extends JPanel {
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 							btnSetConfig.setVisible(true);
 						}
-						footPanel.btnRun.setEnabled(false);
+						parent.footPanel.btnRun.setEnabled(false);
 						// 将面板中的配置内容清空
 						initialiseController(stopSettingPanel, populationPanel,
 								genePanel, functionPanel, inputFilePanel);
@@ -112,14 +112,14 @@ public class ConfigView extends JPanel {
 							.get(jcomboBoxConfiguration.getSelectedIndex());
 					System.out.println(myConfigurationFromDB.toString());
 					flag = -1;
-					setTitle(myConfigurationFromDB.toString());
-					footPanel.btnRun.setEnabled(true);
+					parent.setTitle(myConfigurationFromDB.toString());
+					parent.footPanel.btnRun.setEnabled(true);
 					if (ie.getStateChange() == ItemEvent.SELECTED) {
 
-						footerPanel.setVisible(true);
-						configurationPanel.btnSetConfig.setVisible(false);
-						configurationPanel.setVisible(false);
-						stopSettingPanel.setVisible(true);
+						parent.footPanel.setVisible(true);
+						btnSetConfig.setVisible(false);
+						setVisible(false);
+						parent.stopSettingPanel.setVisible(true);
 					}
 					// 将配置文件的内容加载到各个面板
 					readConfigHandler(configurationPanel, stopSettingPanel,
