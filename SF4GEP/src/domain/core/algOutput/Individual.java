@@ -101,7 +101,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 				List<FittedValue> copiedFittedValues=new ArrayList<FittedValue>(fittedValues.size());
 				if(fittedValues.size()!=0)
 					for(int i=0;i<fittedValues.size();i++)
-						fittedValues.add(copiedFittedValues.get(i).clone());
+						copiedFittedValues.add(fittedValues.get(i).clone());
 				individual.setFittedValues(copiedFittedValues);
 			}
 		} catch (CloneNotSupportedException e) {

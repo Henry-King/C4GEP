@@ -45,7 +45,7 @@ public class Gene implements Serializable,Cloneable {
 			if(genePieces!=null){
 				List<GenePiece> copiedGenePieces=new ArrayList<GenePiece>(genePieces.size());
 				if(genePieces.size()!=0)
-					for(int i=0;i<copiedGenePieces.size();i++)
+					for(int i=0;i<genePieces.size();i++)
 						copiedGenePieces.add(genePieces.get(i).clone());
 				gene.setGenePieces(copiedGenePieces);
 			}
