@@ -1,140 +1,129 @@
 package ui.algconfiguration.controller;
 
-import java.awt.List;
-
-import ui.algconfiguration.view.GepConfiguration;
-import ui.algconfiguration.view.HostPanel;
-import ui.algconfiguration.view.IgepAlgService;
-import ui.algconfiguration.view.JPanelForFunction;
-import ui.algconfiguration.view.GeneView;
-import ui.algconfiguration.view.JPanelForInputFile;
-import ui.algconfiguration.view.PopulationView;
-import ui.algconfiguration.view.StopSettingView;
+import java.util.*;
+import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GepAlgConfiguration;
 import ui.alginputdataprocess.view.MainFrame;
-
-
-
 
 public class ConfigController {
 
-	
-	
 	/**
-	 *  重新设置所有数据
+	 * 重新设置所有数据
+	 * 
 	 * @param parent
 	 */
-	public void resetConfiguration(MainFrame parent){
-		
-		inputFilePanel.txtInputPath.setText("");
-		stopSettingPanel.txtAccuracy.setText("");
-		functionPanel.txtConstantListSize.setText("");
-		genePanel.txtGeneOnePointRecombineRate.setText("");
-		genePanel.txtGeneRecombineRate.setText("");
-		genePanel.txtGeneTransportRate.setText("");
-		genePanel.txtHomeoticGeneNums.setText("");
-		genePanel.txtHomeoticHeaderLength.setText("");
+	public void resetConfiguration(MainFrame parent) {
 
-		genePanel.txtIsTransportRate.setText("");
-		stopSettingPanel.txtMaxGeneration.setText("");
-		genePanel.txtMutateRate.setText("");
-		genePanel.txtNormalGeneNumber.setText("");
-		genePanel.txtNormalHeaderLength.setText("");
-		genePanel.txtofIsElement.setText("");
-		genePanel.txtofRisElement.setText("");
-		populationPanel.txtPopulationSize.setText("");
-		functionPanel.txtRandomConstantStart.setText("");
-		genePanel.txtRisTransportRate.setText("");
-		populationPanel.txtSelectionRange.setText("");
-		genePanel.txtTwoPointRecombineRate.setText("");
+		parent.inputFilePanel.txtInputPath.setText("");
+		parent.stopSettingPanel.txtAccuracy.setText("");
+		parent.functionPanel.txtConstantListSize.setText("");
+		parent.genePanel.txtGeneOnePointRecombineRate.setText("");
+		parent.genePanel.txtGeneRecombineRate.setText("");
+		parent.genePanel.txtGeneTransportRate.setText("");
+		parent.genePanel.txtHomeoticGeneNums.setText("");
+		parent.genePanel.txtHomeoticHeaderLength.setText("");
+
+		parent.genePanel.txtIsTransportRate.setText("");
+		parent.stopSettingPanel.txtMaxGeneration.setText("");
+		parent.genePanel.txtMutateRate.setText("");
+		parent.genePanel.txtNormalGeneNumber.setText("");
+		parent.genePanel.txtNormalHeaderLength.setText("");
+		parent.genePanel.txtofIsElement.setText("");
+		parent.genePanel.txtofRisElement.setText("");
+		parent.populationPanel.txtPopulationSize.setText("");
+		parent.functionPanel.txtRandomConstantStart.setText("");
+		parent.genePanel.txtRisTransportRate.setText("");
+		parent.populationPanel.txtSelectionRange.setText("");
+		parent.genePanel.txtTwoPointRecombineRate.setText("");
 	}
-	
-	
 	
 	
 	
 	/**
 	 * 填充配置信息
+	 * 
 	 * @param parent
 	 */
-	public void fillConfiguration(MainFrame parent){
+	@SuppressWarnings("unchecked")
+	public void fillConfiguration(MainFrame parent) {
 		/*
-	(HostPanel configurationPanel,
-			JPanelForStopSetting stopSettingPanel,
-			JPanelForPopulation populationPanel, JPanelForGene genePanel,
-			JPanelForFunction functionPanel, JPanelForInputFile inputFilePanel,
-			GepConfiguration myConfigurationFromDB,
-			List<GepConfiguration> configurationsOfHistory,
-			IgepAlgService myGepService)  
+		 * (HostPanel configurationPanel, JPanelForStopSetting stopSettingPanel,
+		 * JPanelForPopulation populationPanel, JPanelForGene genePanel,
+		 * JPanelForFunction functionPanel, JPanelForInputFile inputFilePanel,
+		 * GepConfiguration myConfigurationFromDB, List<GepConfiguration>
+		 * configurationsOfHistory, IgepAlgService myGepService)
 		 */
-		inputFilePanel.txtInputPath.setText(myConfigurationFromDB
-				.getInputFile());
-		stopSettingPanel.txtAccuracy
-				.setText(myConfigurationFromDB.getAccuray());
-		functionPanel.txtConstantListSize.setText(myConfigurationFromDB
-				.getConstantListSize());
-		genePanel.txtGeneOnePointRecombineRate.setText(myConfigurationFromDB
-				.getOnePointRecombineRate());
-		genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB
-				.getGeneRecombineRate());
-		genePanel.txtGeneTransportRate.setText(myConfigurationFromDB
-				.getGeneTransportRate());
-		genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB
-				.getHomeoticGeneNumber());
-		genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB
-				.getHomeoticHeaderLength());
 
-		genePanel.txtIsTransportRate.setText(myConfigurationFromDB
-				.getIsTransportRate());
-		stopSettingPanel.txtMaxGeneration.setText(myConfigurationFromDB
-				.getMaxGeneration());
-		genePanel.txtMutateRate.setText(myConfigurationFromDB.getMutateRate());
-		genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB
-				.getNormalGeneNumber());
-		genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB
-				.getNormalHeaderLength());
-		genePanel.txtofIsElement.setText(myConfigurationFromDB.getIsElement());
-		genePanel.txtofRisElement
-				.setText(myConfigurationFromDB.getRisElement());
-		populationPanel.txtPopulationSize.setText(myConfigurationFromDB
-				.getPopulationSize());
-		functionPanel.txtRandomConstantStart.setText(myConfigurationFromDB
-				.getRandomConstantStart());
-		genePanel.txtRisTransportRate.setText(myConfigurationFromDB
-				.getRisTransportRate());
-		populationPanel.txtSelectionRange.setText(myConfigurationFromDB
-				.getSelectionRange());
-		genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB
-				.getTwoPointRecombineRate());
+		GepAlgConfiguration myConfigurationFromDB = parent.gepAlgConfiguration;
 
-		String[] functions = myConfigurationFromDB.getFunctionList().split(",");
-		for (int i = 0; i < functions.length; i++) {
-			System.out.println(functions[i].toString());
-			if (functions[i].toString().equals(
+		parent.inputFilePanel.txtInputPath.setText(parent.inputFile.getPath());
+		parent.stopSettingPanel.txtAccuracy.setText(myConfigurationFromDB
+				.getAccuracy().toString());
+		parent.genePanel.txtGeneOnePointRecombineRate
+				.setText(myConfigurationFromDB.getOperatorConfiguration()
+						.getOnePointRecombineRate().toString());
+		parent.genePanel.txtGeneRecombineRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getGeneRecombineRate().toString());
+		parent.genePanel.txtGeneTransportRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getGeneTransportRate().toString());
+		parent.genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB
+				.getIndividualConfiguration().getHomeoticGeneTotalLength()
+				.toString());
+		parent.genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB
+				.getIndividualConfiguration().getGeneConfiguration()
+				.getHomeoticGeneHeaderLength().toString());
+		parent.genePanel.txtIsTransportRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getIsTransportRate().toString());
+		parent.stopSettingPanel.txtMaxGeneration.setText(myConfigurationFromDB
+				.getMaxGeneration().toString());
+		parent.genePanel.txtMutateRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getMutateRate().toString());
+		parent.genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB
+				.getIndividualConfiguration().getGeneTotalLength().toString());
+		parent.genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB
+				.getIndividualConfiguration().getGeneConfiguration()
+				.getNormalGeneHeaderLength().toString());
+		parent.genePanel.txtofIsElement.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getIsElement().toString());
+		parent.genePanel.txtofRisElement.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getRisElement().toString());
+		parent.populationPanel.txtPopulationSize.setText(myConfigurationFromDB
+				.getIndividualConfiguration().getIndividualNumber().toString());
+		parent.genePanel.txtRisTransportRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getRisTransportRate().toString());
+		parent.populationPanel.txtSelectionRange.setText(myConfigurationFromDB
+				.getSelectionRange().toString());
+		parent.genePanel.txtTwoPointRecombineRate.setText(myConfigurationFromDB
+				.getOperatorConfiguration().getTwoPointRecombineRate()
+				.toString());
+
+		
+		List<Function> functions = myConfigurationFromDB.getIndividualConfiguration().getGeneConfiguration().getFunctionUsed();
+		
+		
+		for (int i = 0; i < functions.size(); i++) {
+			Function function = functions.get(i);
+			
+			System.out.println(function.toString());
+			if (function.toString().equals(
 					"domain.service.alg.userdefined.Additioin")) {
-				functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-			} else if (functions[i].toString().equals(
+				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
+			} else if (function.toString().equals(
 					"domain.service.alg.userdefined.Minus")) {
-				functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-			} else if (functions[i].toString().equals(
+				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
+			} else if (function.toString().equals(
 					"domain.service.alg.userdefined.Multiply")) {
-				functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
+				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
 			} else {
-				functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
+				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
 			}
 		}
-		populationPanel.JcomboBoxOfPopulationCreator
-				.setSelectedItem(myConfigurationFromDB.getCreator());
-		genePanel.JComboBoxOfAvailableModifyings
-				.setSelectedItem(myConfigurationFromDB.getModify());
-		populationPanel.JComboBoxAvailableCalculator
-				.setSelectedItem(myConfigurationFromDB.getCalculator());
-		configurationPanel.setVisible(false);
-		stopSettingPanel.setVisible(true);
-		stopSettingPanel.txtMaxGeneration.grabFocus();
 		
 		
+		parent.configurationPanel.setVisible(false);
+		parent.stopSettingPanel.setVisible(true);
+		parent.stopSettingPanel.txtMaxGeneration.grabFocus();
+
 	}
-	
-	
-	
+
 }

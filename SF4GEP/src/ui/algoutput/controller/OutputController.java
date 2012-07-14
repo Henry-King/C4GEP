@@ -52,6 +52,7 @@ public class OutputController {
 	
 	
 	public List<FittedValue> getFittingCurveList(){
+		
 		gepAlgrun =  algOutputService.run(outputModel.getGepAlgConfiguration(),new AlgRunStep(), outputModel.getInputSet());
 		Individual individual = gepAlgrun.getBestIndividual();
 		List<FittedValue> resultList = individual.getFittedValues();

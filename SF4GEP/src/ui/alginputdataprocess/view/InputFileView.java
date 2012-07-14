@@ -6,10 +6,14 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import ui.alginputdataprocess.controller.InputFileController;
+
 public class InputFileView extends JPanel{
 	
 	public JTextField txtInputPath = new JTextField();
 	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
+	
+	InputFileController inputFileController = new InputFileController();
 	MainFrame parent;
 	
 	public InputFileView(MainFrame parent) {
@@ -51,10 +55,15 @@ public class InputFileView extends JPanel{
 				File dir = jc.getCurrentDirectory();
 				File file = jc.getSelectedFile();
 				txtInputPath.setText(file.toString());
+				
+				/**
+				 * 赋值参数给主面板
+				 */
+				inputFileController.setInputFile(file, parent);
+				
 			}
 			if (rVal == JFileChooser.CANCEL_OPTION) {
 				txtInputPath.setText("You pressed cancel");
-
 			}
 		}
 	}

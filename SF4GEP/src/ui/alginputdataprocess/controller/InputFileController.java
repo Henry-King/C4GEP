@@ -4,6 +4,8 @@ package ui.alginputdataprocess.controller;
 import java.io.File;
 import java.io.IOException;
 
+import ui.alginputdataprocess.view.MainFrame;
+
 import jxl.read.biff.BiffException;
 
 import domain.core.algInputDataProcess.*;
@@ -44,6 +46,10 @@ public class InputFileController {
 		return inputSet;
 	}
 	
+	
+	public void setInputFile(File file,MainFrame parent){
+		parent.inputFile = file;
+	}
 	
 	
 	

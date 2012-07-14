@@ -34,13 +34,13 @@ import ui.algoutput.view.*;
 public class MainFrame extends JFrame {
 	
     JPanel contentPane;
-    ConfigView configurationPanel = new ConfigView(this);
+    public ConfigView configurationPanel = new ConfigView(this);
 	public StopSettingView stopSettingPanel=new StopSettingView(this);
-	PopulationView populationPanel=new PopulationView(this);
-	GeneView genePanel=new GeneView(this);
-	FunctionView functionPanel=new FunctionView(this);
+	public PopulationView populationPanel=new PopulationView(this);
+	public GeneView genePanel=new GeneView(this);
+	public FunctionView functionPanel=new FunctionView(this);
 	public FooterView footPanel=new FooterView(this);
-	InputFileView inputFilePanel=new InputFileView(this);
+	public InputFileView inputFilePanel=new InputFileView(this);
 	public SaveConfigView scfigNamePanel=new SaveConfigView(this);
 	public OutputView outputPanel=new OutputView(this);
 	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
@@ -56,13 +56,12 @@ public class MainFrame extends JFrame {
     public MainController mainController = new MainController();
     public MainModel mainModel = new MainModel();
     
-    OutputView outputView = new OutputView(this);
-    
-    
     public DataSet inputSet;
     public GepAlgConfiguration gepAlgConfiguration;
     public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
-   
+    public File inputFile;
+    
+    
 /*GepConfiguration myParameter=new GepConfiguration();
 	IgepAlgService myGepService=new GepAlgService();	
 	GepConfiguration myConfigurationFromDB;
@@ -167,7 +166,9 @@ public class MainFrame extends JFrame {
 	      //------------------------------------------------
 	      
 	      
-	      OutputController.init(outputPanel);
+	      
+	      
+	      
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
 	      outputPanel.btnNewButton.addActionListener(new ActionListener() {

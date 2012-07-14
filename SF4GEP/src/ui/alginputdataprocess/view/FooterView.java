@@ -14,6 +14,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import domain.core.algconfiguration.GepAlgConfiguration;
+
 import jxl.read.biff.BiffException;
 import exception.Duplicated;
 
@@ -21,11 +23,6 @@ import ui.algconfiguration.model.ConfigModel;
 import ui.algconfiguration.model.FunctionModel;
 import ui.algconfiguration.model.GeneModel;
 import ui.algconfiguration.model.PopulationModel;
-import ui.alginputdataprocess.controller.GepConfiguration;
-import ui.alginputdataprocess.controller.IgepAlgService;
-import ui.alginputdataprocess.controller.JPanelForFooter;
-import ui.alginputdataprocess.controller.ModelForJPanelInputPath;
-
 
 public class FooterView extends JPanel {
 	
@@ -35,11 +32,12 @@ public class FooterView extends JPanel {
     public JButton btnRun = new JButton("\u6267\u884C\u7B97\u6CD5");
     
     MainFrame parent;
+
+    GepAlgConfiguration gepAlgConfiguration;
     
-  
-	
 	public FooterView(final MainFrame parent) {
 		  this.parent = parent;
+		  gepAlgConfiguration = parent.gepAlgConfiguration;
 	      setBorder(new LineBorder(new Color(0, 0, 0)));
 	      setBackground(Color.WHITE);
 	      setBounds(160, 523, 669, 39);
@@ -145,11 +143,14 @@ public class FooterView extends JPanel {
 	      add(btnBefore);
 	      btnRun.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
+	      		
+	      		
 	      		//运行程序
 	      		/*btnRunController(ModelForJPanelConfig configuration,ModelForJPanelInputPath inputPath,
 	      			   ModelForJPanelPopulation population,ModelForJPanelGEne gene,ModelForJPanelFunction function,
 	      			   GepConfiguration myParameter,IgepAlgService myGepService,GepConfiguration myConfigurationFromDB,int flag)*/
-	      		myParameter.setInputFile(inputPath.getInputPath());
+	      		
+	      		/*myParameter.setInputFile(inputPath.getInputPath());
 	    		myParameter.setName(configuration.getConfig());
 	    		myParameter.setAccuray(inputPath.getAccuracy());
 	    		myParameter.setNormalGeneNumber(gene.getNormalGeneNumber());
@@ -168,10 +169,13 @@ public class FooterView extends JPanel {
 	    		myParameter.setHomeoticGeneNumber(gene.getHomeoticGeneNums());
 	    	    myParameter.setHomeoticHeaderLength(gene.getHomeoticHeaderLength());
 	    		myParameter.setFunctionList(function.getFunctions().toString());
-	    		myParameter.setMutateRate(gene.getMutateRate());
+	    		myParameter.setMutateRate(gene.getMutateRate());*/
 
+	      		
+	      		
+	      		
 	    				
-	    	    try {
+	    	   /* try {
 	    	    	System.out.println(myGepService.getAvailableSelector().get(population.getSelectionStrategyIndex()).getClass().getName());
 	    			myParameter.setSelector(myGepService.getAvailableSelector().get(population.getSelectionStrategyIndex()).getClass().getName());
 	    			myParameter.setCalculator(myGepService.getAvailableCalculator().get(population.getAvailableCalculatorIndex()).getClass().getName());
@@ -188,12 +192,14 @@ public class FooterView extends JPanel {
 	    			// TODO Auto-generated catch block
 	    			e1.printStackTrace();
 	    		}
-
+*/
 	    			
 	    			
 	    		    
-	    		try {
+	    		/*try {
+	    			
 	    			myGepService.setParameters(myParameter);
+	    			
 	    		} catch (BiffException e3) {
 	    			// TODO Auto-generated catch block
 	    			e3.printStackTrace();
@@ -209,23 +215,33 @@ public class FooterView extends JPanel {
 	    		} catch (IOException e3) {
 	    			// TODO Auto-generated catch block
 	    			e3.printStackTrace();
-	    		}
+	    		}*/
 	    		
 	    		
 	    		
-	           myGepService.run();
+	           //myGepService.run();
+	           parent.outputPanel.refresh();	//开始画图，相当于run
+	      		
+	      		
+	           /**
+	            * 自己改
+	            * = =
+	            */
 	           
-	           
-	           
-	           if (flag == -1) {
-	    				if (myParameter.equals(myConfigurationFromDB) == false) {
+	           if (parent.flag == -1) {
+	        	   		
+	    				/*if (myParameter.equals(myConfigurationFromDB) == false) {
 	    					return true;
 	    					}
 	    				else{
 	    					return false;
 	    				}
+	    				*/
+	        	   		
 	    		} 
 	    		else {
+	    			
+	    			/*
 	    				try {
 	    					myGepService.saveArgumentsToDb(myParameter);
 	    				} catch (Duplicated e) {
@@ -233,8 +249,11 @@ public class FooterView extends JPanel {
 	    					e.printStackTrace();
 	    				}
 	    				return true;
-	    				
+	    				*/
 	    		}
+	           
+	           
+	           
 	      	}
 	      });
 	      

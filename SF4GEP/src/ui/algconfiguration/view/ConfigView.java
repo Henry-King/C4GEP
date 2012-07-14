@@ -26,7 +26,7 @@ public class ConfigView extends JPanel {
 	
 	ConfigController configController = new ConfigController();
 	ConfigModel configModel = new ConfigModel();
-	
+	GepAlgConfiguration myConfigurationFromDB;
 	
 	MainFrame parent;
 	
@@ -85,7 +85,7 @@ public class ConfigView extends JPanel {
 				jcount = 1;
 			}
 		});
-
+		
 		
 		jcomboBoxConfiguration.getEditor().getEditorComponent()
 				.addKeyListener(new KeyAdapter() {
@@ -94,22 +94,18 @@ public class ConfigView extends JPanel {
 							btnSetConfig.setVisible(true);
 						}
 						parent.footPanel.btnRun.setEnabled(false);
-						// 将面板中的配置内容清空
-						initialiseController(stopSettingPanel, populationPanel,
-								genePanel, functionPanel, inputFilePanel);
 						
 						configController.resetConfiguration(parent);
-						
 						jcount = 2;
 						flag = 0;
 					}
 				});
 
+		
 		jcomboBoxConfiguration.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 				if (jcount != 2) {
-					myConfigurationFromDB = configurationsOfHistory
-							.get(jcomboBoxConfiguration.getSelectedIndex());
+					myConfigurationFromDB = parent.configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
 					System.out.println(myConfigurationFromDB.toString());
 					flag = -1;
 					parent.setTitle(myConfigurationFromDB.toString());
@@ -121,12 +117,12 @@ public class ConfigView extends JPanel {
 						setVisible(false);
 						parent.stopSettingPanel.setVisible(true);
 					}
-					// 将配置文件的内容加载到各个面板
-					readConfigHandler(configurationPanel, stopSettingPanel,
-							populationPanel, genePanel, functionPanel,
-							inputFilePanel, myConfigurationFromDB,
-							configurationsOfHistory, myGepService);
+					
+					configController.fillConfiguration(parent);
+					
 					jcount = 1;
+					
+					
 				}
 			}
 		});
