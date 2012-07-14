@@ -4,12 +4,19 @@ import java.io.Serializable;
 
 public class IndividualConfiguration implements Serializable{
 	private static final long serialVersionUID = 1312848752854264394L;
+	private Integer id;
 	private Integer individualNumber;
 	private Integer totalGeneNumbers;
 	private Integer normalGeneTotalLength;
 	private Integer homeoticGeneTotalLength;
 	private Integer geneTotalLength;
 	private GeneConfiguration geneConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getIndividualNumber() {
 		return individualNumber;
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class OperatorConfiguration implements Serializable{
 	private static final long serialVersionUID = -49819413626669298L;
+	private Integer id;
 	private Float mutateRate;
 	private Float isTransportRate;
 	private Integer[] isElement;
@@ -13,6 +14,12 @@ public class OperatorConfiguration implements Serializable{
 	private Float onePointRecombineRate;
 	private Float twoPointRecombineRate;
 	private Float geneRecombineRate;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Float getMutateRate() {
 		return mutateRate;
 	}

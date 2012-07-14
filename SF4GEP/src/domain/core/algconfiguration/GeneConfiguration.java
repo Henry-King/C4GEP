@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GeneConfiguration implements Serializable{
 	private static final long serialVersionUID = -4801304275798018482L;
+	private Integer id;
 	private Integer normalGeneNumber;
 	private Integer normalGeneHeaderLength;
 	private Integer normalGeneTailLength;
@@ -15,6 +16,12 @@ public class GeneConfiguration implements Serializable{
 	private Integer homeoticGeneTailLength;
 	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
 	}

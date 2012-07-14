@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class GepAlgConfiguration implements Serializable{
 	private static final long serialVersionUID = 1450046907494125922L;
+	private Integer id;
 	private String name;
 	private Long maxGeneration;
 	private Float selectionRange;
@@ -11,6 +12,12 @@ public class GepAlgConfiguration implements Serializable{
 	private Float maxFitness;
 	private IndividualConfiguration individualConfiguration;
 	private OperatorConfiguration operatorConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
