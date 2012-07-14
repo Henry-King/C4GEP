@@ -11,7 +11,7 @@ public class GetFuncitonTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		IgepConfigurationService gEConfigurationService=new GepConfigurationService();
-		System.out.println(gEConfigurationService.getAvailableFunctions().get(0).getName());
+		System.out.println(gEConfigurationService.getAvailableFunctions().size());
 	}
 
 }

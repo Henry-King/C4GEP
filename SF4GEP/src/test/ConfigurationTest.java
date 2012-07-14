@@ -40,7 +40,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 100000);
+		gepAlgConfiguration.setMaxGeneration((long) 100);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -71,6 +71,6 @@ public class ConfigurationTest {
 		IAlgRunStep runStep=new AlgRunStep();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
 		System.out.println(gepAlgRun.getMaxFitness());
-		System.out.println(gepAlgRun.getBestIndividual().getFitness());
+		System.out.println(gepAlgRun.getBestIndividual().getFittedValues().get(0).getFittedValue());
 	}
 }
