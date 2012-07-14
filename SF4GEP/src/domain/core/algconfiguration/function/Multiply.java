@@ -16,5 +16,9 @@ public class Multiply extends Function{
 		// TODO Auto-generated method stub
 		return operators[0]*operators[1];
 	}
-
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "³Ë·¨";
+	}
 }
