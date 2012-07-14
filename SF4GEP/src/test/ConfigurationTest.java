@@ -39,7 +39,7 @@ public class ConfigurationTest {
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
-		gepAlgConfiguration.setName("≤‚ ‘");
+		gepAlgConfiguration.setName("≤‚ ‘3");
 		gepAlgConfiguration.setMaxGeneration((long) 100);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);

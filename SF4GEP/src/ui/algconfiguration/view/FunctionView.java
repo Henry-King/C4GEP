@@ -15,6 +15,7 @@ import javax.swing.border.*;
 
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
+import domain.service.algConfiguration.GepConfigurationService;
 
 import ui.alginputdataprocess.view.MainFrame;
 
@@ -121,11 +122,11 @@ public class FunctionView extends JPanel {
 	}
 	@SuppressWarnings("unchecked")
 	public void refresh(){
-		/*GeneConfiguration gene=new GeneConfiguration();
-		List<Function> function=gene.getFunctionUsed();
+		GepConfigurationService gepCon=new GepConfigurationService();
+		List<Function> function=gepCon.getAvailableFunctions();
 		for(int i=0;i<function.size();i++){
 			comboBox.addItem(function.get(i));
-		}*/
+		}
 	
 	}
 }

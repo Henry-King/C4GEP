@@ -17,7 +17,6 @@ import javax.swing.tree.TreePath;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 import jxl.read.biff.BiffException;
-import exception.Duplicated;
 
 import ui.algconfiguration.model.ConfigModel;
 import ui.algconfiguration.model.FunctionModel;
@@ -151,41 +150,36 @@ public class FooterView extends JPanel {
 	      		
 	      	   //footerController.setParameter(parent);
 	      	   parent.configurationPanel.configController.setNewConfiguration(parent);
-	      		
+	      	   
 	           parent.outputPanel.refresh();	//开始画图，相当于run
 	           
 	           
 	           
 	      		
-	           /**
-	            * 自己改
-	            * = =
-	            */
-	           /*
+	         
 	           if (parent.flag == -1) {
 	        	   		
-	    				if (myParameter.equals(myConfigurationFromDB) == false) {
+	    				/*if (myParameter.equals(myConfigurationFromDB) == false) {
 	    					return;
 	    					}
 	    				else{
 	    					parent.flag=-3;//已经被修改
-	    				}
+	    				}*/
 	    				
 	        	   		
 	    		} 
 	    		else {
 	    			
 	    			
-	    				try {
-	    					myGepService.saveArgumentsToDb(myParameter);
-	    				} catch (Duplicated e) {
-	    					// TODO Auto-generated catch block
-	    					e.printStackTrace();
-	    				}
+	    				
+	    					parent.gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+	    				
 	    			
-	    		}*/
-	           
-	           
+	    		}
+	           parent.panel_0.setVisible(false);
+	           parent.treePanel.setVisible(false);
+	           parent.footPanel.setVisible(false);
+	           parent.outputPanel.setVisible(true);
 	           
 	      	}
 	      });

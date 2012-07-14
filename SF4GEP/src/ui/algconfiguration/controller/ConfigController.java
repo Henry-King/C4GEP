@@ -8,6 +8,7 @@ import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
+import domain.service.algConfiguration.GepConfigurationService;
 import sun.management.OperatingSystemImpl;
 import ui.alginputdataprocess.view.MainFrame;
 
@@ -51,12 +52,13 @@ public class ConfigController {
 	 * @param parent
 	 */
 	@SuppressWarnings("unchecked")
-	public void fillConfiguration(MainFrame parent) {
+	public void fillConfiguration(MainFrame parent,GepAlgConfiguration myConfigurationFromDB) {
 	
 
-		GepAlgConfiguration myConfigurationFromDB = parent.gepAlgConfiguration;
+		GepConfigurationService service =new GepConfigurationService();
+		//myConfigurationFromDB=service.setGepAlgConfiguration(myConfigurationFromDB, dataSet);
 
-		parent.inputFilePanel.txtInputPath.setText(parent.inputFile.getPath());
+		//parent.inputFilePanel.txtInputPath.setText(parent.inputFile.getPath());
 		parent.stopSettingPanel.txtAccuracy.setText(myConfigurationFromDB
 				.getAccuracy().toString());
 		parent.genePanel.txtGeneOnePointRecombineRate
@@ -67,7 +69,7 @@ public class ConfigController {
 		parent.genePanel.txtGeneTransportRate.setText(myConfigurationFromDB
 				.getOperatorConfiguration().getGeneTransportRate().toString());
 		parent.genePanel.txtHomeoticGeneNums.setText(myConfigurationFromDB
-				.getIndividualConfiguration().getHomeoticGeneTotalLength()
+				.getIndividualConfiguration().getGeneConfiguration().getHomeoticGeneNumber()
 				.toString());
 		parent.genePanel.txtHomeoticHeaderLength.setText(myConfigurationFromDB
 				.getIndividualConfiguration().getGeneConfiguration()
@@ -79,16 +81,30 @@ public class ConfigController {
 		parent.genePanel.txtMutateRate.setText(myConfigurationFromDB
 				.getOperatorConfiguration().getMutateRate().toString());
 		parent.genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB
-				.getIndividualConfiguration().getGeneTotalLength().toString());
+				.getIndividualConfiguration().getGeneConfiguration().getHomeoticGeneNumber().toString());
 		parent.genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB
 				.getIndividualConfiguration().getGeneConfiguration()
 				.getNormalGeneHeaderLength().toString());
-		parent.genePanel.txtofIsElement.setText(myConfigurationFromDB
-				.getOperatorConfiguration().getIsElement().toString());
-		parent.genePanel.txtofRisElement.setText(myConfigurationFromDB
-				.getOperatorConfiguration().getRisElement().toString());
+		String iSElement="";
+		
+		for(int i=0;i<myConfigurationFromDB.getOperatorConfiguration().getIsElement().length;i++){
+			iSElement=iSElement+myConfigurationFromDB.getOperatorConfiguration().getIsElement()[i];
+			if(i!=myConfigurationFromDB.getOperatorConfiguration().getIsElement().length-1){
+			 iSElement=iSElement+",";
+			}
+		}
+		parent.genePanel.txtofIsElement.setText(iSElement);
+		String rISElement="";
+		for(int i=0;i<myConfigurationFromDB.getOperatorConfiguration().getRisElement().length;i++){
+			rISElement=rISElement+myConfigurationFromDB.getOperatorConfiguration().getRisElement()[i];
+			if(i!=myConfigurationFromDB.getOperatorConfiguration().getRisElement().length-1){
+			  rISElement=rISElement+",";
+			}
+		}
+		parent.genePanel.txtofRisElement.setText(rISElement);
 		parent.populationPanel.txtPopulationSize.setText(myConfigurationFromDB
 				.getIndividualConfiguration().getIndividualNumber().toString());
+		
 		parent.genePanel.txtRisTransportRate.setText(myConfigurationFromDB
 				.getOperatorConfiguration().getRisTransportRate().toString());
 		parent.populationPanel.txtSelectionRange.setText(myConfigurationFromDB
@@ -145,10 +161,11 @@ public class ConfigController {
 		//individualConfiguration.setNormalGeneTotalLength(Integer.parseInt(parent.genePanel.txtNormalGeneNumber.getText().toString()));
 		individualConfiguration.setIndividualNumber(Integer.parseInt(parent.populationPanel.txtPopulationSize.getText().toString()));
 		
-		geneConfiguration.setNormalGeneLength(Integer.parseInt(parent.genePanel.txtNormalGeneNumber.getText().toString()));
+		geneConfiguration.setNormalGeneNumber(Integer.parseInt(parent.genePanel.txtNormalGeneNumber.getText().toString()));
 		geneConfiguration.setNormalGeneHeaderLength(Integer.parseInt(parent.genePanel.txtNormalHeaderLength.getText().toString()));
-		geneConfiguration.setHomeoticGeneLength(Integer.parseInt(parent.genePanel.txtHomeoticGeneNums.getText().toString()));
+		geneConfiguration.setHomeoticGeneNumber(Integer.parseInt(parent.genePanel.txtHomeoticGeneNums.getText().toString()));
 		geneConfiguration.setHomeoticGeneHeaderLength(Integer.parseInt(parent.genePanel.txtHomeoticHeaderLength.getText().toString()));
+		
 		
 		operatorConfiguration.setGeneRecombineRate(Float.parseFloat(parent.genePanel.txtGeneRecombineRate.getText().toString()));
 		operatorConfiguration.setGeneTransportRate(Float.parseFloat(parent.genePanel.txtGeneTransportRate.getText().toString()));
@@ -157,9 +174,22 @@ public class ConfigController {
 		operatorConfiguration.setRisTransportRate(Float.parseFloat(parent.genePanel.txtRisTransportRate.getText().toString()));
 		operatorConfiguration.setTwoPointRecombineRate(Float.parseFloat(parent.genePanel.txtTwoPointRecombineRate.getText().toString()));
 		operatorConfiguration.setMutateRate(Float.parseFloat(parent.genePanel.txtMutateRate.getText().toString()));
-		
-		operatorConfiguration.setIsElementString(parent.genePanel.txtofIsElement.getText().toString());
-		operatorConfiguration.setRisElementString(parent.genePanel.txtofRisElement.getText().toString());
+		String[] isElementArray=parent.genePanel.txtofIsElement.getText().split(",");
+		String isElement="";
+		for(int i=0;i<isElementArray.length;i++){
+		  if(isElementArray[i]!=","){
+			isElement=isElement+isElementArray[i];
+		   }
+		}
+		operatorConfiguration.setIsElementString(isElement);
+		String[] rISElementArray=parent.genePanel.txtofRisElement.getText().split(",");
+		String rISElement="";
+		for(int i=0;i<rISElementArray.length;i++){
+		  if(rISElementArray[i]!=","){
+			rISElement=rISElement+rISElementArray[i];
+		   }
+		}
+		operatorConfiguration.setRisElementString(rISElement);
 		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
 		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
 		List<Function> functionList=new LinkedList<Function>();
@@ -169,10 +199,10 @@ public class ConfigController {
 			 
 		geneConfiguration.setFunctionUsed(functionList);
 		
-			
-			
 		
-		
+			
+		parent.outputPanel.outputController.outputModel.setGepAlgConfiguration(newConfiguration);
+		parent.gepAlgConfiguration = newConfiguration;
 		
 		
 	}

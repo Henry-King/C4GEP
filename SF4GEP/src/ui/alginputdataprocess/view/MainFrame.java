@@ -25,6 +25,12 @@ import ui.algoutput.view.*;
 
 public class MainFrame extends JFrame {
 	
+    public DataSet inputSet;
+    public GepAlgConfiguration gepAlgConfiguration;
+	public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
+	public File inputFile;
+	public String cfgname;
+	public List<GepAlgConfiguration> configurationsOfHistory = gepConfigurationService.getAllGepAlgConfiguration();    
     JPanel contentPane;
     public ConfigView configurationPanel = new ConfigView(this);
 	public StopSettingView stopSettingPanel=new StopSettingView(this);
@@ -44,22 +50,11 @@ public class MainFrame extends JFrame {
     public MainController mainController = new MainController();
     public MainModel mainModel = new MainModel();
     
-    public DataSet inputSet;
-    public GepAlgConfiguration gepAlgConfiguration;
-    public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
-    public File inputFile;
-    public String cfgname;
+   
     
+  
+	
     
-/*GepConfiguration myParameter=new GepConfiguration();
-	IgepAlgService myGepService=new GepAlgService();	
-	GepConfiguration myConfigurationFromDB;
-	List<GepConfiguration> configurationsOfHistory=myGepService.readArgumentsFromDb();
-	
-	IgepInputService input =new GepInputService();
-*/
-	
-    public List<GepAlgConfiguration> configurationsOfHistory = gepConfigurationService.getAllGepAlgConfiguration();
 	
     
     
@@ -70,7 +65,9 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
-
+		configurationsOfHistory.toString();
+		
+		//this.configurationPanel.configController.fillConfiguration(configurationsOfHistory);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 686);
 		contentPane = new JPanel();

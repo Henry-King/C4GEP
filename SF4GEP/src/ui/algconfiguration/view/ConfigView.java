@@ -51,6 +51,7 @@ public class ConfigView extends JPanel {
 		add(jcomboBoxConfiguration);
 		jcomboBoxConfiguration.setVisible(true);
         refresh();
+        
 		btnSetConfig = new JButton("\u914D\u7F6E\u53C2\u6570");
 		
 		
@@ -103,7 +104,9 @@ public class ConfigView extends JPanel {
 		
 		jcomboBoxConfiguration.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
+				System.out.println("有没有运行到这");
 				if (jcount != 2) {
+					System.out.println("有");
 					myConfigurationFromDB = parent.configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
 					System.out.println(myConfigurationFromDB.toString());
 					parent.flag = -1;
@@ -117,7 +120,7 @@ public class ConfigView extends JPanel {
 						parent.stopSettingPanel.setVisible(true);
 					}
 					
-					configController.fillConfiguration(parent);
+					configController.fillConfiguration(parent,myConfigurationFromDB);
 					
 					jcount = 1;
 					
@@ -139,11 +142,11 @@ public class ConfigView extends JPanel {
 	@SuppressWarnings("unchecked")
 	public void refresh(){
 	
-	   /*for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
+	   for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
 			String configName = parent.configurationsOfHistory.get(i).getName();
 			
 			jcomboBoxConfiguration.addItem(configName);
-		}*/
+		}
 	}
 	
 	

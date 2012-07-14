@@ -19,12 +19,11 @@ import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgOutputService;
 import domain.service.algOutput.AlgOutputService;
 import domain.service.algOutput.AlgRunStep;
-import exception.IllegalInputSet;
 
 public class OutputController {
 	
 	KernelLink ml = null;
-	OutputModel outputModel = new OutputModel();
+	public OutputModel outputModel = new OutputModel();
 	GepAlgRun gepAlgrun;
 	
 	//MathCanvas mathCanvasA;

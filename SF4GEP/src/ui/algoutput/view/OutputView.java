@@ -11,6 +11,9 @@ import ui.algoutput.controller.OutputController;
 
 import com.wolfram.jlink.MathCanvas;
 
+import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.service.algConfiguration.GepConfigurationService;
+
 public class OutputView extends JPanel{
 	
 	JLabel label = new JLabel("\u7B97\u6CD5\u8BA1\u7B97\u7ED3\u679C\u7684\u8F93\u51FA\u8DEF\u5F84");
@@ -31,7 +34,7 @@ public class OutputView extends JPanel{
 	public MathCanvas mathCanvasA = null;
 	public MathCanvas mathCanvasB = null;
 	
-	OutputController outputController = new OutputController();
+	public OutputController outputController = new OutputController();
 
 	MainFrame parent;
 
@@ -167,9 +170,17 @@ public class OutputView extends JPanel{
 	public void refresh(){
 		//parent.inputFilePanel.setInputFile();
 		
-		outputController.setParameter(parent.inputSet, parent.gepAlgConfiguration);
+		GepConfigurationService gfs = new GepConfigurationService();
+		GepAlgConfiguration g =  gfs.setGepAlgConfiguration(parent.gepAlgConfiguration, parent.inputSet);
+		
+		
+		outputController.setParameter(parent.inputSet, g);
+		
+		
+		
 		outputController.drawFittingCurve(mathCanvasA);
 		outputController.drawEvolutionGraph(mathCanvasB);
+		
 	}
 	
 	
