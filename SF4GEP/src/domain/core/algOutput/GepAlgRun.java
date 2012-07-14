@@ -13,7 +13,6 @@ public class GepAlgRun {
 	private GepAlgConfiguration gepAlgConfiguration;
 	private DataSet dataSet;
 	private Integer id;
-	private long currentGenerationNum;
 	private List<Float> maxFitness;
 	private List<Float> minFitness;
 	private List<Population> populations=new ArrayList<Population>(2);
@@ -34,12 +33,6 @@ public class GepAlgRun {
 	}
 	public void setDataSet(DataSet dataSet) {
 		this.dataSet = dataSet;
-	}
-	public long getCurrentGenerationNum() {
-		return currentGenerationNum;
-	}
-	public void setCurrentGenerationNum(long currentGenerationNum) {
-		this.currentGenerationNum = currentGenerationNum;
 	}
 	public Population getCurrentPopulation(){
 		removeRedundancyPopulation();
