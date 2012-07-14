@@ -64,4 +64,11 @@ public class GepConfigurationService implements IgepConfigurationService {
 				max=function.getArity();
 		return max;
 	}
+
+	@Override
+	public List<Function> getAvailableFunctions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
