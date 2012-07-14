@@ -64,6 +64,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet){
