@@ -20,7 +20,7 @@ import domain.iservice.algInputDataProcess.IDataInputService;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
 
-public class Configuration {
+public class HibernateTest {
 
 	/**
 	 * @param args
@@ -34,13 +34,14 @@ public class Configuration {
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
-		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 10000);
+		gepAlgConfiguration.setName("≤‚ ‘1");
+		gepAlgConfiguration.setMaxGeneration((long) 1000);
+
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
 		geneConfiguration.setHomeoticGeneHeaderLength(5);
-		geneConfiguration.setHomeoticGeneNumber(10);
+		geneConfiguration.setHomeoticGeneNumber(1);
 		geneConfiguration.setNormalGeneHeaderLength(7);
 		geneConfiguration.setNormalGeneNumber(3);
 		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
@@ -49,16 +50,18 @@ public class Configuration {
 		OperatorConfiguration operatorConfiguration=new OperatorConfiguration();
 		operatorConfiguration.setGeneRecombineRate((float) 0.1);
 		operatorConfiguration.setGeneTransportRate((float) 0.1);
-		operatorConfiguration.setIsElement(new int[]{1,2,3});
+		operatorConfiguration.setIsElement(new Integer[]{1,2,3});
 		operatorConfiguration.setIsTransportRate((float) 0.1);
 		operatorConfiguration.setMutateRate((float) 0.0444);
 		operatorConfiguration.setOnePointRecombineRate((float) 0.4);
-		operatorConfiguration.setRisElement(new int[]{1,2,3});
+		operatorConfiguration.setRisElement(new Integer[]{1,2,3});
 		operatorConfiguration.setRisTransportRate((float) 0.1);
 		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+//		System.out.println(gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration));
+		System.out.println(gepConfigurationService.getAllGepAlgConfiguration().get(0).getOperatorConfiguration().getGeneRecombineRate());
 	}
 
 }
