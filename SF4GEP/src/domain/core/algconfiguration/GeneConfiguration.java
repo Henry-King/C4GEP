@@ -1,9 +1,11 @@
 package domain.core.algconfiguration;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class GeneConfiguration {
+public class GeneConfiguration implements Serializable{
+	private static final long serialVersionUID = -4801304275798018482L;
 	private Integer normalGeneNumber;
 	private Integer normalGeneHeaderLength;
 	private Integer normalGeneTailLength;

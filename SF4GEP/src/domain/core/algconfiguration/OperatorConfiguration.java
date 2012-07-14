@@ -1,6 +1,9 @@
 package domain.core.algconfiguration;
 
-public class OperatorConfiguration {
+import java.io.Serializable;
+
+public class OperatorConfiguration implements Serializable{
+	private static final long serialVersionUID = -49819413626669298L;
 	private Float mutateRate;
 	private Float isTransportRate;
 	private Integer[] isElement;

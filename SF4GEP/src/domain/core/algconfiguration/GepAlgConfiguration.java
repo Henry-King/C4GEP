@@ -1,6 +1,9 @@
 package domain.core.algconfiguration;
 
-public class GepAlgConfiguration {
+import java.io.Serializable;
+
+public class GepAlgConfiguration implements Serializable{
+	private static final long serialVersionUID = 1450046907494125922L;
 	private String name;
 	private Long maxGeneration;
 	private Float selectionRange;

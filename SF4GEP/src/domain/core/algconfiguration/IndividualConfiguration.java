@@ -1,6 +1,9 @@
 package domain.core.algconfiguration;
 
-public class IndividualConfiguration {
+import java.io.Serializable;
+
+public class IndividualConfiguration implements Serializable{
+	private static final long serialVersionUID = 1312848752854264394L;
 	private Integer individualNumber;
 	private Integer totalGeneNumbers;
 	private Integer normalGeneTotalLength;
