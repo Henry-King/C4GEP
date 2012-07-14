@@ -25,7 +25,7 @@ public class AlgOutputService implements IAlgOutputService {
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
 //			for(Individual individual:gepAlgRun.getCurrentPopulation().getIndividuals())
 //				System.out.println(individual+"\n"+"-----------------------------");
-			System.out.println(i+"\n------------\n"+fitnessFloats);
+//			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
