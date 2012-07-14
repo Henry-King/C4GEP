@@ -33,8 +33,6 @@ public class GeneView extends JPanel {
 	                   txtMutateRate=new JTextField(),
 	                   txtTwoPointRecombineRate=new JTextField(),
 	                   txtGeneOnePointRecombineRate=new JTextField();
-	
-	public JComboBox JComboBoxOfAvailableModifyings = new JComboBox();
 	MainFrame parent;
 	public GeneView(MainFrame parent) {
 		this.parent = parent;
@@ -193,15 +191,7 @@ public class GeneView extends JPanel {
 		        	txtofIsElement.grabFocus();
 		        }  
 		    }  
-		}); 
-		
-		JComboBoxOfAvailableModifyings.setBounds(485, 220, 120, 25);
-		add(JComboBoxOfAvailableModifyings);
-		
-		JLabel lblNewLabel_32 = new JLabel("\u57FA\u56E0\u9009\u62E9\u53D8\u5F02\u7B56\u7565");
-		lblNewLabel_32.setFont(new Font("ËÎÌו", Font.PLAIN, 15));
-		lblNewLabel_32.setBounds(340, 220, 120, 25);
-		add(lblNewLabel_32);
+		});
 		
 		JLabel lblNewLabel_14 = new JLabel("IS\u957F\u5EA6");
 		lblNewLabel_14.setFont(new Font("ËÎÌו", Font.PLAIN, 15));

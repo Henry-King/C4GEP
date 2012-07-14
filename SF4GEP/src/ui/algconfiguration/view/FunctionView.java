@@ -21,8 +21,8 @@ public class FunctionView extends JPanel {
 	public JComboBox comboBox = new JComboBox(),
 			JComboBoxOfSelectdFunctions = new JComboBox();
 	int addTime = 0;
-	
-	ArrayList<String> items = new ArrayList<String>();
+	public String[]  files;
+	public ArrayList<String> items = new ArrayList<String>();
 	
 	MainFrame parent;
 
@@ -105,5 +105,14 @@ public class FunctionView extends JPanel {
 		add(JComboBoxOfSelectdFunctions);
 
 	}
-
+	@SuppressWarnings("unchecked")
+	public void refresh(){
+		File classfiles=new File(".\\bin\\domain\\core\\algconfiguration\\function\\");
+	    files=classfiles.list();
+		for(int i=0;i<files.length;i++){
+			comboBox.addItem(files[i]);
+			
+		}
+	
+	}
 }

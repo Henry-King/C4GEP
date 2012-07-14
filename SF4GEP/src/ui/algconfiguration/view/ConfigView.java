@@ -18,13 +18,11 @@ import ui.alginputdataprocess.view.MainFrame;
 
 public class ConfigView extends JPanel {
 
-	int count = 0;
+	
 	public JComboBox jcomboBoxConfiguration = new JComboBox();
 	public JButton btnNext0 = new JButton(), btnSetConfig = new JButton();
 	int jcount = 1;// 标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
-	int flag = 0;// 是否读取配置文件
-	
-	ConfigController configController = new ConfigController();
+    ConfigController configController = new ConfigController();
 	ConfigModel configModel = new ConfigModel();
 	GepAlgConfiguration myConfigurationFromDB;
 	
@@ -51,7 +49,7 @@ public class ConfigView extends JPanel {
 		jcomboBoxConfiguration.configureEditor(editor, null);
 		add(jcomboBoxConfiguration);
 		jcomboBoxConfiguration.setVisible(true);
-
+        refresh();
 		btnSetConfig = new JButton("\u914D\u7F6E\u53C2\u6570");
 		
 		
@@ -66,8 +64,8 @@ public class ConfigView extends JPanel {
 				parent.treePanel.tree_1.setSelectionPath(visiblePath);
 				jcount = 2;
 				parent.footPanel.btnRun.setEnabled(false);
-				count = 1;
-				flag = 0;
+				parent.count = 1;
+				parent.flag = 0;
 			}
 
 		});
@@ -97,7 +95,7 @@ public class ConfigView extends JPanel {
 						
 						configController.resetConfiguration(parent);
 						jcount = 2;
-						flag = 0;
+						parent.flag = 0;
 					}
 				});
 
@@ -107,7 +105,7 @@ public class ConfigView extends JPanel {
 				if (jcount != 2) {
 					myConfigurationFromDB = parent.configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
 					System.out.println(myConfigurationFromDB.toString());
-					flag = -1;
+					parent.flag = -1;
 					parent.setTitle(myConfigurationFromDB.toString());
 					parent.footPanel.btnRun.setEnabled(true);
 					if (ie.getStateChange() == ItemEvent.SELECTED) {
@@ -139,10 +137,10 @@ public class ConfigView extends JPanel {
 	
 	@SuppressWarnings("unchecked")
 	public void refresh(){
-		//String configurations[] = new String[parent.configurationsOfHistory.size()];
+	
 	   for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
 			String configName = parent.configurationsOfHistory.get(i).getName();
-			//configurations[i] = configName;
+			
 			jcomboBoxConfiguration.addItem(configName);
 		}
 	}

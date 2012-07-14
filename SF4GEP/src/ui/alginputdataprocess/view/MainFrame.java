@@ -9,25 +9,17 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
+
 
 import domain.core.algInputDataProcess.*;
 import domain.core.algconfiguration.*;
 import domain.iservice.algConfiguration.IgepConfigurationService;
 import domain.service.algConfiguration.GepConfigurationService;
 
-import ui.algconfiguration.controller.FunctionController;
-import ui.algconfiguration.controller.ConfigController;
-import ui.algconfiguration.model.ConfigModel;
-import ui.algconfiguration.model.FunctionModel;
-import ui.algconfiguration.model.GeneModel;
-import ui.algconfiguration.model.PopulationModel;
+
 import ui.algconfiguration.view.*;
 import ui.alginputdataprocess.controller.*;
 import ui.alginputdataprocess.model.*;
-import ui.algoutput.controller.OutputController;
-import ui.algoutput.controller.SaveConfigController;
 import ui.algoutput.view.*;
 
 
@@ -43,13 +35,9 @@ public class MainFrame extends JFrame {
 	public InputFileView inputFilePanel=new InputFileView(this);
 	public SaveConfigView scfigNamePanel=new SaveConfigView(this);
 	public OutputView outputPanel=new OutputView(this);
-	//UploadInterfaceView uploadInterfacePanel=new UploadInterfaceView(this);
-	
 	public TreeView  treePanel;
-	
     public JPanel panel_0 = new JPanel();
     JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
-    
     
     public CardLayout card;
     
@@ -74,8 +62,8 @@ public class MainFrame extends JFrame {
 	
     
     
-	int flag=0;//是否读取配置文件
-	int count=0;
+	public int flag=0;//是否读取配置文件
+	public int count=0;//标记读到第几个面板
 	int jcount=1;//标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
 
 	
@@ -103,7 +91,9 @@ public class MainFrame extends JFrame {
 	
 		  
 		  //算法名称面板-------------------------------------------------
-		  
+		  configurationPanel.setBorder(null);
+		  configurationPanel.setVisible(false);
+		  panel_0.add(configurationPanel,"p1");
 		 
 		   String configurations[] = new String[configurationsOfHistory.size()];
 		   for (int i = 0; i < configurationsOfHistory.size(); i++) {
@@ -121,9 +111,6 @@ public class MainFrame extends JFrame {
 		  
 		  populationPanel.setBorder(null);
 		  populationPanel.setVisible(false);
-		 
-
-			
 		  panel_0.add(populationPanel,"p3");
 		  //基因面板---------------------------------------------
 		  genePanel.setBorder(null);
@@ -133,20 +120,7 @@ public class MainFrame extends JFrame {
 		 
 		  functionPanel.setBorder(null);
 		  functionPanel.setVisible(false);
-		  /*try {
-				for (int i = 0; i < myGepService.getAvailableFunctions().size(); i++) {
-					functionPanel.comboBox.addItem(myGepService.getAvailableFunctions().get(i).toString());
-					
-				}
-			} catch (ClassNotFoundException e1) {
-				
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-			   
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				e1.printStackTrace();
-			}*/
+		 
 		  
 			
 	      panel_0.add(functionPanel,"p5");
@@ -163,22 +137,9 @@ public class MainFrame extends JFrame {
 	      
 	      footPanel.setBounds(165, 520, 659, 50);
 	      contentPane.add(footPanel);
-	      //------------------------------------------------
-	      
-	      
-	      
-	      
-	      
+	      //输出面板-----------------------------------------------
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
-	      outputPanel.btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					outputPanel.setVisible(false);
-					panel_0.setVisible(true);
-					footPanel.setVisible(true);
-					treePanel.setVisible(true);
-				}
-			});
 	      contentPane.add(outputPanel);
 	      //菜单面板---------------------------------------
 	     

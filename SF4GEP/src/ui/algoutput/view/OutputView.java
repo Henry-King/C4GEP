@@ -35,7 +35,7 @@ public class OutputView extends JPanel{
 
 	MainFrame parent;
 
-	public OutputView(MainFrame parent) {
+	public OutputView(final MainFrame parent) {
 		
 		this.parent = parent;
 		
@@ -151,6 +151,14 @@ public class OutputView extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		btnNewButton.setBounds(335, 10, 57, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent.outputPanel.setVisible(false);
+				parent.panel_0.setVisible(true);
+				parent.footPanel.setVisible(true);
+				parent.treePanel.setVisible(true);
+			}
+		});
 		panel.add(btnNewButton);
 	}
 	

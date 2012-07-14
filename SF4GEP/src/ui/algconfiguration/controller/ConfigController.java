@@ -46,13 +46,7 @@ public class ConfigController {
 	 */
 	@SuppressWarnings("unchecked")
 	public void fillConfiguration(MainFrame parent) {
-		/*
-		 * (HostPanel configurationPanel, JPanelForStopSetting stopSettingPanel,
-		 * JPanelForPopulation populationPanel, JPanelForGene genePanel,
-		 * JPanelForFunction functionPanel, JPanelForInputFile inputFilePanel,
-		 * GepConfiguration myConfigurationFromDB, List<GepConfiguration>
-		 * configurationsOfHistory, IgepAlgService myGepService)
-		 */
+	
 
 		GepAlgConfiguration myConfigurationFromDB = parent.gepAlgConfiguration;
 
@@ -101,22 +95,13 @@ public class ConfigController {
 		List<Function> functions = myConfigurationFromDB.getIndividualConfiguration().getGeneConfiguration().getFunctionUsed();
 		
 		
+		
 		for (int i = 0; i < functions.size(); i++) {
 			Function function = functions.get(i);
 			
 			System.out.println(function.toString());
-			if (function.toString().equals(
-					"domain.service.alg.userdefined.Additioin")) {
-				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("+");
-			} else if (function.toString().equals(
-					"domain.service.alg.userdefined.Minus")) {
-				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("-");
-			} else if (function.toString().equals(
-					"domain.service.alg.userdefined.Multiply")) {
-				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("*");
-			} else {
-				parent.functionPanel.JComboBoxOfSelectdFunctions.addItem("/");
-			}
+			parent.functionPanel.JComboBoxOfSelectdFunctions.addItem(function.toString());
+			
 		}
 		
 		

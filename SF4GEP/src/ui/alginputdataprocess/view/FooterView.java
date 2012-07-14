@@ -143,114 +143,37 @@ public class FooterView extends JPanel {
 	      add(btnBefore);
 	      btnRun.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-	      		
-	      		
-	      		//运行程序
-	      		/*btnRunController(ModelForJPanelConfig configuration,ModelForJPanelInputPath inputPath,
-	      			   ModelForJPanelPopulation population,ModelForJPanelGEne gene,ModelForJPanelFunction function,
-	      			   GepConfiguration myParameter,IgepAlgService myGepService,GepConfiguration myConfigurationFromDB,int flag)*/
-	      		
-	      		/*myParameter.setInputFile(inputPath.getInputPath());
-	    		myParameter.setName(configuration.getConfig());
-	    		myParameter.setAccuray(inputPath.getAccuracy());
-	    		myParameter.setNormalGeneNumber(gene.getNormalGeneNumber());
-	    		myParameter.setGeneRecombineRate(gene.getGeneRecombineRate());
-	    		myParameter.setGeneTransportRate(gene.getGeneTransportRate());
-	    		myParameter.setNormalHeaderLength(gene.getNormalHeaderLength());
-	    		myParameter.setIsTransportRate(gene.getIsTransportRate());
-	    		myParameter.setMaxGeneration(inputPath.getMaxgeneration());
-	    		myParameter.setOnePointRecombineRate(gene.getGeneOnePointRecombineRate());
-	    		myParameter.setPopulationSize(population.getPopulationSize());
-	    		myParameter.setRisTransportRate(gene.getRisTransportRate());
-	    		myParameter.setSelectionRange(population.getSelectionRange());
-	    		myParameter.setTwoPointRecombineRate(gene.getTwoPointRecombineRate());
-	    		myParameter.setIsElement(gene.getIsElement());
-	            myParameter.setRisElement(gene.getRisElement());
-	    		myParameter.setHomeoticGeneNumber(gene.getHomeoticGeneNums());
-	    	    myParameter.setHomeoticHeaderLength(gene.getHomeoticHeaderLength());
-	    		myParameter.setFunctionList(function.getFunctions().toString());
-	    		myParameter.setMutateRate(gene.getMutateRate());*/
-
-	      		
-	      		
-	      		
-	    				
-	    	   /* try {
-	    	    	System.out.println(myGepService.getAvailableSelector().get(population.getSelectionStrategyIndex()).getClass().getName());
-	    			myParameter.setSelector(myGepService.getAvailableSelector().get(population.getSelectionStrategyIndex()).getClass().getName());
-	    			myParameter.setCalculator(myGepService.getAvailableCalculator().get(population.getAvailableCalculatorIndex()).getClass().getName());
-	    			myParameter.setCreator(myGepService.getAvailableCreator().get(population.getPopulationCreatorIndex()).getClass().getName());
-	    			myParameter.setModify(myGepService.getAvailableModifyings().get(gene.getAvailableModifyingsIndex()).getClass().getName());
-	    			
-	    		} catch (ClassNotFoundException e1) {
-	    			// TODO Auto-generated catch block
-	    			e1.printStackTrace();
-	    		} catch (InstantiationException e1) {
-	    			// TODO Auto-generated catch block
-	    			e1.printStackTrace();
-	    		} catch (IllegalAccessException e1) {
-	    			// TODO Auto-generated catch block
-	    			e1.printStackTrace();
-	    		}
-*/
-	    			
-	    			
-	    		    
-	    		/*try {
-	    			
-	    			myGepService.setParameters(myParameter);
-	    			
-	    		} catch (BiffException e3) {
-	    			// TODO Auto-generated catch block
-	    			e3.printStackTrace();
-	    		} catch (InstantiationException e3) {
-	    			// TODO Auto-generated catch block
-	    			e3.printStackTrace();
-	    		} catch (IllegalAccessException e3) {
-	    			// TODO Auto-generated catch block
-	    			e3.printStackTrace();
-	    		} catch (ClassNotFoundException e3) {
-	    			// TODO Auto-generated catch block
-	    			e3.printStackTrace();
-	    		} catch (IOException e3) {
-	    			// TODO Auto-generated catch block
-	    			e3.printStackTrace();
-	    		}*/
-	    		
-	    		
-	    		
-	           //myGepService.run();
+	      	  
 	           parent.outputPanel.refresh();	//开始画图，相当于run
-	      		
+	           
 	      		
 	           /**
 	            * 自己改
 	            * = =
 	            */
-	           
+	           /*
 	           if (parent.flag == -1) {
 	        	   		
-	    				/*if (myParameter.equals(myConfigurationFromDB) == false) {
-	    					return true;
+	    				if (myParameter.equals(myConfigurationFromDB) == false) {
+	    					return;
 	    					}
 	    				else{
-	    					return false;
+	    					parent.flag=-3;//已经被修改
 	    				}
-	    				*/
+	    				
 	        	   		
 	    		} 
 	    		else {
 	    			
-	    			/*
+	    			
 	    				try {
 	    					myGepService.saveArgumentsToDb(myParameter);
 	    				} catch (Duplicated e) {
 	    					// TODO Auto-generated catch block
 	    					e.printStackTrace();
 	    				}
-	    				return true;
-	    				*/
-	    		}
+	    			
+	    		}*/
 	           
 	           
 	           

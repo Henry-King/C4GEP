@@ -164,28 +164,6 @@ public class OutputController {
 	}
 	
 	
-	/*
-	public static void drawPicture(IgepAlgService gepService,OutputView outputPanel){
-		IgepOutputService gepOutput = new GepOutputService();
-		IgepAlgService myGepService = gepService;
-		AlgInstance algInstance = myGepService.getMyAlgInstance();
-		GepAlgorithm gepAlgorithm = myGepService.getMyGepAlgorithm();
-		Calculator calculator = myGepService.getCalculator();
-		 
-		 
-		Individual bestIndividual = gepAlgorithm.getPopulationQueue().getLast().getBestIndividual();
-		outputPanel.mathCanvasA = gepOutput.drawImageA(calculator, bestIndividual, ml);
-		outputPanel.mathCanvasB = gepOutput.drawImageB(algInstance,ml);
-		
-		
-		outputPanel.mathCanvasA.setBounds(0, 0, 410, 310);
-		outputPanel.outPutPanel_1.add(outputPanel.mathCanvasA);
-		
-		outputPanel.mathCanvasB.setBounds(0, 0, 418, 310);
-		outputPanel.outputPanel_2.add(outputPanel.mathCanvasB);
-		
-	}
-*/
 	
 	
 	
