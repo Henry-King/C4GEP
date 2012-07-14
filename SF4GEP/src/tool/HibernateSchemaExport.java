@@ -1,6 +1,5 @@
 package tool;
 
-
 import java.io.File;
 
 import org.hibernate.HibernateException;
@@ -10,22 +9,21 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
-
 public class HibernateSchemaExport {
 
 	static Session session;
 	static Configuration config = null;
 	static Transaction tx = null;
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/** 
 		/**
-		 * 根据映射文件创建数据库结构
+		 * /** 根据映射文件创建数据库结构
 		 */
-		SessionFactory sessionFactory=null;
+		SessionFactory sessionFactory = null;
 		try {
 			config = new Configuration().configure(new File(
 					"src/data/configure/hibernate.cfg.xml"));
@@ -45,22 +43,16 @@ public class HibernateSchemaExport {
 
 			session.flush();
 
-		} 
-		catch (HibernateException e)
-		{
+		} catch (HibernateException e) {
 			e.printStackTrace();
 			tx.rollback();
-			
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();	
-		}
-		finally 
-		{
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			session.close();
 			sessionFactory.close();
-			
+
 		}
 	}
 
