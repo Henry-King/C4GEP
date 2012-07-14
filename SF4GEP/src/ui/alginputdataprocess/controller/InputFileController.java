@@ -37,7 +37,6 @@ public class InputFileController {
 	public DataSet getInputSet(String inputPath){
 		File inputFile = new File(inputPath);
 		
-		
 		try {
 			inputSet = dataInputService.processInputDataSet(inputFile);
 		} catch (BiffException e) {}
@@ -47,8 +46,10 @@ public class InputFileController {
 	}
 	
 	
-	public void setInputFile(File file,MainFrame parent){
-		parent.inputFile = file;
+	public void setInputSet(String inputPath,MainFrame parent){
+		
+		this.inputPath = inputPath;
+		parent.inputSet = getInputSet(inputPath);
 	}
 	
 	

@@ -34,6 +34,7 @@ public class FooterView extends JPanel {
     MainFrame parent;
 
     GepAlgConfiguration gepAlgConfiguration;
+    //FooterController footerController = new FooterController();
     
 	public FooterView(final MainFrame parent) {
 		  this.parent = parent;
@@ -144,7 +145,16 @@ public class FooterView extends JPanel {
 	      btnRun.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
 	      	  
+	      		
+	      		
+	      		
+	      		
+	      	   //footerController.setParameter(parent);
+	      	   parent.configurationPanel.configController.setNewConfiguration(parent);
+	      		
 	           parent.outputPanel.refresh();	//开始画图，相当于run
+	           
+	           
 	           
 	      		
 	           /**

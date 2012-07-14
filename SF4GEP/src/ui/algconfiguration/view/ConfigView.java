@@ -22,9 +22,10 @@ public class ConfigView extends JPanel {
 	public JComboBox jcomboBoxConfiguration = new JComboBox();
 	public JButton btnNext0 = new JButton(), btnSetConfig = new JButton();
 	int jcount = 1;// 标记jcomboBoxConfiguration的editor事件还是ItemSelectedchange事件
-    ConfigController configController = new ConfigController();
+    public ConfigController configController = new ConfigController();
 	ConfigModel configModel = new ConfigModel();
 	GepAlgConfiguration myConfigurationFromDB;
+	//GepAlgConfiguration newConfiguration;
 	
 	MainFrame parent;
 	
@@ -138,15 +139,17 @@ public class ConfigView extends JPanel {
 	@SuppressWarnings("unchecked")
 	public void refresh(){
 	
-	   for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
+	   /*for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
 			String configName = parent.configurationsOfHistory.get(i).getName();
 			
 			jcomboBoxConfiguration.addItem(configName);
-		}
+		}*/
 	}
 	
 	
-	
+	public void upload(){
+		parent.cfgname = jcomboBoxConfiguration.getSelectedItem().toString();
+	}
 
 	
 	

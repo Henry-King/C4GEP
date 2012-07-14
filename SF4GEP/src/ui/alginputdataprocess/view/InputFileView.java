@@ -20,7 +20,7 @@ public class InputFileView extends JPanel{
 		
 		this.parent = parent;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setBounds(155, 115, 631, 532);
+		setBounds(160, 115, 631, 455);
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setVisible(true);
@@ -56,10 +56,12 @@ public class InputFileView extends JPanel{
 				File file = jc.getSelectedFile();
 				txtInputPath.setText(file.toString());
 				
+				
 				/**
 				 * 赋值参数给主面板
 				 */
-				inputFileController.setInputFile(file, parent);
+				inputFileController.setInputSet(txtInputPath.getText().toString(), parent);
+				
 				
 			}
 			if (rVal == JFileChooser.CANCEL_OPTION) {
@@ -78,7 +80,9 @@ public class InputFileView extends JPanel{
 	
 	
 	public void upload(){
-		
+		//parent.inputSet = inputFileController.getInputSet(inputPath);
 	}
+	
+
 	
 }

@@ -26,13 +26,12 @@ public class TreeView extends JPanel {
 	  final DefaultMutableTreeNode node3 = new DefaultMutableTreeNode("基因信息");
 	  final DefaultMutableTreeNode node4 = new DefaultMutableTreeNode("所需函数和随机数");
 	  DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("输入系统");
-	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("上传/下载接口");
-	  final DefaultMutableTreeNode node6 = new DefaultMutableTreeNode("输入路径");
+	  final DefaultMutableTreeNode node5 = new DefaultMutableTreeNode("输入路径");
 	  DefaultMutableTreeNode root3 = new DefaultMutableTreeNode("输出系统");
-	  final DefaultMutableTreeNode node7 = new DefaultMutableTreeNode("输出结果");
+	  final DefaultMutableTreeNode node6 = new DefaultMutableTreeNode("输出结果");
 	  
 	  
-	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5,node6,node7};
+	  final DefaultMutableTreeNode Node[]={node0,node1,node2,node3,node4,node5,node6};
 	  DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	  public final JTree tree_1 ;
 	  public TreeView(final MainFrame frame) {
@@ -50,9 +49,8 @@ public class TreeView extends JPanel {
 		 
 		  
 		  treeModel.insertNodeInto(node5, root2, root2.getChildCount());
-		  treeModel.insertNodeInto(node6, root2, root2.getChildCount());
-	      
-		  treeModel.insertNodeInto(node7, root3, root3.getChildCount());
+		
+		  treeModel.insertNodeInto(node6, root3, root3.getChildCount());
 		  
 		  
 		  
@@ -87,6 +85,7 @@ public class TreeView extends JPanel {
 		  add(scrollPane);
 		  tree_1.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent e) {
+					 //JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
 					 int selRow = tree_1.getRowForLocation(e.getX(), e.getY());
 				      TreePath selPath = tree_1.getPathForLocation(e.getX(), e.getY());
 				      if (selRow != -1)
@@ -102,9 +101,9 @@ public class TreeView extends JPanel {
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
-				          		
+				          		frame.panels[9].setVisible(true);
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(false);
 				          		frame.footPanel.btnNext.setEnabled(true);
@@ -118,8 +117,9 @@ public class TreeView extends JPanel {
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
+				          		frame.panels[9].setVisible(true);
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(true);
 				          		frame.footPanel.btnNext.setEnabled(true);
@@ -133,8 +133,9 @@ public class TreeView extends JPanel {
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
+				          		frame.panels[9].setVisible(true);
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(false);
 				          		frame.footPanel.btnNext.setEnabled(true);
@@ -149,8 +150,9 @@ public class TreeView extends JPanel {
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
+				          		frame.panels[9].setVisible(true);
 				          		
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(true);
@@ -166,8 +168,9 @@ public class TreeView extends JPanel {
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
+				          		frame.panels[9].setVisible(true);
 				          		
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(true);
@@ -179,12 +182,13 @@ public class TreeView extends JPanel {
 				          		frame.panels[0].setVisible(false);
 				          		frame.panels[1].setVisible(false);
 				          		frame.panels[2].setVisible(false);
-				          		frame.panels[3].setVisible(true);
-				          		frame.panels[4].setVisible(false);
+				          		frame.panels[3].setVisible(false);
+				          		frame.panels[4].setVisible(true);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(false);
-				          		frame.panels[7].setVisible(false);
+				          		frame.panels[7].setVisible(true);
 				          		frame.panels[8].setVisible(true);
+				          		frame.panels[9].setVisible(true);
 				          		
 				          		//footPanel的btnBefroe和btnNext
 				          		frame.footPanel.btnBefore.setEnabled(true);
@@ -200,7 +204,8 @@ public class TreeView extends JPanel {
 				          		frame.panels[5].setVisible(true);
 				          		frame.panels[6].setVisible(false);
 				          		frame.panels[7].setVisible(false);
-				          		frame.panels[8].setVisible(true);
+				          		frame.panels[8].setVisible(false);
+				          		frame.panels[9].setVisible(true);
 				          	} 
 				          	
 				          	if(node.toString()=="输入路径"){
@@ -212,7 +217,8 @@ public class TreeView extends JPanel {
 				          		frame.panels[5].setVisible(true);
 				          		frame.panels[6].setVisible(false);
 				          		frame.panels[7].setVisible(false);
-				          		frame.panels[8].setVisible(true);
+				          		frame.panels[8].setVisible(false);
+				          		frame.panels[9].setVisible(true);
 				          	}
 				          	if(node.toString()=="输出系统"){
 				          		frame.panels[0].setVisible(false);
@@ -223,18 +229,20 @@ public class TreeView extends JPanel {
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(true);
 				          		frame.panels[7].setVisible(false);
-				          		frame.panels[8].setVisible(true);
+				          		frame.panels[8].setVisible(false);
+				          		frame.panels[9].setVisible(false);
 				          	}  
 				          	if(node.toString()=="输出结果"){
 				          		frame.panels[0].setVisible(false);
 				          		frame.panels[1].setVisible(false);
 				          		frame.panels[2].setVisible(false);
-				          		frame.panels[3].setVisible(true);
+				          		frame.panels[3].setVisible(false);
 				          		frame.panels[4].setVisible(false);
 				          		frame.panels[5].setVisible(false);
 				          		frame.panels[6].setVisible(true);
 				          		frame.panels[7].setVisible(false);
-				          		frame.panels[8].setVisible(true);
+				          		frame.panels[8].setVisible(false);
+				          		frame.panels[9].setVisible(false);
 				          	}  
 				          } 
 				      }

@@ -45,7 +45,7 @@ public class OutputView extends JPanel{
 		outputController.initKernel(this);
 		
 		setBackground(Color.WHITE);
-		setBorder(null);
+		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(null);
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		//计算结果的输出路径
@@ -128,7 +128,7 @@ public class OutputView extends JPanel{
 		//画图区1---------------------------------------------------------------------------------------------------
 		outPutPanel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		outPutPanel_1.setBackground(Color.WHITE);
-		outPutPanel_1.setBounds(0, 0, 410, 300);
+		outPutPanel_1.setBounds(0, 0, 410, 298);
 		panelPaint.add(outPutPanel_1);
 		mathCanvasA.setBounds(0, 0, 410, 310);
 		outPutPanel_1.add(mathCanvasA);
@@ -138,7 +138,7 @@ public class OutputView extends JPanel{
 		
 		outputPanel_2.setBackground(Color.WHITE);
 		outputPanel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		outputPanel_2.setBounds(402, 0, 418, 300);
+		outputPanel_2.setBounds(413, 0, 407, 298);
 		panelPaint.add(outputPanel_2);
 		outputPanel_2.setLayout(null);
 		mathCanvasB.setBounds(0, 0, 418, 310);
@@ -165,6 +165,8 @@ public class OutputView extends JPanel{
 	
 	
 	public void refresh(){
+		//parent.inputFilePanel.setInputFile();
+		
 		outputController.setParameter(parent.inputSet, parent.gepAlgConfiguration);
 		outputController.drawFittingCurve(mathCanvasA);
 		outputController.drawEvolutionGraph(mathCanvasB);

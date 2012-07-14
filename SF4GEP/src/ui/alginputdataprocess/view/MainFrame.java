@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 	public InputFileView inputFilePanel=new InputFileView(this);
 	public SaveConfigView scfigNamePanel=new SaveConfigView(this);
 	public OutputView outputPanel=new OutputView(this);
-	public TreeView  treePanel;
+	public TreeView  treePanel=new TreeView(this);;
     public JPanel panel_0 = new JPanel();
     JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
     
@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
     public GepAlgConfiguration gepAlgConfiguration;
     public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
     public File inputFile;
+    public String cfgname;
     
     
 /*GepConfiguration myParameter=new GepConfiguration();
@@ -95,11 +96,8 @@ public class MainFrame extends JFrame {
 		  configurationPanel.setVisible(false);
 		  panel_0.add(configurationPanel,"p1");
 		 
-		   String configurations[] = new String[configurationsOfHistory.size()];
-		   for (int i = 0; i < configurationsOfHistory.size(); i++) {
-				String configName = configurationsOfHistory.get(i).getName();
-				configurations[i] = configName;
-			}
+
+		   
 			
 		  
 		  //选择输入路径面板-------------------------------------------------
@@ -137,6 +135,11 @@ public class MainFrame extends JFrame {
 	      
 	      footPanel.setBounds(165, 520, 659, 50);
 	      contentPane.add(footPanel);
+          //底部按钮面板-----------------------------------
+	      
+	      
+	      inputFilePanel.setVisible(false);
+	      contentPane.add(inputFilePanel);
 	      //输出面板-----------------------------------------------
 	      outputPanel.setBounds(5,115,822,530);
 	      outputPanel.setVisible(false);
@@ -144,7 +147,7 @@ public class MainFrame extends JFrame {
 	      //菜单面板---------------------------------------
 	     
 	      
-	        treePanel=new TreeView(this);
+	       
 			treePanel.setBounds(5, 115, 155, 455);
 		    contentPane.add(treePanel);
 		    

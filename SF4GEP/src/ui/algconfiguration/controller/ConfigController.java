@@ -1,8 +1,14 @@
 package ui.algconfiguration.controller;
 
+import java.io.File;
 import java.util.*;
+
 import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.IndividualConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
+import sun.management.OperatingSystemImpl;
 import ui.alginputdataprocess.view.MainFrame;
 
 public class ConfigController {
@@ -100,7 +106,7 @@ public class ConfigController {
 			Function function = functions.get(i);
 			
 			System.out.println(function.toString());
-			parent.functionPanel.JComboBoxOfSelectdFunctions.addItem(function.toString());
+			parent.functionPanel.JComboBoxOfSelectdFunctions.addItem(function);
 			
 		}
 		
@@ -110,5 +116,70 @@ public class ConfigController {
 		parent.stopSettingPanel.txtMaxGeneration.grabFocus();
 
 	}
+	
+	
+	
+	public void setNewConfiguration(MainFrame parent){
+		GepAlgConfiguration newConfiguration = new GepAlgConfiguration();
+		IndividualConfiguration individualConfiguration = new IndividualConfiguration();
+		GeneConfiguration geneConfiguration = new GeneConfiguration();
+		OperatorConfiguration operatorConfiguration = new OperatorConfiguration();
+		
+		individualConfiguration.setGeneConfiguration(geneConfiguration);
+		
+		newConfiguration.setIndividualConfiguration(individualConfiguration);
+		newConfiguration.setOperatorConfiguration(operatorConfiguration);
+		
+		
+		
+		parent.inputFile = new File(parent.inputFilePanel.txtInputPath.getText().toString());
+		
+		
+		
+		
+		newConfiguration.setName(parent.configurationPanel.jcomboBoxConfiguration.getSelectedItem().toString());
+		newConfiguration.setAccuracy(Float.parseFloat(parent.stopSettingPanel.txtAccuracy.getText().toString()));
+		newConfiguration.setMaxGeneration(Long.parseLong(parent.stopSettingPanel.txtMaxGeneration.getText().toString()));
+		newConfiguration.setSelectionRange(Float.parseFloat(parent.populationPanel.txtSelectionRange.getText().toString()));
+		
+		//individualConfiguration.setNormalGeneTotalLength(Integer.parseInt(parent.genePanel.txtNormalGeneNumber.getText().toString()));
+		individualConfiguration.setIndividualNumber(Integer.parseInt(parent.populationPanel.txtPopulationSize.getText().toString()));
+		
+		geneConfiguration.setNormalGeneLength(Integer.parseInt(parent.genePanel.txtNormalGeneNumber.getText().toString()));
+		geneConfiguration.setNormalGeneHeaderLength(Integer.parseInt(parent.genePanel.txtNormalHeaderLength.getText().toString()));
+		geneConfiguration.setHomeoticGeneLength(Integer.parseInt(parent.genePanel.txtHomeoticGeneNums.getText().toString()));
+		geneConfiguration.setHomeoticGeneHeaderLength(Integer.parseInt(parent.genePanel.txtHomeoticHeaderLength.getText().toString()));
+		
+		operatorConfiguration.setGeneRecombineRate(Float.parseFloat(parent.genePanel.txtGeneRecombineRate.getText().toString()));
+		operatorConfiguration.setGeneTransportRate(Float.parseFloat(parent.genePanel.txtGeneTransportRate.getText().toString()));
+		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
+		operatorConfiguration.setOnePointRecombineRate(Float.parseFloat(parent.genePanel.txtGeneOnePointRecombineRate.getText().toString()));
+		operatorConfiguration.setRisTransportRate(Float.parseFloat(parent.genePanel.txtRisTransportRate.getText().toString()));
+		operatorConfiguration.setTwoPointRecombineRate(Float.parseFloat(parent.genePanel.txtTwoPointRecombineRate.getText().toString()));
+		operatorConfiguration.setMutateRate(Float.parseFloat(parent.genePanel.txtMutateRate.getText().toString()));
+		
+		operatorConfiguration.setIsElementString(parent.genePanel.txtofIsElement.getText().toString());
+		operatorConfiguration.setRisElementString(parent.genePanel.txtofRisElement.getText().toString());
+		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
+		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
+		List<Function> functionList=new LinkedList<Function>();
+		for(int i=0;i<parent.functionPanel.JComboBoxOfSelectdFunctions.getItemCount();i++){
+			functionList.add(parent.functionPanel.JComboBoxOfSelectdFunctions.getItemAt(i));		 
+		}
+			 
+		geneConfiguration.setFunctionUsed(functionList);
+		
+			
+			
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 
 }

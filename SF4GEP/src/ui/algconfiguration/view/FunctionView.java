@@ -1,12 +1,20 @@
 package ui.algconfiguration.view;
 
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+
+
+import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GeneConfiguration;
 
 import ui.alginputdataprocess.view.MainFrame;
 
@@ -18,11 +26,12 @@ public class FunctionView extends JPanel {
 			"\u5220\u9664\u6240\u9009\u51FD\u6570"),
 			btnDelAllFunction = new JButton(
 					"\u5220\u9664\u5168\u90E8\u51FD\u6570");
-	public JComboBox comboBox = new JComboBox(),
+	public JComboBox<Function> comboBox = new JComboBox(),
 			JComboBoxOfSelectdFunctions = new JComboBox();
 	int addTime = 0;
 	public String[]  files;
 	public ArrayList<String> items = new ArrayList<String>();
+	
 	
 	MainFrame parent;
 
@@ -47,13 +56,18 @@ public class FunctionView extends JPanel {
 		add(lblNewLabel_18);
 
 		comboBox.setBounds(160, 62, 141, 25);
+		
+		refresh();
+		
+		
+		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean isaddItem = true;
 				if (addTime == 0) {
 					items.add(comboBox.getSelectedItem().toString());
-					JComboBoxOfSelectdFunctions.addItem(comboBox
-							.getSelectedItem().toString());
+					JComboBoxOfSelectdFunctions.addItem((Function) comboBox
+							.getSelectedItem());
 					JComboBoxOfSelectdFunctions.setSelectedItem(comboBox
 							.getSelectedItem().toString());
 				} else {
@@ -65,10 +79,10 @@ public class FunctionView extends JPanel {
 					}
 					if (isaddItem == true) {
 						items.add(comboBox.getSelectedItem().toString());
-						JComboBoxOfSelectdFunctions.addItem(comboBox
-								.getSelectedItem().toString());
+						JComboBoxOfSelectdFunctions.addItem((Function) comboBox
+								.getSelectedItem());
 						JComboBoxOfSelectdFunctions.setSelectedItem(comboBox
-								.getSelectedItem().toString());
+								.getSelectedItem());
 					}
 				}
 
@@ -107,12 +121,11 @@ public class FunctionView extends JPanel {
 	}
 	@SuppressWarnings("unchecked")
 	public void refresh(){
-		File classfiles=new File(".\\bin\\domain\\core\\algconfiguration\\function\\");
-	    files=classfiles.list();
-		for(int i=0;i<files.length;i++){
-			comboBox.addItem(files[i]);
-			
-		}
+		/*GeneConfiguration gene=new GeneConfiguration();
+		List<Function> function=gene.getFunctionUsed();
+		for(int i=0;i<function.size();i++){
+			comboBox.addItem(function.get(i));
+		}*/
 	
 	}
 }
