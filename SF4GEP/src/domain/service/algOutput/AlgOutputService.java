@@ -19,6 +19,7 @@ public class AlgOutputService implements IAlgOutputService {
 		// TODO Auto-generated method stub
 		List<Float> fitnessFloats;
 		Float maxFitness;
+		Float minFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
 		Population newPopulation;
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
@@ -27,6 +28,9 @@ public class AlgOutputService implements IAlgOutputService {
 //				System.out.println(individual+"\n"+"-----------------------------");
 //			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
+			minFitness=Collections.min(fitnessFloats);
+			gepAlgRun.getMaxFitness().add(maxFitness);
+			gepAlgRun.getMinFitness().add(minFitness);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
@@ -48,13 +52,13 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMaxFitness();
 	}
 
 	@Override
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMinFitness();
 	}
 
 	@Override
