@@ -1872,10 +1872,17 @@ import java.io.Serializable;
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
-	private boolean used;
+	private Integer id;
+	private boolean used=false;
 	protected String name;
 	protected String symbol;
 	protected Integer arity;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public boolean isUsed() {
 		return used;
 	}
@@ -1930,10 +1937,17 @@ import java.io.Serializable;
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
-	private boolean used;
+	private Integer id;
+	private boolean used=false;
 	protected String name;
 	protected String symbol;
 	protected Integer arity;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public boolean isUsed() {
 		return used;
 	}
@@ -1981,10 +1995,14 @@ public abstract class Function implements Serializable,Cloneable{
 domain\core\algconfiguration\GeneConfiguration.java
 package domain.core.algconfiguration;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class GeneConfiguration {
+public class GeneConfiguration implements Serializable{
+	private static final long serialVersionUID = -4801304275798018482L;
+	private Integer id;
 	private Integer normalGeneNumber;
 	private Integer normalGeneHeaderLength;
 	private Integer normalGeneTailLength;
@@ -1994,6 +2012,12 @@ public class GeneConfiguration {
 	private Integer homeoticGeneTailLength;
 	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
 	}
@@ -2048,16 +2072,46 @@ public class GeneConfiguration {
 	public void setFunctionUsed(List<Function> functionUsed) {
 		this.functionUsed = functionUsed;
 	}
-	
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @return
+	 */
+	public String getFunctionClass(){
+		StringBuilder stringBuilder=new StringBuilder();
+		for(int i=0;i<functionUsed.size();i++)
+			stringBuilder.append(functionUsed.get(i).getClass().getName()+",");
+		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+		return stringBuilder.toString();
+	}
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @param functionString
+	 */
+	public void setFunctionClass(String functionString){
+		String[] funStrings=functionString.split(",");
+		functionUsed=new ArrayList<Function>(funStrings.length);
+		for(int i=0;i<funStrings.length;i++)
+			try {
+				functionUsed.add(Function.class.cast(Class.forName(funStrings[i]).newInstance()));
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+	}
 }
 
 domain\core\algconfiguration\GeneConfiguration.java
 package domain.core.algconfiguration;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class GeneConfiguration {
+public class GeneConfiguration implements Serializable{
+	private static final long serialVersionUID = -4801304275798018482L;
+	private Integer id;
 	private Integer normalGeneNumber;
 	private Integer normalGeneHeaderLength;
 	private Integer normalGeneTailLength;
@@ -2067,6 +2121,12 @@ public class GeneConfiguration {
 	private Integer homeoticGeneTailLength;
 	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
 	}
@@ -2121,13 +2181,43 @@ public class GeneConfiguration {
 	public void setFunctionUsed(List<Function> functionUsed) {
 		this.functionUsed = functionUsed;
 	}
-	
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @return
+	 */
+	public String getFunctionClass(){
+		StringBuilder stringBuilder=new StringBuilder();
+		for(int i=0;i<functionUsed.size();i++)
+			stringBuilder.append(functionUsed.get(i).getClass().getName()+",");
+		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+		return stringBuilder.toString();
+	}
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @param functionString
+	 */
+	public void setFunctionClass(String functionString){
+		String[] funStrings=functionString.split(",");
+		functionUsed=new ArrayList<Function>(funStrings.length);
+		for(int i=0;i<funStrings.length;i++)
+			try {
+				functionUsed.add(Function.class.cast(Class.forName(funStrings[i]).newInstance()));
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+	}
 }
 
 domain\core\algconfiguration\GepAlgConfiguration.java
 package domain.core.algconfiguration;
 
-public class GepAlgConfiguration {
+import java.io.Serializable;
+
+public class GepAlgConfiguration implements Serializable{
+	private static final long serialVersionUID = 1450046907494125922L;
+	private Integer id;
 	private String name;
 	private Long maxGeneration;
 	private Float selectionRange;
@@ -2135,6 +2225,12 @@ public class GepAlgConfiguration {
 	private Float maxFitness;
 	private IndividualConfiguration individualConfiguration;
 	private OperatorConfiguration operatorConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -2184,7 +2280,11 @@ public class GepAlgConfiguration {
 domain\core\algconfiguration\GepAlgConfiguration.java
 package domain.core.algconfiguration;
 
-public class GepAlgConfiguration {
+import java.io.Serializable;
+
+public class GepAlgConfiguration implements Serializable{
+	private static final long serialVersionUID = 1450046907494125922L;
+	private Integer id;
 	private String name;
 	private Long maxGeneration;
 	private Float selectionRange;
@@ -2192,6 +2292,12 @@ public class GepAlgConfiguration {
 	private Float maxFitness;
 	private IndividualConfiguration individualConfiguration;
 	private OperatorConfiguration operatorConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -2241,13 +2347,23 @@ public class GepAlgConfiguration {
 domain\core\algconfiguration\IndividualConfiguration.java
 package domain.core.algconfiguration;
 
-public class IndividualConfiguration {
+import java.io.Serializable;
+
+public class IndividualConfiguration implements Serializable{
+	private static final long serialVersionUID = 1312848752854264394L;
+	private Integer id;
 	private Integer individualNumber;
 	private Integer totalGeneNumbers;
 	private Integer normalGeneTotalLength;
 	private Integer homeoticGeneTotalLength;
 	private Integer geneTotalLength;
 	private GeneConfiguration geneConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getIndividualNumber() {
 		return individualNumber;
 	}
@@ -2289,13 +2405,23 @@ public class IndividualConfiguration {
 domain\core\algconfiguration\IndividualConfiguration.java
 package domain.core.algconfiguration;
 
-public class IndividualConfiguration {
+import java.io.Serializable;
+
+public class IndividualConfiguration implements Serializable{
+	private static final long serialVersionUID = 1312848752854264394L;
+	private Integer id;
 	private Integer individualNumber;
 	private Integer totalGeneNumbers;
 	private Integer normalGeneTotalLength;
 	private Integer homeoticGeneTotalLength;
 	private Integer geneTotalLength;
 	private GeneConfiguration geneConfiguration;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getIndividualNumber() {
 		return individualNumber;
 	}
@@ -2337,7 +2463,12 @@ public class IndividualConfiguration {
 domain\core\algconfiguration\OperatorConfiguration.java
 package domain.core.algconfiguration;
 
-public class OperatorConfiguration {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class OperatorConfiguration implements Serializable{
+	private static final long serialVersionUID = -49819413626669298L;
+	private Integer id;
 	private Float mutateRate;
 	private Float isTransportRate;
 	private Integer[] isElement;
@@ -2347,6 +2478,12 @@ public class OperatorConfiguration {
 	private Float onePointRecombineRate;
 	private Float twoPointRecombineRate;
 	private Float geneRecombineRate;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Float getMutateRate() {
 		return mutateRate;
 	}
@@ -2401,12 +2538,53 @@ public class OperatorConfiguration {
 	public void setGeneRecombineRate(Float geneRecombineRate) {
 		this.geneRecombineRate = geneRecombineRate;
 	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getIsElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param isElementString
+	 */
+	public void setIsElementString(String isElementString){
+		String [] stringArray=isElementString.split(", ");
+		isElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			isElement[i]=Integer.valueOf(stringArray[i]);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getRisElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param risElementString
+	 */
+	public void setRisElementString(String risElementString){
+		String [] stringArray=risElementString.split(", ");
+		risElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			risElement[i]=Integer.valueOf(stringArray[i]);
+	}
 }
 
 domain\core\algconfiguration\OperatorConfiguration.java
 package domain.core.algconfiguration;
 
-public class OperatorConfiguration {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class OperatorConfiguration implements Serializable{
+	private static final long serialVersionUID = -49819413626669298L;
+	private Integer id;
 	private Float mutateRate;
 	private Float isTransportRate;
 	private Integer[] isElement;
@@ -2416,6 +2594,12 @@ public class OperatorConfiguration {
 	private Float onePointRecombineRate;
 	private Float twoPointRecombineRate;
 	private Float geneRecombineRate;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Float getMutateRate() {
 		return mutateRate;
 	}
@@ -2469,6 +2653,42 @@ public class OperatorConfiguration {
 	}
 	public void setGeneRecombineRate(Float geneRecombineRate) {
 		this.geneRecombineRate = geneRecombineRate;
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getIsElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param isElementString
+	 */
+	public void setIsElementString(String isElementString){
+		String [] stringArray=isElementString.split(", ");
+		isElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			isElement[i]=Integer.valueOf(stringArray[i]);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getRisElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param risElementString
+	 */
+	public void setRisElementString(String risElementString){
+		String [] stringArray=risElementString.split(", ");
+		risElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			risElement[i]=Integer.valueOf(stringArray[i]);
 	}
 }
 
@@ -3963,6 +4183,8 @@ package domain.service.algConfiguration;
 
 import java.util.List;
 
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
@@ -3975,14 +4197,27 @@ public class GepConfigurationService implements IgepConfigurationService {
 	@Override
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
 		// TODO Auto-generated method stub
-		return null;
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		return hibernateDataContext.findAll(GepAlgConfiguration.class);
 	}
 
 	@Override
 	public boolean saveGepAlgConfiguration(
 			GepAlgConfiguration gepAlgConfiguration) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean result=true;
+		try {
+			IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+			hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result=false;
+		}
+		return result;
 	}
 
 	@Override
@@ -4017,6 +4252,8 @@ package domain.service.algConfiguration;
 
 import java.util.List;
 
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
@@ -4029,14 +4266,27 @@ public class GepConfigurationService implements IgepConfigurationService {
 	@Override
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
 		// TODO Auto-generated method stub
-		return null;
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		return hibernateDataContext.findAll(GepAlgConfiguration.class);
 	}
 
 	@Override
 	public boolean saveGepAlgConfiguration(
 			GepAlgConfiguration gepAlgConfiguration) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean result=true;
+		try {
+			IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+			hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());
+			hibernateDataContext.save(gepAlgConfiguration);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result=false;
+		}
+		return result;
 	}
 
 	@Override
@@ -4213,7 +4463,6 @@ import java.util.List;
 
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgOutputService;
@@ -4226,6 +4475,7 @@ public class AlgOutputService implements IAlgOutputService {
 		// TODO Auto-generated method stub
 		List<Float> fitnessFloats;
 		Float maxFitness;
+		Float minFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
 		Population newPopulation;
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
@@ -4234,6 +4484,9 @@ public class AlgOutputService implements IAlgOutputService {
 //				System.out.println(individual+"\n"+"-----------------------------");
 //			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
+			minFitness=Collections.min(fitnessFloats);
+			gepAlgRun.getMaxFitness().add(maxFitness);
+			gepAlgRun.getMinFitness().add(minFitness);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
@@ -4255,13 +4508,13 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMaxFitness();
 	}
 
 	@Override
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMinFitness();
 	}
 
 	@Override
@@ -4286,7 +4539,6 @@ import java.util.List;
 
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgOutputService;
@@ -4299,6 +4551,7 @@ public class AlgOutputService implements IAlgOutputService {
 		// TODO Auto-generated method stub
 		List<Float> fitnessFloats;
 		Float maxFitness;
+		Float minFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
 		Population newPopulation;
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
@@ -4307,6 +4560,9 @@ public class AlgOutputService implements IAlgOutputService {
 //				System.out.println(individual+"\n"+"-----------------------------");
 //			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
+			minFitness=Collections.min(fitnessFloats);
+			gepAlgRun.getMaxFitness().add(maxFitness);
+			gepAlgRun.getMinFitness().add(minFitness);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
@@ -4328,13 +4584,13 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMaxFitness();
 	}
 
 	@Override
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return null;
+		return gepAlgRun.getMinFitness();
 	}
 
 	@Override
@@ -4356,6 +4612,7 @@ package domain.service.algOutput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -4440,6 +4697,8 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 			population.addIndividual(individual);
 		}
+		gepAlgRun.setMaxFitness(new LinkedList<Float>());
+		gepAlgRun.setMinFitness(new LinkedList<Float>());
 		return gepAlgRun;
 	}
 
@@ -4771,7 +5030,8 @@ public class AlgRunStep implements IAlgRunStep {
 		return genePieces;
 	}
 	/**
-	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值
+	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值。
+	 * 目前是性能瓶颈，自用时间在15%－20%
 	 * @param individual 待计算的个体
 	 * @param row 需要产生拟合值的行
 	 * @return 拟合值数组
@@ -4792,7 +5052,7 @@ public class AlgRunStep implements IAlgRunStep {
 		return resulList;
 	}
 	/**
-	 * 本方法给基因中的有效长度内的每一个变量赋值，目前是性能瓶颈，15%作用的CPU时间用来运行这个函数
+	 * 本方法给基因中的有效长度内的每一个变量赋值
 	 * @param gene 待赋值的基因
 	 * @param row 一个保存着变量值的输入行
 	 */
@@ -5303,6 +5563,7 @@ package domain.service.algOutput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -5387,6 +5648,8 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 			population.addIndividual(individual);
 		}
+		gepAlgRun.setMaxFitness(new LinkedList<Float>());
+		gepAlgRun.setMinFitness(new LinkedList<Float>());
 		return gepAlgRun;
 	}
 
@@ -5718,7 +5981,8 @@ public class AlgRunStep implements IAlgRunStep {
 		return genePieces;
 	}
 	/**
-	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值
+	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值。
+	 * 目前是性能瓶颈，自用时间在15%－20%
 	 * @param individual 待计算的个体
 	 * @param row 需要产生拟合值的行
 	 * @return 拟合值数组
@@ -5739,7 +6003,7 @@ public class AlgRunStep implements IAlgRunStep {
 		return resulList;
 	}
 	/**
-	 * 本方法给基因中的有效长度内的每一个变量赋值，目前是性能瓶颈，15%作用的CPU时间用来运行这个函数
+	 * 本方法给基因中的有效长度内的每一个变量赋值
 	 * @param gene 待赋值的基因
 	 * @param row 一个保存着变量值的输入行
 	 */
@@ -6244,54 +6508,6 @@ public class AlgRunStep implements IAlgRunStep {
 	}
 }
 
-exception\Duplicated.java
-package exception;
-
-public class Duplicated extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8940856307517070718L;
-
-}
-
-exception\Duplicated.java
-package exception;
-
-public class Duplicated extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8940856307517070718L;
-
-}
-
-exception\IllegalInputSet.java
-package exception;
-
-public class IllegalInputSet extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2292135742688459906L;
-
-}
-
-exception\IllegalInputSet.java
-package exception;
-
-public class IllegalInputSet extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2292135742688459906L;
-
-}
-
 test\ConfigurationTest.java
 package test;
 
@@ -6302,6 +6518,7 @@ import java.util.Arrays;
 import jxl.read.biff.BiffException;
 
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
@@ -6363,7 +6580,9 @@ public class ConfigurationTest {
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet){
 		IAlgOutputService algOutputService=new AlgOutputService();
 		IAlgRunStep runStep=new AlgRunStep();
-		algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		System.out.println(gepAlgRun.getMaxFitness());
+		System.out.println(gepAlgRun.getBestIndividual().getFitness());
 	}
 }
 
@@ -6377,6 +6596,7 @@ import java.util.Arrays;
 import jxl.read.biff.BiffException;
 
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
@@ -6438,244 +6658,284 @@ public class ConfigurationTest {
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet){
 		IAlgOutputService algOutputService=new AlgOutputService();
 		IAlgRunStep runStep=new AlgRunStep();
-		algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		System.out.println(gepAlgRun.getMaxFitness());
+		System.out.println(gepAlgRun.getBestIndividual().getFitness());
 	}
 }
 
-test\CreatorTest.java
+test\HibernateGeneConfigurationTest.java
 package test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import domain.core.algOutput.GenePiece;
-import domain.core.algOutput.Individual;
-import domain.core.algOutput.Population;
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.function.Additioin;
 import domain.core.algconfiguration.function.Divide;
 import domain.core.algconfiguration.function.Minus;
 import domain.core.algconfiguration.function.Multiply;
-import domain.core.algmodel.genepiece.Constant;
-import domain.core.algmodel.genepiece.Variable;
-import domain.core.algmodel.population.GepAlgorithm;
-import domain.service.alg.baseclass.Creator;
 
-/**
- * 需要把此类保存到对应的文件夹中才可运行
- */
-public class CreatorTest extends Creator{
+public class HibernateGeneConfigurationTest {
 
-	public CreatorTest() {
-		super("测试Create");
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void create(GepAlgorithm algorithm) {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Population population=new Population(algorithm.getPopulationSize());
-		Individual individual=new Individual();
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Variable variable=new Variable();
-		variable.setName("a");
-		variable.setSymbol("a");
-		//正常基因
-		genePieces.add(new Divide());
-		genePieces.add(new Additioin());
-		genePieces.add(new Minus());
-		genePieces.add(new Multiply());
-		genePieces.add(new Multiply());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(new Additioin());
-		genePieces.add(variable.copy());
-		genePieces.add(new Divide());
-		genePieces.add(variable.copy());
-		genePieces.add(new Divide());
-		genePieces.add(new Additioin());
-		genePieces.add(new Multiply());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		
-		//同源基因
-		genePieces.add(new Additioin());
-		genePieces.add(new Additioin());
-		Constant constant=new Constant(algorithm.getNormalGeneNumber());
-		while(((int)constant.getValue())!=2)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		while(((int)constant.getValue())!=1)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		while(((int)constant.getValue())!=0)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		
-		
-		individual.setContainedGenePieces(genePieces);
-		for(int i=0;i<algorithm.getPopulationSize();i++)
-			population.addIndividual(individual.copy());
-		algorithm.addPopulation(population);
+		GeneConfiguration geneConfiguration=new GeneConfiguration();
+		geneConfiguration.setHomeoticGeneHeaderLength(5);
+		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setNormalGeneHeaderLength(7);
+		geneConfiguration.setNormalGeneNumber(3);
+		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		hibernateDataContext.save(geneConfiguration);
+		List<GeneConfiguration> operatorConfigurations=hibernateDataContext.findAll(GeneConfiguration.class);
+		System.out.println(operatorConfigurations.get(0).getFunctionUsed().size());
 	}
 
 }
 
-test\CreatorTest.java
+test\HibernateGeneConfigurationTest.java
 package test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import domain.core.algOutput.GenePiece;
-import domain.core.algOutput.Individual;
-import domain.core.algOutput.Population;
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.function.Additioin;
 import domain.core.algconfiguration.function.Divide;
 import domain.core.algconfiguration.function.Minus;
 import domain.core.algconfiguration.function.Multiply;
-import domain.core.algmodel.genepiece.Constant;
-import domain.core.algmodel.genepiece.Variable;
-import domain.core.algmodel.population.GepAlgorithm;
-import domain.service.alg.baseclass.Creator;
 
-/**
- * 需要把此类保存到对应的文件夹中才可运行
- */
-public class CreatorTest extends Creator{
+public class HibernateGeneConfigurationTest {
 
-	public CreatorTest() {
-		super("测试Create");
-		// TODO Auto-generated constructor stub
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GeneConfiguration geneConfiguration=new GeneConfiguration();
+		geneConfiguration.setHomeoticGeneHeaderLength(5);
+		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setNormalGeneHeaderLength(7);
+		geneConfiguration.setNormalGeneNumber(3);
+		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		hibernateDataContext.save(geneConfiguration);
+		List<GeneConfiguration> operatorConfigurations=hibernateDataContext.findAll(GeneConfiguration.class);
+		System.out.println(operatorConfigurations.get(0).getFunctionUsed().size());
 	}
 
-	@Override
-	public void create(GepAlgorithm algorithm) {
+}
+
+test\HibernateOperatorTest.java
+package test;
+
+import java.util.List;
+
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.OperatorConfiguration;
+
+public class HibernateOperatorTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Population population=new Population(algorithm.getPopulationSize());
-		Individual individual=new Individual();
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Variable variable=new Variable();
-		variable.setName("a");
-		variable.setSymbol("a");
-		//正常基因
-		genePieces.add(new Divide());
-		genePieces.add(new Additioin());
-		genePieces.add(new Minus());
-		genePieces.add(new Multiply());
-		genePieces.add(new Multiply());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(new Additioin());
-		genePieces.add(variable.copy());
-		genePieces.add(new Divide());
-		genePieces.add(variable.copy());
-		genePieces.add(new Divide());
-		genePieces.add(new Additioin());
-		genePieces.add(new Multiply());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(new Multiply());
-		genePieces.add(new Minus());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		genePieces.add(variable.copy());
-		
-		//同源基因
-		genePieces.add(new Additioin());
-		genePieces.add(new Additioin());
-		Constant constant=new Constant(algorithm.getNormalGeneNumber());
-		while(((int)constant.getValue())!=2)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		while(((int)constant.getValue())!=1)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		while(((int)constant.getValue())!=0)
-			constant=new Constant(algorithm.getNormalGeneNumber());
-		genePieces.add(constant);
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		genePieces.add(new Constant(algorithm.getNormalGeneNumber()));
-		
-		
-		individual.setContainedGenePieces(genePieces);
-		for(int i=0;i<algorithm.getPopulationSize();i++)
-			population.addIndividual(individual.copy());
-		algorithm.addPopulation(population);
+		OperatorConfiguration operatorConfiguration=new OperatorConfiguration();
+		operatorConfiguration.setGeneRecombineRate((float) 0.1);
+		operatorConfiguration.setGeneTransportRate((float) 0.1);
+		operatorConfiguration.setIsElement(new Integer[]{1,2,3});
+		operatorConfiguration.setIsTransportRate((float) 0.1);
+		operatorConfiguration.setMutateRate((float) 0.0444);
+		operatorConfiguration.setOnePointRecombineRate((float) 0.4);
+		operatorConfiguration.setRisElement(new Integer[]{1,2,3});
+		operatorConfiguration.setRisTransportRate((float) 0.1);
+		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		hibernateDataContext.save(operatorConfiguration);
+		List<OperatorConfiguration> operatorConfigurations=hibernateDataContext.findAll(OperatorConfiguration.class);
+		System.out.println(operatorConfigurations.get(0).getRisElement().length);
+	}
+
+}
+
+test\HibernateOperatorTest.java
+package test;
+
+import java.util.List;
+
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.OperatorConfiguration;
+
+public class HibernateOperatorTest {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		OperatorConfiguration operatorConfiguration=new OperatorConfiguration();
+		operatorConfiguration.setGeneRecombineRate((float) 0.1);
+		operatorConfiguration.setGeneTransportRate((float) 0.1);
+		operatorConfiguration.setIsElement(new Integer[]{1,2,3});
+		operatorConfiguration.setIsTransportRate((float) 0.1);
+		operatorConfiguration.setMutateRate((float) 0.0444);
+		operatorConfiguration.setOnePointRecombineRate((float) 0.4);
+		operatorConfiguration.setRisElement(new Integer[]{1,2,3});
+		operatorConfiguration.setRisTransportRate((float) 0.1);
+		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		hibernateDataContext.save(operatorConfiguration);
+		List<OperatorConfiguration> operatorConfigurations=hibernateDataContext.findAll(OperatorConfiguration.class);
+		System.out.println(operatorConfigurations.get(0).getRisElement().length);
+	}
+
+}
+
+test\HibernateTest.java
+package test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import jxl.read.biff.BiffException;
+
+import domain.core.algInputDataProcess.DataSet;
+import domain.core.algconfiguration.GeneConfiguration;
+import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.IndividualConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
+import domain.core.algconfiguration.function.Additioin;
+import domain.core.algconfiguration.function.Divide;
+import domain.core.algconfiguration.function.Minus;
+import domain.core.algconfiguration.function.Multiply;
+import domain.iservice.algConfiguration.IgepConfigurationService;
+import domain.iservice.algInputDataProcess.IDataInputService;
+import domain.service.algConfiguration.GepConfigurationService;
+import domain.service.algInputDataProcess.DataInputService;
+
+public class HibernateTest {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws BiffException 
+	 */
+	public static void main(String[] args) throws BiffException, IOException {
+		// TODO Auto-generated method stub
+		IDataInputService dataInputService=new DataInputService();
+		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
+		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
+		gepAlgConfiguration.setAccuracy((float) 0.01);
+		gepAlgConfiguration.setSelectionRange((float) 100);
+		gepAlgConfiguration.setName("测试1");
+		gepAlgConfiguration.setMaxGeneration((long) 1000);
+
+		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
+		individualConfiguration.setIndividualNumber(20);
+		GeneConfiguration geneConfiguration=new GeneConfiguration();
+		geneConfiguration.setHomeoticGeneHeaderLength(5);
+		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setNormalGeneHeaderLength(7);
+		geneConfiguration.setNormalGeneNumber(3);
+		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
+		individualConfiguration.setGeneConfiguration(geneConfiguration);
+		gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);	
+		OperatorConfiguration operatorConfiguration=new OperatorConfiguration();
+		operatorConfiguration.setGeneRecombineRate((float) 0.1);
+		operatorConfiguration.setGeneTransportRate((float) 0.1);
+		operatorConfiguration.setIsElement(new Integer[]{1,2,3});
+		operatorConfiguration.setIsTransportRate((float) 0.1);
+		operatorConfiguration.setMutateRate((float) 0.0444);
+		operatorConfiguration.setOnePointRecombineRate((float) 0.4);
+		operatorConfiguration.setRisElement(new Integer[]{1,2,3});
+		operatorConfiguration.setRisTransportRate((float) 0.1);
+		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
+		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
+		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
+		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+//		System.out.println(gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration));
+		System.out.println(gepConfigurationService.getAllGepAlgConfiguration().get(0).getOperatorConfiguration().getGeneRecombineRate());
+	}
+
+}
+
+test\HibernateTest.java
+package test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import jxl.read.biff.BiffException;
+
+import domain.core.algInputDataProcess.DataSet;
+import domain.core.algconfiguration.GeneConfiguration;
+import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.IndividualConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
+import domain.core.algconfiguration.function.Additioin;
+import domain.core.algconfiguration.function.Divide;
+import domain.core.algconfiguration.function.Minus;
+import domain.core.algconfiguration.function.Multiply;
+import domain.iservice.algConfiguration.IgepConfigurationService;
+import domain.iservice.algInputDataProcess.IDataInputService;
+import domain.service.algConfiguration.GepConfigurationService;
+import domain.service.algInputDataProcess.DataInputService;
+
+public class HibernateTest {
+
+	/**
+	 * @param args
+	 * @throws IOException 
+	 * @throws BiffException 
+	 */
+	public static void main(String[] args) throws BiffException, IOException {
+		// TODO Auto-generated method stub
+		IDataInputService dataInputService=new DataInputService();
+		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
+		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
+		gepAlgConfiguration.setAccuracy((float) 0.01);
+		gepAlgConfiguration.setSelectionRange((float) 100);
+		gepAlgConfiguration.setName("测试1");
+		gepAlgConfiguration.setMaxGeneration((long) 1000);
+
+		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
+		individualConfiguration.setIndividualNumber(20);
+		GeneConfiguration geneConfiguration=new GeneConfiguration();
+		geneConfiguration.setHomeoticGeneHeaderLength(5);
+		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setNormalGeneHeaderLength(7);
+		geneConfiguration.setNormalGeneNumber(3);
+		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
+		individualConfiguration.setGeneConfiguration(geneConfiguration);
+		gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);	
+		OperatorConfiguration operatorConfiguration=new OperatorConfiguration();
+		operatorConfiguration.setGeneRecombineRate((float) 0.1);
+		operatorConfiguration.setGeneTransportRate((float) 0.1);
+		operatorConfiguration.setIsElement(new Integer[]{1,2,3});
+		operatorConfiguration.setIsTransportRate((float) 0.1);
+		operatorConfiguration.setMutateRate((float) 0.0444);
+		operatorConfiguration.setOnePointRecombineRate((float) 0.4);
+		operatorConfiguration.setRisElement(new Integer[]{1,2,3});
+		operatorConfiguration.setRisTransportRate((float) 0.1);
+		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
+		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
+		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
+		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+//		System.out.println(gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration));
+		System.out.println(gepConfigurationService.getAllGepAlgConfiguration().get(0).getOperatorConfiguration().getGeneRecombineRate());
 	}
 
 }
@@ -12818,102 +13078,4 @@ public class OutputPanelController {
 		
 		try {
 			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			ml.discardAnswer();
-		} catch (MathLinkException e1) {
-			System.out.println("An error occurred connecting to the kernel.");
-			if (ml != null)
-				ml.close();
-			return;
-		}
-		
-		outputPanel.mathCanvasA = new MathCanvas(ml);
-		outputPanel.mathCanvasB = new MathCanvas(ml);
-		
-		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
-		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
-	}
-	
-	
-	
-	
-	
-	
-	
-	public static void drawPicture(IgepAlgService gepService,JPanelForOutput outputPanel){
-		IgepOutputService gepOutput = new GepOutputService();
-		IgepAlgService myGepService = gepService;
-		AlgInstance algInstance = myGepService.getMyAlgInstance();
-		GepAlgorithm gepAlgorithm = myGepService.getMyGepAlgorithm();
-		Calculator calculator = myGepService.getCalculator();
-		 
-		 
-		Individual bestIndividual = gepAlgorithm.getPopulationQueue().getLast().getBestIndividual();
-		outputPanel.mathCanvasA = gepOutput.drawImageA(calculator, bestIndividual, ml);
-		outputPanel.mathCanvasB = gepOutput.drawImageB(algInstance,ml);
-		
-		
-		outputPanel.mathCanvasA.setBounds(0, 0, 410, 310);
-		outputPanel.outPutPanel_1.add(outputPanel.mathCanvasA);
-		
-		outputPanel.mathCanvasB.setBounds(0, 0, 418, 310);
-		outputPanel.outputPanel_2.add(outputPanel.mathCanvasB);
-		
-	}
-
-	
-	
-	
-	
-	
-	
-	
-}
-
-ui\output\controller\OutputPanelController.java
-package ui.output.controller;
-
-import ui.output.view.JPanelForOutput;
-import com.wolfram.jlink.KernelLink;
-import com.wolfram.jlink.MathCanvas;
-import com.wolfram.jlink.MathLinkException;
-import com.wolfram.jlink.MathLinkFactory;
-
-import domain.core.algOutput.Individual;
-import domain.core.algmodel.population.GepAlgorithm;
-import domain.core.outputmodel.AlgInstance;
-import domain.iservice.IgepAlgService;
-import domain.iservice.IgepOutputService;
-import domain.service.alg.baseclass.Calculator;
-import domain.service.output.GepOutputService;
-
-
-/**
- * 输出Panel的控制器
- * @author 滕凌哲
- */
-public class OutputPanelController {
-	
-	static KernelLink ml = null;
-	
-	MathCanvas mathCanvasA;
-	MathCanvas mathCanvasB;
-	
-	public OutputPanelController() {
-	}
-	
-	public static void init(JPanelForOutput outputPanel){
-		
-		try {
-			ml = MathLinkFactory
-			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
-			ml.discardAnswer();
-		} catch (MathLinkException e1) {
-			System.out.println("An error occurred connecting to the kernel.");
-			if (ml != null)
-				ml.close();
-			return;
-		}
-		
-		outputPanel.mathCanvasA = new MathCanvas(ml);
-		outputPanel.mathCanvasB = new MathCa
+			.createKernelLink("-linkmode launch -linknam
