@@ -842,7 +842,12 @@ public class AlgRunStep implements IAlgRunStep {
 			genePieces.set(dest+i, copiedSource.get(i));
 		}
 	}
-	
+	/**
+	 * 遍历种群中的每一个个体，进行重组，如果发生重组，每个个体只能在本函数调用中发生一次重组
+	 * @param individualConfiguration 个体配置信息
+	 * @param population 种群
+	 * @param recombine 重组枚举类型
+	 */
 	private void iterateGeneInRecombine(IndividualConfiguration individualConfiguration,Population population,Recombine recombine){
 		Random recombineOneRandom=new Random();
 		Random recombineOtherRandom=new Random();
@@ -857,6 +862,13 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 		}
 	}
+	/**
+	 * 确定重组的各种参数
+	 * @param a 参加重组的个体a
+	 * @param b 参加重组的个体b
+	 * @param recombine 重组的枚举变量
+	 * @param individualConfiguration 个体配置信息
+	 */
 	private void recombineParaDetermination(Individual a,Individual b,Recombine recombine,IndividualConfiguration individualConfiguration){
 		Random startRandom=new Random();
 		Random endRandom=new Random();
@@ -887,7 +899,15 @@ public class AlgRunStep implements IAlgRunStep {
 			break;
 		}
 		beginRecombine(start, end, a, b,geneConfiguration);
-	}	
+	}
+	/**
+	 * 开始正式进行重组
+	 * @param start 重组开始的位置，这个位置是在个体所有基因位里面的index
+	 * @param end 重组结束的位置，这个位置是在个体所有基因位里面的index
+	 * @param a 参加重组的个体a
+	 * @param b 参加重组的个体b
+	 * @param geneConfiguration 基因配置信息
+	 */
 	private void beginRecombine(int start,int end,Individual a,Individual b,GeneConfiguration geneConfiguration){
 		Gene gene;
 		GenePiece genePiece;
@@ -923,5 +943,4 @@ public class AlgRunStep implements IAlgRunStep {
 			}			
 		}
 	}
-	
 }
