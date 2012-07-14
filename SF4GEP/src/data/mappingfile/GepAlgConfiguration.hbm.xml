@@ -14,14 +14,20 @@
   <property generated="never" lazy="false" name="name" type="java.lang.String">
    <column length="900" name="name" not-null="true" unique="true"/>
   </property>
+  <property generated="never" lazy="false" name="maxGeneration" type="java.lang.Long">
+   <column name="maxGeneration"/>
+  </property>
   <property generated="never" lazy="false" name="selectionRange" type="java.lang.Float">
    <column name="selectionRange" precision="53" scale="0"/>
   </property>
   <property generated="never" lazy="false" name="accuracy" type="java.lang.Float">
    <column name="accuracy" precision="53" scale="0"/>
   </property>
-  <one-to-one
-   class="domain.core.algconfiguration.IndividualConfiguration" name="individualConfiguration"/>
-  <one-to-one class="domain.core.algconfiguration.OperatorConfiguration" name="operatorConfiguration"/>
+  <many-to-one
+   class="domain.core.algconfiguration.IndividualConfiguration"
+   name="individualConfiguration" unique="true"/>
+  <many-to-one
+   class="domain.core.algconfiguration.OperatorConfiguration"
+   name="operatorConfiguration" unique="true"/>
  </class>
 </hibernate-mapping>

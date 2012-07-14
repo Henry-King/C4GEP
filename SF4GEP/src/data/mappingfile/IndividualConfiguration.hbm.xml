@@ -15,6 +15,7 @@
   <property generated="never" lazy="false" name="individualNumber" type="java.lang.Integer">
    <column name="individualNumber" not-null="true"/>
   </property>
-  <one-to-one class="domain.core.algconfiguration.GeneConfiguration" name="geneConfiguration"/>
+  <many-to-one class="domain.core.algconfiguration.GeneConfiguration"
+   name="geneConfiguration" unique="true"/>
  </class>
 </hibernate-mapping>
