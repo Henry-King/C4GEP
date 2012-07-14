@@ -59,7 +59,6 @@ public class AlgRunStep implements IAlgRunStep {
 		Gene addedGene;
 		GeneConfiguration geneConfiguration=gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();
 		GepAlgRun gepAlgRun=new GepAlgRun();
-		gepAlgRun.setCurrentGenerationNum(0);
 		gepAlgRun.setDataSet(dataSet);
 		gepAlgRun.setGepAlgConfiguration(gepAlgConfiguration);
 		Population population=new Population();
