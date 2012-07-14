@@ -418,7 +418,8 @@ public class AlgRunStep implements IAlgRunStep {
 		return genePieces;
 	}
 	/**
-	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值
+	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值。
+	 * 目前是性能瓶颈，自用时间在15%－20%
 	 * @param individual 待计算的个体
 	 * @param row 需要产生拟合值的行
 	 * @return 拟合值数组
@@ -439,7 +440,7 @@ public class AlgRunStep implements IAlgRunStep {
 		return resulList;
 	}
 	/**
-	 * 本方法给基因中的有效长度内的每一个变量赋值，目前是性能瓶颈，15%作用的CPU时间用来运行这个函数
+	 * 本方法给基因中的有效长度内的每一个变量赋值
 	 * @param gene 待赋值的基因
 	 * @param row 一个保存着变量值的输入行
 	 */
