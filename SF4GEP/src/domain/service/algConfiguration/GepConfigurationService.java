@@ -1,5 +1,7 @@
 package domain.service.algConfiguration;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import data.dao.HibernateDataContext;
@@ -68,7 +70,26 @@ public class GepConfigurationService implements IgepConfigurationService {
 	@Override
 	public List<Function> getAvailableFunctions() {
 		// TODO Auto-generated method stub
-		return null;
+		File file=new File("bin\\domain\\core\\algconfiguration\\function");
+		File result[]=file.listFiles();
+		List<Function> functions=new ArrayList<Function>(result.length);
+		String path;
+		for(int i=0;i<result.length;i++){
+			path=result[i].getPath();
+			try {
+				functions.add((Function) Class.forName(path.substring(4,path.length()-6).replace("\\", ".")).newInstance());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return functions;
 	}
 	
 }
