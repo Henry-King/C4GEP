@@ -34,7 +34,32 @@
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-<table name="Role" schema="dbo" catalog="transferSystem" class="Role">
+	<table name="Role" schema="dbo" catalog="transferSystem"
+		class="Role">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="OperatorConfiguration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algconfiguration.OperatorConfiguration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="geneConfiguration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algconfiguration.GeneConfiguration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="IndividualConfiguration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algconfiguration.IndividualConfiguration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="GepAlgConfiguration" schema="dbo" catalog="SF4GEP"
+	class="domain.core.algconfiguration.GepAlgConfiguration">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>
