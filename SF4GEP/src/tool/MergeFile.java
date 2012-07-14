@@ -47,7 +47,7 @@ public class MergeFile {
 					e.printStackTrace();
 					continue;
 				}
-				//writeToFile(bufferedWriter, contextString);
+				writeToFile(bufferedWriter, contextString);
 			}
 		}
 	}
