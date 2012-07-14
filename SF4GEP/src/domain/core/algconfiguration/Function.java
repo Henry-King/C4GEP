@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
-	private boolean used;
+	private boolean used=false;
 	protected String name;
 	protected String symbol;
 	protected Integer arity;
