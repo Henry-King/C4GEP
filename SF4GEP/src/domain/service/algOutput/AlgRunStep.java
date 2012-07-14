@@ -20,6 +20,7 @@ import domain.core.algOutput.Population;
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
 import domain.iservice.algOutput.IAlgRunStep;
 
@@ -269,19 +270,31 @@ public class AlgRunStep implements IAlgRunStep {
 	@Override
 	public boolean onePointRecombine(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		Recombine recombine=Recombine.OnePoint;
+		recombine.setRate(operatorConfiguration.getOnePointRecombineRate());
+		iterateGeneInRecombine(population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration(), population, recombine);
+		return true;
 	}
 
 	@Override
 	public boolean twoPointRecombine(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		Recombine recombine=Recombine.TwoPoint;
+		recombine.setRate(operatorConfiguration.getTwoPointRecombineRate());
+		iterateGeneInRecombine(population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration(), population, recombine);
+		return true;
 	}
 
 	@Override
 	public boolean geneRecombine(Population population) {
 		// TODO Auto-generated method stub
-		return false;
+		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
+		Recombine recombine=Recombine.GENE;
+		recombine.setRate(operatorConfiguration.getGeneRecombineRate());
+		iterateGeneInRecombine(population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration(), population, recombine);
+		return true;
 	}
 	/**
 	 * 产生一个普通基因的头部的所有基因位
@@ -829,4 +842,86 @@ public class AlgRunStep implements IAlgRunStep {
 			genePieces.set(dest+i, copiedSource.get(i));
 		}
 	}
+	
+	private void iterateGeneInRecombine(IndividualConfiguration individualConfiguration,Population population,Recombine recombine){
+		Random recombineOneRandom=new Random();
+		Random recombineOtherRandom=new Random();
+		for(int i=0;i<population.getIndividuals().size()-1;i++){
+			if(recombineOneRandom.nextFloat()<recombine.getRate()){
+				for(int j=i+1;j<population.getIndividuals().size();j++){
+					if(recombineOtherRandom.nextFloat()<recombine.getRate()){
+						recombineParaDetermination(population.getIndividuals().get(i), population.getIndividuals().get(j), recombine, individualConfiguration);
+						break;
+					}
+				}
+			}
+		}
+	}
+	private void recombineParaDetermination(Individual a,Individual b,Recombine recombine,IndividualConfiguration individualConfiguration){
+		Random startRandom=new Random();
+		Random endRandom=new Random();
+		GeneConfiguration geneConfiguration=individualConfiguration.getGeneConfiguration();
+		int start=-1;
+		int end=-1;
+		switch (recombine) {
+		case OnePoint:
+			end=individualConfiguration.getNormalGeneTotalLength();
+			start=startRandom.nextInt(end);
+			break;
+		case TwoPoint:
+			start=startRandom.nextInt(individualConfiguration.getNormalGeneTotalLength());
+			end=endRandom.nextInt(individualConfiguration.getNormalGeneTotalLength());
+			if(start>end){
+				int temp=start;
+				start=end;
+				end=temp;
+			}
+			if (start==end) {
+				return;
+			}
+			break;
+		case GENE:
+			int geneNo=startRandom.nextInt(geneConfiguration.getNormalGeneNumber());
+			start=geneNo*geneConfiguration.getNormalGeneLength();
+			end=start+geneConfiguration.getNormalGeneLength();
+			break;
+		}
+		beginRecombine(start, end, a, b,geneConfiguration);
+	}	
+	private void beginRecombine(int start,int end,Individual a,Individual b,GeneConfiguration geneConfiguration){
+		Gene gene;
+		GenePiece genePiece;
+		List<GenePiece> aGenePieces;
+		List<GenePiece> bGenePieces;
+		int startGeneNo=start/geneConfiguration.getNormalGeneLength();
+		int startGenePieceNo=start%geneConfiguration.getNormalGeneLength();
+		int endGeneNo=end/geneConfiguration.getNormalGeneLength();
+		int endGenePieceNo=end%geneConfiguration.getNormalGeneLength();
+		if(endGenePieceNo==0){
+			endGeneNo--;
+			endGenePieceNo=geneConfiguration.getNormalGeneLength();
+		}
+		aGenePieces=a.getGenes().get(startGeneNo).getGenePieces();
+		bGenePieces=b.getGenes().get(startGeneNo).getGenePieces();
+		for(int i=startGenePieceNo;i<geneConfiguration.getNormalGeneLength();i++){
+			genePiece=aGenePieces.get(i);
+			aGenePieces.set(i , bGenePieces.get(i));
+			bGenePieces.set(i, genePiece);
+		}
+		if(startGeneNo!=endGeneNo){
+			for(int i=0;i<endGeneNo-startGeneNo-1;i++){
+				gene=a.getGenes().get(i+startGeneNo+1);
+				a.getGenes().set(i+startGeneNo+1, b.getGenes().get(i+startGeneNo+1));
+				b.getGenes().set(i+startGeneNo+1, gene);
+			}
+			aGenePieces=a.getGenes().get(endGeneNo).getGenePieces();
+			bGenePieces=b.getGenes().get(endGeneNo).getGenePieces();
+			for(int i=0;i<endGenePieceNo;i++){
+				genePiece=aGenePieces.get(i);
+				aGenePieces.set(i, bGenePieces.get(i));
+				bGenePieces.set(i, genePiece);
+			}			
+		}
+	}
+	
 }
