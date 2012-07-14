@@ -1,6 +1,7 @@
 package domain.core.algconfiguration;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class OperatorConfiguration implements Serializable{
 	private static final long serialVersionUID = -49819413626669298L;
@@ -73,5 +74,41 @@ public class OperatorConfiguration implements Serializable{
 	}
 	public void setGeneRecombineRate(Float geneRecombineRate) {
 		this.geneRecombineRate = geneRecombineRate;
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getIsElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param isElementString
+	 */
+	public void setIsElementString(String isElementString){
+		String [] stringArray=isElementString.split(", ");
+		isElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			isElement[i]=Integer.valueOf(stringArray[i]);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @return
+	 */
+	public String getRisElementString(){
+		String result=Arrays.toString(isElement);
+		return result.substring(1,result.length()-1);
+	}
+	/**
+	 * Hibernate专用接口，请勿调用
+	 * @param risElementString
+	 */
+	public void setRisElementString(String risElementString){
+		String [] stringArray=risElementString.split(", ");
+		risElement=new Integer[stringArray.length];
+		for(int i=0;i<stringArray.length;i++)
+			risElement[i]=Integer.valueOf(stringArray[i]);
 	}
 }

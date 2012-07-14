@@ -1,6 +1,7 @@
 package domain.core.algconfiguration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,5 +77,31 @@ public class GeneConfiguration implements Serializable{
 	public void setFunctionUsed(List<Function> functionUsed) {
 		this.functionUsed = functionUsed;
 	}
-	
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @return
+	 */
+	public String getFunctionClass(){
+		StringBuilder stringBuilder=new StringBuilder();
+		for(int i=0;i<functionUsed.size();i++)
+			stringBuilder.append(functionUsed.get(i).getClass().getName()+",");
+		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+		return stringBuilder.toString();
+	}
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @param functionString
+	 */
+	public void setFunctionClass(String functionString){
+		String[] funStrings=functionString.split(",");
+		functionUsed=new ArrayList<Function>(funStrings.length);
+		for(int i=0;i<funStrings.length;i++)
+			try {
+				functionUsed.add(Function.class.cast(Class.forName(funStrings[i]).newInstance()));
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+	}
 }
