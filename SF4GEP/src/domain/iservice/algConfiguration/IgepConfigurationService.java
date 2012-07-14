@@ -3,6 +3,7 @@ package domain.iservice.algConfiguration;
 import java.util.List;
 
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 public interface IgepConfigurationService {
@@ -19,4 +20,5 @@ public interface IgepConfigurationService {
 	 * @return
 	 */
 	public GepAlgConfiguration setGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet);
+	public List<Function> getAvailableFunctions();
 }
