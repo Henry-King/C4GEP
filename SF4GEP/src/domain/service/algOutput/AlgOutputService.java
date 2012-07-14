@@ -6,7 +6,6 @@ import java.util.List;
 
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgOutputService;

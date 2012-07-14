@@ -7,6 +7,7 @@ import java.util.Arrays;
 import jxl.read.biff.BiffException;
 
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
@@ -68,6 +69,8 @@ public class ConfigurationTest {
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet){
 		IAlgOutputService algOutputService=new AlgOutputService();
 		IAlgRunStep runStep=new AlgRunStep();
-		algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		System.out.println(gepAlgRun.getMaxFitness());
+		System.out.println(gepAlgRun.getBestIndividual().getFitness());
 	}
 }

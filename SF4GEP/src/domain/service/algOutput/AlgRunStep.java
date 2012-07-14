@@ -3,6 +3,7 @@ package domain.service.algOutput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -87,6 +88,8 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 			population.addIndividual(individual);
 		}
+		gepAlgRun.setMaxFitness(new LinkedList<Float>());
+		gepAlgRun.setMinFitness(new LinkedList<Float>());
 		return gepAlgRun;
 	}
 
