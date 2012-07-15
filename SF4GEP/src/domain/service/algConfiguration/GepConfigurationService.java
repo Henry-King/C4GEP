@@ -19,7 +19,6 @@ public class GepConfigurationService implements IgepConfigurationService {
 	}
 	@Override
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
-		// TODO Auto-generated method stub
 		return hibernateDataContext.findAll(GepAlgConfiguration.class);
 	}
 

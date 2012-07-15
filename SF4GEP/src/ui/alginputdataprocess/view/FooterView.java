@@ -143,20 +143,10 @@ public class FooterView extends JPanel {
 	      add(btnBefore);
 	      btnRun.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-	      	  
-	      		
-	      		
-	      		
-	      		
 	      	   //footerController.setParameter(parent);
 	      	   parent.configurationPanel.configController.setNewConfiguration(parent);
 	      	   
 	           parent.outputPanel.refresh();	//开始画图，相当于run
-	           
-	           
-	           
-	      		
-	         
 	           if (parent.flag == -1) {
 	        	   		
 	    				/*if (myParameter.equals(myConfigurationFromDB) == false) {
