@@ -61,6 +61,7 @@ public class ConfigController {
 		//parent.inputFilePanel.txtInputPath.setText(parent.inputFile.getPath());
 		parent.stopSettingPanel.txtAccuracy.setText(myConfigurationFromDB
 				.getAccuracy().toString());
+		parent.populationPanel.txtSelectionRange.setText(myConfigurationFromDB.getSelectionRange().toString());
 		parent.genePanel.txtGeneOnePointRecombineRate
 				.setText(myConfigurationFromDB.getOperatorConfiguration()
 						.getOnePointRecombineRate().toString());
@@ -85,6 +86,9 @@ public class ConfigController {
 		parent.genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB
 				.getIndividualConfiguration().getGeneConfiguration()
 				.getNormalGeneHeaderLength().toString());
+		
+		
+		
 		String iSElement="";
 		
 		for(int i=0;i<myConfigurationFromDB.getOperatorConfiguration().getIsElement().length;i++){
@@ -174,21 +178,11 @@ public class ConfigController {
 		operatorConfiguration.setRisTransportRate(Float.parseFloat(parent.genePanel.txtRisTransportRate.getText().toString()));
 		operatorConfiguration.setTwoPointRecombineRate(Float.parseFloat(parent.genePanel.txtTwoPointRecombineRate.getText().toString()));
 		operatorConfiguration.setMutateRate(Float.parseFloat(parent.genePanel.txtMutateRate.getText().toString()));
-		String[] isElementArray=parent.genePanel.txtofIsElement.getText().split(",");
-		String isElement="";
-		for(int i=0;i<isElementArray.length;i++){
-		  if(isElementArray[i]!=","){
-			isElement=isElement+isElementArray[i];
-		   }
-		}
+		String isElement=parent.genePanel.txtofIsElement.getText().replace(",", ", ");
 		operatorConfiguration.setIsElementString(isElement);
-		String[] rISElementArray=parent.genePanel.txtofRisElement.getText().split(",");
-		String rISElement="";
-		for(int i=0;i<rISElementArray.length;i++){
-		  if(rISElementArray[i]!=","){
-			rISElement=rISElement+rISElementArray[i];
-		   }
-		}
+		
+		String rISElement=parent.genePanel.txtofRisElement.getText().replace(",", ", ");
+
 		operatorConfiguration.setRisElementString(rISElement);
 		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));
 		operatorConfiguration.setIsTransportRate(Float.parseFloat(parent.genePanel.txtIsTransportRate.getText().toString()));

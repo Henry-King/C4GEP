@@ -90,6 +90,7 @@ public class ConfigView extends JPanel {
 		jcomboBoxConfiguration.getEditor().getEditorComponent()
 				.addKeyListener(new KeyAdapter() {
 					public void keyPressed(KeyEvent e) {
+						System.out.println("ganam");
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 							btnSetConfig.setVisible(true);
 						}
@@ -105,7 +106,7 @@ public class ConfigView extends JPanel {
 		jcomboBoxConfiguration.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent ie) {
 				System.out.println("有没有运行到这");
-				if (jcount != 2) {
+				if (jcount!=2) {
 					System.out.println("有");
 					myConfigurationFromDB = parent.configurationsOfHistory.get(jcomboBoxConfiguration.getSelectedIndex());
 					System.out.println(myConfigurationFromDB.toString());
@@ -141,7 +142,7 @@ public class ConfigView extends JPanel {
 	
 	@SuppressWarnings("unchecked")
 	public void refresh(){
-	
+	 
 	   for (int i = 0; i < parent.configurationsOfHistory.size(); i++) {
 			String configName = parent.configurationsOfHistory.get(i).getName();
 			
