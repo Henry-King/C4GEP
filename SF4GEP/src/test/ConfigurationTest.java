@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import jxl.read.biff.BiffException;
 
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.GeneConfiguration;
@@ -34,7 +36,8 @@ public class ConfigurationTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IDataInputService dataInputService=new DataInputService();
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
@@ -62,13 +65,13 @@ public class ConfigurationTest {
 		operatorConfiguration.setRisTransportRate((float) 0.1);
 		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
-		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
+		IgepConfigurationService gepConfigurationService=new GepConfigurationService(new HibernateDataContext());
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
 		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
-		run(gepAlgConfiguration,dataSet);
+		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
-	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet){
-		IAlgOutputService algOutputService=new AlgOutputService();
+	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
+		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
 		IAlgRunStep runStep=new AlgRunStep();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
 		System.out.println(gepAlgRun.getMaxFitness());
