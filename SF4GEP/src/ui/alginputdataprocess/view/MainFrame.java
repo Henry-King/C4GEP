@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 	
     public DataSet inputSet;
     public GepAlgConfiguration gepAlgConfiguration;
-    public HibernateDataContext hibernateDataContext;
+    public HibernateDataContext hibernateDataContext = new HibernateDataContext();
 	public IgepConfigurationService gepConfigurationService = new GepConfigurationService(hibernateDataContext);
 	public File inputFile;
 	public String cfgname;
