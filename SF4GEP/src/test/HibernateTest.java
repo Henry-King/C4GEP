@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import jxl.read.biff.BiffException;
 
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
@@ -29,7 +31,8 @@ public class HibernateTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IDataInputService dataInputService=new DataInputService();
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
@@ -58,7 +61,7 @@ public class HibernateTest {
 		operatorConfiguration.setRisTransportRate((float) 0.1);
 		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
-		IgepConfigurationService gepConfigurationService=new GepConfigurationService();
+		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
 //		System.out.println(gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration));
 		System.out.println(gepConfigurationService.getAllGepAlgConfiguration().get(0).getOperatorConfiguration().getGeneRecombineRate());

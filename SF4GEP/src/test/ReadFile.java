@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import jxl.read.biff.BiffException;
 
+import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.iservice.algInputDataProcess.IDataInputService;
 import domain.service.algInputDataProcess.DataInputService;
@@ -18,7 +19,7 @@ public class ReadFile {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IDataInputService dataInputService=new DataInputService();
+		IDataInputService dataInputService=new DataInputService(new HibernateDataContext());
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		System.out.println(dataSet.getDataRow().get(9).getResultColumn().getColumnName());
 		
