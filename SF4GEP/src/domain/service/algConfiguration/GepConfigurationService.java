@@ -3,8 +3,6 @@ package domain.service.algConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
@@ -14,11 +12,14 @@ import domain.core.algconfiguration.IndividualConfiguration;
 import domain.iservice.algConfiguration.IgepConfigurationService;
 
 public class GepConfigurationService implements IgepConfigurationService {
-
+	private IHibernateDataContext hibernateDataContext;
+	public GepConfigurationService(IHibernateDataContext hibernateDataContext) {
+		// TODO Auto-generated constructor stub
+		this.hibernateDataContext=hibernateDataContext;
+	}
 	@Override
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
 		// TODO Auto-generated method stub
-		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		return hibernateDataContext.findAll(GepAlgConfiguration.class);
 	}
 
@@ -28,7 +29,6 @@ public class GepConfigurationService implements IgepConfigurationService {
 		// TODO Auto-generated method stub
 		boolean result=true;
 		try {
-			IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 			hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
 			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
 			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());

@@ -12,13 +12,18 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataColumn;
 import domain.core.algInputDataProcess.DataRow;
 import domain.core.algInputDataProcess.DataSet;
 import domain.iservice.algInputDataProcess.IDataInputService;
 
 public class DataInputService implements IDataInputService {
-
+	private IHibernateDataContext hibernateDataContext;
+	public DataInputService(IHibernateDataContext hibernateDataContext) {
+		// TODO Auto-generated constructor stub
+		this.hibernateDataContext=hibernateDataContext;
+	}
 	@Override
 	public DataSet processInputDataSet(File path) throws BiffException, IOException {
 		// TODO Auto-generated method stub

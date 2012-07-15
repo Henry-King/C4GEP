@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Population;
@@ -12,7 +13,11 @@ import domain.iservice.algOutput.IAlgOutputService;
 import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgOutputService implements IAlgOutputService {
-
+	private IHibernateDataContext hibernateDataContext;
+	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
+		// TODO Auto-generated constructor stub
+		this.hibernateDataContext=hibernateDataContext;
+	}
 	@Override
 	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
 		// TODO Auto-generated method stub
@@ -63,6 +68,7 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public boolean writeToFile(File file) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	private boolean commit(Population population){
