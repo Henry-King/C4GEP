@@ -16,8 +16,12 @@ public class InputFileController {
 	
 	DataSet inputSet = null;
 	String inputPath = null;
-	IDataInputService dataInputService = new DataInputService();
+	IDataInputService dataInputService;
 	
+	
+	public InputFileController(MainFrame parent){
+		 dataInputService = new DataInputService(parent.hibernateDataContext);
+	}
 	public String getInputFilePath(){
 		if (inputPath==null) {
 			return null;

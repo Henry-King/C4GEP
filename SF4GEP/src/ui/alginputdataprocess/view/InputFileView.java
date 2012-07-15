@@ -13,12 +13,13 @@ public class InputFileView extends JPanel{
 	public JTextField txtInputPath = new JTextField();
 	public JButton btnInputBrowse = new JButton("\u6D4F\u89C8");
 	
-	InputFileController inputFileController = new InputFileController();
+	InputFileController inputFileController;
 	MainFrame parent;
 	
 	public InputFileView(MainFrame parent) {
 		
 		this.parent = parent;
+		inputFileController = new InputFileController(parent);
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBounds(160, 115, 631, 455);
 		setBackground(Color.WHITE);

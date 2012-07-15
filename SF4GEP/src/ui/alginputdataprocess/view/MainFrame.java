@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 
+import data.dao.HibernateDataContext;
+import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.*;
 import domain.core.algconfiguration.*;
 import domain.iservice.algConfiguration.IgepConfigurationService;
@@ -27,7 +29,8 @@ public class MainFrame extends JFrame {
 	
     public DataSet inputSet;
     public GepAlgConfiguration gepAlgConfiguration;
-	public IgepConfigurationService gepConfigurationService = new GepConfigurationService();
+    public HibernateDataContext hibernateDataContext;
+	public IgepConfigurationService gepConfigurationService = new GepConfigurationService(hibernateDataContext);
 	public File inputFile;
 	public String cfgname;
 	public List<GepAlgConfiguration> configurationsOfHistory = gepConfigurationService.getAllGepAlgConfiguration();    

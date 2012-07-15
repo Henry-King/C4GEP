@@ -3,6 +3,7 @@ package ui.algoutput.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import ui.alginputdataprocess.view.MainFrame;
 import ui.algoutput.model.OutputModel;
 import ui.algoutput.view.OutputView;
 
@@ -29,10 +30,13 @@ public class OutputController {
 	//MathCanvas mathCanvasA;
 	//MathCanvas mathCanvasB;
 	
-	IAlgOutputService algOutputService = new AlgOutputService();
+	IAlgOutputService algOutputService ;
 	
+	public OutputController(MainFrame parent){
+		algOutputService = new AlgOutputService(parent.hibernateDataContext);
+	}
 	
-	public void initKernel(OutputView outputPanel){
+	public void initKernel(OutputView outputPanel){	
 		try {
 			ml = MathLinkFactory
 			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");

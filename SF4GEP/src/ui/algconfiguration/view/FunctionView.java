@@ -58,7 +58,7 @@ public class FunctionView extends JPanel {
 
 		comboBox.setBounds(160, 62, 141, 25);
 		
-		refresh();
+		refresh(parent);
 		
 		
 		
@@ -121,8 +121,8 @@ public class FunctionView extends JPanel {
 
 	}
 	@SuppressWarnings("unchecked")
-	public void refresh(){
-		GepConfigurationService gepCon=new GepConfigurationService();
+	public void refresh(MainFrame parent){
+		GepConfigurationService gepCon=new GepConfigurationService(parent.hibernateDataContext);
 		List<Function> function=gepCon.getAvailableFunctions();
 		for(int i=0;i<function.size();i++){
 			comboBox.addItem(function.get(i));

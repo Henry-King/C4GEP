@@ -34,11 +34,13 @@ public class OutputView extends JPanel{
 	public MathCanvas mathCanvasA = null;
 	public MathCanvas mathCanvasB = null;
 	
-	public OutputController outputController = new OutputController();
+	public OutputController outputController;
 
 	MainFrame parent;
 
 	public OutputView(final MainFrame parent) {
+		
+		outputController = new OutputController(parent);
 		
 		this.parent = parent;
 		
@@ -170,7 +172,7 @@ public class OutputView extends JPanel{
 	public void refresh(){
 		//parent.inputFilePanel.setInputFile();
 		
-		GepConfigurationService gfs = new GepConfigurationService();
+		GepConfigurationService gfs = new GepConfigurationService(parent.hibernateDataContext);
 		GepAlgConfiguration g =  gfs.setGepAlgConfiguration(parent.gepAlgConfiguration, parent.inputSet);
 		
 		

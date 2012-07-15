@@ -55,7 +55,7 @@ public class ConfigController {
 	public void fillConfiguration(MainFrame parent,GepAlgConfiguration myConfigurationFromDB) {
 	
 
-		GepConfigurationService service =new GepConfigurationService();
+		GepConfigurationService service =new GepConfigurationService(parent.hibernateDataContext);
 		//myConfigurationFromDB=service.setGepAlgConfiguration(myConfigurationFromDB, dataSet);
 
 		//parent.inputFilePanel.txtInputPath.setText(parent.inputFile.getPath());
