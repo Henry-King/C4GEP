@@ -93,6 +93,7 @@ public class OperatorConfiguration implements Serializable{
 		for(int i=0;i<stringArray.length;i++)
 			isElement[i]=Integer.valueOf(stringArray[i]);
 	}
+	
 	/**
 	 * Hibernate专用接口，请勿调用
 	 * @return
@@ -110,5 +111,23 @@ public class OperatorConfiguration implements Serializable{
 		risElement=new Integer[stringArray.length];
 		for(int i=0;i<stringArray.length;i++)
 			risElement[i]=Integer.valueOf(stringArray[i]);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj instanceof OperatorConfiguration) {
+			OperatorConfiguration o=(OperatorConfiguration) obj;
+			return (o.geneRecombineRate.equals(geneRecombineRate)
+					&&o.geneTransportRate.equals(geneTransportRate)
+					&&o.id.equals(id)
+					&&Arrays.equals(o.isElement, isElement)
+					&&Arrays.equals(risElement, o.risElement)
+					&&o.mutateRate.equals(mutateRate)
+					&&o.onePointRecombineRate.equals(onePointRecombineRate)
+					&&o.isTransportRate.equals(isTransportRate)
+					&&o.risTransportRate.equals(risTransportRate)
+					&&o.twoPointRecombineRate.equals(twoPointRecombineRate));
+		}
+		return false;
 	}
 }
