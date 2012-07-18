@@ -1,6 +1,10 @@
 package domain.core.algInputDataProcess;
 
-public class DataColumn implements Cloneable{
+import java.io.Serializable;
+
+public class DataColumn implements Cloneable,Serializable{
+	private static final long serialVersionUID = -6377488076384527164L;
+	private Integer id;
 	private String columnName;
 	private Float value;
 	public DataColumn(){
@@ -9,6 +13,12 @@ public class DataColumn implements Cloneable{
 	public DataColumn(String columnName,Float value){
 		this.columnName=columnName;
 		this.value=value;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getColumnName() {
 		return columnName;

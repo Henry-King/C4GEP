@@ -1,8 +1,11 @@
 package domain.core.algInputDataProcess;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DataSet {
+public class DataSet implements Serializable{
+	private static final long serialVersionUID = -7595934698740818506L;
+	private Integer id;
 	private String name;
 	private Integer rowNum;
 	private Integer columnNum;
@@ -14,6 +17,12 @@ public class DataSet {
 		rowNum=rows;
 		columnNum=columns;
 		this.name=name;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
