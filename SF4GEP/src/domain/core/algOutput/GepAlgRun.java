@@ -1,5 +1,6 @@
 package domain.core.algOutput;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,12 +10,11 @@ import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
-public class GepAlgRun {
+public class GepAlgRun implements Serializable{
+	private static final long serialVersionUID = -6809763278870156382L;
+	private Integer id;
 	private GepAlgConfiguration gepAlgConfiguration;
 	private DataSet dataSet;
-	private Integer id;
-	private List<Float> maxFitness;
-	private List<Float> minFitness;
 	private List<Population> populations=new ArrayList<Population>(2);
 	public Integer getId() {
 		return id;
@@ -61,18 +61,6 @@ public class GepAlgRun {
 	}
 	public List<DataColumn> getUsedVariables(){
 		return dataSet.getDataRows().get(0).getDataColumns();
-	}
-	public List<Float> getMaxFitness() {
-		return maxFitness;
-	}
-	public void setMaxFitness(List<Float> maxFitness) {
-		this.maxFitness = maxFitness;
-	}
-	public List<Float> getMinFitness() {
-		return minFitness;
-	}
-	public void setMinFitness(List<Float> minFitness) {
-		this.minFitness = minFitness;
 	}
 	public Individual getBestIndividual(){
 		return Collections.max(getCurrentPopulation().getIndividuals());
