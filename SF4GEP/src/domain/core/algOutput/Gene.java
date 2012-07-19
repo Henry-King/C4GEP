@@ -43,9 +43,16 @@ public class Gene implements Serializable,Cloneable {
 	public void setGenePieces(List<GenePiece> genePieces) {
 		this.genePieces = genePieces;
 	}
+	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 * @return
+	 */
 	public String getGeneTypeString(){
 		return geneType.toString();
 	}
+	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 */
 	public void setGeneTypeString(String geneTypeString){
 		geneType=GeneType.valueOf(geneTypeString);
 	}
