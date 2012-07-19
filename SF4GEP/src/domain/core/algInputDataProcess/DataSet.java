@@ -9,7 +9,7 @@ public class DataSet implements Serializable{
 	private String name;
 	private Integer rowNum;
 	private Integer columnNum;
-	private List<DataRow> dataRow;
+	private List<DataRow> dataRows;
 	public DataSet(){
 		
 	}
@@ -42,13 +42,13 @@ public class DataSet implements Serializable{
 	public void setColumnNum(Integer columnNum) {
 		this.columnNum = columnNum;
 	}
-	public List<DataRow> getDataRow() {
-		return dataRow;
+	public List<DataRow> getDataRows() {
+		return dataRows;
 	}
-	public void setDataRow(List<DataRow> dataRow) {
-		this.dataRow = dataRow;
+	public void setDataRows(List<DataRow> dataRows) {
+		this.dataRows = dataRows;
 	}
 	public List<DataColumn> getVariableUsed(){
-		return dataRow.get(0).getDataColumns();
+		return dataRows.get(0).getDataColumns();
 	}
 }
