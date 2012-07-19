@@ -2,6 +2,7 @@ package domain.service.algOutput;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import data.dao.IHibernateDataContext;
@@ -14,8 +15,8 @@ import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgOutputService implements IAlgOutputService {
 	private IHibernateDataContext hibernateDataContext;
-	private List<Float> maxFitnesses;
-	private List<Float>	minFitnesses;
+	private List<Float> maxFitnesses=new LinkedList<Float>();
+	private List<Float>	minFitnesses=new LinkedList<Float>();
 	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
