@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import jxl.read.biff.BiffException;
 
+import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
@@ -35,14 +36,14 @@ public class ConfigurationTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IHibernateDataContext hibernateDataContext=null;
+		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 1000000);
+		gepAlgConfiguration.setMaxGeneration((long) 1000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
