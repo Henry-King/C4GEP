@@ -10,6 +10,7 @@ import domain.core.algconfiguration.Function;
  *
  */
 public class GenePiece implements Serializable,Cloneable{
+	private Integer id;
 	private static final long serialVersionUID = 7648117930489664221L;
 	private String symbol;
 	private String name;
@@ -17,6 +18,12 @@ public class GenePiece implements Serializable,Cloneable{
 	private int variableIndex;
 	private GenePieceType genePieceType;
 	private Function function;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	/**
 	 * 返回当前基因片段的符号表示，用String表示
 	 * @return 基因片段符号表示

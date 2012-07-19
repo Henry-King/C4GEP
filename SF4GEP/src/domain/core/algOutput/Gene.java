@@ -11,9 +11,16 @@ import java.util.List;
  */
 public class Gene implements Serializable,Cloneable {
 	private static final long serialVersionUID = 7104627974958183372L;
+	private Integer id;
 	private float value;
 	private GeneType geneType;
 	private List<GenePiece> genePieces;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public float getValue() {
 		return value;
 	}

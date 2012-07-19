@@ -5,9 +5,16 @@ import java.io.Serializable;
 import domain.core.algInputDataProcess.DataRow;
 
 public class FittedValue implements Serializable,Cloneable {
+	private Integer id;
 	private static final long serialVersionUID = 7974157432692414973L;
 	private Float fittedValue;
 	private DataRow dataRow;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Float getFittedValue() {
 		return fittedValue;
 	}
