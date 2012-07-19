@@ -60,7 +60,7 @@ public class GepAlgRun {
 		return gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration().getFunctionUsed();
 	}
 	public List<DataColumn> getUsedVariables(){
-		return dataSet.getDataRow().get(0).getDataColumns();
+		return dataSet.getDataRows().get(0).getDataColumns();
 	}
 	public List<Float> getMaxFitness() {
 		return maxFitness;
