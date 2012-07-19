@@ -71,9 +71,25 @@ public class AlgOutputService implements IAlgOutputService {
 		return false;
 	}
 	private boolean commit(Population population){
-		return true;
+		boolean result=true;
+		try {
+			hibernateDataContext.save(population);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result=false;
+		}
+		return result;
 	}
 	private boolean commit(GepAlgRun gepAlgRun){
-		return true;
+		boolean result=true;
+		try {
+			hibernateDataContext.save(gepAlgRun);	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result=false;
+		}
+		return result;
 	}
 }
