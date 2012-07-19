@@ -55,18 +55,19 @@ public class DataInputService implements IDataInputService {
 			sheetRow.setResultColumn(resultColumn);
 			sheetRows.add(sheetRow);
 		}
-		dataSet.setDataRow(sheetRows);
+		dataSet.setDataRows(sheetRows);
 		return dataSet;
 	}
 	@Override
 	public boolean commit(DataSet dataSet) {
 		// TODO Auto-generated method stub
-		return false;
+		hibernateDataContext.save(dataSet);
+		return true;
 	}
 	@Override
-	public DataSet getDataSetByName(String name) {
+	public List<DataSet> getDataSets() {
 		// TODO Auto-generated method stub
-		return null;
+		return hibernateDataContext.findAll(DataSet.class);
 	}
 
 }
