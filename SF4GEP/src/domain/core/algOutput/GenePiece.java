@@ -85,6 +85,20 @@ public class GenePiece implements Serializable,Cloneable{
 		this.func = func;
 	}
 	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 * @return
+	 */
+	public String getGenePieceTypeString(){
+		return genePieceType.toString();
+	}
+	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 * @param genePieceTypeString
+	 */
+	public void setGenePieceTypeString(String genePieceTypeString){
+		genePieceType=GenePieceType.valueOf(genePieceTypeString);
+	}
+	/**
 	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
 	 */
 	@Override
