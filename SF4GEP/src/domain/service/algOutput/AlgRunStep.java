@@ -96,6 +96,10 @@ public class AlgRunStep implements IAlgRunStep {
 		
 		return null;
 	}
+	
+	
+	
+	
 	@Override
 	public List<Float> calculateFitness(Population population) {
 		// TODO Auto-generated method stub
@@ -108,9 +112,10 @@ public class AlgRunStep implements IAlgRunStep {
 		float[][] individualsValues=new float[dataSet.getRowNum()][];
 		float[] oneRowFitnesses;
 		int bestHomeoticIndex;
+		
 		for(Individual individual:population.getIndividuals()){
 			Arrays.fill(sumFitness, 0);
-			for(int i=0;i<dataSet.getRowNum();i++){
+			for(int i=0,n=dataSet.getRowNum();i<n;i++){
 				clearFunctionFlag(individual);
 				individualsValues[i]=calcFittedValue(individual, dataSet.getDataRows().get(i), geneConfiguration);
 				oneRowFitnesses=calcFitness(individualsValues[i], dataSet.getDataRows().get(i).getResultColumn(),gepAlgConfiguration);
@@ -123,6 +128,7 @@ public class AlgRunStep implements IAlgRunStep {
 		return individualFitness;
 	}
 
+	
 	@Override
 	public Population select(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
@@ -417,6 +423,7 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return genePieces;
 	}
+	
 	/**
 	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值。
 	 * 目前是性能瓶颈，自用时间在15%－20%
@@ -439,6 +446,8 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return resulList;
 	}
+	
+	
 	/**
 	 * 本方法给基因中的有效长度内的每一个变量赋值
 	 * @param gene 待赋值的基因

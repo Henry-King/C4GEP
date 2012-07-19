@@ -36,7 +36,7 @@ public class OutputController {
 		algOutputService = new AlgOutputService(parent.hibernateDataContext);
 	}
 	
-	public void initKernel(OutputView outputPanel){	
+	public void initKernel(OutputView outputView){	
 		try {
 			ml = MathLinkFactory
 			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
@@ -47,8 +47,9 @@ public class OutputController {
 				ml.close();
 			return;
 		}
-		outputPanel.mathCanvasA = new MathCanvas(ml);
-		outputPanel.mathCanvasB = new MathCanvas(ml);
+		outputView.mathCanvasA = new MathCanvas(ml);
+		outputView.mathCanvasB = new MathCanvas(ml);
+		//outputView.outputCanvas = new MathCanvas(ml);
 		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
 		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
 	}
@@ -167,7 +168,12 @@ public class OutputController {
 	}
 	
 	
+	/*public boolean addCanvas(MathCanvas mathCanvas){
+		mathCanvas.setMathCommand("TabView[{\"ÄâºÏÍ¼\" -> FittingCurve, \"ÑÝ»¯Í¼\" -> EvolutionGraph}]");
+		return true;
+	}
 	
+	*/
 	
 	
 	

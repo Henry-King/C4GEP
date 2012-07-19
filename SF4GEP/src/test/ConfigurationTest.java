@@ -42,8 +42,8 @@ public class ConfigurationTest {
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
-		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 1000);
+		gepAlgConfiguration.setName("≤‚ ‘1");
+		gepAlgConfiguration.setMaxGeneration((long) 10000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -67,6 +67,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
