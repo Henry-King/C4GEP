@@ -42,13 +42,13 @@ public class ConfigurationTest {
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
-		gepAlgConfiguration.setName("≤‚ ‘1");
+		gepAlgConfiguration.setName("≤‚ ‘");
 		gepAlgConfiguration.setMaxGeneration((long) 10000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
 		geneConfiguration.setHomeoticGeneHeaderLength(5);
-		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setHomeoticGeneNumber(10);
 		geneConfiguration.setNormalGeneHeaderLength(7);
 		geneConfiguration.setNormalGeneNumber(3);
 		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
