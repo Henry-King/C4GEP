@@ -11,8 +11,8 @@ import java.util.List;
  *
  */
 public class Population implements Serializable,Cloneable{
-	private Integer id;
 	private static final long serialVersionUID = -7846826225395737521L;
+	private Integer id;
 	private GepAlgRun gepAlgRun;
 	private List<Individual> individuals;
 	private long generationNum;
