@@ -15,7 +15,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	private List<Gene> genes;
 	private List<FittedValue> fittedValues;
 	private Float fitness;
-	private int selectedHomeoticGeneNumber=-1;
+	private Integer selectedHomeoticGeneNumber=-1;
 	public Integer getId() {
 		return id;
 	}
@@ -80,14 +80,14 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	 * 一个个体可能具有多个同源基因，一个个体内的多个同源基因可能产生多个不同的表达式，这个方法将返回在对某个确定的输入集求解的时候使用哪个同源基因翻译个体
 	 * @return 被选择的同源基因的编号，从0开始，最大值为普通基因数量－1
 	 */
-	public int getSelectedHomeoticGeneNumber() {
+	public Integer getSelectedHomeoticGeneNumber() {
 		return selectedHomeoticGeneNumber;
 	}
 	/**
 	 * 设置在求解输入集的时候将使用哪个同源基因上传个体。
 	 * @param selectedHomeoticGeneNumber 同源基因编号
 	 */
-	public void setSelectedHomeoticGeneNumber(int selectedHomeoticGeneNumber) {
+	public void setSelectedHomeoticGeneNumber(Integer selectedHomeoticGeneNumber) {
 		this.selectedHomeoticGeneNumber = selectedHomeoticGeneNumber;
 	}
 
