@@ -43,6 +43,12 @@ public class Gene implements Serializable,Cloneable {
 	public void setGenePieces(List<GenePiece> genePieces) {
 		this.genePieces = genePieces;
 	}
+	public String getGeneTypeString(){
+		return geneType.toString();
+	}
+	public void setGeneTypeString(String geneTypeString){
+		geneType=GeneType.valueOf(geneTypeString);
+	}
 	@Override
 	public Gene clone(){
 		// TODO Auto-generated method stub
