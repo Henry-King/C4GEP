@@ -14,6 +14,8 @@ import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgOutputService implements IAlgOutputService {
 	private IHibernateDataContext hibernateDataContext;
+	private List<Float> maxFitnesses;
+	private List<Float>	minFitnesses;
 	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
@@ -28,13 +30,10 @@ public class AlgOutputService implements IAlgOutputService {
 		Population newPopulation;
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
-//			for(Individual individual:gepAlgRun.getCurrentPopulation().getIndividuals())
-//				System.out.println(individual+"\n"+"-----------------------------");
-//			System.out.println(i+"\n------------\n"+fitnessFloats);
 			maxFitness=Collections.max(fitnessFloats);
 			minFitness=Collections.min(fitnessFloats);
-			gepAlgRun.getMaxFitness().add(maxFitness);
-			gepAlgRun.getMinFitness().add(minFitness);
+			maxFitnesses.add(maxFitness);
+			minFitnesses.add(minFitness);
 			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
@@ -56,13 +55,13 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return gepAlgRun.getMaxFitness();
+		return maxFitnesses;
 	}
 
 	@Override
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return gepAlgRun.getMinFitness();
+		return minFitnesses;
 	}
 
 	@Override
