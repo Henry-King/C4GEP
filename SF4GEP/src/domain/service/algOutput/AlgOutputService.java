@@ -35,7 +35,7 @@ public class AlgOutputService implements IAlgOutputService {
 			minFitness=Collections.min(fitnessFloats);
 			maxFitnesses.add(maxFitness);
 			minFitnesses.add(minFitness);
-			commit(gepAlgRun.getCurrentPopulation());
+//			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
 			newPopulation=algRunStep.select(gepAlgRun);
@@ -49,7 +49,7 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
-		commit(gepAlgRun);
+//		commit(gepAlgRun);
 		return gepAlgRun;
 	}
 
