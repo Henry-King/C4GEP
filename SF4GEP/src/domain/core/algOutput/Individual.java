@@ -11,10 +11,17 @@ import java.util.List;
  */
 public class Individual implements Comparable<Individual>,Serializable,Cloneable{
 	private static final long serialVersionUID = -7942680950588488680L;
+	private Integer id;
 	private List<Gene> genes;
 	private List<FittedValue> fittedValues;
 	private Float fitness;
 	private int selectedHomeoticGeneNumber=-1;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	/**
 	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部GenePiece信息。
 	 */
