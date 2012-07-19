@@ -36,14 +36,14 @@ public class ConfigurationTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		IHibernateDataContext hibernateDataContext=null;
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 100);
+		gepAlgConfiguration.setMaxGeneration((long) 1000000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -65,16 +65,14 @@ public class ConfigurationTest {
 		operatorConfiguration.setRisTransportRate((float) 0.1);
 		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
-		IgepConfigurationService gepConfigurationService=new GepConfigurationService(new HibernateDataContext());
+		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
 		IAlgRunStep runStep=new AlgRunStep();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		System.out.println(gepAlgRun.getMaxFitness());
-		System.out.println(gepAlgRun.getBestIndividual().getFittedValues().get(0).getFittedValue());
+		System.out.println(gepAlgRun.getBestIndividual().getFitness());
 	}
 }
