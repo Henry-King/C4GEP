@@ -21,7 +21,7 @@ public class ReadFile {
 		// TODO Auto-generated method stub
 		IDataInputService dataInputService=new DataInputService(new HibernateDataContext());
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
-		System.out.println(dataSet.getDataRow().get(9).getResultColumn().getColumnName());
+		System.out.println(dataSet.getDataRows().get(9).getResultColumn().getColumnName());
 		
 	}
 
