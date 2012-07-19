@@ -24,9 +24,9 @@
 	<mapping
 		resource="data/mappingfile/IndividualConfiguration.hbm.xml" />
 	<mapping resource="data/mappingfile/OperatorConfiguration.hbm.xml" />
-	<mapping resource="data/mappingfile/dataColumn.hbm.xml" />
-	<mapping resource="data/mappingfile/dataRow.hbm.xml" />
-	<mapping resource="data/mappingfile/dataSet.hbm.xml" />
+	<mapping resource="data/mappingfile/DataColumn.hbm.xml" />
+	<mapping resource="data/mappingfile/DataRow.hbm.xml" />
+	<mapping resource="data/mappingfile/DataSet.hbm.xml" />
 
 </session-factory>
 
