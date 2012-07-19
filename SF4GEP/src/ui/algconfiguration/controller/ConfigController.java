@@ -82,7 +82,7 @@ public class ConfigController {
 		parent.genePanel.txtMutateRate.setText(myConfigurationFromDB
 				.getOperatorConfiguration().getMutateRate().toString());
 		parent.genePanel.txtNormalGeneNumber.setText(myConfigurationFromDB
-				.getIndividualConfiguration().getGeneConfiguration().getHomeoticGeneNumber().toString());
+				.getIndividualConfiguration().getGeneConfiguration().getNormalGeneNumber().toString());
 		parent.genePanel.txtNormalHeaderLength.setText(myConfigurationFromDB
 				.getIndividualConfiguration().getGeneConfiguration()
 				.getNormalGeneHeaderLength().toString());
