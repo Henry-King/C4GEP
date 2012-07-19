@@ -58,8 +58,50 @@
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-<table name="GepAlgConfiguration" schema="dbo" catalog="SF4GEP"
-	class="domain.core.algconfiguration.GepAlgConfiguration">
+	<table name="GepAlgConfiguration" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algconfiguration.GepAlgConfiguration">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="dataColumn" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.dataColumn">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="dataRow" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.dataRow">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="dataSet" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.dataSet">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="DataSet" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.DataSet">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="DataRow" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.DataRow">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="DataColumn" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.DataColumn">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="DataResultColumn" schema="dbo" catalog="SF4GEP"
+	class="domain.core.algInputDataProcess.DataColumn">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>
