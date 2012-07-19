@@ -99,6 +99,26 @@ public class GenePiece implements Serializable,Cloneable{
 		genePieceType=GenePieceType.valueOf(genePieceTypeString);
 	}
 	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 * @return
+	 */
+	public String getFuncString(){
+		return func.getClass().toString();
+	}
+	/**
+	 * Hibernate专用入口,其他函数请勿调用
+	 * @param funcString
+	 */
+	public void setFuncString(String funcString){
+		try {
+			func=(Function) Class.forName(funcString).newInstance();
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
 	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
 	 */
 	@Override
