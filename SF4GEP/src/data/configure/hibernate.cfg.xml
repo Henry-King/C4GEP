@@ -27,6 +27,12 @@
 	<mapping resource="data/mappingfile/DataColumn.hbm.xml" />
 	<mapping resource="data/mappingfile/DataRow.hbm.xml" />
 	<mapping resource="data/mappingfile/DataSet.hbm.xml" />
+	<mapping resource="data/mappingfile/FittedValue.hbm.xml" />
+	<mapping resource="data/mappingfile/Gene.hbm.xml" />
+	<mapping resource="data/mappingfile/GenePiece.hbm.xml" />
+	<mapping resource="data/mappingfile/GepAlgRun.hbm.xml" />
+	<mapping resource="data/mappingfile/Individual.hbm.xml" />
+	<mapping resource="data/mappingfile/Population.hbm.xml" />
 
 </session-factory>
 
