@@ -162,13 +162,13 @@ public class AlgRunStep implements IAlgRunStep {
 							type=funcOrVarRandom.nextInt(totalNum);
 							gene.getGenePieces().set(i, mutatedGenePiece);
 							if(type<functionNum){
-								mutatedGenePiece.setFunction(functionList.get(type).clone());
+								mutatedGenePiece.setFunc(functionList.get(type).clone());
 								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-								mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+								mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
 							}
 							else {
-								mutatedGenePiece.setFunction(null);
+								mutatedGenePiece.setFunc(null);
 								mutatedGenePiece.setName(dataSet.getVariableUsed().get(type-functionNum).getColumnName());
 								mutatedGenePiece.setVariableIndex(type-functionNum);
 								mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
@@ -180,7 +180,7 @@ public class AlgRunStep implements IAlgRunStep {
 						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
 							mutatedGenePiece=new GenePiece();
 							gene.getGenePieces().set(i+geneConfiguration.getNormalGeneHeaderLength(),mutatedGenePiece);
-							mutatedGenePiece.setFunction(null);
+							mutatedGenePiece.setFunc(null);
 							mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
 							variableIndex=variableRandom.nextInt(variableNum);
 							mutatedGenePiece.setName(dataSet.getVariableUsed().get(variableIndex).getColumnName());
@@ -192,10 +192,10 @@ public class AlgRunStep implements IAlgRunStep {
 					if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
 						mutatedGenePiece=new GenePiece();
 						gene.getGenePieces().set(0, mutatedGenePiece);
-						mutatedGenePiece.setFunction(functionList.get(functionRandom.nextInt(functionList.size())).clone());
+						mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())).clone());
 						mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-						mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
-						mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+						mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
+						mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
 					}
 					for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
 						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
@@ -203,13 +203,13 @@ public class AlgRunStep implements IAlgRunStep {
 							mutatedGenePiece=new GenePiece();
 							gene.getGenePieces().set(i, mutatedGenePiece);
 							if(type<functionNum){
-								mutatedGenePiece.setFunction(functionList.get(type).clone());
+								mutatedGenePiece.setFunc(functionList.get(type).clone());
 								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-								mutatedGenePiece.setName(mutatedGenePiece.getFunction().getName());
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunction().getSymbol());
+								mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
+								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
 							}
 							else {
-								mutatedGenePiece.setFunction(null);
+								mutatedGenePiece.setFunc(null);
 								mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
 								mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
 								mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
@@ -221,7 +221,7 @@ public class AlgRunStep implements IAlgRunStep {
 						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
 							mutatedGenePiece=new GenePiece();
 							gene.getGenePieces().set(i+geneConfiguration.getHomeoticGeneHeaderLength(), mutatedGenePiece);
-							mutatedGenePiece.setFunction(null);
+							mutatedGenePiece.setFunc(null);
 							mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
 							mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
 							mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
@@ -325,7 +325,7 @@ public class AlgRunStep implements IAlgRunStep {
 			else {
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
 				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
-				addedGenePiece.setFunction(function);
+				addedGenePiece.setFunc(function);
 				addedGenePiece.setName(function.getName());
 				addedGenePiece.setSymbol(function.getSymbol());
 			}
@@ -373,7 +373,7 @@ public class AlgRunStep implements IAlgRunStep {
 		addedGenePiece=new GenePiece();
 		addedGenePiece.setGenePieceType(GenePieceType.Function);
 		function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
-		addedGenePiece.setFunction(function);
+		addedGenePiece.setFunc(function);
 		addedGenePiece.setName(function.getName());
 		addedGenePiece.setSymbol(function.getSymbol());
 		genePieces.add(addedGenePiece);
@@ -383,7 +383,7 @@ public class AlgRunStep implements IAlgRunStep {
 			if(type<geneConfiguration.getFunctionUsed().size()){
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
 				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
-				addedGenePiece.setFunction(function);
+				addedGenePiece.setFunc(function);
 				addedGenePiece.setName(function.getName());
 				addedGenePiece.setSymbol(function.getSymbol());
 			}
@@ -469,7 +469,7 @@ public class AlgRunStep implements IAlgRunStep {
 		int arity;
 		while(length>1){
 			lastNonTerminate=findLastNonTerminate(gene, length);
-			arity=lastNonTerminate.getFunction().getArity();
+			arity=lastNonTerminate.getFunc().getArity();
 			execMathFunction(gene, individual,lastNonTerminate,length);
 			length-=arity;
 		}
@@ -490,7 +490,7 @@ public class AlgRunStep implements IAlgRunStep {
 		for(int i=0;i<length;i++){
 			genePiece=gene.getGenePieces().get(i);
 			if(genePiece.getGenePieceType()==GenePieceType.Function){
-				arity=genePiece.getFunction().getArity();
+				arity=genePiece.getFunc().getArity();
 				length+=arity;
 			}					
 		}
@@ -507,7 +507,7 @@ public class AlgRunStep implements IAlgRunStep {
 		for(int i=efficientLength-1;i>=0;i--){
 			genePiece=gene.getGenePieces().get(i);
 			if(genePiece.getGenePieceType()==GenePieceType.Function){
-				if(genePiece.getFunction().isUsed()==false){
+				if(genePiece.getFunc().isUsed()==false){
 					break;
 				}
 			}
@@ -523,7 +523,7 @@ public class AlgRunStep implements IAlgRunStep {
 	 * @return 数学函数计算出的结果
 	 */
 	private float execMathFunction(Gene gene,Individual individual,GenePiece computedGenePiece,int efficientLength){
-		Function function=computedGenePiece.getFunction();
+		Function function=computedGenePiece.getFunc();
 		int arity=function.getArity();
 		float[] parameterArray=new float[arity];
 		GenePiece[] genePieces=new GenePiece[arity];
@@ -599,7 +599,7 @@ public class AlgRunStep implements IAlgRunStep {
 			geneLength=genePieces.size();
 			for(int j=0;j<geneLength;j++)
 				if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function)
-					genePiece.getFunction().setUsed(false);
+					genePiece.getFunc().setUsed(false);
 		}
 
 	}
