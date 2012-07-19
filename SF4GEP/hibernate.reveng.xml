@@ -100,8 +100,41 @@
 			<generator class="native"></generator>
 		</primary-key>
 	</table>
-<table name="DataResultColumn" schema="dbo" catalog="SF4GEP"
-	class="domain.core.algInputDataProcess.DataColumn">
+	<table name="DataResultColumn" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algInputDataProcess.DataColumn">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="GepAlgRun" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algOutput.GepAlgRun">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="Populations" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algOutput.Population">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="Individual" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algOutput.Individual">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+	<table name="FittedValue" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algOutput.FittedValue">
+	</table>
+	<table name="Gene" schema="dbo" catalog="SF4GEP"
+		class="domain.core.algOutput.Gene">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+	</table>
+<table name="GenePiece" schema="dbo" catalog="SF4GEP"
+	class="domain.core.algOutput.GenePiece">
 	<primary-key>
 		<generator class="native"></generator>
 	</primary-key>
