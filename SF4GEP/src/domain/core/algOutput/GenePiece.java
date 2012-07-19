@@ -17,7 +17,7 @@ public class GenePiece implements Serializable,Cloneable{
 	private Float value;
 	private int variableIndex;
 	private GenePieceType genePieceType;
-	private Function function;
+	private Function func;
 	public Integer getId() {
 		return id;
 	}
@@ -78,11 +78,11 @@ public class GenePiece implements Serializable,Cloneable{
 	public void setGenePieceType(GenePieceType genePieceType) {
 		this.genePieceType = genePieceType;
 	}
-	public Function getFunction() {
-		return function;
+	public Function getFunc() {
+		return func;
 	}
-	public void setFunction(Function function) {
-		this.function = function;
+	public void setFunc(Function func) {
+		this.func = func;
 	}
 	/**
 	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
@@ -102,8 +102,8 @@ public class GenePiece implements Serializable,Cloneable{
 		GenePiece o=null;
 		try {
 			o=(GenePiece) super.clone();
-			if(function!=null)
-				o.function=function.clone();
+			if(func!=null)
+				o.func=func.clone();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
