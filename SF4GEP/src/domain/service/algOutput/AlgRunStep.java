@@ -115,8 +115,8 @@ public class AlgRunStep implements IAlgRunStep {
 			Arrays.fill(sumFitness, 0);
 			for(int i=0;i<dataSet.getRowNum();i++){
 				clearFunctionFlag(individual);
-				individualsValues[i]=calcFittedValue(individual, dataSet.getDataRow().get(i), geneConfiguration);
-				oneRowFitnesses=calcFitness(individualsValues[i], dataSet.getDataRow().get(i).getResultColumn(),gepAlgConfiguration);
+				individualsValues[i]=calcFittedValue(individual, dataSet.getDataRows().get(i), geneConfiguration);
+				oneRowFitnesses=calcFitness(individualsValues[i], dataSet.getDataRows().get(i).getResultColumn(),gepAlgConfiguration);
 				sumFitness=addToSumFitness(sumFitness, oneRowFitnesses);
 			}
 			bestHomeoticIndex=findBestHomeoticIndex(sumFitness);
@@ -650,7 +650,7 @@ public class AlgRunStep implements IAlgRunStep {
 			for(int i=0;i<individualVaule.length;i++){
 				fittedValue=new FittedValue();
 				fittedValue.setFittedValue(individualVaule[i][index]);
-				fittedValue.setDataRow(dataSet.getDataRow().get(i));
+				fittedValue.setDataRow(dataSet.getDataRows().get(i));
 				fittedValues.add(fittedValue);
 			}
 			individual.setFittedValues(fittedValues);
