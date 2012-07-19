@@ -88,10 +88,10 @@ public class OutputController {
 		boolean result = false;
 		DataSet inputSet = outputModel.getInputSet();
 		List<FittedValue> resultList = new ArrayList<FittedValue>();
-		for(int i=0;i<inputSet.getDataRow().size();i++){
+		for(int i=0;i<inputSet.getDataRows().size();i++){
 			FittedValue fv = new FittedValue();
-			fv.setDataRow(inputSet.getDataRow().get(i));
-			fv.setFittedValue(inputSet.getDataRow().get(i).getResultColumn().getValue());
+			fv.setDataRow(inputSet.getDataRows().get(i));
+			fv.setFittedValue(inputSet.getDataRows().get(i).getResultColumn().getValue());
 			resultList.add(fv);
 		}
 		List<FittedValue> caledList = getFittingCurveList();
@@ -103,7 +103,7 @@ public class OutputController {
 		oldStr.append("o={");
 		newStr.append("n={");
 		
-		for (int i = 0; i < inputSet.getDataRow().size(); i++) {
+		for (int i = 0; i < inputSet.getDataRows().size(); i++) {
 			oldStr.append(resultList.get(i).getFittedValue()+",");
 			newStr.append(caledList.get(i).getFittedValue()+",");
 		}
