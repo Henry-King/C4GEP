@@ -77,12 +77,12 @@ public class GepAlgConfiguration implements Serializable{
 	public boolean equals(Object o){
 		if(o instanceof GepAlgConfiguration){
 			GepAlgConfiguration gac = (GepAlgConfiguration)o;
-			return gac.name .equals(name)
-				&&	gac.selectionRange .equals(selectionRange)
-				&&	gac.accuracy .equals(accuracy)
-				&&	gac.maxFitness .equals(maxFitness)
-				&&	gac.individualConfiguration .equals(individualConfiguration)
-				&&	gac.operatorConfiguration .equals(operatorConfiguration);			
+			return gac.getName() .equals(name)
+				&&	gac.getSelectionRange().equals(selectionRange)
+				&&	gac.getAccuracy() .equals(accuracy)
+				&&	gac.getMaxFitness() .equals(maxFitness)
+				&&	gac.getIndividualConfiguration() .equals(individualConfiguration)
+				&&	gac.getOperatorConfiguration() .equals(operatorConfiguration);			
 		}
 		else {
 			return false;
