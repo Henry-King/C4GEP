@@ -118,15 +118,14 @@ public class OperatorConfiguration implements Serializable{
 		if (obj instanceof OperatorConfiguration) {
 			OperatorConfiguration o=(OperatorConfiguration) obj;
 			return (o.geneRecombineRate.equals(geneRecombineRate)
-					&&o.geneTransportRate.equals(geneTransportRate)
-					&&o.id.equals(id)
-					&&Arrays.equals(o.isElement, isElement)
-					&&Arrays.equals(risElement, o.risElement)
-					&&o.mutateRate.equals(mutateRate)
-					&&o.onePointRecombineRate.equals(onePointRecombineRate)
-					&&o.isTransportRate.equals(isTransportRate)
-					&&o.risTransportRate.equals(risTransportRate)
-					&&o.twoPointRecombineRate.equals(twoPointRecombineRate));
+					&&o.getGeneTransportRate().equals(geneTransportRate)
+					&&Arrays.equals(o.getIsElement(), isElement)
+					&&Arrays.equals(o.getRisElement(),risElement)
+					&&o.getMutateRate().equals(mutateRate)
+					&&o.getOnePointRecombineRate().equals(onePointRecombineRate)
+					&&o.getIsTransportRate().equals(isTransportRate)
+					&&o.getRisTransportRate().equals(risTransportRate)
+					&&o.getTwoPointRecombineRate().equals(twoPointRecombineRate));
 		}
 		else {
 			return false;			
