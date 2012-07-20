@@ -53,4 +53,31 @@ public class IndividualConfiguration implements Serializable{
 	public void setGeneConfiguration(GeneConfiguration geneConfiguration) {
 		this.geneConfiguration = geneConfiguration;
 	}
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + (int)individualNumber;
+		result = 37 * result + (int)totalGeneNumbers;
+		result = 37 * result + (int)normalGeneTotalLength;
+		result = 37 * result + (int)homeoticGeneTotalLength;
+		result = 37 * result + (int)geneTotalLength;
+		result = 37 * result + geneConfiguration.hashCode();
+		return result;
+	}
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof IndividualConfiguration){
+			IndividualConfiguration ic = (IndividualConfiguration)o;
+			return ic.individualNumber .equals( individualNumber)
+				&&	ic.totalGeneNumbers .equals( totalGeneNumbers)
+				&&	ic.normalGeneTotalLength .equals( normalGeneTotalLength)
+				&&	ic.homeoticGeneTotalLength .equals( homeoticGeneTotalLength)
+				&&	ic.geneTotalLength .equals( geneTotalLength)
+				&&	ic.geneConfiguration .equals( geneConfiguration);			
+		}
+		else {
+			return false;
+		}
+	}
 }
