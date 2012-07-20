@@ -12,7 +12,7 @@ import java.util.List;
 public class Gene implements Serializable,Cloneable {
 	private static final long serialVersionUID = 7104627974958183372L;
 	private Integer id;
-	private float value;
+	private Float value;
 	private GeneType geneType;
 	private List<GenePiece> genePieces;
 	public Integer getId() {
@@ -21,14 +21,14 @@ public class Gene implements Serializable,Cloneable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public float getValue() {
+	public Float getValue() {
 		return value;
 	}
 	/**
 	 * 设置当前基因的值
 	 * @param value 当前基因的值
 	 */
-	public void setValue(float value) {
+	public void setValue(Float value) {
 		this.value = value;
 	}
 	public GeneType getGeneType() {
