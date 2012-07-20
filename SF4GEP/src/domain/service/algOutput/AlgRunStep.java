@@ -571,10 +571,11 @@ public class AlgRunStep implements IAlgRunStep {
 		float[] result=new float[individualsValues.length];
 		float minus;
 		float abs;
+		float accuracy = gepAlgConfiguration.getAccuracy();	//为优化修改，放到外面，减少调用次数
 		for(int i=0;i<result.length;i++){
 			minus=individualsValues[i]-y.getValue();
 			abs=Math.abs(minus);
-			if(abs<gepAlgConfiguration.getAccuracy())
+			if(abs<accuracy)
 				abs=0;
 			result[i]=gepAlgConfiguration.getSelectionRange()-abs;
 		}

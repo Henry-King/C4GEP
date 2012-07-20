@@ -36,14 +36,14 @@ public class ConfigurationTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
+		IHibernateDataContext hibernateDataContext=null;//new HibernateDataContext();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("≤‚ ‘");
-		gepAlgConfiguration.setMaxGeneration((long) 10000);
+		gepAlgConfiguration.setMaxGeneration((long) 1000000000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(20);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -67,7 +67,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+		//gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){

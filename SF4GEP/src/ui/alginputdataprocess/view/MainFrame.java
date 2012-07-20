@@ -47,18 +47,9 @@ public class MainFrame extends JFrame {
 	public TreeView  treePanel=new TreeView(this);;
     public JPanel panel_0 = new JPanel();
     JPanel[] panels={configurationPanel,stopSettingPanel,populationPanel,genePanel,functionPanel,inputFilePanel,outputPanel,panel_0,footPanel,treePanel};
-    
     public CardLayout card;
-    
     public MainController mainController = new MainController();
     public MainModel mainModel = new MainModel();
-    
-   
-    
-  
-	
-    
-	
     
     
 	public int flag=0;//是否读取配置文件
@@ -170,13 +161,5 @@ public class MainFrame extends JFrame {
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
