@@ -117,7 +117,7 @@ public class OperatorConfiguration implements Serializable{
 		// TODO Auto-generated method stub
 		if (obj instanceof OperatorConfiguration) {
 			OperatorConfiguration o=(OperatorConfiguration) obj;
-			return (o.getGeneTransportRate().equals(geneRecombineRate)
+			return (o.getGeneRecombineRate().equals(geneRecombineRate)
 					&&o.getGeneTransportRate().equals(geneTransportRate)
 					&&Arrays.equals(o.getIsElement(), isElement)
 					&&Arrays.equals(o.getRisElement(),risElement)
