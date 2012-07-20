@@ -3,6 +3,7 @@ package domain.core.algOutput;
 import java.io.Serializable;
 
 import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GepAlgConfiguration;
 
 /**
  * 基因片段类，或称基因位类，在每一个头部或者尾部中，最终包含的都是此类GenePiece
@@ -144,4 +145,43 @@ public class GenePiece implements Serializable,Cloneable{
 		}
 		return o;
 	}
+	
+	
+
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + symbol.hashCode();
+		result = 37 * result + name.hashCode();
+		result = 37 * result + Float.floatToIntBits(value);
+		result = 37 * result + (int)variableIndex;
+		result = 37 * result + genePieceType.hashCode();
+		result = 37 * result + func.hashCode();
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof GenePiece){
+			GenePiece gp = (GenePiece)o;
+			return gp.getName().equals(name)
+				&&	gp.getId().equals(id)
+				&&	gp.getSymbol().equals(symbol)
+				&&	gp.getValue().equals(value)
+				&&	gp.getVariableIndex().equals(variableIndex)
+				&&	gp.getGenePieceType().equals(genePieceType)	
+				&&	gp.getFunc().equals(func);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }

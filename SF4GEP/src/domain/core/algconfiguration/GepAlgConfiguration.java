@@ -61,6 +61,7 @@ public class GepAlgConfiguration implements Serializable{
 	public void setOperatorConfiguration(OperatorConfiguration operatorConfiguration) {
 		this.operatorConfiguration = operatorConfiguration;
 	}
+	
 	@Override
 	public int hashCode(){
 		int result = 17;

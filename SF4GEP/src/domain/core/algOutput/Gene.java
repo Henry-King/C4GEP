@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.core.algconfiguration.GepAlgConfiguration;
+
 /**
  * 基因类，此类为抽象类，提供了基因的通用的信息
  * @author 申远
@@ -74,5 +76,29 @@ public class Gene implements Serializable,Cloneable {
 			e.printStackTrace();
 		}
 		return gene;
+	}
+	
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + Float.floatToIntBits(value);
+		result = 37 * result + geneType.hashCode();
+		result = 37 * result + genePieces.hashCode();
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Gene){
+			Gene g = (Gene)o;
+			return g.getId().equals(id)
+				&&	g.getValue().equals(value)
+				&&	g.getGeneType().equals(geneType)
+				&&	g.getGenePieces().equals(genePieces);
+		}
+		else {
+			return false;
+		}
 	}
 }

@@ -117,4 +117,37 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 		}
 		return individual;
 	}
+	
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + genes.hashCode();
+		result = 37 * result + Float.floatToIntBits(fitness);
+		result = 37 * result + fittedValues.hashCode();
+		result = 37 * result + (int)selectedHomeoticGeneNumber;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Individual){
+			Individual gac = (Individual)o;
+			return gac.getId().equals(id)
+				&&	gac.getGenes().equals(genes)
+				&&	gac.getFitness().equals(fitness)
+				&&	gac.getFittedValues().equals(fittedValues)
+				&&	gac.getSelectedHomeoticGeneNumber().equals(selectedHomeoticGeneNumber);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }

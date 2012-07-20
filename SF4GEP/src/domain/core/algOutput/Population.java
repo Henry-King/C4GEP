@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 种群实体类
  * @author 申远
@@ -126,4 +125,31 @@ public class Population implements Serializable,Cloneable{
 		}
 		return o;
 	}
+	
+
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + individuals.hashCode();
+		result = 37 * result + (int)(generationNum^(generationNum>>>2));
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Population){
+			Population gac = (Population)o;
+			return gac.getId().equals(id)
+				&&	gac.getIndividuals().equals(individuals)
+				&&	gac.getGenerationNum().equals(generationNum);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
 }

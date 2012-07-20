@@ -69,4 +69,38 @@ public class GepAlgRun implements Serializable{
 		while(populations.size()>2)
 			populations.remove(0);
 	}
+	
+	
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + gepAlgConfiguration.hashCode();
+		result = 37 * result + dataSet.hashCode();
+		result = 37 * result + populations.hashCode();
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof GepAlgRun){
+			GepAlgRun gac = (GepAlgRun)o;
+			return gac.getId().equals(id)
+				&&	gac.getGepAlgConfiguration().equals(gepAlgConfiguration)
+				&&	gac.getDataSet().equals(dataSet)
+				&&	gac.getPopulations().equals(populations);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
