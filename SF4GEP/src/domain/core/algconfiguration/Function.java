@@ -65,7 +65,7 @@ public abstract class Function implements Serializable,Cloneable{
 		// TODO Auto-generated method stub
 		if(obj instanceof Function){
 			Function r=(Function) obj;
-			return r.getClass().equals(r.getClass());			
+			return r.getClass().equals(getClass());			
 		}
 		else {
 			return false;
