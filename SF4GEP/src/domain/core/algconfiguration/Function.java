@@ -63,7 +63,22 @@ public abstract class Function implements Serializable,Cloneable{
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		Function r=(Function) obj;
-		return (r instanceof Function)&&r.getClass().equals(r.getClass());
+		if(obj instanceof Function){
+			Function r=(Function) obj;
+			return r.getClass().equals(r.getClass());			
+		}
+		else {
+			return false;
+		}
+	}
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)id;
+		result = 37 * result + (used ? 0 : 1);
+		result = 37 * result + name.hashCode();
+		result = 37 * result + symbol.hashCode();
+		result = 37 * result + (int)arity;
+		return result;
 	}
 }
