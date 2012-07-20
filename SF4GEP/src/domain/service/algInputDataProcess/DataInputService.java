@@ -69,5 +69,18 @@ public class DataInputService implements IDataInputService {
 		// TODO Auto-generated method stub
 		return hibernateDataContext.findAll(DataSet.class);
 	}
+	@Override
+	public boolean update(DataSet dataSet) {
+		// TODO Auto-generated method stub
+		boolean result=true;
+		try {
+			hibernateDataContext.update(dataSet);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result=false;
+		}
+		return result;
+	}
 
 }
