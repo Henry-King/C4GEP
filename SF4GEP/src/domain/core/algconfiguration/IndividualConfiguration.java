@@ -56,7 +56,6 @@ public class IndividualConfiguration implements Serializable{
 	@Override
 	public int hashCode(){
 		int result = 17;
-		result = 37 * result + (int)id;
 		result = 37 * result + (int)individualNumber;
 		result = 37 * result + (int)totalGeneNumbers;
 		result = 37 * result + (int)normalGeneTotalLength;
