@@ -49,8 +49,8 @@ public class DataColumn implements Cloneable,Serializable{
 		// TODO Auto-generated method stub
 		if(obj instanceof DataColumn){
 			DataColumn o=(DataColumn) obj;
-			return o.columnName.equals(columnName)
-					&&o.value.equals(value);
+			return o.getColumnName().equals(columnName)
+					&&o.getValue().equals(value);
 		}
 		else {
 			return false;

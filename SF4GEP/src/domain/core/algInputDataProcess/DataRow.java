@@ -31,8 +31,8 @@ public class DataRow implements Serializable{
 		// TODO Auto-generated method stub
 		if(obj instanceof DataRow){
 			DataRow o=(DataRow) obj;
-			return o.dataColumns.equals(dataColumns)
-					&&o.resultColumn.equals(resultColumn);
+			return o.getDataColumns().equals(dataColumns)
+					&&o.getResultColumn().equals(resultColumn);
 		}
 		else {
 			return false;

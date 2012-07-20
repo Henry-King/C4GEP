@@ -56,10 +56,10 @@ public class DataSet implements Serializable{
 		// TODO Auto-generated method stub
 		if(obj instanceof DataSet){
 			DataSet o=(DataSet) obj;
-			return o.columnNum.equals(columnNum)
-					&&o.dataRows.equals(dataRows)
-					&&o.name.equals(name)
-					&&o.rowNum.equals(rowNum);
+			return o.getColumnNum().equals(columnNum)
+					&&o.getDataRows().equals(dataRows)
+					&&o.getName().equals(name)
+					&&o.getRowNum().equals(rowNum);
 		}
 		else {
 			return false;
