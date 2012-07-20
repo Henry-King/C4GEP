@@ -128,6 +128,22 @@ public class OperatorConfiguration implements Serializable{
 					&&o.risTransportRate.equals(risTransportRate)
 					&&o.twoPointRecombineRate.equals(twoPointRecombineRate));
 		}
-		return false;
+		else {
+			return false;			
+		}
+
+	}
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + Float.floatToIntBits(mutateRate);
+		result = 37 * result + Float.floatToIntBits(isTransportRate);
+		result = 37 * result + Arrays.hashCode(isElement);
+		result = 37 * result + Float.floatToIntBits(risTransportRate);
+		result = 37 * result + Arrays.hashCode(risElement);
+		result = 37 * result + Float.floatToIntBits(geneTransportRate);
+		result = 37 * result + Float.floatToIntBits(onePointRecombineRate);
+		result = 37 * result + Float.floatToIntBits(twoPointRecombineRate);
+		result = 37 * result + Float.floatToIntBits(geneRecombineRate);
+		return result;
 	}
 }
