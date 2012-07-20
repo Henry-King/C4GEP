@@ -51,4 +51,28 @@ public class DataSet implements Serializable{
 	public List<DataColumn> getVariableUsed(){
 		return dataRows.get(0).getDataColumns();
 	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof DataSet){
+			DataSet o=(DataSet) obj;
+			return o.columnNum.equals(columnNum)
+					&&o.dataRows.equals(dataRows)
+					&&o.name.equals(name)
+					&&o.rowNum.equals(rowNum);
+		}
+		else {
+			return false;
+		}
+	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		int result=37;
+		result=37*result+name.hashCode();
+		result=37*result+rowNum.hashCode();
+		result=37*result+columnNum.hashCode();
+		result=37*result+dataRows.hashCode();
+		return result;
+	}
 }
