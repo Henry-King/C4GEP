@@ -104,4 +104,36 @@ public class GeneConfiguration implements Serializable{
 				e.printStackTrace();
 			}	
 	}
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + (int)normalGeneNumber;
+		result = 37 * result + (int)normalGeneHeaderLength;
+		result = 37 * result + (int)normalGeneTailLength;
+		result = 37 * result + (int)normalGeneLength;
+		result = 37 * result + (int)homeoticGeneNumber;
+		result = 37 * result + (int)homeoticGeneHeaderLength;
+		result = 37 * result + (int)homeoticGeneTailLength;
+		result = 37 * result + (int)homeoticGeneLength;
+		result = 37 * result + functionUsed.hashCode();
+		return result;
+	}
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof GeneConfiguration){
+		GeneConfiguration gc = (GeneConfiguration)o;
+		return gc.normalGeneNumber .equals( normalGeneNumber)
+			&&	gc.normalGeneHeaderLength .equals( normalGeneHeaderLength)
+			&&	gc.normalGeneTailLength .equals( normalGeneTailLength)
+			&&	gc.normalGeneLength .equals( normalGeneLength)
+			&&	gc.homeoticGeneNumber .equals( homeoticGeneNumber)
+			&&	gc.homeoticGeneHeaderLength .equals( homeoticGeneHeaderLength)
+			&&	gc.homeoticGeneTailLength .equals( homeoticGeneTailLength)
+			&&	gc.homeoticGeneLength .equals( homeoticGeneLength)
+			&&	gc.functionUsed .equals( functionUsed);			
+		}
+		else {
+			return false;
+		}
+	}	
 }
