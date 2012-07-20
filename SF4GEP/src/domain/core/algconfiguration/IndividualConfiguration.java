@@ -68,12 +68,12 @@ public class IndividualConfiguration implements Serializable{
 	public boolean equals(Object o){
 		if(o instanceof IndividualConfiguration){
 			IndividualConfiguration ic = (IndividualConfiguration)o;
-			return ic.individualNumber .equals( individualNumber)
-				&&	ic.totalGeneNumbers .equals( totalGeneNumbers)
-				&&	ic.normalGeneTotalLength .equals( normalGeneTotalLength)
-				&&	ic.homeoticGeneTotalLength .equals( homeoticGeneTotalLength)
-				&&	ic.geneTotalLength .equals( geneTotalLength)
-				&&	ic.geneConfiguration .equals( geneConfiguration);			
+			return ic.getIndividualNumber() .equals( individualNumber)
+				&&	ic.getTotalGeneNumbers() .equals( totalGeneNumbers)
+				&&	ic.getNormalGeneTotalLength() .equals( normalGeneTotalLength)
+				&&	ic.getHomeoticGeneTotalLength() .equals( homeoticGeneTotalLength)
+				&&	ic.getGeneTotalLength() .equals( geneTotalLength)
+				&&	ic.getGeneConfiguration() .equals( geneConfiguration);			
 		}
 		else {
 			return false;
