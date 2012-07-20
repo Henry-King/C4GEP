@@ -122,15 +122,15 @@ public class GeneConfiguration implements Serializable{
 	public boolean equals(Object o){
 		if(o instanceof GeneConfiguration){
 		GeneConfiguration gc = (GeneConfiguration)o;
-		return gc.normalGeneNumber .equals( normalGeneNumber)
-			&&	gc.normalGeneHeaderLength .equals( normalGeneHeaderLength)
-			&&	gc.normalGeneTailLength .equals( normalGeneTailLength)
-			&&	gc.normalGeneLength .equals( normalGeneLength)
-			&&	gc.homeoticGeneNumber .equals( homeoticGeneNumber)
-			&&	gc.homeoticGeneHeaderLength .equals( homeoticGeneHeaderLength)
-			&&	gc.homeoticGeneTailLength .equals( homeoticGeneTailLength)
-			&&	gc.homeoticGeneLength .equals( homeoticGeneLength)
-			&&	gc.functionUsed .equals( functionUsed);			
+		return gc.getNormalGeneNumber() .equals( normalGeneNumber)
+			&&	gc.getNormalGeneHeaderLength() .equals( normalGeneHeaderLength)
+			&&	gc.getNormalGeneTailLength() .equals( normalGeneTailLength)
+			&&	gc.getNormalGeneLength() .equals( normalGeneLength)
+			&&	gc.getHomeoticGeneNumber() .equals( homeoticGeneNumber)
+			&&	gc.getHomeoticGeneHeaderLength() .equals( homeoticGeneHeaderLength)
+			&&	gc.getHomeoticGeneTailLength() .equals( homeoticGeneTailLength)
+			&&	gc.getHomeoticGeneLength() .equals( homeoticGeneLength)
+			&&	gc.getFunctionUsed() .equals( functionUsed);			
 		}
 		else {
 			return false;
