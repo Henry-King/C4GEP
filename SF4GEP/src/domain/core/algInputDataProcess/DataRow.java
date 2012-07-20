@@ -26,4 +26,24 @@ public class DataRow implements Serializable{
 	public void setResultColumn(DataColumn resultColumn) {
 		this.resultColumn = resultColumn;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof DataRow){
+			DataRow o=(DataRow) obj;
+			return o.dataColumns.equals(dataColumns)
+					&&o.resultColumn.equals(resultColumn);
+		}
+		else {
+			return false;
+		}
+	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		int result=37;
+		result=result*37+dataColumns.hashCode();
+		result=result*37+resultColumn.hashCode();
+		return result;
+	}
 }
