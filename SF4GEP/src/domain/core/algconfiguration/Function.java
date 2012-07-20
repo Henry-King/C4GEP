@@ -60,4 +60,10 @@ public abstract class Function implements Serializable,Cloneable{
 	 * @return 函数进行运算后的返回值。
 	 */
 	public abstract float operate(float[] operators);
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Function r=(Function) obj;
+		return (r instanceof Function)&&r.getClass().equals(r.getClass());
+	}
 }
