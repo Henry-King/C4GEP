@@ -61,5 +61,31 @@ public class GepAlgConfiguration implements Serializable{
 	public void setOperatorConfiguration(OperatorConfiguration operatorConfiguration) {
 		this.operatorConfiguration = operatorConfiguration;
 	}
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 37 * result + name.hashCode();
+		result = 37 * result + Float.floatToIntBits(selectionRange);
+		result = 37 * result + Float.floatToIntBits(accuracy);
+		result = 37 * result + Float.floatToIntBits(maxFitness);
+		result = 37 * result + individualConfiguration.hashCode();
+		result = 37 * result + operatorConfiguration.hashCode();
+		return result;
+	}
 	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof GepAlgConfiguration){
+			GepAlgConfiguration gac = (GepAlgConfiguration)o;
+			return gac.name .equals( name)
+				&&	gac.selectionRange .equals( selectionRange)
+				&&	gac.accuracy .equals( accuracy)
+				&&	gac.maxFitness .equals( maxFitness)
+				&&	gac.individualConfiguration .equals( individualConfiguration)
+				&&	gac.operatorConfiguration .equals( operatorConfiguration);			
+		}
+		else {
+			return false;
+		}
+	}
 }
