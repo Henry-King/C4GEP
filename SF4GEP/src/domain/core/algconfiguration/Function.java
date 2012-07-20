@@ -74,11 +74,11 @@ public abstract class Function implements Serializable,Cloneable{
 	@Override
 	public int hashCode(){
 		int result = 17;
-		result = 37 * result + (int)id;
+		result = 37 * result + id.hashCode();
 		result = 37 * result + (used ? 0 : 1);
 		result = 37 * result + name.hashCode();
 		result = 37 * result + symbol.hashCode();
-		result = 37 * result + (int)arity;
+		result = 37 * result + arity.hashCode();
 		return result;
 	}
 }
