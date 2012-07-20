@@ -15,7 +15,7 @@ public class Population implements Serializable,Cloneable{
 	private Integer id;
 	private GepAlgRun gepAlgRun;
 	private List<Individual> individuals;
-	private long generationNum;
+	private Long generationNum;
 	
 	/**
 	 * 创建一个种群，默认的种群大小为20
@@ -93,14 +93,14 @@ public class Population implements Serializable,Cloneable{
 	 * 返回当前种群的代数，即当前种群是第几代种群
 	 * @return 当前种群的代数
 	 */
-	public long getGenerationNum(){
+	public Long getGenerationNum(){
 		return generationNum;
 	}
 	/**
 	 * 设置当前种群的代数，即设置当前种群是第几代种群
 	 * @param generation 当前种群的代数
 	 */
-	public void setGenerationNum(long generationNum) {
+	public void setGenerationNum(Long generationNum) {
 		this.generationNum = generationNum;
 	}
 	/**
