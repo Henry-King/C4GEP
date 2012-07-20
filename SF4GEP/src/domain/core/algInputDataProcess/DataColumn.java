@@ -44,4 +44,24 @@ public class DataColumn implements Cloneable,Serializable{
 		}
 		return o;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof DataColumn){
+			DataColumn o=(DataColumn) obj;
+			return o.columnName.equals(columnName)
+					&&o.value.equals(value);
+		}
+		else {
+			return false;
+		}
+	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		int result=17;
+		result=37*result+value.hashCode();
+		result=37*result+columnName.hashCode();
+		return result;
+	}
 }
