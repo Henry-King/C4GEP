@@ -3,7 +3,6 @@ package domain.core.algOutput;
 import java.io.Serializable;
 
 import domain.core.algconfiguration.Function;
-import domain.core.algconfiguration.GepAlgConfiguration;
 
 /**
  * 基因片段类，或称基因位类，在每一个头部或者尾部中，最终包含的都是此类GenePiece
@@ -104,20 +103,30 @@ public class GenePiece implements Serializable,Cloneable{
 	 * @return
 	 */
 	public String getFuncString(){
-		return func.getClass().toString();
+		String result;
+		if(func==null)
+			result="";
+		else
+			result=func.getClass().toString();
+		return result;
 	}
 	/**
 	 * Hibernate专用入口,其他函数请勿调用
 	 * @param funcString
 	 */
 	public void setFuncString(String funcString){
-		try {
-			func=(Function) Class.forName(funcString).newInstance();
-		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(funcString.equals(""))
+			func=null;
+		else {
+			try {
+				func=(Function) Class.forName(funcString).newInstance();
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
+
 	}
 	/**
 	 * 返回当前基因片段的名称表示，本方法将直接调用getName()。
