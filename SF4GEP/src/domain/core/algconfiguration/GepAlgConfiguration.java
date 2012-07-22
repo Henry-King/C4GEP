@@ -68,7 +68,7 @@ public class GepAlgConfiguration implements Serializable{
 		result = 37 * result + name.hashCode();
 		result = 37 * result + Float.floatToIntBits(selectionRange);
 		result = 37 * result + Float.floatToIntBits(accuracy);
-		result = 37 * result + Float.floatToIntBits(maxFitness);
+		result = 37 * result + Float.floatToIntBits(maxGeneration);
 		result = 37 * result + individualConfiguration.hashCode();
 		result = 37 * result + operatorConfiguration.hashCode();
 		return result;
@@ -81,7 +81,7 @@ public class GepAlgConfiguration implements Serializable{
 			return gac.getName() .equals(name)
 				&&	gac.getSelectionRange().equals(selectionRange)
 				&&	gac.getAccuracy() .equals(accuracy)
-				&&	gac.getMaxFitness() .equals(maxFitness)
+				&&	gac.getMaxGeneration() .equals(maxGeneration)
 				&&	gac.getIndividualConfiguration() .equals(individualConfiguration)
 				&&	gac.getOperatorConfiguration() .equals(operatorConfiguration);			
 		}
