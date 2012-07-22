@@ -65,7 +65,7 @@ public class AlgRunStep implements IAlgRunStep {
 		population.setIndividuals(new ArrayList<Individual>(gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber()));
 		population.setGenerationNum((long) 0);
 		population.setGepAlgRun(gepAlgRun);
-		gepAlgRun.setCurrentPopulation(population);
+		gepAlgRun.getPopulations().add(population);
 		for(int i=0;i<gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber();i++){
 			individual=new Individual();
 			individual.setGenes(new ArrayList<Gene>(gepAlgConfiguration.getIndividualConfiguration().getTotalGeneNumbers()));
@@ -191,6 +191,7 @@ public class AlgRunStep implements IAlgRunStep {
 							variableIndex=variableRandom.nextInt(variableNum);
 							mutatedGenePiece.setName(dataSet.getVariableUsed().get(variableIndex).getColumnName());
 							mutatedGenePiece.setSymbol(mutatedGenePiece.getName());
+							mutatedGenePiece.setVariableIndex(variableIndex);
 						}
 					}
 				}
