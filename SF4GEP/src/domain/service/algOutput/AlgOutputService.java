@@ -4,14 +4,18 @@ import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.iservice.algConfiguration.IgepConfigurationService;
 import domain.iservice.algOutput.IAlgOutputService;
 import domain.iservice.algOutput.IAlgRunStep;
+import domain.service.algConfiguration.GepConfigurationService;
 
 public class AlgOutputService implements IAlgOutputService {
 	private IHibernateDataContext hibernateDataContext;
@@ -24,10 +28,12 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
 		// TODO Auto-generated method stub
+		ExecutorService executorService=Executors.newSingleThreadExecutor();
 		List<Float> fitnessFloats;
 		Float maxFitness;
 		Float minFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
+		gepAlgRun.getPopulations().add(gepAlgRun.getCurrentPopulation().clone());
 		commit(gepAlgRun);
 		Population newPopulation;
 		maxFitnesses.clear();
@@ -38,12 +44,12 @@ public class AlgOutputService implements IAlgOutputService {
 			minFitness=Collections.min(fitnessFloats);
 			maxFitnesses.add(maxFitness);
 			minFitnesses.add(minFitness);
-			commit(gepAlgRun.getCurrentPopulation());
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
 			newPopulation=algRunStep.select(gepAlgRun);
 			newPopulation.setGenerationNum(i+1);
 			gepAlgRun.getPopulations().add(newPopulation);
+			commit(gepAlgRun.getPrePopulation(),executorService);
 			algRunStep.mutate(gepAlgRun.getCurrentPopulation());
 			algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
 			algRunStep.risTransport(gepAlgRun.getCurrentPopulation());
@@ -52,6 +58,7 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
+		commit(gepAlgRun.getCurrentPopulation(),executorService);
 		return gepAlgRun;
 	}
 
@@ -73,18 +80,38 @@ public class AlgOutputService implements IAlgOutputService {
 		
 		return false;
 	}
-	private boolean commit(Population population){
-		hibernateDataContext.save(population);
-		boolean result=true;
-		return result;
+	private void commit(final Population population,ExecutorService executorService){
+		executorService.execute(new Runnable() {	
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				hibernateDataContext.save(population);
+			}
+		});
 	}
-	private boolean commit(GepAlgRun gepAlgRun){
-		DataSet dataSet=hibernateDataContext.findAll(gepAlgRun.getDataSet().getClass()).get(0);
-		System.out.println(dataSet.getDataRows().equals(gepAlgRun.getDataSet().getDataRows()));
-		hibernateDataContext.update(gepAlgRun.getDataSet());
-		hibernateDataContext.update(gepAlgRun.getGepAlgConfiguration());
+	private void commit(GepAlgRun gepAlgRun){
+		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
+		List<? extends GepAlgConfiguration>gepAlgConfigurations=hibernateDataContext.findAll(GepAlgConfiguration.class);
+		IgepConfigurationService geConfigurationService=new GepConfigurationService(hibernateDataContext);
+		int dataSetIndex=dataSets.indexOf(gepAlgRun.getDataSet());
+		int confIndex=gepAlgConfigurations.indexOf(gepAlgRun.getGepAlgConfiguration());
+		DataSet dataSet=gepAlgRun.getDataSet();
+		GepAlgConfiguration gepAlgConfiguration=gepAlgRun.getGepAlgConfiguration();
+		if(dataSetIndex!=-1){
+			dataSet=dataSets.get(dataSetIndex);
+			gepAlgRun.setDataSet(dataSet);
+		}	
+		else 
+			hibernateDataContext.save(dataSet);	
+		if(confIndex!=-1){
+			gepAlgConfiguration=gepAlgConfigurations.get(confIndex);
+			geConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+			gepAlgRun.setGepAlgConfiguration(gepAlgConfiguration);
+		}
+		else{
+			geConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+			geConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+		}			
 		hibernateDataContext.save(gepAlgRun);	
-		boolean result=true;
-		return result;
 	}
 }
