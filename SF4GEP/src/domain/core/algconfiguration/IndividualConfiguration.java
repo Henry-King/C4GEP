@@ -57,10 +57,6 @@ public class IndividualConfiguration implements Serializable{
 	public int hashCode(){
 		int result = 17;
 		result = 37 * result + (int)individualNumber;
-		result = 37 * result + (int)totalGeneNumbers;
-		result = 37 * result + (int)normalGeneTotalLength;
-		result = 37 * result + (int)homeoticGeneTotalLength;
-		result = 37 * result + (int)geneTotalLength;
 		result = 37 * result + geneConfiguration.hashCode();
 		return result;
 	}
@@ -69,10 +65,6 @@ public class IndividualConfiguration implements Serializable{
 		if(o instanceof IndividualConfiguration){
 			IndividualConfiguration ic = (IndividualConfiguration)o;
 			return ic.getIndividualNumber() .equals( individualNumber)
-				&&	ic.getTotalGeneNumbers() .equals( totalGeneNumbers)
-				&&	ic.getNormalGeneTotalLength() .equals( normalGeneTotalLength)
-				&&	ic.getHomeoticGeneTotalLength() .equals( homeoticGeneTotalLength)
-				&&	ic.getGeneTotalLength() .equals( geneTotalLength)
 				&&	ic.getGeneConfiguration() .equals( geneConfiguration);			
 		}
 		else {
