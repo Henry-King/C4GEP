@@ -34,19 +34,18 @@ public class GepAlgRun implements Serializable{
 	public void setDataSet(DataSet dataSet) {
 		this.dataSet = dataSet;
 	}
+	public Population getPrePopulation(){
+		if(populations.size()==0)
+			return null;
+		else
+			return populations.get(0);
+	}
 	public Population getCurrentPopulation(){
 		removeRedundancyPopulation();
 		if(populations.size()==0)
 			return null;
 		else
 			return populations.get(populations.size()-1);
-	}
-	public void setCurrentPopulation(Population population){
-		removeRedundancyPopulation();
-		if(populations.size()==0)
-			populations.add(population);
-		else
-			populations.set(populations.size()-1, population);
 	}
 	public List<Population> getPopulations() {
 		removeRedundancyPopulation();
@@ -74,7 +73,6 @@ public class GepAlgRun implements Serializable{
 	@Override
 	public int hashCode(){
 		int result = 17;
-		result = 37 * result + (int)id;
 		result = 37 * result + gepAlgConfiguration.hashCode();
 		result = 37 * result + dataSet.hashCode();
 		result = 37 * result + populations.hashCode();
@@ -85,8 +83,7 @@ public class GepAlgRun implements Serializable{
 	public boolean equals(Object o){
 		if(o instanceof GepAlgRun){
 			GepAlgRun gac = (GepAlgRun)o;
-			return gac.getId().equals(id)
-				&&	gac.getGepAlgConfiguration().equals(gepAlgConfiguration)
+			return 	gac.getGepAlgConfiguration().equals(gepAlgConfiguration)
 				&&	gac.getDataSet().equals(dataSet)
 				&&	gac.getPopulations().equals(populations);
 		}
@@ -94,13 +91,4 @@ public class GepAlgRun implements Serializable{
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
