@@ -11,12 +11,13 @@
    <column name="id"/>
    <generator class="native"/>
   </id>
-  <bag cascade="all" name="dataColumns" table="domain.core.algInputDataProcess.DataColumn">
+  <list cascade="all" name="dataColumns" table="domain.core.algInputDataProcess.DataColumn">
    <key>
     <column name="dataRow" not-null="true"/>
    </key>
+   <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algInputDataProcess.DataColumn"/>
-  </bag>
+  </list>
   <many-to-one cascade="all"
    class="domain.core.algInputDataProcess.DataColumn"
    name="resultColumn" unique="true"/>

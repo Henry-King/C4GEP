@@ -17,9 +17,6 @@
   <property generated="never" lazy="false" name="name" type="java.lang.String">
    <column length="64" name="name"/>
   </property>
-  <property generated="never" lazy="false" name="value" type="java.lang.Float">
-   <column name="value" precision="53" scale="0"/>
-  </property>
   <property generated="never" lazy="false" name="genePieceTypeString" type="java.lang.String">
    <column length="64" name="genePieceTypeString"/>
   </property>

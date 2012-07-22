@@ -17,11 +17,12 @@
   <property generated="never" lazy="false" name="generationNum" type="java.lang.Long">
    <column name="generationNum"/>
   </property>
-  <bag cascade="all" name="individuals">
+  <list cascade="all" name="individuals">
    <key>
     <column name="populations"/>
    </key>
+   <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algOutput.Individual"/>
-  </bag>
+  </list>
  </class>
 </hibernate-mapping>

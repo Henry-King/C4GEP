@@ -20,11 +20,12 @@
   <property generated="never" lazy="false" name="columnNum" type="java.lang.Integer">
    <column name="columnNum" not-null="true"/>
   </property>
-  <bag cascade="all" name="dataRows">
+  <list cascade="all" name="dataRows">
    <key>
     <column name="dataSet" not-null="true"/>
    </key>
+   <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algInputDataProcess.DataRow"/>
-  </bag>
+  </list>
  </class>
 </hibernate-mapping>

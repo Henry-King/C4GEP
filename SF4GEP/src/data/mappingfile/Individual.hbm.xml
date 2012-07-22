@@ -18,17 +18,19 @@
    name="selectedHomeoticGeneNumber" type="java.lang.Integer">
    <column name="selectedHomeoticGeneNumber"/>
   </property>
-  <bag cascade="all" name="fittedValues">
+  <list cascade="all" name="fittedValues">
    <key>
     <column name="individual"/>
    </key>
+   <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algOutput.FittedValue"/>
-  </bag>
-  <bag inverse="true" name="genes">
+  </list>
+  <list cascade="all" name="genes">
    <key>
     <column name="individual"/>
    </key>
+   <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algOutput.Gene"/>
-  </bag>
+  </list>
  </class>
 </hibernate-mapping>
