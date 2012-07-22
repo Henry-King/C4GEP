@@ -124,12 +124,8 @@ public class GeneConfiguration implements Serializable{
 		GeneConfiguration gc = (GeneConfiguration)o;
 		return gc.getNormalGeneNumber() .equals( normalGeneNumber)
 			&&	gc.getNormalGeneHeaderLength() .equals( normalGeneHeaderLength)
-			&&	gc.getNormalGeneTailLength() .equals( normalGeneTailLength)
-			&&	gc.getNormalGeneLength() .equals( normalGeneLength)
 			&&	gc.getHomeoticGeneNumber() .equals( homeoticGeneNumber)
 			&&	gc.getHomeoticGeneHeaderLength() .equals( homeoticGeneHeaderLength)
-			&&	gc.getHomeoticGeneTailLength() .equals( homeoticGeneTailLength)
-			&&	gc.getHomeoticGeneLength() .equals( homeoticGeneLength)
 			&&	gc.getFunctionUsed() .equals( functionUsed);			
 		}
 		else {
