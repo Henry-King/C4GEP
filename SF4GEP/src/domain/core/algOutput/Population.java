@@ -131,7 +131,7 @@ public class Population implements Serializable,Cloneable{
 	public int hashCode(){
 		int result = 37;
 		result = 37 * result + individuals.hashCode();
-		result = 37 * result + (int)(generationNum^(generationNum>>>2));
+		result = 37 * result + generationNum.hashCode();
 		return result;
 	}
 	
