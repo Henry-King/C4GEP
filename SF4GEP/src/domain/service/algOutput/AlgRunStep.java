@@ -22,6 +22,7 @@ import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
+import domain.core.algconfiguration.function.Additioin;
 import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgRunStep implements IAlgRunStep {
@@ -378,7 +379,7 @@ public class AlgRunStep implements IAlgRunStep {
 			type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
 			if(type<geneConfiguration.getFunctionUsed().size()){
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+				function=new Additioin();
 				addedGenePiece.setFunc(function);
 				addedGenePiece.setName(function.getName());
 				addedGenePiece.setSymbol(function.getSymbol());
