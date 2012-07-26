@@ -89,17 +89,6 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		return gepAlgRun;
 	}
-
-	@Override
-	public List<FittedValue> calculateFittedValue(Individual individual, DataSet dataSet) {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-	
-	
-	
-	
 	@Override
 	public List<Float> calculateFitness(Population population) {
 		// TODO Auto-generated method stub
