@@ -1,6 +1,5 @@
 package domain.iservice.algOutput;
 
-import java.io.File;
 import java.util.List;
 
 import domain.core.algInputDataProcess.DataSet;
@@ -11,5 +10,4 @@ public interface IAlgOutputService {
 	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet);
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun);
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun);
-	public boolean writeToFile(File file);
 }
