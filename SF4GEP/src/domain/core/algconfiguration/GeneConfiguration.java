@@ -109,12 +109,8 @@ public class GeneConfiguration implements Serializable{
 		int result = 17;
 		result = 37 * result + (int)normalGeneNumber;
 		result = 37 * result + (int)normalGeneHeaderLength;
-		result = 37 * result + (int)normalGeneTailLength;
-		result = 37 * result + (int)normalGeneLength;
 		result = 37 * result + (int)homeoticGeneNumber;
 		result = 37 * result + (int)homeoticGeneHeaderLength;
-		result = 37 * result + (int)homeoticGeneTailLength;
-		result = 37 * result + (int)homeoticGeneLength;
 		result = 37 * result + functionUsed.hashCode();
 		return result;
 	}
