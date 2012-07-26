@@ -133,7 +133,7 @@ public class OperatorConfiguration implements Serializable{
 
 	}
 	public int hashCode(){
-		int result = 17;
+		int result = 37;
 		result = 37 * result + Float.floatToIntBits(mutateRate);
 		result = 37 * result + Float.floatToIntBits(isTransportRate);
 		result = 37 * result + Arrays.hashCode(isElement);
