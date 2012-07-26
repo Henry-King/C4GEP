@@ -129,8 +129,7 @@ public class Population implements Serializable,Cloneable{
 
 	@Override
 	public int hashCode(){
-		int result = 17;
-		result = 37 * result + (int)id;
+		int result = 37;
 		result = 37 * result + individuals.hashCode();
 		result = 37 * result + (int)(generationNum^(generationNum>>>2));
 		return result;
@@ -140,16 +139,11 @@ public class Population implements Serializable,Cloneable{
 	public boolean equals(Object o){
 		if(o instanceof Population){
 			Population gac = (Population)o;
-			return gac.getId().equals(id)
-				&&	gac.getIndividuals().equals(individuals)
+			return 	gac.getIndividuals().equals(individuals)
 				&&	gac.getGenerationNum().equals(generationNum);
 		}
 		else {
 			return false;
 		}
 	}
-	
-	
-	
-	
 }
