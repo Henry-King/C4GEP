@@ -1,6 +1,5 @@
 package domain.service.algOutput;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -72,13 +71,6 @@ public class AlgOutputService implements IAlgOutputService {
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
 		return minFitnesses;
-	}
-
-	@Override
-	public boolean writeToFile(File file) {
-		// TODO Auto-generated method stub
-		
-		return false;
 	}
 	private void commit(final Population population,ExecutorService executorService){
 		class DdSave implements Runnable{
