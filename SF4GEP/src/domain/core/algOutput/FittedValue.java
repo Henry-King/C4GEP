@@ -3,7 +3,6 @@ package domain.core.algOutput;
 import java.io.Serializable;
 
 import domain.core.algInputDataProcess.DataRow;
-import domain.core.algconfiguration.Function;
 
 public class FittedValue implements Serializable,Cloneable {
 	private static final long serialVersionUID = 7974157432692414973L;
@@ -44,13 +43,12 @@ public class FittedValue implements Serializable,Cloneable {
 		return fittedValue;
 	}
 	
-	
-
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof FittedValue){
 			FittedValue r=(FittedValue) obj;
-			return r.getClass().equals(getClass());			
+			return dataRow.equals(r.getDataRow())
+					&&fittedValue.equals(r.getFittedValue());
 		}
 		else {
 			return false;
@@ -58,18 +56,10 @@ public class FittedValue implements Serializable,Cloneable {
 	}
 	@Override
 	public int hashCode(){
-		int result = 17;
-		result = 37 * result + (int)id;
+		int result = 37;
 		result = 37 * result + Float.floatToIntBits(fittedValue);
 		result = 37 * result + dataRow.hashCode();
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
