@@ -81,13 +81,19 @@ public class AlgOutputService implements IAlgOutputService {
 		return false;
 	}
 	private void commit(final Population population,ExecutorService executorService){
-		executorService.execute(new Runnable() {	
+		class DdSave implements Runnable{
+			private Population population;
+			public DdSave(Population population) {
+				// TODO Auto-generated constructor stub
+				this.population=population;
+			}
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				hibernateDataContext.save(population);
 			}
-		});
+		}
+		executorService.execute(new DdSave(population));
 	}
 	private void commit(GepAlgRun gepAlgRun){
 		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
