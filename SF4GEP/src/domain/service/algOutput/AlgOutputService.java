@@ -58,6 +58,7 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
 		commit(gepAlgRun.getCurrentPopulation(),executorService);
+		executorService.shutdown();
 		return gepAlgRun;
 	}
 
