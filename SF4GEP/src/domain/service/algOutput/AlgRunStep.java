@@ -449,7 +449,7 @@ public class AlgRunStep implements IAlgRunStep {
 		float[] resulList=new float[homeoticGeneNum];
 		for(int i=0;i<homeoticGeneNum;i++){
 			result=calculateGeneValue(individual.getGenes().get(i+normalGeneNum), individual);
-			resulList[i]=result;
+			resulList[i]=result;		
 		}
 		return resulList;
 	}
