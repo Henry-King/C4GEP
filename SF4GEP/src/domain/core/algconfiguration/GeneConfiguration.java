@@ -128,7 +128,7 @@ public class GeneConfiguration implements Serializable{
 		}
 	}
 	public String getConnectionFunctionString(){
-		return connectionFunction.toString();
+		return connectionFunction.getClass().toString();
 	}
 	@Override
 	public int hashCode(){
@@ -155,7 +155,7 @@ public class GeneConfiguration implements Serializable{
 			&&	gc.getFunctionUsed() .equals(functionUsed)
 			&&  gc.getUseHomeoticGene().equals(useHomeoticGene)
 			&&	gc.getUseHomeoticGene()
-			?(gc.getHomeoticGeneNumber().equals( homeoticGeneNumber)&&gc.getHomeoticGeneHeaderLength().equals( homeoticGeneHeaderLength))
+			?(gc.getHomeoticGeneNumber().equals(homeoticGeneNumber)&&gc.getHomeoticGeneHeaderLength().equals( homeoticGeneHeaderLength))
 			:(gc.getConnectionFunction().equals(connectionFunction));
 		}
 		else {
