@@ -18,14 +18,14 @@
    name="selectedHomeoticGeneNumber" type="java.lang.Integer">
    <column name="selectedHomeoticGeneNumber"/>
   </property>
-  <list cascade="all" name="fittedValues">
+  <list inverse="true" name="fittedValues">
    <key>
     <column name="individual"/>
    </key>
    <index column="idx" type="java.lang.Integer"/>
    <one-to-many class="domain.core.algOutput.FittedValue"/>
   </list>
-  <list cascade="all" name="genes">
+  <list inverse="true" name="genes">
    <key>
     <column name="individual"/>
    </key>
