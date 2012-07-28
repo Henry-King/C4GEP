@@ -17,6 +17,7 @@ public class GeneConfiguration implements Serializable{
 	private Integer homeoticGeneTailLength;
 	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
+	private Function connectionFunction;
 	public Integer getId() {
 		return id;
 	}
@@ -76,6 +77,12 @@ public class GeneConfiguration implements Serializable{
 	}
 	public void setFunctionUsed(List<Function> functionUsed) {
 		this.functionUsed = functionUsed;
+	}
+	public Function getConnectionFunction() {
+		return connectionFunction;
+	}
+	public void setConnectionFunction(Function connectionFunction) {
+		this.connectionFunction = connectionFunction;
 	}
 	/**
 	 * Hiberante专用接口，请勿调用
