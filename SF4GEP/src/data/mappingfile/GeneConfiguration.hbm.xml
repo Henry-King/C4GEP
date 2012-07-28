@@ -11,6 +11,13 @@
    <column name="id"/>
    <generator class="native"/>
   </id>
+  <property generated="never" lazy="false" name="useHomeoticGene" type="java.lang.Boolean">
+   <column name="useHomeoticGene" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="connectionFunctionString" type="java.lang.String">
+   <column length="1024" name="connectionFunctionString" not-null="false"/>
+  </property>
   <property generated="never" lazy="false" name="normalGeneNumber" type="java.lang.Integer">
    <column name="normalGeneNumber" not-null="true"/>
   </property>
