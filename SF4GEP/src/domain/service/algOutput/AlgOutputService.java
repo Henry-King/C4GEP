@@ -8,9 +8,7 @@ import java.util.concurrent.Executors;
 
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
-import domain.core.algOutput.Gene;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algConfiguration.IgepConfigurationService;
@@ -72,7 +70,6 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
 		commit(gepAlgRun.getCurrentPopulation(),executorService);
-		commit(gepAlgRun.getCurrentPopulation().getBestIndividual(),executorService);
 		executorService.shutdown();
 		return gepAlgRun;
 	}
@@ -87,10 +84,6 @@ public class AlgOutputService implements IAlgOutputService {
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
 		return minFitnesses;
-	}
-	private void commit(final Individual individual,ExecutorService executorService){
-		for(int i=0;i<individual.getGenes().size();i++)
-			executorService.execute(new DdSave<Gene>(individual.getGenes().get(i)));
 	}
 	private void commit(final Population population,ExecutorService executorService){
 		executorService.execute(new DdSave<Population>(population));
