@@ -70,7 +70,7 @@ public class GepAlgRun implements Serializable{
 	}
 	@Override
 	public int hashCode(){
-		int result = 17;
+		int result = 37;
 		result = 37 * result + gepAlgConfiguration.hashCode();
 		result = 37 * result + dataSet.hashCode();
 		result = 37 * result + populations.hashCode();
