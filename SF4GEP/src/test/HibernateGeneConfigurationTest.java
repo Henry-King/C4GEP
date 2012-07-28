@@ -6,7 +6,7 @@ import java.util.List;
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
 import domain.core.algconfiguration.GeneConfiguration;
-import domain.core.algconfiguration.function.Additioin;
+import domain.core.algconfiguration.function.Addition;
 import domain.core.algconfiguration.function.Divide;
 import domain.core.algconfiguration.function.Minus;
 import domain.core.algconfiguration.function.Multiply;
@@ -23,7 +23,7 @@ public class HibernateGeneConfigurationTest {
 		geneConfiguration.setHomeoticGeneNumber(1);
 		geneConfiguration.setNormalGeneHeaderLength(7);
 		geneConfiguration.setNormalGeneNumber(3);
-		geneConfiguration.setFunctionUsed(Arrays.asList(new Additioin(),new Minus(),new Multiply(),new Divide()));
+		geneConfiguration.setFunctionUsed(Arrays.asList(new Addition(),new Minus(),new Multiply(),new Divide()));
 		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		hibernateDataContext.save(geneConfiguration);
 		List<GeneConfiguration> operatorConfigurations=hibernateDataContext.findAll(GeneConfiguration.class);
