@@ -18,6 +18,7 @@ public class GenePiece implements Serializable,Cloneable{
 	private Integer variableIndex;
 	private GenePieceType genePieceType;
 	private Function func;
+	private boolean used;
 	public Integer getId() {
 		return id;
 	}
@@ -83,6 +84,12 @@ public class GenePiece implements Serializable,Cloneable{
 	}
 	public void setFunc(Function func) {
 		this.func = func;
+	}
+	public boolean isUsed() {
+		return used;
+	}
+	public void setUsed(boolean used) {
+		this.used = used;
 	}
 	/**
 	 * Hibernate专用入口,其他函数请勿调用
@@ -155,8 +162,6 @@ public class GenePiece implements Serializable,Cloneable{
 		return o;
 	}
 	
-	
-
 	@Override
 	public int hashCode(){
 		int result = 37;
@@ -182,5 +187,4 @@ public class GenePiece implements Serializable,Cloneable{
 			return false;
 		}
 	}
-
 }

@@ -523,7 +523,7 @@ public class AlgRunStep implements IAlgRunStep {
 		for(int i=efficientLength-1;i>=0;i--){
 			genePiece=gene.getGenePieces().get(i);
 			if(genePiece.getGenePieceType()==GenePieceType.Function){
-				if(genePiece.getFunc().isUsed()==false){
+				if(genePiece.isUsed()==false){
 					break;
 				}
 			}
@@ -564,7 +564,7 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		float value=function.operate(parameterArray);
 		computedGenePiece.setValue(value);
-		function.setUsed(true);
+		computedGenePiece.setUsed(true);
 		return value;
 	}
 
@@ -615,7 +615,7 @@ public class AlgRunStep implements IAlgRunStep {
 			geneLength=genePieces.size();
 			for(int j=0;j<geneLength;j++)
 				if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function)
-					genePiece.getFunc().setUsed(false);
+					genePiece.setUsed(false);
 		}
 
 	}
