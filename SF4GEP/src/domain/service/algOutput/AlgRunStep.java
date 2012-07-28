@@ -22,7 +22,6 @@ import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
-import domain.core.algconfiguration.function.Additioin;
 import domain.iservice.algOutput.IAlgRunStep;
 
 public class AlgRunStep implements IAlgRunStep {
@@ -186,43 +185,45 @@ public class AlgRunStep implements IAlgRunStep {
 					}
 				}
 				else if(gene.getGeneType()==GeneType.HomeoticGene) {
-					if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-						mutatedGenePiece=new GenePiece();
-						gene.getGenePieces().set(0, mutatedGenePiece);
-						mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())).clone());
-						mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-						mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
-						mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
-					}
-					for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+					if(geneConfiguration.getUseHomeoticGene()){
 						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-							type=funcOrConsRandom.nextInt(functionNum+geneConfiguration.getNormalGeneNumber());
 							mutatedGenePiece=new GenePiece();
-							gene.getGenePieces().set(i, mutatedGenePiece);
-							if(type<functionNum){
-								mutatedGenePiece.setFunc(functionList.get(type).clone());
-								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-								mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
+							gene.getGenePieces().set(0, mutatedGenePiece);
+							mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())).clone());
+							mutatedGenePiece.setGenePieceType(GenePieceType.Function);
+							mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
+							mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
+						}
+						for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+							if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+								type=funcOrConsRandom.nextInt(functionNum+geneConfiguration.getNormalGeneNumber());
+								mutatedGenePiece=new GenePiece();
+								gene.getGenePieces().set(i, mutatedGenePiece);
+								if(type<functionNum){
+									mutatedGenePiece.setFunc(functionList.get(type).clone());
+									mutatedGenePiece.setGenePieceType(GenePieceType.Function);
+									mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
+									mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
+								}
+								else {
+									mutatedGenePiece.setFunc(null);
+									mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
+									mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+									mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
+									mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
+								}
 							}
-							else {
+						}
+						for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
+							if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
+								mutatedGenePiece=new GenePiece();
+								gene.getGenePieces().set(i+geneConfiguration.getHomeoticGeneHeaderLength(), mutatedGenePiece);
 								mutatedGenePiece.setFunc(null);
 								mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
 								mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
 								mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
 								mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
 							}
-						}
-					}
-					for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
-						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-							mutatedGenePiece=new GenePiece();
-							gene.getGenePieces().set(i+geneConfiguration.getHomeoticGeneHeaderLength(), mutatedGenePiece);
-							mutatedGenePiece.setFunc(null);
-							mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
-							mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-							mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
-							mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
 						}
 					}
 				}
@@ -367,30 +368,43 @@ public class AlgRunStep implements IAlgRunStep {
 		Function function;
 		int type;
 		GenePiece addedGenePiece;
-		addedGenePiece=new GenePiece();
-		addedGenePiece.setGenePieceType(GenePieceType.Function);
-		function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
-		addedGenePiece.setFunc(function);
-		addedGenePiece.setName(function.getName());
-		addedGenePiece.setSymbol(function.getSymbol());
-		genePieces.add(addedGenePiece);
-		for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+		if(geneConfiguration.getUseHomeoticGene()){
 			addedGenePiece=new GenePiece();
-			type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
-			if(type<geneConfiguration.getFunctionUsed().size()){
-				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				function=new Additioin();
-				addedGenePiece.setFunc(function);
-				addedGenePiece.setName(function.getName());
-				addedGenePiece.setSymbol(function.getSymbol());
-			}
-			else {
-				addedGenePiece.setGenePieceType(GenePieceType.Constant);
-				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-				addedGenePiece.setName("");
-				addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
-			}
+			addedGenePiece.setGenePieceType(GenePieceType.Function);
+			function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+			addedGenePiece.setFunc(function);
+			addedGenePiece.setName(function.getName());
+			addedGenePiece.setSymbol(function.getSymbol());
 			genePieces.add(addedGenePiece);
+			for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+				addedGenePiece=new GenePiece();
+				type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
+				if(type<geneConfiguration.getFunctionUsed().size()){
+					addedGenePiece.setGenePieceType(GenePieceType.Function);
+					function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+					addedGenePiece.setFunc(function);
+					addedGenePiece.setName(function.getName());
+					addedGenePiece.setSymbol(function.getSymbol());
+				}
+				else {
+					addedGenePiece.setGenePieceType(GenePieceType.Constant);
+					addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+					addedGenePiece.setName("");
+					addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
+				}
+				genePieces.add(addedGenePiece);
+			}
+		}
+		else {
+			Function connectionFunction=geneConfiguration.getConnectionFunction();
+			for(int i=0;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
+				addedGenePiece=new GenePiece();
+				addedGenePiece.setGenePieceType(GenePieceType.Function);
+				addedGenePiece.setFunc(connectionFunction.clone());
+				addedGenePiece.setName(connectionFunction.getName());
+				addedGenePiece.setSymbol(connectionFunction.getSymbol());
+				genePieces.add(addedGenePiece);
+			}
 		}
 		return genePieces;
 	}
@@ -403,15 +417,17 @@ public class AlgRunStep implements IAlgRunStep {
 		List<GenePiece> genePieces=new ArrayList<GenePiece>();
 		Random constantRandom=new Random();
 		GenePiece addedGenePiece;
-		
 		for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
 			addedGenePiece=new GenePiece();
 			addedGenePiece.setGenePieceType(GenePieceType.Constant);
-			addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+			if(geneConfiguration.getUseHomeoticGene())
+				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
+			else
+				addedGenePiece.setValue((float) i);
 			addedGenePiece.setName("");
 			addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
 			genePieces.add(addedGenePiece);
-		}
+		}			
 		return genePieces;
 	}
 	
@@ -756,8 +772,13 @@ public class AlgRunStep implements IAlgRunStep {
 							tailLength=geneConfiguration.getNormalGeneTailLength();
 						}
 						else {
-							headerLength=geneConfiguration.getHomeoticGeneHeaderLength();
-							tailLength=geneConfiguration.getHomeoticGeneTailLength();
+							if(geneConfiguration.getUseHomeoticGene()){
+								headerLength=geneConfiguration.getHomeoticGeneHeaderLength();
+								tailLength=geneConfiguration.getHomeoticGeneTailLength();
+							}
+							else {
+								break;
+							}
 						}
 						transportParaDetermination(gene, transportEnum, headerLength, tailLength);
 						break;

@@ -47,6 +47,10 @@ public class GepConfigurationService implements IgepConfigurationService {
 		IndividualConfiguration individualConfiguration=gepAlgConfiguration.getIndividualConfiguration();
 		GeneConfiguration geneConfiguration=individualConfiguration.getGeneConfiguration();
 		int maxArity=maxArity(geneConfiguration.getFunctionUsed());
+		if(!geneConfiguration.getUseHomeoticGene()){
+			geneConfiguration.setHomeoticGeneNumber(1);
+			geneConfiguration.setHomeoticGeneHeaderLength((geneConfiguration.getNormalGeneNumber()/(maxArity-1))-1);
+		}
 		geneConfiguration.setHomeoticGeneTailLength(geneConfiguration.getHomeoticGeneHeaderLength()*(maxArity-1)+1);
 		geneConfiguration.setHomeoticGeneLength(geneConfiguration.getHomeoticGeneHeaderLength()+geneConfiguration.getHomeoticGeneTailLength());
 		geneConfiguration.setNormalGeneTailLength(geneConfiguration.getNormalGeneHeaderLength()*(maxArity-1)+1);
