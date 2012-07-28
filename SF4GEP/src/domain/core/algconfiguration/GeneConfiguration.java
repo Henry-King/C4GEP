@@ -123,8 +123,14 @@ public class GeneConfiguration implements Serializable{
 		int result = 17;
 		result = 37 * result + (int)normalGeneNumber;
 		result = 37 * result + (int)normalGeneHeaderLength;
-		result = 37 * result + (int)homeoticGeneNumber;
-		result = 37 * result + (int)homeoticGeneHeaderLength;
+		result = 37 *result +useHomeoticGene.hashCode();
+		if(useHomeoticGene){
+			result = 37 * result + (int)homeoticGeneNumber;
+			result = 37 * result + (int)homeoticGeneHeaderLength;
+		}
+		else {
+			result=37*result+connectionFunction.hashCode();
+		}
 		result = 37 * result + functionUsed.hashCode();
 		return result;
 	}
@@ -134,9 +140,11 @@ public class GeneConfiguration implements Serializable{
 		GeneConfiguration gc = (GeneConfiguration)o;
 		return gc.getNormalGeneNumber() .equals( normalGeneNumber)
 			&&	gc.getNormalGeneHeaderLength() .equals( normalGeneHeaderLength)
-			&&	gc.getHomeoticGeneNumber() .equals( homeoticGeneNumber)
-			&&	gc.getHomeoticGeneHeaderLength() .equals( homeoticGeneHeaderLength)
-			&&	gc.getFunctionUsed() .equals( functionUsed);			
+			&&	gc.getFunctionUsed() .equals(functionUsed)
+			&&  gc.getUseHomeoticGene().equals(useHomeoticGene)
+			&&	gc.getUseHomeoticGene()
+			?(gc.getHomeoticGeneNumber().equals( homeoticGeneNumber)&&gc.getHomeoticGeneHeaderLength().equals( homeoticGeneHeaderLength))
+			:(gc.getConnectionFunction().equals(connectionFunction));
 		}
 		else {
 			return false;
