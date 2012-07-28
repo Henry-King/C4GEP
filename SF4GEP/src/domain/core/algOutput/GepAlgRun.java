@@ -68,8 +68,6 @@ public class GepAlgRun implements Serializable{
 		while(populations.size()>2)
 			populations.remove(0);
 	}
-	
-	
 	@Override
 	public int hashCode(){
 		int result = 17;
@@ -78,7 +76,6 @@ public class GepAlgRun implements Serializable{
 		result = 37 * result + populations.hashCode();
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof GepAlgRun){
