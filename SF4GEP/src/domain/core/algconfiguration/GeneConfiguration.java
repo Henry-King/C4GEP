@@ -128,7 +128,7 @@ public class GeneConfiguration implements Serializable{
 		}
 	}
 	public String getConnectionFunctionString(){
-		return connectionFunction.getClass().toString();
+		return connectionFunction.getClass().getName();
 	}
 	@Override
 	public int hashCode(){
