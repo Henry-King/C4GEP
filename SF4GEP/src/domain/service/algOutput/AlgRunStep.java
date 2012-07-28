@@ -157,7 +157,7 @@ public class AlgRunStep implements IAlgRunStep {
 							type=funcOrVarRandom.nextInt(totalNum);
 							gene.getGenePieces().set(i, mutatedGenePiece);
 							if(type<functionNum){
-								mutatedGenePiece.setFunc(functionList.get(type).clone());
+								mutatedGenePiece.setFunc(functionList.get(type));
 								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
 								mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
 								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
@@ -189,7 +189,7 @@ public class AlgRunStep implements IAlgRunStep {
 						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
 							mutatedGenePiece=new GenePiece();
 							gene.getGenePieces().set(0, mutatedGenePiece);
-							mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())).clone());
+							mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())));
 							mutatedGenePiece.setGenePieceType(GenePieceType.Function);
 							mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
 							mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
@@ -200,7 +200,7 @@ public class AlgRunStep implements IAlgRunStep {
 								mutatedGenePiece=new GenePiece();
 								gene.getGenePieces().set(i, mutatedGenePiece);
 								if(type<functionNum){
-									mutatedGenePiece.setFunc(functionList.get(type).clone());
+									mutatedGenePiece.setFunc(functionList.get(type));
 									mutatedGenePiece.setGenePieceType(GenePieceType.Function);
 									mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
 									mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
@@ -322,7 +322,7 @@ public class AlgRunStep implements IAlgRunStep {
 			}
 			else {
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
 				addedGenePiece.setFunc(function);
 				addedGenePiece.setName(function.getName());
 				addedGenePiece.setSymbol(function.getSymbol());
@@ -371,7 +371,7 @@ public class AlgRunStep implements IAlgRunStep {
 		if(geneConfiguration.getUseHomeoticGene()){
 			addedGenePiece=new GenePiece();
 			addedGenePiece.setGenePieceType(GenePieceType.Function);
-			function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+			function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
 			addedGenePiece.setFunc(function);
 			addedGenePiece.setName(function.getName());
 			addedGenePiece.setSymbol(function.getSymbol());
@@ -381,7 +381,7 @@ public class AlgRunStep implements IAlgRunStep {
 				type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
 				if(type<geneConfiguration.getFunctionUsed().size()){
 					addedGenePiece.setGenePieceType(GenePieceType.Function);
-					function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size())).clone();
+					function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
 					addedGenePiece.setFunc(function);
 					addedGenePiece.setName(function.getName());
 					addedGenePiece.setSymbol(function.getSymbol());
@@ -400,7 +400,7 @@ public class AlgRunStep implements IAlgRunStep {
 			for(int i=0;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
 				addedGenePiece=new GenePiece();
 				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				addedGenePiece.setFunc(connectionFunction.clone());
+				addedGenePiece.setFunc(connectionFunction);
 				addedGenePiece.setName(connectionFunction.getName());
 				addedGenePiece.setSymbol(connectionFunction.getSymbol());
 				genePieces.add(addedGenePiece);
