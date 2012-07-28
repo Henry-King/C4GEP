@@ -8,6 +8,7 @@ import java.util.List;
 public class GeneConfiguration implements Serializable{
 	private static final long serialVersionUID = -4801304275798018482L;
 	private Integer id;
+	private Boolean useHomeoticGene;
 	private Integer normalGeneNumber;
 	private Integer normalGeneHeaderLength;
 	private Integer normalGeneTailLength;
@@ -23,6 +24,12 @@ public class GeneConfiguration implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Boolean getUseHomeoticGene() {
+		return useHomeoticGene;
+	}
+	public void setUseHomeoticGene(Boolean useHomeoticGene) {
+		this.useHomeoticGene = useHomeoticGene;
 	}
 	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
