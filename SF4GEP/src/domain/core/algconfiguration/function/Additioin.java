@@ -7,9 +7,7 @@ public class Additioin extends Function {
 	private static final long serialVersionUID = 8408096285882718047L;
 	public Additioin() {
 		// TODO Auto-generated constructor stub
-		name="加法";
-		symbol="+";
-		arity=2;
+		super("加法", "+", 2);
 	}
 	@Override
 	public float operate(float[] operators) {
