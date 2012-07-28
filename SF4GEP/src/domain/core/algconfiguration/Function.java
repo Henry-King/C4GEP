@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 函数抽象类，请确保任何继承此类的子类都具有默认构造函数，否则系统会出现错误
  */
 public abstract class Function implements Serializable,Cloneable{
-	private static final long serialVersionUID = -5233529550458131848L;
+	private static final long serialVersionUID = 7888828895947830787L;
 	protected final String name;
 	protected final String symbol;
 	protected final Integer arity;
