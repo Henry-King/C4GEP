@@ -8,7 +8,6 @@ import java.io.Serializable;
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
 	private Integer id;
-	private boolean used=false;
 	protected String name;
 	protected String symbol;
 	protected Integer arity;
@@ -17,12 +16,6 @@ public abstract class Function implements Serializable,Cloneable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public boolean isUsed() {
-		return used;
-	}
-	public void setUsed(boolean used) {
-		this.used = used;
 	}
 	public String getName() {
 		return name;
