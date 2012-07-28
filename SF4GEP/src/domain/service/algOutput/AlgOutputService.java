@@ -8,7 +8,9 @@ import java.util.concurrent.Executors;
 
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.Gene;
 import domain.core.algOutput.GepAlgRun;
+import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algConfiguration.IgepConfigurationService;
@@ -17,6 +19,18 @@ import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 
 public class AlgOutputService implements IAlgOutputService {
+	private class DdSave<T> implements Runnable{
+		private T data;
+		public DdSave(T data) {
+			// TODO Auto-generated constructor stub
+			this.data=data;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			hibernateDataContext.save(data);
+		}
+	}
 	private IHibernateDataContext hibernateDataContext;
 	private List<Float> maxFitnesses=new LinkedList<Float>();
 	private List<Float>	minFitnesses=new LinkedList<Float>();
@@ -58,6 +72,7 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
 		commit(gepAlgRun.getCurrentPopulation(),executorService);
+		commit(gepAlgRun.getCurrentPopulation().getBestIndividual(),executorService);
 		executorService.shutdown();
 		return gepAlgRun;
 	}
@@ -73,21 +88,12 @@ public class AlgOutputService implements IAlgOutputService {
 		// TODO Auto-generated method stub
 		return minFitnesses;
 	}
+	private void commit(final Individual individual,ExecutorService executorService){
+		for(int i=0;i<individual.getGenes().size();i++)
+			executorService.execute(new DdSave<Gene>(individual.getGenes().get(i)));
+	}
 	private void commit(final Population population,ExecutorService executorService){
-		class DdSave implements Runnable{
-			private Population population;
-			public DdSave(Population population) {
-				// TODO Auto-generated constructor stub
-				this.population=population;
-			}
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				hibernateDataContext.save(population);
-			}
-		}
-		
-		executorService.execute(new DdSave(population));
+		executorService.execute(new DdSave<Population>(population));
 	}
 	private void commit(GepAlgRun gepAlgRun){
 		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
