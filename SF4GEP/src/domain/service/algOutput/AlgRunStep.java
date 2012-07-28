@@ -447,7 +447,7 @@ public class AlgRunStep implements IAlgRunStep {
 		}
 		float result;
 		float[] resultList=new float[homeoticGeneNum];
-		if(geneConfiguration.getNormalGeneNumber()==1&geneConfiguration.getHomeoticGeneNumber()==1){
+		if(geneConfiguration.getNormalGeneNumber()==1&&geneConfiguration.getHomeoticGeneNumber()==1){
 			resultList[0]=individual.getGenes().get(0).getValue();
 		}
 		else {
