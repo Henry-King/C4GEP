@@ -118,6 +118,18 @@ public class GeneConfiguration implements Serializable{
 				e.printStackTrace();
 			}	
 	}
+	public void setConnectionFunctionString(String connectionFunctionString){
+		try {
+			connectionFunction=Function.class.cast(Class.forName(connectionFunctionString).newInstance());
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public String getConnectionFunctionString(){
+		return connectionFunction.toString();
+	}
 	@Override
 	public int hashCode(){
 		int result = 17;
