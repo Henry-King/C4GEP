@@ -7,33 +7,23 @@ import java.io.Serializable;
  */
 public abstract class Function implements Serializable,Cloneable{
 	private static final long serialVersionUID = -5233529550458131848L;
-	private Integer id;
-	protected String name;
-	protected String symbol;
-	protected Integer arity;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
+	protected final String name;
+	protected final String symbol;
+	protected final Integer arity;
+	public Function(String name,String symbol,Integer arity) {
+		// TODO Auto-generated constructor stub
+		this.name=name;
+		this.symbol=symbol;
+		this.arity=arity;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getSymbol() {
 		return symbol;
 	}
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
 	public Integer getArity() {
 		return arity;
-	}
-	public void setArity(Integer arity) {
-		this.arity = arity;
 	}
 	@Override
 	public Function clone() {
