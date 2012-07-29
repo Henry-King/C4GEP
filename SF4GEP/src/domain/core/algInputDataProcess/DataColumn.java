@@ -3,7 +3,7 @@ package domain.core.algInputDataProcess;
 import java.io.Serializable;
 
 public class DataColumn implements Cloneable,Serializable{
-	private static final long serialVersionUID = -6377488076384527164L;
+	private static final long serialVersionUID = 1816337452133558929L;
 	private Integer id;
 	private String columnName;
 	private Float value;
