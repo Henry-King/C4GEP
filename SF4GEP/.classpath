@@ -2,14 +2,46 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.hibernate.MYECLIPSE_HIBERNATE3_3_CORE"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jxl.jar"/>
-	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
-	<classpathentry kind="lib" path="JTattoo.jar"/>
-	<classpathentry kind="lib" path="substance-5.0.jar"/>
-	<classpathentry kind="lib" path="JLink.jar"/>
+	<classpathentry kind="lib" path="lib/JLink.jar"/>
+	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
+	<classpathentry kind="lib" path="lib/jcublas-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcublas-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcuda-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcuda-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcudaUtils-0.0.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcudaUtils-0.0.4.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcudpp-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcudpp-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcufft-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcufft-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcurand-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcurand-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jcusparse-0.4.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcusparse-0.4.1.jar!/doc"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
