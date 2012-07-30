@@ -29,7 +29,7 @@ public class HibernateTest {
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.getAllGepAlgConfiguration().get(0);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-		System.out.println(gepAlgConfiguration.getOperatorConfiguration().getIsElement());
+		System.out.println(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration().getUseHomeoticGene());
 	}
 
 }
