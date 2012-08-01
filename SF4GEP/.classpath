@@ -43,5 +43,10 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcusparse-0.4.1.jar!/doc"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/xom-1.2.8.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/xom-1.2.8.jar!/apidocs"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
