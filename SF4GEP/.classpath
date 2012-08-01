@@ -6,7 +6,11 @@
 	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jxl.jar"/>
-	<classpathentry kind="lib" path="lib/JLink.jar"/>
+	<classpathentry kind="lib" path="lib/JLink.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/JLink.jar!/JavaDoc"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
 	<classpathentry kind="lib" path="lib/jcublas-0.4.1.jar">
 		<attributes>
