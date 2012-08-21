@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jxl.CellType;
+import jxl.NumberCell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -39,12 +41,17 @@ public class DataInputService implements IDataInputService {
 		int columns = sheet.getColumns();
 		dataSet = new DataSet(rows-1, columns-1, path.getName());
 		List<DataRow> sheetRows = new ArrayList<DataRow>(rows - 1);
+		NumberCell numc;
 		for (int i = 1; i < rows; i++) {
 			sheetRow = new DataRow();
 			sheetColumns = new ArrayList<DataColumn>(columns - 1);
 			for (int j = 0; j < columns - 1; j++) {
 				normalColumn = new DataColumn();
 				normalColumn.setColumnName(sheet.getCell(j, 0).getContents());
+				if(sheet.getCell(j, i).getType()==CellType.NUMBER){
+					numc=(NumberCell) sheet.getCell(j, i);
+					normalColumn.setValue((float) numc.getValue());
+				}
 				normalColumn.setValue(Float.valueOf(sheet.getCell(j, i).getContents()));
 				sheetColumns.add(normalColumn);
 			}
