@@ -90,5 +90,4 @@ public class DataInputService implements IDataInputService {
 		}
 		return result;
 	}
-
 }
