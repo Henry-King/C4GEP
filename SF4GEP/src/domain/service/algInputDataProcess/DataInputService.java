@@ -52,7 +52,9 @@ public class DataInputService implements IDataInputService {
 					numc=(NumberCell) sheet.getCell(j, i);
 					normalColumn.setValue((float) numc.getValue());
 				}
-				normalColumn.setValue(Float.valueOf(sheet.getCell(j, i).getContents()));
+				else	
+					normalColumn.setValue(Float.valueOf(sheet.getCell(j, i).getContents()));
+				
 				sheetColumns.add(normalColumn);
 			}
 			resultColumn = new DataColumn();
