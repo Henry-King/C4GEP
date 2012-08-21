@@ -54,7 +54,6 @@ public class DataInputService implements IDataInputService {
 				}
 				else	
 					normalColumn.setValue(Float.valueOf(sheet.getCell(j, i).getContents()));
-				
 				sheetColumns.add(normalColumn);
 			}
 			resultColumn = new DataColumn();
