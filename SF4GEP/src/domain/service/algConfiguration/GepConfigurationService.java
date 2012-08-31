@@ -1,7 +1,9 @@
 package domain.service.algConfiguration;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
@@ -23,23 +25,28 @@ public class GepConfigurationService implements IgepConfigurationService {
 	}
 
 	@Override
-	public boolean saveGepAlgConfiguration(
+	public GepAlgConfiguration saveGepAlgConfiguration(
 			GepAlgConfiguration gepAlgConfiguration) {
 		// TODO Auto-generated method stub
-		boolean result=true;
-		try {
-			hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
-			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
-			hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());
-			hibernateDataContext.save(gepAlgConfiguration);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
+		List<? extends GepAlgConfiguration> confs=hibernateDataContext.findAll(GepAlgConfiguration.class);
+		int gepAlgConfigurationIndex=confs.indexOf(gepAlgConfiguration);
+		if(gepAlgConfigurationIndex!=-1){	
+			return confs.get(gepAlgConfigurationIndex);
 		}
-		return result;
+		else {
+			try {
+				commit(gepAlgConfiguration);
+				return gepAlgConfiguration;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat();
+				String append=gepAlgConfiguration.getName()+"-"+simpleDateFormat.format(new Date());
+				gepAlgConfiguration.setName(append);
+				commit(gepAlgConfiguration);
+				return gepAlgConfiguration;
+			}		
+		}
 	}
-
 	@Override
 	public GepAlgConfiguration setGepAlgConfiguration(
 			GepAlgConfiguration gepAlgConfiguration,DataSet dataSet) {
@@ -107,5 +114,10 @@ public class GepConfigurationService implements IgepConfigurationService {
 		}
 		return result;
 	}
-	
+	private void commit(GepAlgConfiguration gepAlgConfiguration){
+		hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
+		hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
+		hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());
+		hibernateDataContext.save(gepAlgConfiguration);
+	}
 }
