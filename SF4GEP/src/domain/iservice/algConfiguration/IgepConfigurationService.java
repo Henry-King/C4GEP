@@ -8,7 +8,7 @@ import domain.core.algconfiguration.GepAlgConfiguration;
 
 public interface IgepConfigurationService {
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration();
-	public boolean saveGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration);
+	public GepAlgConfiguration saveGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration);
 	/**
 	 * 配置信息中有些属性有简单的函数决定关系，例如b＝a+1，调用前只需要填充b，此方法会自动计算a的值
 	 * 前置条件：调用此方法前，请确定GepAlgConfiguration的所有子属性均填充完整。因此在正式使用GepAlgConfiguration这个类的对象的时候，请先调用此方法。
