@@ -101,19 +101,6 @@ public class GepConfigurationService implements IgepConfigurationService {
 		}
 		return functions;
 	}
-	@Override
-	public boolean upate(GepAlgConfiguration gepAlgConfiguration) {
-		// TODO Auto-generated method stub
-		boolean result=true;
-		try {
-			hibernateDataContext.update(gepAlgConfiguration);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
-		}
-		return result;
-	}
 	private void commit(GepAlgConfiguration gepAlgConfiguration){
 		hibernateDataContext.save(gepAlgConfiguration.getOperatorConfiguration());
 		hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
