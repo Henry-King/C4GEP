@@ -11,7 +11,7 @@ import domain.core.algInputDataProcess.DataSet;
 
 public interface IDataInputService {
 	public DataSet processInputDataSet(File path) throws  BiffException, IOException;
-	public boolean commit(DataSet dataSet);
+	public DataSet commit(DataSet dataSet);
 	public boolean update(DataSet dataSet);
 	public List<DataSet> getDataSets();
 }
