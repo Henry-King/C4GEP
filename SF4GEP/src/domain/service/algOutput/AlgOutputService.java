@@ -12,9 +12,11 @@ import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Population;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algConfiguration.IgepConfigurationService;
+import domain.iservice.algInputDataProcess.IDataInputService;
 import domain.iservice.algOutput.IAlgOutputService;
 import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
+import domain.service.algInputDataProcess.DataInputService;
 
 public class AlgOutputService implements IAlgOutputService {
 	private class DbSave<T> implements Runnable{
@@ -92,6 +94,7 @@ public class AlgOutputService implements IAlgOutputService {
 		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
 		List<? extends GepAlgConfiguration>gepAlgConfigurations=hibernateDataContext.findAll(GepAlgConfiguration.class);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
+		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		int dataSetIndex=dataSets.indexOf(gepAlgRun.getDataSet());
 		int confIndex=gepAlgConfigurations.indexOf(gepAlgRun.getGepAlgConfiguration());
 		DataSet dataSet=gepAlgRun.getDataSet();
@@ -101,7 +104,7 @@ public class AlgOutputService implements IAlgOutputService {
 			gepAlgRun.setDataSet(dataSet);
 		}	
 		else
-			hibernateDataContext.save(dataSet);
+			dataInputService.commit(dataSet);
 		if(confIndex!=-1){
 			gepAlgConfiguration=gepAlgConfigurations.get(confIndex);
 			gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
