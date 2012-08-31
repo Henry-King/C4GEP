@@ -5,7 +5,9 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jxl.CellType;
@@ -67,10 +69,25 @@ public class DataInputService implements IDataInputService {
 		return dataSet;
 	}
 	@Override
-	public boolean commit(DataSet dataSet) {
+	public DataSet commit(DataSet dataSet) {
 		// TODO Auto-generated method stub
-		hibernateDataContext.save(dataSet);
-		return true;
+		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
+		int dataSetIndex=dataSets.indexOf(dataSet);
+		if(dataSetIndex!=-1)
+			return dataSets.get(dataSetIndex);
+		else {
+			try {
+				hibernateDataContext.save(dataSet);
+				return dataSet;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat();
+				String append=dataSet.getName()+"-"+simpleDateFormat.format(new Date());
+				dataSet.setName(append);
+				hibernateDataContext.save(dataSet);
+				return dataSet;
+			}		
+		}
 	}
 	@Override
 	public List<DataSet> getDataSets() {
