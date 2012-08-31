@@ -3,6 +3,7 @@ package test;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import jxl.read.biff.BiffException;
 
@@ -76,6 +77,10 @@ public class ConfigurationTest {
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
 		IAlgRunStep runStep=new AlgRunStep();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		System.out.println(gepAlgRun.getCurrentPopulation().getGenerationNum());
+		long start=System.nanoTime();
+		System.out.println("代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
+		long end=System.nanoTime();
+		long result=TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		System.out.println("总耗时：\t"+result+"\t微秒");
 	}
 }
