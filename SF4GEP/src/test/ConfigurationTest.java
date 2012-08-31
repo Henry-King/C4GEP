@@ -70,7 +70,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-//		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
