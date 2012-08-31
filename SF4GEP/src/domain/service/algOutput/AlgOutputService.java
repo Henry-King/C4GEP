@@ -100,7 +100,7 @@ public class AlgOutputService implements IAlgOutputService {
 			dataSet=dataSets.get(dataSetIndex);
 			gepAlgRun.setDataSet(dataSet);
 		}	
-		else 
+		else
 			hibernateDataContext.save(dataSet);
 		if(confIndex!=-1){
 			gepAlgConfiguration=gepAlgConfigurations.get(confIndex);
