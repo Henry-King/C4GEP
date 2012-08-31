@@ -91,29 +91,11 @@ public class AlgOutputService implements IAlgOutputService {
 		executorService.execute(new DbSave<Population>(population));
 	}
 	private void commit(GepAlgRun gepAlgRun){
-		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
-		List<? extends GepAlgConfiguration>gepAlgConfigurations=hibernateDataContext.findAll(GepAlgConfiguration.class);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
-		int dataSetIndex=dataSets.indexOf(gepAlgRun.getDataSet());
-		int confIndex=gepAlgConfigurations.indexOf(gepAlgRun.getGepAlgConfiguration());
-		DataSet dataSet=gepAlgRun.getDataSet();
-		GepAlgConfiguration gepAlgConfiguration=gepAlgRun.getGepAlgConfiguration();
-		if(dataSetIndex!=-1){
-			dataSet=dataSets.get(dataSetIndex);
-			gepAlgRun.setDataSet(dataSet);
-		}	
-		else
-			dataInputService.commit(dataSet);
-		if(confIndex!=-1){
-			gepAlgConfiguration=gepAlgConfigurations.get(confIndex);
-			gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-			gepAlgRun.setGepAlgConfiguration(gepAlgConfiguration);
-		}
-		else{
-			gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-			gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
-		}			
+		gepAlgRun.setDataSet(dataInputService.commit(gepAlgRun.getDataSet()));
+		gepAlgRun.setGepAlgConfiguration(gepConfigurationService.saveGepAlgConfiguration(gepAlgRun.getGepAlgConfiguration()));
+		gepConfigurationService.setGepAlgConfiguration(gepAlgRun.getGepAlgConfiguration(), gepAlgRun.getDataSet());
 		hibernateDataContext.save(gepAlgRun);	
 	}
 }
