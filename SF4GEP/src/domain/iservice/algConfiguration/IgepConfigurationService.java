@@ -21,5 +21,4 @@ public interface IgepConfigurationService {
 	 */
 	public GepAlgConfiguration setGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet);
 	public List<Function> getAvailableFunctions();
-	public boolean upate(GepAlgConfiguration gepAlgConfiguration);
 }
