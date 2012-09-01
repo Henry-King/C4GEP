@@ -39,12 +39,12 @@ public class GepConfigurationService implements IgepConfigurationService {
 				return gepAlgConfiguration;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				SimpleDateFormat simpleDateFormat=new SimpleDateFormat();
-				String append=gepAlgConfiguration.getName()+"-"+simpleDateFormat.format(new Date());
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				String append=gepAlgConfiguration.getName()+" "+simpleDateFormat.format(new Date());
 				gepAlgConfiguration.setName(append);
 				commit(gepAlgConfiguration);
 				return gepAlgConfiguration;
-			}		
+			}
 		}
 	}
 	@Override
