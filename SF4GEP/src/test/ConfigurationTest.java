@@ -76,11 +76,11 @@ public class ConfigurationTest {
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
 		IAlgRunStep runStep=new AlgRunStep();
-		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
 		long start=System.nanoTime();
+		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
 		System.out.println("代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		long end=System.nanoTime();
-		long result=TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS);
-		System.out.println("总耗时：\t"+result+"\t微秒");
+		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		System.out.println("总耗时：\t"+result+"\t毫秒");
 	}
 }
