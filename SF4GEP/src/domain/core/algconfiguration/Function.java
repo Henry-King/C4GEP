@@ -62,4 +62,9 @@ public abstract class Function implements Serializable,Cloneable{
 		result = 37 * result + arity.hashCode();
 		return result;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 }
