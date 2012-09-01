@@ -8,6 +8,10 @@ import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 
 public class AlgCudaRunStep extends AlgRunStep{
+	public AlgCudaRunStep() {
+		// TODO Auto-generated constructor stub
+		
+	}
 	@Override
 	public List<Float> calculateFitness(Population population){
 		GepAlgRun gepAlgRun=population.getGepAlgRun();
