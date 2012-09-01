@@ -162,7 +162,7 @@ public class FooterView extends JPanel {
 	    			
 	    			
 	    				
-	    					parent.gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+	    					parent.gepConfigurationService.save(gepAlgConfiguration);
 	    				
 	    			
 	    		}

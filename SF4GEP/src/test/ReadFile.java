@@ -20,7 +20,7 @@ public class ReadFile {
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
 		IDataInputService dataInputService=new DataInputService(new HibernateDataContext());
-		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
+		DataSet dataSet=dataInputService.processData(new File("InputDemo.xls"));
 		System.out.println(dataSet.getDataRows().get(9).getDataColumns().get(0).getValue());
 		
 	}

@@ -39,7 +39,7 @@ public class ConfigurationTest {
 		// TODO Auto-generated method stub
 		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
-		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
+		DataSet dataSet=dataInputService.processData(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
@@ -69,8 +69,8 @@ public class ConfigurationTest {
 		operatorConfiguration.setTwoPointRecombineRate((float) 0.2);
 		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
-		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
-		gepConfigurationService.saveGepAlgConfiguration(gepAlgConfiguration);
+		gepAlgConfiguration=gepConfigurationService.processConf(gepAlgConfiguration, dataSet);
+		gepConfigurationService.save(gepAlgConfiguration);
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){

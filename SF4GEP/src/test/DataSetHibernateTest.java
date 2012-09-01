@@ -17,8 +17,8 @@ public class DataSetHibernateTest {
 		// TODO Auto-generated method stub
 		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
-		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
-		dataInputService.commit(dataSet);
+		DataSet dataSet=dataInputService.processData(new File("InputDemo.xls"));
+		dataInputService.save(dataSet);
 		System.out.println(dataInputService.getDataSets().get(0).getDataRows().get(1).getResultColumn().getValue());
 	}
 

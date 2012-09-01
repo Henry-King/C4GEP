@@ -24,11 +24,11 @@ public class HibernateTest {
 		// TODO Auto-generated method stub
 		IHibernateDataContext hibernateDataContext=new HibernateDataContext();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
-		DataSet dataSet=dataInputService.processInputDataSet(new File("InputDemo.xls"));
+		DataSet dataSet=dataInputService.processData(new File("InputDemo.xls"));
 		GepAlgConfiguration gepAlgConfiguration;
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.getAllGepAlgConfiguration().get(0);
-		gepAlgConfiguration=gepConfigurationService.setGepAlgConfiguration(gepAlgConfiguration, dataSet);
+		gepAlgConfiguration=gepConfigurationService.processConf(gepAlgConfiguration, dataSet);
 		System.out.println(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration().getUseHomeoticGene());
 	}
 

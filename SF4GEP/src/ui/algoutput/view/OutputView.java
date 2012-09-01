@@ -65,7 +65,7 @@ public class OutputView extends JPanel{
 	
 	public void refresh(){
 		GepConfigurationService gfs = new GepConfigurationService(parent.hibernateDataContext);
-		GepAlgConfiguration g =  gfs.setGepAlgConfiguration(parent.gepAlgConfiguration, parent.inputSet);
+		GepAlgConfiguration g =  gfs.processConf(parent.gepAlgConfiguration, parent.inputSet);
 		outputController.setParameter(parent.inputSet, g);
 		outputController.drawFittingCurve(mathCanvasA);
 		outputController.drawEvolutionGraph(mathCanvasB);

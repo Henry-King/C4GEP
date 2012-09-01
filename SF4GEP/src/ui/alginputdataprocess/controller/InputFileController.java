@@ -42,7 +42,7 @@ public class InputFileController {
 		File inputFile = new File(inputPath);
 		
 		try {
-			inputSet = dataInputService.processInputDataSet(inputFile);
+			inputSet = dataInputService.processData(inputFile);
 		} catch (BiffException e) {}
 		catch (IOException e) {}
 		
