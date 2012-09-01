@@ -25,7 +25,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 	}
 
 	@Override
-	public GepAlgConfiguration saveGepAlgConfiguration(
+	public GepAlgConfiguration save(
 			GepAlgConfiguration gepAlgConfiguration) {
 		// TODO Auto-generated method stub
 		List<? extends GepAlgConfiguration> confs=hibernateDataContext.findAll(GepAlgConfiguration.class);
@@ -48,7 +48,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 		}
 	}
 	@Override
-	public GepAlgConfiguration setGepAlgConfiguration(
+	public GepAlgConfiguration processConf(
 			GepAlgConfiguration gepAlgConfiguration,DataSet dataSet) {
 		// TODO Auto-generated method stub
 		IndividualConfiguration individualConfiguration=gepAlgConfiguration.getIndividualConfiguration();

@@ -29,7 +29,7 @@ public class DataInputService implements IDataInputService {
 		this.hibernateDataContext=hibernateDataContext;
 	}
 	@Override
-	public DataSet processInputDataSet(File path) throws BiffException, IOException {
+	public DataSet processData(File path) throws BiffException, IOException {
 		// TODO Auto-generated method stub
 		DataRow sheetRow;
 		List<DataColumn> sheetColumns;
@@ -69,7 +69,7 @@ public class DataInputService implements IDataInputService {
 		return dataSet;
 	}
 	@Override
-	public DataSet commit(DataSet dataSet) {
+	public DataSet save(DataSet dataSet) {
 		// TODO Auto-generated method stub
 		List<? extends DataSet> dataSets=hibernateDataContext.findAll(DataSet.class);
 		int dataSetIndex=dataSets.indexOf(dataSet);
@@ -93,18 +93,5 @@ public class DataInputService implements IDataInputService {
 	public List<DataSet> getDataSets() {
 		// TODO Auto-generated method stub
 		return hibernateDataContext.findAll(DataSet.class);
-	}
-	@Override
-	public boolean update(DataSet dataSet) {
-		// TODO Auto-generated method stub
-		boolean result=true;
-		try {
-			hibernateDataContext.update(dataSet);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result=false;
-		}
-		return result;
 	}
 }

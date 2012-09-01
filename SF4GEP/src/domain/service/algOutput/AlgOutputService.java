@@ -93,9 +93,9 @@ public class AlgOutputService implements IAlgOutputService {
 	private void commit(GepAlgRun gepAlgRun){
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
-		gepAlgRun.setDataSet(dataInputService.commit(gepAlgRun.getDataSet()));
-		gepAlgRun.setGepAlgConfiguration(gepConfigurationService.saveGepAlgConfiguration(gepAlgRun.getGepAlgConfiguration()));
-		gepConfigurationService.setGepAlgConfiguration(gepAlgRun.getGepAlgConfiguration(), gepAlgRun.getDataSet());
+		gepAlgRun.setDataSet(dataInputService.save(gepAlgRun.getDataSet()));
+		gepAlgRun.setGepAlgConfiguration(gepConfigurationService.save(gepAlgRun.getGepAlgConfiguration()));
+		gepConfigurationService.processConf(gepAlgRun.getGepAlgConfiguration(), gepAlgRun.getDataSet());
 		hibernateDataContext.save(gepAlgRun);	
 	}
 }

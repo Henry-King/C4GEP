@@ -10,8 +10,7 @@ import jxl.read.biff.BiffException;
 import domain.core.algInputDataProcess.DataSet;
 
 public interface IDataInputService {
-	public DataSet processInputDataSet(File path) throws  BiffException, IOException;
-	public DataSet commit(DataSet dataSet);
-	public boolean update(DataSet dataSet);
+	public DataSet processData(File path) throws  BiffException, IOException;
+	public DataSet save(DataSet dataSet);
 	public List<DataSet> getDataSets();
 }
