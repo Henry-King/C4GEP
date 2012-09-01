@@ -154,9 +154,9 @@ public class GeneConfiguration implements Serializable{
 			&&	gc.getNormalGeneHeaderLength() .equals( normalGeneHeaderLength)
 			&&	gc.getFunctionUsed() .equals(functionUsed)
 			&&  gc.getUseHomeoticGene().equals(useHomeoticGene)
-			&&	gc.getUseHomeoticGene()
+			&&	(gc.getUseHomeoticGene()
 			?(gc.getHomeoticGeneNumber().equals(homeoticGeneNumber)&&gc.getHomeoticGeneHeaderLength().equals( homeoticGeneHeaderLength))
-			:(gc.getConnectionFunction().equals(connectionFunction));
+			:(gc.getConnectionFunction().equals(connectionFunction)));
 		}
 		else {
 			return false;
