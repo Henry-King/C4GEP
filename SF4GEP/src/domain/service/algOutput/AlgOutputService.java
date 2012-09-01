@@ -96,6 +96,6 @@ public class AlgOutputService implements IAlgOutputService {
 		gepAlgRun.setDataSet(dataInputService.save(gepAlgRun.getDataSet()));
 		gepAlgRun.setGepAlgConfiguration(gepConfigurationService.save(gepAlgRun.getGepAlgConfiguration()));
 		gepConfigurationService.processConf(gepAlgRun.getGepAlgConfiguration(), gepAlgRun.getDataSet());
-		hibernateDataContext.save(gepAlgRun);	
+		hibernateDataContext.save(gepAlgRun);
 	}
 }
