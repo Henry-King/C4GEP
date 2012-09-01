@@ -46,12 +46,12 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setName("运行");
 		gepAlgConfiguration.setMaxGeneration((long) 100000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
-		individualConfiguration.setIndividualNumber(20);
+		individualConfiguration.setIndividualNumber(200);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
-		geneConfiguration.setUseHomeoticGene(false);
+		geneConfiguration.setUseHomeoticGene(true);
 		geneConfiguration.setConnectionFunction(new Addition());
 		geneConfiguration.setHomeoticGeneHeaderLength(5);
-		geneConfiguration.setHomeoticGeneNumber(1);
+		geneConfiguration.setHomeoticGeneNumber(30);
 		geneConfiguration.setNormalGeneHeaderLength(7);
 		geneConfiguration.setNormalGeneNumber(3);
 		geneConfiguration.setFunctionUsed(Arrays.asList(new Addition(),new Minus(),new Multiply(),new Divide()));
@@ -78,7 +78,7 @@ public class ConfigurationTest {
 		IAlgRunStep runStep=new AlgRunStep();
 		long start=System.nanoTime();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		System.out.println("代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
+		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		System.out.println("总耗时：\t"+result+"\t毫秒");
