@@ -82,5 +82,6 @@ public class ConfigurationTest {
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		System.out.println("×ÜºÄÊ±£º\t"+result+"\tºÁÃë");
+		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getHomeoticGeneIndex());
 	}
 }
