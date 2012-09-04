@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
@@ -51,6 +52,7 @@ public class AlgOutputService implements IAlgOutputService {
 		Population newPopulation;
 		maxFitnesses.clear();
 		minFitnesses.clear();
+		long start=System.nanoTime();
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
 			maxFitness=Collections.max(fitnessFloats);
@@ -71,6 +73,9 @@ public class AlgOutputService implements IAlgOutputService {
 			algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
 			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 		}
+		long end=System.nanoTime();
+		long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		gepAlgRun.setTime(period);
 		commit(gepAlgRun.getCurrentPopulation(), executorService);
 		executorService.shutdown();
 		return gepAlgRun;
