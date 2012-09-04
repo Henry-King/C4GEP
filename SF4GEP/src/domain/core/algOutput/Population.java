@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.core.algconfiguration.IndividualConfiguration;
+
 /**
  * 种群实体类
  * @author 申远
@@ -102,6 +104,44 @@ public class Population implements Serializable,Cloneable{
 	public void setGenerationNum(Long generationNum) {
 		this.generationNum = generationNum;
 	}
+	public char[][] getNormalGeneType() {
+		char[][] result=new char[individuals.size()][];
+		IndividualConfiguration individualConfiguration=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration();
+		int normalGeneNum=individualConfiguration.getGeneConfiguration().getNormalGeneNumber();
+		int normalGeneLength=individualConfiguration.getGeneConfiguration().getNormalGeneLength();
+		for(int i=0;i<individuals.size();i++)
+			result[i]=individuals.get(i).getGeneBitType(0, normalGeneNum, normalGeneLength);
+		return result;
+	}
+	public char[][] getHomeoticGeneType(){
+		char[][] result=new char[individuals.size()][];
+		IndividualConfiguration individualConfiguration=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration();
+		int normalGeneNum=individualConfiguration.getGeneConfiguration().getNormalGeneNumber();
+		int totalGeneNum=individualConfiguration.getTotalGeneNumbers();
+		int homeoticGeneLength=individualConfiguration.getGeneConfiguration().getHomeoticGeneLength();
+		for(int i=0;i<individuals.size();i++)
+			result[i]=individuals.get(i).getGeneBitType(normalGeneNum, totalGeneNum, homeoticGeneLength);
+		return result;
+	}
+	public char[][] getNormalGeneIndex(){
+		char[][] result=new char[individuals.size()][];
+		IndividualConfiguration individualConfiguration=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration();
+		int normalGeneNum=individualConfiguration.getGeneConfiguration().getNormalGeneNumber();
+		int normalGeneLength=individualConfiguration.getGeneConfiguration().getNormalGeneLength();
+		for(int i=0;i<individuals.size();i++)
+			result[i]=individuals.get(i).getGeneBitIndex(0, normalGeneNum, normalGeneLength);
+		return result;
+	}
+	public char[][] getHomeoticGeneIndex(){
+		char[][] result=new char[individuals.size()][];
+		IndividualConfiguration individualConfiguration=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration();
+		int normalGeneNum=individualConfiguration.getGeneConfiguration().getNormalGeneNumber();
+		int totalGeneNum=individualConfiguration.getTotalGeneNumbers();
+		int homeoticGeneLength=individualConfiguration.getGeneConfiguration().getHomeoticGeneLength();
+		for(int i=0;i<individuals.size();i++)
+			result[i]=individuals.get(i).getGeneBitIndex(normalGeneNum, totalGeneNum, homeoticGeneLength);
+		return result;
+	}
 	/**
 	 * 对当前种群进行复制，产生一个新的种群，对于string 这样的不可改变对象和int这样的基本数据类型和AlgRun，这是一个浅复制，对于其他的对象而言，这是一个深度复制
 	 * @return 一个新的种群，二者不共享内存空间，只是具有相同的初始化的值。
@@ -146,4 +186,5 @@ public class Population implements Serializable,Cloneable{
 			return false;
 		}
 	}
+	
 }
