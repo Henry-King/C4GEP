@@ -10,18 +10,36 @@ public abstract class Function implements Serializable,Cloneable{
 	protected final String name;
 	protected final String symbol;
 	protected final Integer arity;
+	/**
+	 * 创建一个新的Function
+	 * @param name 函数名称
+	 * @param symbol 函数符号
+	 * @param arity 操作符数目
+	 */
 	public Function(String name,String symbol,Integer arity) {
 		// TODO Auto-generated constructor stub
 		this.name=name;
 		this.symbol=symbol;
 		this.arity=arity;
 	}
+	/**
+	 * 返回函数的名称的字符串表示
+	 * @return 函数的名称
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * 返回函数的符号的字符串表示
+	 * @return 函数的符号
+	 */
 	public String getSymbol() {
 		return symbol;
 	}
+	/**
+	 * 返回函数的操作符数
+	 * @return 操作符数
+	 */
 	public Integer getArity() {
 		return arity;
 	}
