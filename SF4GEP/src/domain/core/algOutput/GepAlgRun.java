@@ -16,7 +16,7 @@ public class GepAlgRun implements Serializable{
 	private GepAlgConfiguration gepAlgConfiguration;
 	private DataSet dataSet;
 	private List<Population> populations=new ArrayList<Population>(2);
-	private Long time;
+	private Long period;
 	public Integer getId() {
 		return id;
 	}
@@ -56,11 +56,11 @@ public class GepAlgRun implements Serializable{
 		this.populations = population;
 		removeRedundancyPopulation();
 	}
-	public Long getTime() {
-		return time;
+	public Long getPeriod() {
+		return period;
 	}
-	public void setTime(Long time) {
-		this.time = time;
+	public void setPeriod(Long period) {
+		this.period = period;
 	}
 	public List<Function> getUsedFunctions(){
 		return gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration().getFunctionUsed();
@@ -81,7 +81,7 @@ public class GepAlgRun implements Serializable{
 		result = 37 * result + gepAlgConfiguration.hashCode();
 		result = 37 * result + dataSet.hashCode();
 		result = 37 * result + populations.hashCode();
-		result = 37 * result  +time.hashCode();
+		result = 37 * result  +period.hashCode();
 		return result;
 	}
 	@Override
@@ -91,7 +91,7 @@ public class GepAlgRun implements Serializable{
 			return 	gac.getGepAlgConfiguration().equals(gepAlgConfiguration)
 				&&	gac.getDataSet().equals(dataSet)
 				&&	gac.getPopulations().equals(populations)
-				&&  gac.getTime().equals(time);
+				&&  gac.getPeriod().equals(period);
 		}
 		else {
 			return false;
