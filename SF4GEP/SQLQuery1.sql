@@ -66,6 +66,7 @@ create table GepAlgRun(
 	id int primary key identity(1,1),
 	gepAlgConfiguration int,
 	dataSet int,
+	period bigint,
 	foreign key (gepAlgConfiguration) references GepAlgConfiguration(id),
 	foreign key (dataSet) references DataSet(id)
 )
@@ -82,7 +83,6 @@ create table Individual (
 	idx int,
 	fitness float,
 	selectedHomeoticGeneNumber int,
-	
 	populations int,
 	foreign key (populations) references Populations(id)
 )
@@ -116,3 +116,22 @@ create table GenePiece(
 	funcString varchar(64),
 	foreign key (gene) references Gene(id)
 )
+
+delete from DataColumn
+delete from DataRow
+delete from DataSet
+delete from GepAlgConfiguration
+delete from OperatorConfiguration
+delete from IndividualConfiguration
+delete from geneConfiguration
+
+delete from GenePiece
+delete from gene
+delete from FittedValue
+delete from Individual
+delete from Populations
+delete from GepAlgRun
+
+drop database SF4GEP
+
+select * from geneConfiguration
