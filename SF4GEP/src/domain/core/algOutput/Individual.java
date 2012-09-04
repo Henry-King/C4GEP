@@ -4,6 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.function.Addition;
+import domain.core.algconfiguration.function.Cos;
+import domain.core.algconfiguration.function.Divide;
+import domain.core.algconfiguration.function.Minus;
+import domain.core.algconfiguration.function.Multiply;
+import domain.core.algconfiguration.function.Sin;
+
 /**
  * 个体类,种群中保存着个体的List
  * @author 个体类
@@ -90,7 +98,28 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	public void setSelectedHomeoticGeneNumber(Integer selectedHomeoticGeneNumber) {
 		this.selectedHomeoticGeneNumber = selectedHomeoticGeneNumber;
 	}
-
+	public char[] getGeneBitType(int start,int end,int geneLength) {
+		int geneNum=end-start;
+		int length=geneNum*geneLength;
+		char result[]=new char[length];
+		for(int i=0;i<geneNum;i++){
+			for(int j=0;j<geneLength;j++){
+				result[j+i*geneLength]=getGeneBitType(i+start, j);
+			}
+		}
+		return result;
+	}
+	public char[] getNormalGeneBit(int start,int end,int geneLength){
+		int geneNum=end-start;
+		int length=geneNum*geneLength;
+		char result[]=new char[length];
+		for(int i=0;i<geneNum;i++){
+			for(int j=0;j<geneLength;j++){
+				result[j+i*geneLength]=getGeneBitIndex(i+start, j);
+			}
+		}
+		return result;
+	}
 	@Override
 	public Individual clone(){
 		// TODO Auto-generated method stub
@@ -140,5 +169,46 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 		else {
 			return false;
 		}
+	}
+	private char getGeneBitType(int gene,int index){
+		GenePiece genePiece=genes.get(gene).getGenePieces().get(index);
+		switch (genePiece.getGenePieceType()) {
+		case Variable:
+			return 0;
+		case Function:
+			return 1;
+		case Constant:
+			return 2;
+		default:
+			return Character.MAX_VALUE;
+		}
+	}
+	private char getGeneBitIndex(int gene,int index){
+		GenePiece genePiece=genes.get(gene).getGenePieces().get(index);
+		switch (genePiece.getGenePieceType()) {
+		case Variable:
+			return (char) genePiece.getVariableIndex().intValue();
+		case Function:
+			return getFuncIndex(genePiece.getFunc());
+		default:
+			return Character.MAX_VALUE;
+		}
+	}
+	private char getFuncIndex(Function function){
+		Class<? extends Function> funcClass=function.getClass();
+		if(funcClass==Addition.class)
+			return 0;
+		else if(funcClass==Minus.class)
+			return 1;
+		else if(funcClass==Multiply.class)
+			return 2;
+		else if(funcClass==Divide.class)
+			return 3;
+		else if(funcClass==Sin.class)
+			return 4;
+		else if(funcClass==Cos.class)
+			return 5;
+		else 
+			return Character.MAX_VALUE;
 	}
 }
