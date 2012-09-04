@@ -75,7 +75,7 @@ public class AlgOutputService implements IAlgOutputService {
 		}
 		long end=System.nanoTime();
 		long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
-		gepAlgRun.setTime(period);
+		gepAlgRun.setPeriod(period);
 		commit(gepAlgRun.getCurrentPopulation(), executorService);
 		executorService.shutdown();
 		return gepAlgRun;
