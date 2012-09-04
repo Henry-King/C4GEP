@@ -49,18 +49,38 @@ public class GeneConfiguration implements Serializable{
 	public void setUseHomeoticGene(Boolean useHomeoticGene) {
 		this.useHomeoticGene = useHomeoticGene;
 	}
+	/**
+	 * 返回普通基因的数量
+	 * @return 普通基因的数量
+	 */
 	public Integer getNormalGeneNumber() {
 		return normalGeneNumber;
 	}
+	/**
+	 * 设置普通基因的数量
+	 * @param normalGeneNumber 普通基因的数量
+	 */
 	public void setNormalGeneNumber(Integer normalGeneNumber) {
 		this.normalGeneNumber = normalGeneNumber;
 	}
+	/**
+	 * 获得普通基因的头部长度
+	 * @return 普通基因的头部长度
+	 */
 	public Integer getNormalGeneHeaderLength() {
 		return normalGeneHeaderLength;
 	}
+	/**
+	 * 设置普通基因头部长度
+	 * @param normalGeneHeaderLength 普通基因头部长度
+	 */
 	public void setNormalGeneHeaderLength(Integer normalGeneHeaderLength) {
 		this.normalGeneHeaderLength = normalGeneHeaderLength;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Integer getNormalGeneTailLength() {
 		return normalGeneTailLength;
 	}
