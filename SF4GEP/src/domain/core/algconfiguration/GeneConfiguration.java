@@ -78,45 +78,97 @@ public class GeneConfiguration implements Serializable{
 		this.normalGeneHeaderLength = normalGeneHeaderLength;
 	}
 	/**
-	 * 
-	 * @return
+	 * 获取普通基因的尾部长度，此长度可由Service类自动计算得出,
+	 *尾部长度=头部长度*(Max{函数的参数个数|函数集})+1
+	 * @return 普通基因的尾部长度
 	 */
 	public Integer getNormalGeneTailLength() {
 		return normalGeneTailLength;
 	}
+	/**
+	 * 设置普通基因的尾部长度，此长度可由Service类自动计算得出,用户不要手动设置，否则可能发生异常，
+	 *尾部长度=头部长度*(Max{函数的参数个数|函数集})+1
+	 * @param normalGeneTailLength 普通基因尾部长度
+	 */
 	public void setNormalGeneTailLength(Integer normalGeneTailLength) {
 		this.normalGeneTailLength = normalGeneTailLength;
 	}
+	/**
+	 * 返回一个普通基因的长度，其长度等于=普通基因的头长+普通基因的尾长
+	 * @return 一个普通基因的长度
+	 */
 	public Integer getNormalGeneLength() {
 		return normalGeneLength;
 	}
+	/**
+	 * 设置一个普通基因的长度，其长度等于=普通基因的头长+普通基因的尾长，用户不要手动设置，否则可能发生异常
+	 * @param normalGeneLength 普通基因长度
+	 */
 	public void setNormalGeneLength(Integer normalGeneLength) {
 		this.normalGeneLength = normalGeneLength;
 	}
+	/**
+	 * 返回同源基因数量
+	 * @return 同源基因的数量
+	 */
 	public Integer getHomeoticGeneNumber() {
 		return homeoticGeneNumber;
 	}
+	/**
+	 * 设置同源基因数量
+	 * @param homeoticGeneNumber 同源基因数量
+	 */
 	public void setHomeoticGeneNumber(Integer homeoticGeneNumber) {
 		this.homeoticGeneNumber = homeoticGeneNumber;
 	}
+	/**
+	 * 获取同源基因头部长度
+	 * @return 同源基因头部长度
+	 */
 	public Integer getHomeoticGeneHeaderLength() {
 		return homeoticGeneHeaderLength;
 	}
+	/**
+	 * 设置同源基因头部长度
+	 * @param homeoticGeneHeaderLength 同源基因头部长度
+	 */
 	public void setHomeoticGeneHeaderLength(Integer homeoticGeneHeaderLength) {
 		this.homeoticGeneHeaderLength = homeoticGeneHeaderLength;
 	}
+	/**
+	 * 获取同源基因的尾部长度，此长度可由Service类自动计算得出,
+	 *尾部长度=头部长度*(Max{函数的参数个数|函数集})+1
+	 * @return 同源基因的尾部长度
+	 */
 	public Integer getHomeoticGeneTailLength() {
 		return homeoticGeneTailLength;
 	}
+	/**
+	 * 设置同源基因的尾部长度，此长度可由Service类自动计算得出,用户不要手动设置，否则可能发生异常，
+	 *尾部长度=头部长度*(Max{函数的参数个数|函数集})+1
+	 * @param homeoticGeneTailLength 同源基因尾部长度
+	 */
 	public void setHomeoticGeneTailLength(Integer homeoticGeneTailLength) {
 		this.homeoticGeneTailLength = homeoticGeneTailLength;
 	}
+	/**
+	 * 返回一个同源基因的长度，其长度等于=同源基因的头长+同源基因的尾长
+	 * @return 一个同源基因的长度
+	 */
 	public Integer getHomeoticGeneLength() {
 		return homeoticGeneLength;
 	}
+	/**
+	 * 设置一个同源基因的长度，其长度等于=同源基因的头长+同源基因的尾长，用户不要手动设置，否则可能发生异常
+	 * @param homeoticGeneLength 同源基因的长度
+	 */
 	public void setHomeoticGeneLength(Integer homeoticGeneLength) {
 		this.homeoticGeneLength = homeoticGeneLength;
 	}
+	/**
+	 * 返回被使用的函数所组成的List
+	 * @return 被使用的函数所组成的List
+	 */
 	public List<Function> getFunctionUsed() {
 		return functionUsed;
 	}
@@ -156,6 +208,10 @@ public class GeneConfiguration implements Serializable{
 				e.printStackTrace();
 			}	
 	}
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @param connectionFunctionString
+	 */
 	public void setConnectionFunctionString(String connectionFunctionString){
 		try {
 			connectionFunction=Function.class.cast(Class.forName(connectionFunctionString).newInstance());
@@ -165,8 +221,15 @@ public class GeneConfiguration implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Hiberante专用接口，请勿调用
+	 * @return 连接函数的字符串表示
+	 */
 	public String getConnectionFunctionString(){
-		return connectionFunction.getClass().getName();
+		if(useHomeoticGene)
+			return connectionFunction.getClass().getName();
+		else
+			return null;
 	}
 	@Override
 	public int hashCode(){
