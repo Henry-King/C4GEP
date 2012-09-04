@@ -19,15 +19,33 @@ public class GeneConfiguration implements Serializable{
 	private Integer homeoticGeneLength;
 	private List<Function> functionUsed;
 	private Function connectionFunction;
+	/**
+	 * 返回基因配置信息的ID，此ID仅用来在数据库中做主键，请不要用作它途
+	 * @return 配置信息ID
+	 */
 	public Integer getId() {
 		return id;
 	}
+	/**
+	 * 设置基因配置信息的ID，此ID仅用来在数据库中做主键，请不要用作它途
+	 * @param id 配置信息ID
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	/**
+	 * 是否使用同源基因，如果使用同源基因，则连接函数被自动禁用，同源基因长度和同源基因个数用户手动设置无效,
+	 *系统自动生成这两个参数，如果用户有手动设置这两个参数，这两个参数会被覆盖掉。
+	 * @return true表示使用同源基因，false表示使用连接函数
+	 */
 	public Boolean getUseHomeoticGene() {
 		return useHomeoticGene;
 	}
+	/**
+	 * 设置是否使用同源基因，如果使用同源基因，则连接函数被自动禁用，同源基因长度和同源基因个数用户手动设置无效,
+	 *系统自动生成这两个参数，如果用户有手动设置这两个参数，这两个参数会被覆盖掉。
+	 * @param useHomeoticGene 
+	 */
 	public void setUseHomeoticGene(Boolean useHomeoticGene) {
 		this.useHomeoticGene = useHomeoticGene;
 	}
