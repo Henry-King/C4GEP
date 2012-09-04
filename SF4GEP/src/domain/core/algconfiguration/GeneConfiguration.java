@@ -166,24 +166,40 @@ public class GeneConfiguration implements Serializable{
 		this.homeoticGeneLength = homeoticGeneLength;
 	}
 	/**
-	 * 返回被使用的函数所组成的List
+	 * 返回被使用的函数集
 	 * @return 被使用的函数所组成的List
 	 */
 	public List<Function> getFunctionUsed() {
 		return functionUsed;
 	}
+	/**
+	 * 设置被使用的函数集
+	 * @param functionUsed 被使用的函数集
+	 */
 	public void setFunctionUsed(List<Function> functionUsed) {
 		this.functionUsed = functionUsed;
 	}
+	/**
+	 * 返回连接函数,如果没有使用连接函数，则返回null
+	 * @return 连接函数
+	 */
 	public Function getConnectionFunction() {
-		return connectionFunction;
+		if(useHomeoticGene)
+			return connectionFunction;
+		else
+			return null;
 	}
+	/**
+	 * 设置连接函数，仅当useHomeoticGene为true时此设置有效
+	 * @param connectionFunction 连接函数
+	 */
 	public void setConnectionFunction(Function connectionFunction) {
 		this.connectionFunction = connectionFunction;
 	}
 	/**
-	 * Hiberante专用接口，请勿调用
-	 * @return
+	 * Hiberante专用接口，请勿调用，通过调用此方法，将会把函数集中所有的函数的完全限定名的字符串表示形式串联起来，每个
+	 *字符串之间用“，”隔开
+	 * @return 所有的函数的完全限定名的字符串表示形式
 	 */
 	public String getFunctionClass(){
 		StringBuilder stringBuilder=new StringBuilder();
@@ -193,8 +209,8 @@ public class GeneConfiguration implements Serializable{
 		return stringBuilder.toString();
 	}
 	/**
-	 * Hiberante专用接口，请勿调用
-	 * @param functionString
+	 * Hiberante专用接口，请勿调用，将会把所有的函数的完全限定名的字符串表示形式还原成函数List
+	 * @param functionString 所有的函数的完全限定名的字符串表示形式
 	 */
 	public void setFunctionClass(String functionString){
 		String[] funStrings=functionString.split(",");
@@ -209,21 +225,21 @@ public class GeneConfiguration implements Serializable{
 			}	
 	}
 	/**
-	 * Hiberante专用接口，请勿调用
-	 * @param connectionFunctionString
+	 * Hiberante专用接口，请勿调用，设置连接函数的字符串表示形式
+	 * @param connectionFunctionString 连接函数的完全限定名
 	 */
 	public void setConnectionFunctionString(String connectionFunctionString){
 		try {
 			connectionFunction=Function.class.cast(Class.forName(connectionFunctionString).newInstance());
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException e) {
+				| ClassNotFoundException|NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	/**
-	 * Hiberante专用接口，请勿调用
-	 * @return 连接函数的字符串表示
+	 * Hiberante专用接口，请勿调用，返回连接函数的完全限定名
+	 * @return 连接函数的完全限定名
 	 */
 	public String getConnectionFunctionString(){
 		if(useHomeoticGene)
