@@ -16,6 +16,7 @@ public class GepAlgRun implements Serializable{
 	private GepAlgConfiguration gepAlgConfiguration;
 	private DataSet dataSet;
 	private List<Population> populations=new ArrayList<Population>(2);
+	private Long time;
 	public Integer getId() {
 		return id;
 	}
@@ -55,6 +56,12 @@ public class GepAlgRun implements Serializable{
 		this.populations = population;
 		removeRedundancyPopulation();
 	}
+	public Long getTime() {
+		return time;
+	}
+	public void setTime(Long time) {
+		this.time = time;
+	}
 	public List<Function> getUsedFunctions(){
 		return gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration().getFunctionUsed();
 	}
@@ -74,6 +81,7 @@ public class GepAlgRun implements Serializable{
 		result = 37 * result + gepAlgConfiguration.hashCode();
 		result = 37 * result + dataSet.hashCode();
 		result = 37 * result + populations.hashCode();
+		result = 37 * result  +time.hashCode();
 		return result;
 	}
 	@Override
@@ -82,7 +90,8 @@ public class GepAlgRun implements Serializable{
 			GepAlgRun gac = (GepAlgRun)o;
 			return 	gac.getGepAlgConfiguration().equals(gepAlgConfiguration)
 				&&	gac.getDataSet().equals(dataSet)
-				&&	gac.getPopulations().equals(populations);
+				&&	gac.getPopulations().equals(populations)
+				&&  gac.getTime().equals(time);
 		}
 		else {
 			return false;
