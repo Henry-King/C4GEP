@@ -80,6 +80,10 @@ public abstract class Function implements Serializable,Cloneable{
 		result = 37 * result + arity.hashCode();
 		return result;
 	}
+	/**
+	 * 返回函数名称的字符串表示
+	 * @return 函数名称
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
