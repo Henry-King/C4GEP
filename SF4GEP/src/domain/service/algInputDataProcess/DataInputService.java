@@ -76,22 +76,25 @@ public class DataInputService implements IDataInputService {
 		if(dataSetIndex!=-1)
 			return dataSets.get(dataSetIndex);
 		else {
-			try {
-				hibernateDataContext.save(dataSet);
-				return dataSet;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			List<String> names=getNamesInDB(dataSets);
+			if(names.contains(dataSet.getName())){
 				SimpleDateFormat simpleDateFormat=new SimpleDateFormat();
 				String append=dataSet.getName()+"-"+simpleDateFormat.format(new Date());
 				dataSet.setName(append);
-				hibernateDataContext.save(dataSet);
-				return dataSet;
-			}		
+			}
+			hibernateDataContext.save(dataSet);
+			return dataSet;
 		}
 	}
 	@Override
 	public List<DataSet> getDataSets() {
 		// TODO Auto-generated method stub
 		return hibernateDataContext.findAll(DataSet.class);
+	}
+	private List<String> getNamesInDB(List<? extends DataSet> dataSets){
+		List<String> names=new ArrayList<String>(dataSets.size());
+		for(int i=0;i<dataSets.size();i++)
+			names.add(dataSets.get(i).getName());
+		return names;
 	}
 }
