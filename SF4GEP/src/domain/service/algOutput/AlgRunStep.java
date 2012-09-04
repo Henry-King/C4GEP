@@ -104,7 +104,7 @@ public class AlgRunStep implements IAlgRunStep {
 		
 		for(Individual individual:population.getIndividuals()){
 			Arrays.fill(sumFitness, 0);
-			for(int i=0,n=dataSet.getRowNum();i<n;i++){
+			for(int i=0;i<dataSet.getRowNum();i++){
 				clearFunctionFlag(individual);
 				individualsValues[i]=calcFittedValue(individual, dataSet.getDataRows().get(i), geneConfiguration);
 				oneRowFitnesses=calcFitness(individualsValues[i], dataSet.getDataRows().get(i).getResultColumn(),gepAlgConfiguration);
