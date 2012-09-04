@@ -78,7 +78,7 @@ public class DataInputService implements IDataInputService {
 		else {
 			List<String> names=getNamesInDB(dataSets);
 			if(names.contains(dataSet.getName())){
-				SimpleDateFormat simpleDateFormat=new SimpleDateFormat();
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 				String append=dataSet.getName()+"-"+simpleDateFormat.format(new Date());
 				dataSet.setName(append);
 			}

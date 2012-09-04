@@ -37,7 +37,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 		else {
 			List<String> nameList=getNamesInDB(confs);
 			if(nameList.contains(gepAlgConfiguration.getName())){
-				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 				String append=gepAlgConfiguration.getName()+" "+simpleDateFormat.format(new Date());
 				gepAlgConfiguration.setName(append);
 			}
