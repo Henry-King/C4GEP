@@ -21,5 +21,8 @@
    name="dataSet" unique="true"/>
   <many-to-one class="domain.core.algconfiguration.GepAlgConfiguration"
    name="gepAlgConfiguration" unique="true"/>
+  <property name="period" type="java.lang.Long">
+   <column name="period"/>
+  </property>
  </class>
 </hibernate-mapping>
