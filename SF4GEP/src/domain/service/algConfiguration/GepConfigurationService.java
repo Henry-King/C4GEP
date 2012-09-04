@@ -30,8 +30,8 @@ public class GepConfigurationService implements IgepConfigurationService {
 		// TODO Auto-generated method stub
 		List<? extends GepAlgConfiguration> confs=hibernateDataContext.findAll(GepAlgConfiguration.class);
 		int gepAlgConfigurationIndex=confs.indexOf(gepAlgConfiguration);
-		if(gepAlgConfigurationIndex!=-1){	
-			return confs.get(gepAlgConfigurationIndex);
+		if(gepAlgConfigurationIndex!=-1){
+			return processConf(confs.get(gepAlgConfigurationIndex),gepAlgConfiguration.getMaxFitness());
 		}
 		else {
 			try {
@@ -106,5 +106,14 @@ public class GepConfigurationService implements IgepConfigurationService {
 		hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration());
 		hibernateDataContext.save(gepAlgConfiguration.getIndividualConfiguration());
 		hibernateDataContext.save(gepAlgConfiguration);
+	}
+	private GepAlgConfiguration processConf(GepAlgConfiguration gepAlgConfiguration,Float maxFitness){
+		try {
+			processConf(gepAlgConfiguration, new DataSet());
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			gepAlgConfiguration.setMaxFitness(maxFitness);
+		}
+		return gepAlgConfiguration;
 	}
 }
