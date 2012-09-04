@@ -109,7 +109,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 		}
 		return result;
 	}
-	public char[] getNormalGeneBit(int start,int end,int geneLength){
+	public char[] getGeneBitIndex(int start,int end,int geneLength){
 		int geneNum=end-start;
 		int length=geneNum*geneLength;
 		char result[]=new char[length];
