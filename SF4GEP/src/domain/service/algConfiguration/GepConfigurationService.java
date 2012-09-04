@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
@@ -34,17 +35,14 @@ public class GepConfigurationService implements IgepConfigurationService {
 			return processConf(confs.get(gepAlgConfigurationIndex),gepAlgConfiguration.getMaxFitness());
 		}
 		else {
-			try {
-				commit(gepAlgConfiguration);
-				return gepAlgConfiguration;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			List<String> nameList=getNamesInDB(confs);
+			if(nameList.contains(gepAlgConfiguration.getName())){
 				SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String append=gepAlgConfiguration.getName()+" "+simpleDateFormat.format(new Date());
 				gepAlgConfiguration.setName(append);
-				commit(gepAlgConfiguration);
-				return gepAlgConfiguration;
 			}
+			commit(gepAlgConfiguration);
+			return gepAlgConfiguration;
 		}
 	}
 	@Override
@@ -115,5 +113,11 @@ public class GepConfigurationService implements IgepConfigurationService {
 			gepAlgConfiguration.setMaxFitness(maxFitness);
 		}
 		return gepAlgConfiguration;
+	}
+	private List<String> getNamesInDB(List<? extends GepAlgConfiguration> gepAlgConfiguration){
+		List<String> names=new ArrayList<String>(gepAlgConfiguration.size());
+		for(int i=0;i<gepAlgConfiguration.size();i++)
+			names.add(gepAlgConfiguration.get(i).getName());
+		return names;
 	}
 }
