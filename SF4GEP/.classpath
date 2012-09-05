@@ -12,41 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
-	<classpathentry kind="lib" path="lib/jcublas-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcublas-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcuda-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcuda-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcudaUtils-0.0.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcudaUtils-0.0.4.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcudpp-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcudpp-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcufft-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcufft-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcurand-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcurand-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jcusparse-0.4.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/jcusparse-0.4.1.jar!/doc"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/xom-1.2.8.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/xom-1.2.8.jar!/apidocs"/>
