@@ -5,7 +5,7 @@
  *      Author: Alexander
  */
 
-#include "../jni/domain_service_algOutput_AlgCudaRunStep.h"
+#include "domain_service_algOutput_AlgCudaRunStep.h"
 #include <jni.h>
 #include<stdlib.h>
 #include <stdio.h>
