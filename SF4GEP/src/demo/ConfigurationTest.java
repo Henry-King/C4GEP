@@ -36,7 +36,6 @@ public class ConfigurationTest {
 	 */
 	public static void main(String[] args) throws BiffException, IOException {
 		// TODO Auto-generated method stub
-		
 		IHibernateDataContext hibernateDataContext=GepConfigurationService.initSystem();
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processData(new File("InputDemo.xls"));
