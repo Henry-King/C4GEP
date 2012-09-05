@@ -202,6 +202,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	 * @see dao.IHibernateDataContext#findByProperty(java.lang.Class, java.lang.String, java.lang.Object)
 	 */
 
+	@SuppressWarnings("unchecked")
 	public<T> List<T> findByProperty(Class<T> clazz,String propertyName, Object value) {
 		log.debug("finding Student instance with property: " + propertyName
 	            + ", value: " + value);
@@ -223,6 +224,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	 * @see dao.IHibernateDataContext#findAll(java.lang.Class)
 	 */
 	
+	@SuppressWarnings("unchecked")
 	public<T> List<T> findAll(Class<T> clazz) {
 		log.debug("finding all object instances");
 		try {
@@ -238,6 +240,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	/* (non-Javadoc)
 	 * @see dao.IHibernateDataContext#findAll(java.lang.Class, int, int)
 	 */
+	@SuppressWarnings("unchecked")
 	public<T> List<T> findAll(Class<T> clazz,int pageIndex, int pageSize )
 	{
 		log.debug("finding all object instances");
@@ -255,6 +258,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 	/*
 	 * 根据HQL语句查询对象
 	 */
+	@SuppressWarnings("unchecked")
 	public<T> List<T> queryByHql(String hql)
 	{
 		log.debug("query object by hql");
@@ -508,7 +512,8 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		/*多条件查询,查询条件的值为空时自动除去该条件  
 		* rigor为true时采用精确查询  
 		*/ 
-		public List searchByPropertys(String model,String[]propertyName,Object[] value,boolean rigor){    
+		@SuppressWarnings("unchecked")
+		public List<Object> searchByPropertys(String model,String[]propertyName,Object[] value,boolean rigor){    
 		    StringBuffer sqlBuffer = new StringBuffer();  
 		    String ralation=" like ";  
 		    if(rigor){  
@@ -516,7 +521,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		    }  
 		    sqlBuffer.append("from "+model+" as model\n");  
 		    int len=propertyName.length;  
-		    List list=new ArrayList();  
+		    List<Object> list=new ArrayList<Object>();  
 		    boolean first=true;  
 		    for(int i=0;i< len;i++){  
 		     if(value[i]!=null){  
@@ -555,7 +560,8 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		/*多条件查询,可以使用Between条件,查询条件的值为空时自动除去该条件  
 		* rigor为true时采用精确查询  
 		*/ 
-		public List searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject){    
+		@SuppressWarnings("unchecked")
+		public List<Object> searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject){    
 		    System.out.println("序列化"+value[0].toString());
 			StringBuffer sqlBuffer = new StringBuffer();  
 		    String ralation=" like ";  
@@ -564,7 +570,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		    }  
 		    sqlBuffer.append("from "+model+" as model\n");  
 		    int len=propertyName.length;  
-		    List list=new ArrayList();  
+		    List<Object> list=new ArrayList<Object>();  
 		    boolean first=true;  
 		   for(int i=0;i< len;i++){  
 		     if(value[i]!=null){  

@@ -102,10 +102,10 @@ public interface IHibernateDataContext {
 	/**
 	 * 多条件查询
 	 * */
-	public List searchByPropertys(String model,String[]propertyName,Object[] value,boolean rigor);
+	public List<Object> searchByPropertys(String model,String[]propertyName,Object[] value,boolean rigor);
 	
 	/*多条件查询,可以使用Between条件,查询条件的值为空时自动除去该条件  
 	* rigor为true时采用精确查询  
 	*/ 
-	public List searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject);
+	public List<Object> searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject);
 }
