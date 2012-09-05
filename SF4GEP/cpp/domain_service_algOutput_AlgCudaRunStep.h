@@ -10,9 +10,9 @@ extern "C" {
 /*
  * Class:     domain_service_algOutput_AlgCudaRunStep
  * Method:    calcOnCuda
- * Signature: (Ldomain/core/algOutput/GepAlgRun;)[F
+ * Signature: (Ldomain/core/algOutput/GepAlgRun;)V
  */
-JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda
+JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda
   (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
