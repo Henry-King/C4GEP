@@ -1,0 +1,56 @@
+package test;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+public class AlgOutputServiceTest {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Ignore("Not yet implemented")
+	@Test
+	public void testAlgOutputService() {
+		fail("Not yet implemented");
+	}
+
+
+	@Test
+	public void testRun() {
+		/**
+		 * 无法测试
+		 * 其他方法（除了private方法，均为直接调用其他类的方法）
+		 */
+
+		
+		
+	}
+
+	@Ignore("Not yet implemented")
+	@Test
+	public void testGetMaxFitnessInEveryGeneration() {
+		fail("Not yet implemented");
+	}
+
+	@Ignore("Not yet implemented")
+	@Test
+	public void testGetMinFitnessInEveryGeneration() {
+		fail("Not yet implemented");
+	}
+
+	@Ignore("Not yet implemented")
+	@Test
+	public void testWriteToFile() {
+		fail("Not yet implemented");
+	}
+
+}
