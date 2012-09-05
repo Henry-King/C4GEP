@@ -78,7 +78,6 @@ JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda(J
 	 jmethodID  getHomeoticGeneIndexID=(*env).GetMethodID(class_Population,"getHomeoticGeneIndex","()[[C");
 
 
-
 	 jobjectArray  normalGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneTypeID);
 	 if(normalGeneTypes==NULL){
 		  return;
