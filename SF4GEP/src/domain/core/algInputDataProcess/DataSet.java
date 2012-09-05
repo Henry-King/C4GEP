@@ -51,6 +51,19 @@ public class DataSet implements Serializable{
 	public List<DataColumn> getVariableUsed(){
 		return dataRows.get(0).getDataColumns();
 	}
+	public float[][] toDeepArray() {
+		float[][] result=new float[dataRows.size()][];
+		int columnNum=dataRows.get(0).getDataColumns().size()+1;
+		int j;
+		for(int i=0;i<result.length;i++){
+			result[i]=new float[columnNum];
+			for(j=0;j<columnNum-1;j++)
+				result[i][j]=dataRows.get(i).getDataColumns().get(j).getValue();
+			result[i][j]=dataRows.get(i).getResultColumn().getValue();
+		}
+			
+		return result;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
