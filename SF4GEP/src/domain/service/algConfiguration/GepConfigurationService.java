@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.Function;
@@ -19,6 +20,15 @@ public class GepConfigurationService implements IgepConfigurationService {
 	public GepConfigurationService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
+	}
+	/**
+	 * 加载dll文件，并初始化数据连接,方法最后返回Hibernate上下连接
+	 * @return Hibernate上下文连接对象
+	 */
+	public static HibernateDataContext initSystem() {
+		System.loadLibrary("libSF4GEP");
+		System.loadLibrary("JLinkNativeLibrary");
+		return new HibernateDataContext();
 	}
 	@Override
 	public List<GepAlgConfiguration> getAllGepAlgConfiguration() {
