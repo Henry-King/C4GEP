@@ -9,7 +9,7 @@
 #include <jni.h>
 #include<stdlib.h>
 #include <stdio.h>
-JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda(JNIEnv *env, jobject, jobject gepAlgRun){
+JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda(JNIEnv *env, jobject obj, jobject gepAlgRun){
 	//java类库自带的函数
 	jclass class_Boolean=env->FindClass("Ljava/lang/Boolean;");
 	jmethodID boolValueMethod=(*env).GetMethodID(class_Boolean,"booleanValue","()Z");
