@@ -7,9 +7,9 @@
 
 #include "domain_service_algOutput_AlgCudaRunStep.h"
 #include <jni.h>
-#include<stdlib.h>
 #include <stdio.h>
-JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda(JNIEnv *env, jobject obj, jobject gepAlgRun){
+#include <stdlib.h>
+JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcOnCuda(JNIEnv *env, jobject, jobject gepAlgRun){
 	//java类库自带的函数
 	jclass class_Boolean=env->FindClass("Ljava/lang/Boolean;");
 	jmethodID boolValueMethod=(*env).GetMethodID(class_Boolean,"booleanValue","()Z");
@@ -38,7 +38,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 	 jmethodID getCurrentPopulationID=(*env).GetMethodID(class_GepAlgRun,"getCurrentPopulation","()Ldomain/core/algOutput/Population;");
 
 	 //DataSet--------------------------------------------------------------------------
-	 jobject dataSet=(*env).GetObjectField(gepAlgRun,dataSetID);
+	  jobject dataSet=(*env).GetObjectField(gepAlgRun,dataSetID);
 	 jclass  class_DataSet=(*env).GetObjectClass(dataSet);
 	 jfieldID rowNumID=(*env).GetFieldID(class_DataSet,"rowNum","Ljava/lang/Integer;");
 	 jobject  rowNum=(*env).GetObjectField(dataSet,rowNumID);//得到rowNum
@@ -48,45 +48,26 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 	 jobject  columnNum=(*env).GetObjectField(dataSet,columnNumID);//得到ColumnNum
 	 int  columnNumCpp=(*env).CallIntMethod(columnNum,integerValueMethod);
 
+	 jmethodID toDeepArrayID=(*env).GetMethodID(class_DataSet,"toDeepArray","()[[F");
+	 jobjectArray dataSetArr=(jobjectArray)(*env).CallObjectMethod(dataSet,toDeepArrayID);
+	 //动态分配--------------------------------------------------
+	 int sizeOfDataSetArr=(*env).GetArrayLength(dataSetArr);//获得行数
+	 jarray dataSetCpCols =(jarray)(*env).GetObjectArrayElement(dataSetArr, 0);
+	 int colOfDataSetArr =(*env).GetArrayLength(dataSetCpCols); //获得列数
 
-	 //动态分配大小------------------------------------------------------
-	 char**dataSetCp=(char**)malloc(sizeof(char*)*rowNumCpp);//分配高度，高度为行数
-	 for(int i=0;i<rowNumCpp;i++)
-		dataSetCp[i]=(char*)malloc(sizeof(char)*(columnNumCpp+1));//分配每个指针所指向的数组,宽度为列数
-
-	 jfieldID dataRowsID=(*env).GetFieldID(class_DataSet,"dataRows","Ljava/util/List;");
-	 jobject dataRows=(*env).GetObjectField(dataSet,dataRowsID);//得到List<DataRow> dataRows对象
-	 int dataRowsLength=(*env).CallIntMethod(dataRows,getListSize);
-
-
-	 jclass class_DataRow=(*env).FindClass("Ldomain/core/algInputDataProcess/DataRow;");
-     jfieldID dataColumnsID=(*env).GetFieldID(class_DataRow,"dataColumns","Ljava/util/List;");
-	 jfieldID  resultColumnID=(*env).GetFieldID(class_DataRow,"resultColumn","Ldomain/core/algInputDataProcess/DataColumn;");
-	 jclass class_DataColumn=(*env).FindClass("Ldomain/core/algInputDataProcess/DataColumn;");
-	 jfieldID columnNameID=(*env).GetFieldID(class_DataColumn,"columnName","Ljava/lang/String;");
-	 jfieldID  columnValuID=(*env).GetFieldID(class_DataColumn,"value","Ljava/lang/Float;");
-
+	 float** dataSetCp=(float**)malloc(sizeof(float*)*sizeOfDataSetArr);//分配二维数组行数
+	 for(int i=0;i<sizeOfDataSetArr;i++)
+        dataSetCp[i]=(float*)malloc(sizeof(float)*colOfDataSetArr);//分配二维数组列数
 	 //赋值----------------------------------------------------------
-	 for(int i=0;i<dataRowsLength;i++){
-
-		 jobject dataRow=(*env).CallObjectMethod(dataRows,getListObject,i);
-		 jobject  dataColumns=(*env).GetObjectField(dataRow,dataColumnsID);
-         int dataColumnsLength=(*env).CallIntMethod(dataColumns,getListSize);
-		 jfieldID  columnValuID=(*env).GetFieldID(class_DataColumn,"value","Ljava/lang/Float;");
-		 for(int j=0;j<dataColumnsLength;j++){
-				  jobject dataColumn=(*env).CallObjectMethod(dataColumns,getListObject,j);
-				  jobject   columnValue=(*env).GetObjectField(dataColumn,columnValuID);
-				  dataSetCp[i][j]=(*env).CallFloatMethod(columnValue,floatValueMethod);
-
-		    }
-		   jobject   resultColumn=(*env).GetObjectField(dataRow,resultColumnID);//得到resultColumn
-		   jobject   resultColumnValue=(*env).GetObjectField(resultColumn,columnValuID);
-		   dataSetCp[i][columnNumCpp]=(*env).CallFloatMethod(resultColumnValue,floatValueMethod);
+	 for(int i=0;i<sizeOfDataSetArr;i++){
+		dataSetCpCols =(jarray)(*env).GetObjectArrayElement(dataSetArr, i);
+        jfloat *coldata = (*env).GetFloatArrayElements((jfloatArray)dataSetCpCols, 0 );
+        for (int j=0; j<colOfDataSetArr; j++) {
+         printf("%f ",coldata[j]);
+		 dataSetCp[i][j]=coldata[j];
+        }
 
 	}
-
-
-
 
 	 //Population----------------------------------------------------------------------------
 	 jobject currentPopulation=(*env).CallObjectMethod(gepAlgRun,getCurrentPopulationID);
@@ -100,7 +81,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 
 	 jobjectArray  normalGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneTypeID);
 	 if(normalGeneTypes==NULL){
-		  return NULL;
+		  return;
 	 }
 	 //动态分配----------------------------------------------------------------------
 	 int sizeOfNormalGeneTypes=(*env).GetArrayLength(normalGeneTypes);//获得行数
@@ -114,7 +95,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 		  normalGeneTypesCol=(jarray)(*env).GetObjectArrayElement(normalGeneTypes, 0);
 		  jchar *coldata = (*env).GetCharArrayElements((jcharArray)normalGeneTypesCol, 0 );
           for (int j=0; j<colOfNormalGeneTypes; j++) {
-            printf("%d",sizeOfNormalGeneTypes);
+            printf("%d ",sizeOfNormalGeneTypes);
 			normalGeneTypesCp[i][j]=coldata[j];
           }
 	 }
@@ -122,7 +103,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 
 	 jobjectArray  homeoticGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getHomeoticGeneTypeID);
 	 if(homeoticGeneTypes==NULL){
-		  return NULL;
+		  return;
 	 }
 	 //动态分配----------------------------------------------------------------------
 	 int sizeOfHomeoticGeneTypes=(*env).GetArrayLength(homeoticGeneTypes);//获得行数
@@ -136,7 +117,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 		  homeoticGeneTypesCol=(jarray)(*env).GetObjectArrayElement(homeoticGeneTypes, 0);
 		  jchar *coldata = (*env).GetCharArrayElements((jcharArray)homeoticGeneTypesCol, 0 );
           for (int j=0; j<colOfHomeoticGeneTypes; j++) {
-            printf("%d",colOfHomeoticGeneTypes);
+            printf("%d ",colOfHomeoticGeneTypes);
 			homeoticGeneTypesCp[i][j]=coldata[j];
           }
 	 }
@@ -144,7 +125,7 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 
 	 jobjectArray  normalGeneIndex=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneIndexID);
 	 if(normalGeneIndex==NULL){
-		  return NULL;
+		  return;
 	 }
 	 //动态分配----------------------------------------------------------------------
 	 int sizeOfNormalGeneIndex=(*env).GetArrayLength(normalGeneIndex);//获得行数
@@ -158,14 +139,14 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 		  normalGeneIndexCol=(jarray)(*env).GetObjectArrayElement(normalGeneIndex, 0);
 		  jchar *coldata = (*env).GetCharArrayElements((jcharArray)normalGeneIndexCol, 0 );
           for (int j=0; j<colOfNormalGeneIndex; j++) {
-            printf("%d",coldata[j]);
+            printf("%d ",coldata[j]);
 			normalGeneIndexCp[i][j]=coldata[j];
           }
 	 }
 
 	 jobjectArray  homeoticGeneIndex=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getHomeoticGeneIndexID);
 	 if(homeoticGeneIndex==NULL){
-		  return NULL;
+		  return;
 	 }
 	 //动态分配----------------------------------------------------------------------
 	 int sizeOfHomeoticGeneIndex=(*env).GetArrayLength(homeoticGeneIndex);//获得行数
@@ -179,11 +160,10 @@ JNIEXPORT jfloatArray JNICALL Java_domain_service_algOutput_AlgCudaRunStep_calcO
 		  homeoticGeneIndexCol=(jarray)(*env).GetObjectArrayElement(homeoticGeneIndex, 0);
 		  jchar *coldata = (*env).GetCharArrayElements((jcharArray)homeoticGeneIndexCol, 0 );
           for (int j=0; j<colOfHomeoticGeneIndex; j++) {
-            printf("%d",coldata[j]);
+            printf("%d ",coldata[j]);
 			homeoticGeneIndexCp[i][j]=coldata[j];
           }
 	 }
-	 return NULL;
+	 return;
 }
-
 
