@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.function.Addition;
+import domain.core.algconfiguration.function.Divide;
+import domain.core.algconfiguration.function.Minus;
+import domain.core.algconfiguration.function.Multiply;
+
 /**
  * 基因类，此类为抽象类，提供了基因的通用的信息
  * @author 申远
@@ -69,17 +75,50 @@ public class Gene implements Serializable,Cloneable {
 		}
 		return length;
 	}
-	public GenePiece getLastNonTerminate(int efficientLength){
-		GenePiece genePiece=null;
+	public int getLastNonTerminate(int efficientLength){
+		int genePieceId=-1;
+		GenePiece genePiece;
 		for(int i=efficientLength-1;i>=0;i--){
-			genePiece=genePieces.get(i);
+			genePieceId=i;
+			genePiece=genePieces.get(genePieceId);
 			if(genePiece.getGenePieceType()==GenePieceType.Function){
 				if(genePiece.isUsed()==false){
 					break;
 				}
 			}
 		}
-		return genePiece;
+		return genePieceId;
+	}
+	public List<Boolean> clearFunctionFlag(){
+		int geneLength=genePieces.size();
+		GenePiece genePiece;
+		List<Boolean> flagList=new ArrayList<Boolean>(genePieces.size());
+		for(int j=0;j<geneLength;j++)
+			if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function){
+				flagList.add(genePiece.isUsed());
+				genePiece.setUsed(false);
+			}
+		return flagList;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		List<String> stringStack=new ArrayList<String>(genePieces.size());
+		int length=getEffictiveLength();
+		for(int i=0;i<length;i++)
+			stringStack.add(genePieces.get(i).getSymbol());
+		int arity;
+		int lastNonTerminate;
+		List<Boolean> resultBooleans=clearFunctionFlag();
+		while(length>1){
+			lastNonTerminate=getLastNonTerminate(length);
+			arity=genePieces.get(lastNonTerminate).getFunc().getArity();
+			addToStack(lastNonTerminate,arity,stringStack);
+			genePieces.get(lastNonTerminate).setUsed(true);
+			length-=arity;
+		}
+		setBackFunctionFlag(resultBooleans);
+		return stringStack.toString();
 	}
 	@Override
 	public Gene clone(){
@@ -121,5 +160,41 @@ public class Gene implements Serializable,Cloneable {
 		else {
 			return false;
 		}
+	}
+	private void addToStack(int funcId,int arity,List<String> holder){
+		StringBuilder result=new StringBuilder();
+		Function func=genePieces.get(funcId).getFunc();
+		CharSequence[] params=new String[arity];
+		for(int i=0;i<arity;i++)
+			params[arity-1-i]=holder.remove(holder.size()-1);
+		Class<? extends Function> funClass=func.getClass();
+		if(funClass==Addition.class||funClass==Minus.class||funClass==Divide.class||funClass==Multiply.class){
+			result.append('(');
+			result.append(params[0]);
+			result.append(func.getSymbol());
+			result.append(params[1]);				
+			result.append(')');
+		}
+		else {
+			result.append(func.getSymbol());
+			result.append('(');
+			result.append(params[0]);
+			for(int i=1;i<arity;i++){
+				result.append(',');
+				result.append(params[i]);
+			}
+			result.append(')');
+		}
+		holder.set(funcId, result.toString());
+	}
+	private void setBackFunctionFlag(List<Boolean> flags){
+		@SuppressWarnings("unused")
+		GenePiece genePiece;
+		int j=0;
+		for(int i=0;i<genePieces.size();i++)
+			if((genePiece=genePieces.get(i)).getGenePieceType()==GenePieceType.Function){
+				genePieces.get(i).setUsed(flags.get(j));
+				j++;
+			}
 	}
 }
