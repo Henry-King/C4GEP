@@ -100,13 +100,9 @@ public class Gene implements Serializable,Cloneable {
 			}
 		return flagList;
 	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		List<String> stringStack=new ArrayList<String>(genePieces.size());
+	public String toString(List<Gene> genes){
 		int length=getEffictiveLength();
-		for(int i=0;i<length;i++)
-			stringStack.add(genePieces.get(i).getSymbol());
+		List<String> stringStack=iniStringStack(length, genes);
 		int arity;
 		int lastNonTerminate;
 		List<Boolean> resultBooleans=clearFunctionFlag();
@@ -119,6 +115,11 @@ public class Gene implements Serializable,Cloneable {
 		}
 		setBackFunctionFlag(resultBooleans);
 		return stringStack.toString();
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return toString(null);
 	}
 	@Override
 	public Gene clone(){
@@ -200,5 +201,15 @@ public class Gene implements Serializable,Cloneable {
 				genePieces.get(i).setUsed(flags.get(j));
 				j++;
 			}
+	}
+	private List<String> iniStringStack(int length,List<Gene> genes){
+		List<String> stringStack=new ArrayList<String>(genePieces.size());
+		GenePiece genePiece;
+		for(int i=0;i<length;i++)
+			if(((genePiece=genePieces.get(i)).getGenePieceType()==GenePieceType.Constant)||genes!=null)
+				stringStack.add(genes.get((int) genePiece.getValue().floatValue()).toString());
+			else
+				stringStack.add(genePieces.get(i).getSymbol());
+		return stringStack;
 	}
 }
