@@ -162,11 +162,15 @@ public class Gene implements Serializable,Cloneable {
 		}
 	}
 	private void addToStack(int funcId,int arity,List<String> holder){
-		StringBuilder result=new StringBuilder();
 		Function func=genePieces.get(funcId).getFunc();
 		CharSequence[] params=new String[arity];
 		for(int i=0;i<arity;i++)
 			params[arity-1-i]=holder.remove(holder.size()-1);
+		StringBuilder result=getPieceExpression(func, params, arity);
+		holder.set(funcId, result.toString());
+	}
+	private StringBuilder getPieceExpression(Function func,CharSequence[] params,int arity){
+		StringBuilder result=new StringBuilder();
 		Class<? extends Function> funClass=func.getClass();
 		if(funClass==Addition.class||funClass==Minus.class||funClass==Divide.class||funClass==Multiply.class){
 			result.append('(');
@@ -185,7 +189,7 @@ public class Gene implements Serializable,Cloneable {
 			}
 			result.append(')');
 		}
-		holder.set(funcId, result.toString());
+		return result;
 	}
 	private void setBackFunctionFlag(List<Boolean> flags){
 		@SuppressWarnings("unused")
