@@ -218,7 +218,7 @@ public class Gene implements Serializable,Cloneable {
 		GenePiece genePiece;
 		for(int i=0;i<length;i++)
 			if(((genePiece=genePieces.get(i)).getGenePieceType()==GenePieceType.Constant)&&(genes!=null))
-				stringStack.add(genes.get((int) genePiece.getValue().floatValue()).toString());
+				stringStack.add(genes.get((int) genePiece.getValue().floatValue()).toGeneString());
 			else
 				stringStack.add(genePieces.get(i).getSymbol());
 		return stringStack;
