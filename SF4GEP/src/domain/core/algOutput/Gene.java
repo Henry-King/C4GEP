@@ -130,7 +130,7 @@ public class Gene implements Serializable,Cloneable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return toExprString(null);
+		return toGeneString();
 	}
 	@Override
 	public Gene clone(){
