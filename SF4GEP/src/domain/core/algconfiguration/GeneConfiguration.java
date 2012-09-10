@@ -185,9 +185,9 @@ public class GeneConfiguration implements Serializable{
 	 */
 	public Function getConnectionFunction() {
 		if(useHomeoticGene)
-			return connectionFunction;
-		else
 			return null;
+		else
+			return connectionFunction;
 	}
 	/**
 	 * 设置连接函数，仅当useHomeoticGene为true时此设置有效
