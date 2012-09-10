@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 
 /**
@@ -126,7 +127,20 @@ public class Population implements Serializable, Cloneable {
 	public void setGenerationNum(Long generationNum) {
 		this.generationNum = generationNum;
 	}
-
+	public String toGeneString(){
+		StringBuilder result=new StringBuilder();
+		for(Individual individual:individuals)
+			result.append(individual.toString());
+		return result.toString();
+	}
+	public String toExprString(){
+		StringBuilder result=new StringBuilder();
+		GeneConfiguration geneConfiguration=
+		gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration();
+		for(Individual individual:individuals)
+			result.append(individual.toExprString(geneConfiguration));
+		return result.toString();
+	}
 	public char[][] getNormalGeneType() {
 		char[][] result = new char[individuals.size()][];
 		IndividualConfiguration individualConfiguration = gepAlgRun
@@ -229,5 +243,9 @@ public class Population implements Serializable, Cloneable {
 			return false;
 		}
 	}
-
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return toGeneString();
+	}
 }
