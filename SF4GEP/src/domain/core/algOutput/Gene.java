@@ -56,6 +56,31 @@ public class Gene implements Serializable,Cloneable {
 	public void setGeneTypeString(String geneTypeString){
 		geneType=GeneType.valueOf(geneTypeString);
 	}
+	public int getEffictiveLength(){
+		int length=1;
+		int arity;
+		GenePiece genePiece;
+		for(int i=0;i<length;i++){
+			genePiece=genePieces.get(i);
+			if(genePiece.getGenePieceType()==GenePieceType.Function){
+				arity=genePiece.getFunc().getArity();
+				length+=arity;
+			}					
+		}
+		return length;
+	}
+	public GenePiece getLastNonTerminate(int efficientLength){
+		GenePiece genePiece=null;
+		for(int i=efficientLength-1;i>=0;i--){
+			genePiece=genePieces.get(i);
+			if(genePiece.getGenePieceType()==GenePieceType.Function){
+				if(genePiece.isUsed()==false){
+					break;
+				}
+			}
+		}
+		return genePiece;
+	}
 	@Override
 	public Gene clone(){
 		// TODO Auto-generated method stub
