@@ -34,11 +34,24 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	public String toExprString(GeneConfiguration geneConfiguration){
 		if(selectedHomeoticGeneNumber!=-1){
 			int normalGeneNum=geneConfiguration.getNormalGeneNumber();
-			return genes.get(normalGeneNum+selectedHomeoticGeneNumber).toExprString(genes.subList(0, normalGeneNum));			
+			return genes.get(normalGeneNum+selectedHomeoticGeneNumber).
+					toExprString(genes.subList(0, normalGeneNum));			
 		}
 		else {
 			return null;
 		}
+	}
+	public String toGeneString(){
+		StringBuffer result=new StringBuffer();
+		for(Gene gene:genes){
+			if(gene.getGeneType()==GeneType.HomeoticGene)
+				result.append("同源基因：");
+			else
+				result.append("正常基因:");
+			result.append(gene.toGeneString());
+			result.append("\n");
+		}
+		return result.toString();
 	}
 	/**
 	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部GenePiece信息。
@@ -46,17 +59,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		StringBuffer result=new StringBuffer();
-		for(Gene gene:genes){
-			if(gene.getGeneType()==GeneType.HomeoticGene)
-				result.append("同源基因：");
-			else
-				result.append("正常基因:");
-			for(GenePiece genePiece:gene.getGenePieces())
-				result.append(genePiece.getSymbol()+" ");
-			result.append("\n");
-		}
-		return result.toString();
+		return toGeneString();
 	}
 	/**
 	 * 比较当前个体的适应值和用户指定的某个个体的适应值，并将此结果返回
