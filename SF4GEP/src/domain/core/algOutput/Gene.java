@@ -100,7 +100,17 @@ public class Gene implements Serializable,Cloneable {
 			}
 		return flagList;
 	}
-	public String toString(List<Gene> genes){
+	public String toGeneString(){
+		StringBuffer result=new StringBuffer();
+		if(geneType==GeneType.HomeoticGene)
+			result.append("同源基因：");
+		else
+			result.append("正常基因:");
+		for(GenePiece genePiece:genePieces)
+			result.append(genePiece.getSymbol()+" ");
+		return result.toString();
+	}
+	public String toExprString(List<Gene> genes){
 		int length=getEffictiveLength();
 		List<String> stringStack=iniStringStack(length, genes);
 		int arity;
@@ -119,7 +129,7 @@ public class Gene implements Serializable,Cloneable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return toString(null);
+		return toExprString(null);
 	}
 	@Override
 	public Gene clone(){
