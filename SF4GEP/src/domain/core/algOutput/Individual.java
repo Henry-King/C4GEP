@@ -31,10 +31,10 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getExpressionString(GeneConfiguration geneConfiguration){
+	public String toExprString(GeneConfiguration geneConfiguration){
 		if(selectedHomeoticGeneNumber!=-1){
 			int normalGeneNum=geneConfiguration.getNormalGeneNumber();
-			return genes.get(normalGeneNum+selectedHomeoticGeneNumber).toString(genes.subList(0, normalGeneNum));			
+			return genes.get(normalGeneNum+selectedHomeoticGeneNumber).toExprString(genes.subList(0, normalGeneNum));			
 		}
 		else {
 			return null;
