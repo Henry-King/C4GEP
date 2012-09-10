@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.function.Addition;
 import domain.core.algconfiguration.function.Cos;
 import domain.core.algconfiguration.function.Divide;
@@ -29,6 +30,15 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getExpressionString(GeneConfiguration geneConfiguration){
+		if(selectedHomeoticGeneNumber!=-1){
+			int normalGeneNum=geneConfiguration.getNormalGeneNumber();
+			return genes.get(normalGeneNum+selectedHomeoticGeneNumber).toString(genes.subList(0, normalGeneNum));			
+		}
+		else {
+			return null;
+		}
 	}
 	/**
 	 * 覆盖了Object的toString方法，本方法将以字符串的形式输出个体中所包含的全部GenePiece信息。
