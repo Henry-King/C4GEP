@@ -124,7 +124,8 @@ public class Gene implements Serializable,Cloneable {
 			length-=arity;
 		}
 		setBackFunctionFlag(resultBooleans);
-		return stringStack.toString();
+		assert stringStack.size()==1;
+		return stringStack.get(0);
 	}
 	@Override
 	public String toString() {
