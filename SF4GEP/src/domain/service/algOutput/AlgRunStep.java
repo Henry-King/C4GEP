@@ -489,7 +489,7 @@ public class AlgRunStep implements IAlgRunStep {
 		GenePiece lastNonTerminate;
 		int arity;
 		while(length>1){
-			lastNonTerminate=gene.getLastNonTerminate(length);
+			lastNonTerminate=gene.getGenePieces().get(gene.getLastNonTerminate(length));
 			arity=lastNonTerminate.getFunc().getArity();
 			execMathFunction(gene, individual,lastNonTerminate,length);
 			length-=arity;
@@ -573,19 +573,11 @@ public class AlgRunStep implements IAlgRunStep {
 	private void clearFunctionFlag(Individual individual){
 		int geneNum=individual.getGenes().size();
 		List<Gene> genes=individual.getGenes();
-		List<GenePiece> genePieces;
 		Gene gene;
-		GenePiece genePiece;
-		int geneLength;
 		for(int i=0;i<geneNum;i++){
 			gene=genes.get(i);
-			genePieces=gene.getGenePieces();
-			geneLength=genePieces.size();
-			for(int j=0;j<geneLength;j++)
-				if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function)
-					genePiece.setUsed(false);
+			gene.clearFunctionFlag();
 		}
-
 	}
 	/**
 	 * 本方法求指定适应度矩阵行的最大值，并返回最大值所在列的索引
