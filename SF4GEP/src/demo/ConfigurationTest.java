@@ -77,10 +77,11 @@ public class ConfigurationTest {
 		IAlgRunStep runStep=new AlgRunStep();
 		long start=System.nanoTime();
 		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		System.out.println("总耗时：\t"+result+"\t毫秒");
+		System.out.println(gepAlgRun.getCurrentPopulation().getIndividuals().get(0).getGenes().get(0).toString());;
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneIndex());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneType());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getHomeoticGeneType());
