@@ -87,6 +87,6 @@ public abstract class Function implements Serializable,Cloneable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return symbol;
+		return name;
 	}
 }
