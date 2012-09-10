@@ -468,7 +468,7 @@ public class AlgRunStep implements IAlgRunStep {
 	private void assignValueToVariable(Gene gene, DataRow row) {
 		// TODO Auto-generated method stub
 		GenePiece genePiece;
-		int effectiveLength=calcEfficientLength(gene);
+		int effectiveLength=gene.getEffictiveLength();
 		List<GenePiece> genePieces=gene.getGenePieces();
 		List<DataColumn> dataColumns=row.getDataColumns();
 		for(int i=0;i<effectiveLength;i++){
@@ -485,11 +485,11 @@ public class AlgRunStep implements IAlgRunStep {
 	 */
 	private float calculateGeneValue(Gene gene, Individual individual) {
 		// TODO Auto-generated method stub
-		int length=calcEfficientLength(gene);
+		int length=gene.getEffictiveLength();
 		GenePiece lastNonTerminate;
 		int arity;
 		while(length>1){
-			lastNonTerminate=findLastNonTerminate(gene, length);
+			lastNonTerminate=gene.getLastNonTerminate(length);
 			arity=lastNonTerminate.getFunc().getArity();
 			execMathFunction(gene, individual,lastNonTerminate,length);
 			length-=arity;
@@ -497,43 +497,6 @@ public class AlgRunStep implements IAlgRunStep {
 		float value=gene.getGenePieces().get(0).getValue();
 		gene.setValue(value);
 		return value;
-	}
-	
-	/**
-	 * 这个方法计算每个基因的有效长度，前置条件是如果一个基因位上有相关联的函数,本方法只能在计算基因值之前被调用一次，不可在计算基因值过程中被调用
-	 * @param gene 被计算的基因
-	 * @return 基因的有效长度
-	 */
-	private int calcEfficientLength(Gene gene){
-		int length=1;
-		int arity;
-		GenePiece genePiece;
-		for(int i=0;i<length;i++){
-			genePiece=gene.getGenePieces().get(i);
-			if(genePiece.getGenePieceType()==GenePieceType.Function){
-				arity=genePiece.getFunc().getArity();
-				length+=arity;
-			}					
-		}
-		return length;
-	}
-	/**
-	 * 找到最后一个非终结字符，即有效长度内最后一个函数，前置条件是被计算过的函数所对应的GenePiece的used要被置为true，没有被计算过的被置为false
-	 * @param gene 所需要搜索的基因
-	 * @param efficientLength 有效长度
-	 * @return 基因有效长度内最后一个函数所在的基因位
-	 */
-	private GenePiece findLastNonTerminate(Gene gene,int efficientLength){
-		GenePiece genePiece=null;
-		for(int i=efficientLength-1;i>=0;i--){
-			genePiece=gene.getGenePieces().get(i);
-			if(genePiece.getGenePieceType()==GenePieceType.Function){
-				if(genePiece.isUsed()==false){
-					break;
-				}
-			}
-		}
-		return genePiece;
 	}
 	/**
 	 * 执行某个数学函数，并返回求解的结果
