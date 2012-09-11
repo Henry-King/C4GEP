@@ -237,8 +237,8 @@ public class Population implements Serializable, Cloneable {
 	public boolean equals(Object o) {
 		if (o instanceof Population) {
 			Population gac = (Population) o;
-			return gac.getIndividuals().equals(individuals)
-					&& gac.getGenerationNum().equals(generationNum);
+			return true;//gac.getIndividuals().equals(individuals)
+					//&& gac.getGenerationNum().equals(generationNum);
 		} else {
 			return false;
 		}

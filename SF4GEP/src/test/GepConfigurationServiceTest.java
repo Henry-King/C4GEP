@@ -16,6 +16,7 @@ import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
 import domain.core.algconfiguration.function.*;
 import domain.service.algConfiguration.GepConfigurationService;
 
@@ -63,6 +64,24 @@ public class GepConfigurationServiceTest {
 		GepAlgConfiguration gepAlgConfiguration = new GepAlgConfiguration();
 		IndividualConfiguration individualConfiguration = new IndividualConfiguration();
 		GeneConfiguration geneConfiguration = new GeneConfiguration();
+		geneConfiguration.setUseHomeoticGene(true);
+		
+		OperatorConfiguration operatorConfiguration = new OperatorConfiguration();
+		operatorConfiguration.setId(1);
+		operatorConfiguration.setMutateRate(0.133f);
+		operatorConfiguration.setIsTransportRate(0.133f);
+		operatorConfiguration.setIsElement(new Integer[] { 1 });
+		operatorConfiguration.setRisTransportRate(0.133f);
+		operatorConfiguration.setRisElement(new Integer[] { 1 });
+		operatorConfiguration.setGeneTransportRate(0.133f);
+		operatorConfiguration.setOnePointRecombineRate(0.133f);
+		operatorConfiguration.setTwoPointRecombineRate(0.133f);
+		operatorConfiguration.setGeneRecombineRate(0.133f);
+		gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
+		
+		
+		
+		
 		gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);
 		individualConfiguration.setGeneConfiguration(geneConfiguration);
 		individualConfiguration.setIndividualNumber(1);
@@ -74,10 +93,14 @@ public class GepConfigurationServiceTest {
 		Function minusFunction = new Minus();
 		Function mulFunction = new Multiply();
 		Function devideFunction = new Divide();
+		Function sinFunction = new Sin();
+		Function cosFunction = new Cos();
 		functionUsed.add(addFunction);
+		functionUsed.add(cosFunction);
 		functionUsed.add(minusFunction);
 		functionUsed.add(mulFunction);
 		functionUsed.add(devideFunction);
+		functionUsed.add(sinFunction);
 		geneConfiguration.setFunctionUsed(functionUsed);
 		geneConfiguration.setHomeoticGeneHeaderLength(8);
 		//geneConfiguration.setHomeoticGeneTailLength(9);
@@ -98,6 +121,7 @@ public class GepConfigurationServiceTest {
 		expect.setAccuracy(1f);
 		expect.setMaxGeneration(1l);
 		expect.setMaxFitness(1f);
+		expect.setOperatorConfiguration(operatorConfiguration);
 		
 		
 		expect.setIndividualConfiguration(individualConfiguration);
@@ -138,10 +162,14 @@ public class GepConfigurationServiceTest {
 		Function minusFunction = new Minus();
 		Function mulFunction = new Multiply();
 		Function devideFunction = new Divide();
+		Function sinFunction = new Sin();
+		Function cosFunction = new Cos();
 		expect.add(addFunction);
+		expect.add(cosFunction);
 		expect.add(devideFunction);
 		expect.add(minusFunction);
 		expect.add(mulFunction);
+		expect.add(sinFunction);
 		
 		List<Function> result = gepConfigurationService.getAvailableFunctions();
 		
