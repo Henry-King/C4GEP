@@ -7,6 +7,7 @@ import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 public interface IAlgOutputService {
+	public boolean writeToDB(boolean flag);
 	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet);
 	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun);
 	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun);
