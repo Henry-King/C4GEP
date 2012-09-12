@@ -107,7 +107,7 @@ public class AlgOutputService implements IAlgOutputService {
 		hibernateDataContext.save(gepAlgRun);
 	}
 	@Override
-	public boolean writeToDB(boolean flag) {
+	public boolean setWriteToDB(boolean flag) {
 		// TODO Auto-generated method stub
 		boolean original=this.flag;
 		this.flag=flag;
