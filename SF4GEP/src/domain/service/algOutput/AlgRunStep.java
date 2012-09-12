@@ -300,33 +300,36 @@ public class AlgRunStep implements IAlgRunStep {
 		int headerLength;
 		int tailLength;
 		int maxType;
+		GenePiece genePiece=null;
+		int j;
 		if(geneType==GeneType.NormalGene){
 			geneLength=geneConfiguration.getNormalGeneLength();
 			headerLength=geneConfiguration.getNormalGeneHeaderLength();
 			tailLength=geneConfiguration.getNormalGeneTailLength();
 			maxType=dataColumns+geneConfiguration.getFunctionUsed().size();
+			j=0;
 		}
 		else {
 			geneLength=geneConfiguration.getHomeoticGeneLength();
 			headerLength=geneConfiguration.getNormalGeneHeaderLength();
 			tailLength=geneConfiguration.getNormalGeneTailLength();
 			maxType=geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber();
+			j=1;
+			genePiece=generator.nextFunction();
 		}
 		Gene result=new Gene();
 		result.setGeneType(geneType);
 		List<GenePiece> genePiecesList=new ArrayList<GenePiece>(geneLength);
-		int j;
-		if(geneType==GeneType.HomeoticGene){
-			j=1;
-			genePiecesList.add(generator.nextFunction());
+		if(genePiece!=null)
+			genePiecesList.add(genePiece);
+		for(;j<headerLength;j++){
+			genePiece=nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size());
+			genePiecesList.add(genePiece);				
 		}
-		else{
-			j=0;
+		for(j=0;j<tailLength;j++){
+			genePiece=nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size());
+			genePiecesList.add(genePiece);			
 		}
-		for(;j<headerLength;j++)
-			genePiecesList.add(nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size()));	
-		for(j=0;j<tailLength;j++)
-			genePiecesList.add(nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size()));
 		result.setGenePieces(genePiecesList);
 		return result;
 	}
