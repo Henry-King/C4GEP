@@ -22,9 +22,6 @@ public class Generator implements IGenerator{
 		this.dataColumns=dataColumns;
 		this.normalGeneNumber=normalGeneNumber;
 	}
-	public Generator() {
-		// TODO Auto-generated constructor stub
-	}
 	@Override
 	public GenePiece nextFunction() {
 		// TODO Auto-generated method stub

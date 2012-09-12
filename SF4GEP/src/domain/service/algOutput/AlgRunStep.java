@@ -123,97 +123,45 @@ public class AlgRunStep implements IAlgRunStep {
 	@Override
 	public boolean mutate(Population population) {
 		// TODO Auto-generated method stub
-		Random mutateRandom=new Random();
-		Random funcOrVarRandom=new Random();
-		Random functionRandom=new Random();
-		Random variableRandom=new Random();
-		Random funcOrConsRandom=new Random();
-		Random constantRandom=new Random();
 		GeneConfiguration geneConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration();
-		OperatorConfiguration operatorConfiguration=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration();
-		List<Function> functionList=geneConfiguration.getFunctionUsed();
-		DataSet dataSet=population.getGepAlgRun().getDataSet();
-		int functionNum=functionList.size();
-		int variableNum=dataSet.getColumnNum();
-		int totalNum=functionNum+variableNum;
-		int type;
+		int functionListSize=geneConfiguration.getFunctionUsed().size();
+		int maxNormalGeneType=functionListSize+population.getGepAlgRun().getDataSet().getVariableUsed().size();
+		int maxHomeoticGeneType=functionListSize+geneConfiguration.getNormalGeneNumber();
+		float mutateRate=population.getGepAlgRun().getGepAlgConfiguration().getOperatorConfiguration().getMutateRate();
 		GenePiece mutatedGenePiece;
-		int variableIndex;
+		Random mutateRandom=new Random();
 		for(Individual mutatingIndividual:population.getIndividuals()){
 			for(Gene gene:mutatingIndividual.getGenes()){
 				if(gene.getGeneType()==GeneType.NormalGene){
 					for(int i=0;i<geneConfiguration.getNormalGeneHeaderLength();i++){
-						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-							mutatedGenePiece=new GenePiece();
-							type=funcOrVarRandom.nextInt(totalNum);
+						if(mutateRandom.nextFloat()<mutateRate){
+							mutatedGenePiece=nextGenePiece(GeneType.NormalGene, true, maxNormalGeneType, functionListSize);
 							gene.getGenePieces().set(i, mutatedGenePiece);
-							if(type<functionNum){
-								mutatedGenePiece.setFunc(functionList.get(type));
-								mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-								mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
-							}
-							else {
-								mutatedGenePiece.setFunc(null);
-								mutatedGenePiece.setName(dataSet.getVariableUsed().get(type-functionNum).getColumnName());
-								mutatedGenePiece.setVariableIndex(type-functionNum);
-								mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getName());
-							}
 						}
 					}
 					for(int i=0;i<geneConfiguration.getNormalGeneTailLength();i++){
-						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-							mutatedGenePiece=new GenePiece();
+						if(mutateRandom.nextFloat()<mutateRate){
+							mutatedGenePiece=nextGenePiece(GeneType.NormalGene, false, maxNormalGeneType, functionListSize);
 							gene.getGenePieces().set(i+geneConfiguration.getNormalGeneHeaderLength(),mutatedGenePiece);
-							mutatedGenePiece.setFunc(null);
-							mutatedGenePiece.setGenePieceType(GenePieceType.Variable);
-							variableIndex=variableRandom.nextInt(variableNum);
-							mutatedGenePiece.setName(dataSet.getVariableUsed().get(variableIndex).getColumnName());
-							mutatedGenePiece.setSymbol(mutatedGenePiece.getName());
-							mutatedGenePiece.setVariableIndex(variableIndex);
 						}
 					}
 				}
 				else if(gene.getGeneType()==GeneType.HomeoticGene) {
 					if(geneConfiguration.getUseHomeoticGene()){
-						if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-							mutatedGenePiece=new GenePiece();
+						if(mutateRandom.nextFloat()<mutateRate){
+							mutatedGenePiece=nextGenePiece(GeneType.HomeoticGene, true, maxHomeoticGeneType, functionListSize);
 							gene.getGenePieces().set(0, mutatedGenePiece);
-							mutatedGenePiece.setFunc(functionList.get(functionRandom.nextInt(functionList.size())));
-							mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-							mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
-							mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
 						}
 						for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
-							if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-								type=funcOrConsRandom.nextInt(functionNum+geneConfiguration.getNormalGeneNumber());
-								mutatedGenePiece=new GenePiece();
+							if(geneConfiguration.getUseHomeoticGene()){
+								mutatedGenePiece=nextGenePiece(GeneType.HomeoticGene, true, maxHomeoticGeneType, functionListSize);
 								gene.getGenePieces().set(i, mutatedGenePiece);
-								if(type<functionNum){
-									mutatedGenePiece.setFunc(functionList.get(type));
-									mutatedGenePiece.setGenePieceType(GenePieceType.Function);
-									mutatedGenePiece.setName(mutatedGenePiece.getFunc().getName());
-									mutatedGenePiece.setSymbol(mutatedGenePiece.getFunc().getSymbol());
-								}
-								else {
-									mutatedGenePiece.setFunc(null);
-									mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
-									mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-									mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
-									mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
-								}
 							}
 						}
 						for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
-							if(mutateRandom.nextFloat()<operatorConfiguration.getMutateRate()){
-								mutatedGenePiece=new GenePiece();
+							if(geneConfiguration.getUseHomeoticGene()){
+								mutatedGenePiece=nextGenePiece(GeneType.HomeoticGene, false, maxHomeoticGeneType, functionListSize);
 								gene.getGenePieces().set(i+geneConfiguration.getHomeoticGeneHeaderLength(), mutatedGenePiece);
-								mutatedGenePiece.setFunc(null);
-								mutatedGenePiece.setGenePieceType(GenePieceType.Constant);
-								mutatedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-								mutatedGenePiece.setName(mutatedGenePiece.getValue().toString());
-								mutatedGenePiece.setSymbol(mutatedGenePiece.getValue().toString());
 							}
 						}
 					}
