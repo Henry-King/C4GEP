@@ -49,7 +49,8 @@ public class AlgOutputService implements IAlgOutputService {
 		Float minFitness;
 		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
 		gepAlgRun.getPopulations().add(gepAlgRun.getCurrentPopulation().clone());
-		commit(gepAlgRun);
+		if(flag)
+			commit(gepAlgRun);
 		Population newPopulation;
 		maxFitnesses.clear();
 		minFitnesses.clear();
@@ -65,7 +66,8 @@ public class AlgOutputService implements IAlgOutputService {
 			newPopulation=algRunStep.select(gepAlgRun);
 			newPopulation.setGenerationNum(i+1);
 			gepAlgRun.getPopulations().add(newPopulation);
-			commit(gepAlgRun.getPrePopulation(),executorService);
+			if(flag)
+				commit(gepAlgRun.getPrePopulation(),executorService);
 			algRunStep.mutate(gepAlgRun.getCurrentPopulation());
 			algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
 			algRunStep.risTransport(gepAlgRun.getCurrentPopulation());
@@ -77,7 +79,8 @@ public class AlgOutputService implements IAlgOutputService {
 		long end=System.nanoTime();
 		long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		gepAlgRun.setPeriod(period);
-		commit(gepAlgRun.getCurrentPopulation(), executorService);
+		if(flag)
+			commit(gepAlgRun.getCurrentPopulation(), executorService);
 		executorService.shutdown();
 		return gepAlgRun;
 	}
