@@ -576,7 +576,7 @@ public class AlgRunStep implements IAlgRunStep {
 		Gene gene;
 		for(int i=0;i<geneNum;i++){
 			gene=genes.get(i);
-			gene.clearFunctionFlag();
+			gene.clearFunctionFlag(false);
 		}
 	}
 	/**
