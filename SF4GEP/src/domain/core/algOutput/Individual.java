@@ -44,10 +44,6 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 	public String toGeneString(){
 		StringBuffer result=new StringBuffer();
 		for(Gene gene:genes){
-			if(gene.getGeneType()==GeneType.HomeoticGene)
-				result.append("同源基因：");
-			else
-				result.append("正常基因:");
 			result.append(gene.toGeneString());
 			result.append("\n");
 		}
