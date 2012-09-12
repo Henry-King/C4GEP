@@ -23,8 +23,10 @@ import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
 import domain.iservice.algOutput.IAlgRunStep;
+import domain.iservice.algOutput.IGenerator;
 
 public class AlgRunStep implements IAlgRunStep {
+	private IGenerator generator;
 	enum TransportEnum{
 		IS,RIS,GENE;
 		float rate;
@@ -57,32 +59,21 @@ public class AlgRunStep implements IAlgRunStep {
 		// TODO Auto-generated method stub
 		Individual individual;
 		Gene addedGene;
+		Population population;
 		GeneConfiguration geneConfiguration=gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();
-		GepAlgRun gepAlgRun=new GepAlgRun();
-		gepAlgRun.setDataSet(dataSet);
-		gepAlgRun.setGepAlgConfiguration(gepAlgConfiguration);
-		Population population=new Population();
-		population.setIndividuals(new ArrayList<Individual>(gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber()));
-		population.setGenerationNum((long) 0);
-		population.setGepAlgRun(gepAlgRun);
-		gepAlgRun.getPopulations().add(population);
+		int dataColumns=dataSet.getVariableUsed().size();
+		GepAlgRun gepAlgRun=generateGepAlgRun(dataSet, gepAlgConfiguration);
+		population=gepAlgRun.getCurrentPopulation();
+		generator=new Generator(geneConfiguration.getFunctionUsed(), dataSet.getVariableUsed(), geneConfiguration.getNormalGeneNumber());
 		for(int i=0;i<gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber();i++){
 			individual=new Individual();
 			individual.setGenes(new ArrayList<Gene>(gepAlgConfiguration.getIndividualConfiguration().getTotalGeneNumbers()));
 			for(int j=0;j<geneConfiguration.getNormalGeneNumber();j++){
-				addedGene=new Gene();
-				addedGene.setGeneType(GeneType.NormalGene);
-				addedGene.setGenePieces(new ArrayList<GenePiece>(geneConfiguration.getNormalGeneLength()));
-				addedGene.getGenePieces().addAll(generateNormalHeaderPieces(geneConfiguration,dataSet));
-				addedGene.getGenePieces().addAll(generateNormalTailPieces(geneConfiguration,dataSet));
+				addedGene=nextGene(GeneType.NormalGene, geneConfiguration, dataColumns);
 				individual.getGenes().add(addedGene);
 			}
 			for(int j=0;j<geneConfiguration.getHomeoticGeneNumber();j++){
-				addedGene=new Gene();
-				addedGene.setGeneType(GeneType.HomeoticGene);
-				addedGene.setGenePieces(new ArrayList<GenePiece>(geneConfiguration.getHomeoticGeneLength()));
-				addedGene.getGenePieces().addAll(generateHomeoticHeaderPieces(geneConfiguration));
-				addedGene.getGenePieces().addAll(generateHomeoticTailPieces(geneConfiguration));
+				addedGene=nextGene(GeneType.HomeoticGene, geneConfiguration, dataColumns);
 				individual.getGenes().add(addedGene);
 			}
 			population.addIndividual(individual);
@@ -293,144 +284,83 @@ public class AlgRunStep implements IAlgRunStep {
 		iterateGeneInRecombine(population.getGepAlgRun().getGepAlgConfiguration().getIndividualConfiguration(), population, recombine);
 		return true;
 	}
-	/**
-	 * 产生一个普通基因的头部的所有基因位
-	 * @param geneConfiguration 基因配置信息
-	 * @param dataSet 输入数据集
-	 * @return 普通头部所有基因位组成的List
-	 */
-	private List<GenePiece> generateNormalHeaderPieces(GeneConfiguration geneConfiguration,DataSet dataSet){
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Random functionRandom=new Random();
-		Random variableRandom=new Random();
+	private GepAlgRun generateGepAlgRun(DataSet dataSet,GepAlgConfiguration gepAlgConfiguration){
+		GepAlgRun gepAlgRun=new GepAlgRun();
+		gepAlgRun.setDataSet(dataSet);
+		gepAlgRun.setGepAlgConfiguration(gepAlgConfiguration);
+		Population population=new Population();
+		population.setIndividuals(new ArrayList<Individual>(gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber()));
+		population.setGenerationNum((long) 0);
+		population.setGepAlgRun(gepAlgRun);
+		gepAlgRun.getPopulations().add(population);
+		return gepAlgRun;
+	}
+	private Gene nextGene(GeneType geneType,GeneConfiguration geneConfiguration,int dataColumns){
+		int geneLength;
+		int headerLength;
+		int tailLength;
+		int maxType;
+		if(geneType==GeneType.NormalGene){
+			geneLength=geneConfiguration.getNormalGeneLength();
+			headerLength=geneConfiguration.getNormalGeneHeaderLength();
+			tailLength=geneConfiguration.getNormalGeneTailLength();
+			maxType=dataColumns+geneConfiguration.getFunctionUsed().size();
+		}
+		else {
+			geneLength=geneConfiguration.getHomeoticGeneLength();
+			headerLength=geneConfiguration.getNormalGeneHeaderLength();
+			tailLength=geneConfiguration.getNormalGeneTailLength();
+			maxType=geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber();
+		}
+		Gene result=new Gene();
+		result.setGeneType(geneType);
+		List<GenePiece> genePiecesList=new ArrayList<GenePiece>(geneLength);
+		int j;
+		if(geneType==GeneType.HomeoticGene){
+			j=1;
+			genePiecesList.add(generator.nextFunction());
+		}
+		else{
+			j=0;
+		}
+		for(;j<headerLength;j++)
+			genePiecesList.add(nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size()));	
+		for(j=0;j<tailLength;j++)
+			genePiecesList.add(nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size()));
+		result.setGenePieces(genePiecesList);
+		return result;
+	}
+	private GenePiece nextGenePiece(GeneType geneType, boolean header,int maxType,int functionListSize) {
+		// TODO Auto-generated method stub
 		Random typeRandom=new Random();
-		DataColumn dataColumn;
-		Function function;
+		GenePiece genePiece;
 		int type;
-		int variableIndex;
-		GenePiece addedGenePiece;
-		for(int i=0;i<geneConfiguration.getNormalGeneHeaderLength();i++){
-			type=typeRandom.nextInt(dataSet.getVariableUsed().size()+geneConfiguration.getFunctionUsed().size());
-			addedGenePiece=new GenePiece();
-			if(type<dataSet.getVariableUsed().size()){
-				addedGenePiece.setGenePieceType(GenePieceType.Variable);
-				variableIndex=variableRandom.nextInt(dataSet.getVariableUsed().size());
-				dataColumn=dataSet.getVariableUsed().get(variableIndex);
-				addedGenePiece.setName(dataColumn.getColumnName());
-				addedGenePiece.setSymbol(dataColumn.getColumnName());
-				addedGenePiece.setVariableIndex(variableIndex);
+		if(geneType==GeneType.NormalGene){
+			if(header){
+				type=typeRandom.nextInt(maxType);
+				if(type<functionListSize)
+					genePiece=generator.nextFunction();
+				else
+					genePiece=generator.nextVariable();
 			}
 			else {
-				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
-				addedGenePiece.setFunc(function);
-				addedGenePiece.setName(function.getName());
-				addedGenePiece.setSymbol(function.getSymbol());
-			}
-			genePieces.add(addedGenePiece);
-		}
-		return genePieces;
-	}
-	/**
-	 * 产生一个普通基因的尾部的所有基因位
-	 * @param geneConfiguration 基因配置信息
-	 * @param dataSet 输入数据集
-	 * @return 普通基因尾部所有基因位组成的List
-	 */
-	private List<GenePiece> generateNormalTailPieces(GeneConfiguration geneConfiguration,DataSet dataSet){
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Random variableRandom=new Random();
-		DataColumn dataColumn;
-		GenePiece addedGenePiece;
-		int variableIndex;
-		for(int i=0;i<geneConfiguration.getNormalGeneTailLength();i++){
-			addedGenePiece=new GenePiece();
-			addedGenePiece.setGenePieceType(GenePieceType.Variable);
-			variableIndex=variableRandom.nextInt(dataSet.getVariableUsed().size());
-			dataColumn=dataSet.getVariableUsed().get(variableIndex);
-			addedGenePiece.setVariableIndex(variableIndex);
-			addedGenePiece.setName(dataColumn.getColumnName());
-			addedGenePiece.setSymbol(dataColumn.getColumnName());
-			genePieces.add(addedGenePiece);
-		}
-		return genePieces;
-	}
-	/**
-	 * 产生一个同源基因的头部的所有基因位
-	 * @param geneConfiguration 基因配置信息
-	 * @return 同源基因头部所有基因位组成的List
-	 */
-	private List<GenePiece> generateHomeoticHeaderPieces(GeneConfiguration geneConfiguration){
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Random functionRandom=new Random();
-		Random constantRandom=new Random();
-		Random typeRandom=new Random();
-		Function function;
-		int type;
-		GenePiece addedGenePiece;
-		if(geneConfiguration.getUseHomeoticGene()){
-			addedGenePiece=new GenePiece();
-			addedGenePiece.setGenePieceType(GenePieceType.Function);
-			function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
-			addedGenePiece.setFunc(function);
-			addedGenePiece.setName(function.getName());
-			addedGenePiece.setSymbol(function.getSymbol());
-			genePieces.add(addedGenePiece);
-			for(int i=1;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
-				addedGenePiece=new GenePiece();
-				type=typeRandom.nextInt(geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber());
-				if(type<geneConfiguration.getFunctionUsed().size()){
-					addedGenePiece.setGenePieceType(GenePieceType.Function);
-					function=geneConfiguration.getFunctionUsed().get(functionRandom.nextInt(geneConfiguration.getFunctionUsed().size()));
-					addedGenePiece.setFunc(function);
-					addedGenePiece.setName(function.getName());
-					addedGenePiece.setSymbol(function.getSymbol());
-				}
-				else {
-					addedGenePiece.setGenePieceType(GenePieceType.Constant);
-					addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-					addedGenePiece.setName("");
-					addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
-				}
-				genePieces.add(addedGenePiece);
+				genePiece=generator.nextVariable();
 			}
 		}
 		else {
-			Function connectionFunction=geneConfiguration.getConnectionFunction();
-			for(int i=0;i<geneConfiguration.getHomeoticGeneHeaderLength();i++){
-				addedGenePiece=new GenePiece();
-				addedGenePiece.setGenePieceType(GenePieceType.Function);
-				addedGenePiece.setFunc(connectionFunction);
-				addedGenePiece.setName(connectionFunction.getName());
-				addedGenePiece.setSymbol(connectionFunction.getSymbol());
-				genePieces.add(addedGenePiece);
+			if(header){
+				type=typeRandom.nextInt(maxType);
+				if(type<functionListSize)
+					genePiece=generator.nextFunction();
+				else
+					genePiece=generator.nextNoramlGeneNum();
+			}
+			else {
+				genePiece=generator.nextNoramlGeneNum();
 			}
 		}
-		return genePieces;
+		return genePiece;
 	}
-	/**
-	 * 产生一个同源基因的尾部的所有基因位
-	 * @param geneConfiguration 基因配置信息
-	 * @return 同源基因尾部所有基因位组成的List
-	 */
-	private List<GenePiece> generateHomeoticTailPieces(GeneConfiguration geneConfiguration){
-		List<GenePiece> genePieces=new ArrayList<GenePiece>();
-		Random constantRandom=new Random();
-		GenePiece addedGenePiece;
-		for(int i=0;i<geneConfiguration.getHomeoticGeneTailLength();i++){
-			addedGenePiece=new GenePiece();
-			addedGenePiece.setGenePieceType(GenePieceType.Constant);
-			if(geneConfiguration.getUseHomeoticGene())
-				addedGenePiece.setValue((float) constantRandom.nextInt(geneConfiguration.getNormalGeneNumber()));
-			else
-				addedGenePiece.setValue((float) i);
-			addedGenePiece.setName("");
-			addedGenePiece.setSymbol(addedGenePiece.getValue().toString());
-			genePieces.add(addedGenePiece);
-		}			
-		return genePieces;
-	}
-	
 	/**
 	 * 因为每一个个体有多个同源基因，因此每一个同源基因都可以产生一个拟合值，这里返回一个包含个体数组，里面每个同源基因计算出的拟合值。
 	 * 目前是性能瓶颈，自用时间在15%－20%
