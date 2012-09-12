@@ -89,13 +89,16 @@ public class Gene implements Serializable,Cloneable {
 		}
 		return genePieceId;
 	}
-	public List<Boolean> clearFunctionFlag(){
+	public List<Boolean> clearFunctionFlag(boolean makeList){
 		int geneLength=genePieces.size();
 		GenePiece genePiece;
-		List<Boolean> flagList=new ArrayList<Boolean>(genePieces.size());
+		List<Boolean> flagList=null;
+		if(makeList)
+			flagList=new ArrayList<Boolean>(genePieces.size());
 		for(int j=0;j<geneLength;j++)
 			if((genePiece=genePieces.get(j)).getGenePieceType()==GenePieceType.Function){
-				flagList.add(genePiece.isUsed());
+				if(makeList)
+					flagList.add(genePiece.isUsed());
 				genePiece.setUsed(false);
 			}
 		return flagList;
@@ -115,7 +118,7 @@ public class Gene implements Serializable,Cloneable {
 		List<String> stringStack=iniStringStack(length, genes);
 		int arity;
 		int lastNonTerminate;
-		List<Boolean> resultBooleans=clearFunctionFlag();
+		List<Boolean> resultBooleans=clearFunctionFlag(true);
 		while(length>1){
 			lastNonTerminate=getLastNonTerminate(length);
 			arity=genePieces.get(lastNonTerminate).getFunc().getArity();
