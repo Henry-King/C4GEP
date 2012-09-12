@@ -32,6 +32,7 @@ public class AlgOutputService implements IAlgOutputService {
 			hibernateDataContext.save(data);
 		}
 	}
+	private boolean flag;
 	private IHibernateDataContext hibernateDataContext;
 	private List<Float> maxFitnesses=new LinkedList<Float>();
 	private List<Float>	minFitnesses=new LinkedList<Float>();
@@ -101,5 +102,12 @@ public class AlgOutputService implements IAlgOutputService {
 		gepAlgRun.setDataSet(dataInputService.save(gepAlgRun.getDataSet()));
 		gepAlgRun.setGepAlgConfiguration(gepConfigurationService.save(gepAlgRun.getGepAlgConfiguration()));
 		hibernateDataContext.save(gepAlgRun);
+	}
+	@Override
+	public boolean writeToDB(boolean flag) {
+		// TODO Auto-generated method stub
+		boolean original=this.flag;
+		this.flag=flag;
+		return original;
 	}
 }
