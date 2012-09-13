@@ -30,6 +30,8 @@ import java.net.URL;
 
 import javax.swing.JButton;
 
+import ui.conf.ConfPanel;
+
 public class Test {
 
 	private JFrame frame;
@@ -116,17 +118,10 @@ public class Test {
 		tabbedPane.addTab("Configuration", null, panel_2, null);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		ConfPanel tabbedPane_1 = new ConfPanel();
 		panel_2.add(tabbedPane_1);
 		
 		JPanel panel_5 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_5, null);
-		
-		JPanel panel_6 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_6, null);
-		
-		JPanel panel_7 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_7, null);
 		
 		JPanel panel_8 = new JPanel();
 		panel_2.add(panel_8, BorderLayout.NORTH);
