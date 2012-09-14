@@ -11,11 +11,12 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/JLink.jar!/JavaDoc"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/JTattoo.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/JTattoo.jar"/>
 	<classpathentry kind="lib" path="lib/xom-1.2.8.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/xom-1.2.8.jar!/apidocs"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/seaglasslookandfeel-0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
