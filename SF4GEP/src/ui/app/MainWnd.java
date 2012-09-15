@@ -38,7 +38,7 @@ public class MainWnd {
 	 */
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
