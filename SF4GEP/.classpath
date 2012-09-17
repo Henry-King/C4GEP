@@ -17,6 +17,5 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/SF4GEP/lib/xom-1.2.8.jar!/apidocs"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/seaglasslookandfeel-0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
