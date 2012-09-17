@@ -22,11 +22,12 @@ public class MainTabbedPane extends JTabbedPane{
 		
 		/*Ä¬ÈÏ»¶Ó­½çÃæ*/
 		WelcomePanel welcomePanel = new WelcomePanel(mainWnd);
-		addTab("Welcome", null, welcomePanel, null);
+		addTab(null,new VTextIcon(welcomePanel, "Welcome"), welcomePanel, null);
+		
 		
 		
 		ConfPanel confPanel = new ConfPanel();
-		addTab("new", null, confPanel, null);
+		addTab(null, new VTextIcon(confPanel, "new"), confPanel, null);
 		
 
 
