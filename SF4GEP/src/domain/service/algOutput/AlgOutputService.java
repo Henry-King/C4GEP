@@ -86,13 +86,13 @@ public class AlgOutputService implements IAlgOutputService {
 	}
 
 	@Override
-	public List<Float> getMaxFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
+	public List<Float> getMaxFitness(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
 		return maxFitnesses;
 	}
 
 	@Override
-	public List<Float> getMinFitnessInEveryGeneration(GepAlgRun gepAlgRun) {
+	public List<Float> getMinFitness(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
 		return minFitnesses;
 	}
