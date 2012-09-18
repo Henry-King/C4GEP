@@ -65,12 +65,12 @@ public class OutputController {
 	
 	
 	public List<Float> getBestEvolutionGraph(){
-		List<Float> bestList = algOutputService.getMaxFitnessInEveryGeneration(gepAlgrun);
+		List<Float> bestList = algOutputService.getMaxFitness(gepAlgrun);
 		return bestList;
 	}
 	
 	public List<Float> getWorseEvolutionGraph(){
-		List<Float> worseList = algOutputService.getMinFitnessInEveryGeneration(gepAlgrun);
+		List<Float> worseList = algOutputService.getMinFitness(gepAlgrun);
 		return worseList;
 	}
 	
