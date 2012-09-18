@@ -57,7 +57,7 @@ public class OutputController {
 	
 	public List<FittedValue> getFittingCurveList(){
 		
-		gepAlgrun =  algOutputService.run(outputModel.getGepAlgConfiguration(),new AlgRunStep(), outputModel.getInputSet());
+//		gepAlgrun =  algOutputService.run(outputModel.getGepAlgConfiguration(),new AlgRunStep(), outputModel.getInputSet());
 		Individual individual = gepAlgrun.getBestIndividual();
 		List<FittedValue> resultList = individual.getFittedValues();
 		return resultList;
@@ -65,13 +65,13 @@ public class OutputController {
 	
 	
 	public List<Float> getBestEvolutionGraph(){
-		List<Float> bestList = algOutputService.getMaxFitness(gepAlgrun);
-		return bestList;
+//		List<Float> bestList = algOutputService.getMaxFitness(gepAlgrun);
+		return null;
 	}
 	
 	public List<Float> getWorseEvolutionGraph(){
-		List<Float> worseList = algOutputService.getMinFitness(gepAlgrun);
-		return worseList;
+//		List<Float> worseList = algOutputService.getMinFitness(gepAlgrun);
+		return null;
 	}
 	
 	
