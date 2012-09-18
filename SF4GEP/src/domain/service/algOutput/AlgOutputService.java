@@ -1,7 +1,6 @@
 package domain.service.algOutput;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,8 +33,6 @@ public class AlgOutputService implements IAlgOutputService {
 	}
 	private boolean flag;
 	private IHibernateDataContext hibernateDataContext;
-	private List<Float> maxFitnesses=new LinkedList<Float>();
-	private List<Float>	minFitnesses=new LinkedList<Float>();
 	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
@@ -52,15 +49,15 @@ public class AlgOutputService implements IAlgOutputService {
 		if(flag)
 			commit(gepAlgRun);
 		Population newPopulation;
-		maxFitnesses.clear();
-		minFitnesses.clear();
+		gepAlgRun.getMaxFitnesses().clear();
+		gepAlgRun.getMinFitnesses().clear();
 		long start=System.nanoTime();
 		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
 			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
 			maxFitness=Collections.max(fitnessFloats);
 			minFitness=Collections.min(fitnessFloats);
-			maxFitnesses.add(maxFitness);
-			minFitnesses.add(minFitness);
+			gepAlgRun.getMaxFitnesses().add(maxFitness);
+			gepAlgRun.getMinFitnesses().add(minFitness);
 			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
 				break;
 			newPopulation=algRunStep.select(gepAlgRun);
@@ -88,13 +85,13 @@ public class AlgOutputService implements IAlgOutputService {
 	@Override
 	public List<Float> getMaxFitness(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return maxFitnesses;
+		return gepAlgRun.getMaxFitnesses();
 	}
 
 	@Override
 	public List<Float> getMinFitness(GepAlgRun gepAlgRun) {
 		// TODO Auto-generated method stub
-		return minFitnesses;
+		return gepAlgRun.getMinFitnesses();
 	}
 	private void commit(final Population population,ExecutorService executorService){
 		executorService.execute(new DbSave<Population>(population));

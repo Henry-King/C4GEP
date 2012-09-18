@@ -3,6 +3,7 @@ package domain.core.algOutput;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import domain.core.algInputDataProcess.DataColumn;
@@ -17,6 +18,8 @@ public class GepAlgRun implements Serializable{
 	private DataSet dataSet;
 	private List<Population> populations=new ArrayList<Population>(2);
 	private Long period;
+	private List<Float> maxFitnesses=new LinkedList<Float>();
+	private List<Float>	minFitnesses=new LinkedList<Float>();
 	public Integer getId() {
 		return id;
 	}
@@ -70,6 +73,18 @@ public class GepAlgRun implements Serializable{
 	}
 	public Individual getBestIndividual(){
 		return Collections.max(getCurrentPopulation().getIndividuals());
+	}
+	public List<Float> getMaxFitnesses() {
+		return maxFitnesses;
+	}
+	public void setMaxFitnesses(List<Float> maxFitnesses) {
+		this.maxFitnesses = maxFitnesses;
+	}
+	public List<Float> getMinFitnesses() {
+		return minFitnesses;
+	}
+	public void setMinFitnesses(List<Float> minFitnesses) {
+		this.minFitnesses = minFitnesses;
 	}
 	private void removeRedundancyPopulation(){
 		while(populations.size()>2)
