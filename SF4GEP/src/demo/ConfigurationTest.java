@@ -80,9 +80,6 @@ public class ConfigurationTest {
 		IAlgRunStep runStep=new AlgRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		while(!resultRun.isDone()){
-			
-		}
 		GepAlgRun gepAlgRun=null;
 		try {
 			gepAlgRun = resultRun.get();
