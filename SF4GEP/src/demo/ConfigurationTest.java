@@ -3,6 +3,8 @@ package demo;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import jxl.read.biff.BiffException;
@@ -77,7 +79,22 @@ public class ConfigurationTest {
 		algOutputService.setWriteToDB(false);
 		IAlgRunStep runStep=new AlgRunStep();
 		long start=System.nanoTime();
-		GepAlgRun gepAlgRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
+		while(!resultRun.isDone()){
+			
+		}
+		GepAlgRun gepAlgRun=null;
+		try {
+			gepAlgRun = resultRun.get();
+			algOutputService.shutdownAll();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		System.out.println("×Ü´úÊý:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());

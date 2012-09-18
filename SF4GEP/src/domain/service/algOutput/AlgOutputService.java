@@ -2,8 +2,10 @@ package domain.service.algOutput;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import data.dao.IHibernateDataContext;
@@ -33,65 +35,61 @@ public class AlgOutputService implements IAlgOutputService {
 	}
 	private boolean flag;
 	private IHibernateDataContext hibernateDataContext;
+	private ExecutorService exec=Executors.newCachedThreadPool();
 	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
 	}
 	@Override
-	public GepAlgRun run(GepAlgConfiguration gepAlgConfiguration, IAlgRunStep algRunStep, DataSet dataSet) {
+	public Future<GepAlgRun> run(final GepAlgConfiguration gepAlgConfiguration, final IAlgRunStep algRunStep, final DataSet dataSet) {
 		// TODO Auto-generated method stub
-		ExecutorService executorService=Executors.newSingleThreadExecutor();
-		List<Float> fitnessFloats;
-		Float maxFitness;
-		Float minFitness;
-		GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
-		gepAlgRun.getPopulations().add(gepAlgRun.getCurrentPopulation().clone());
-		if(flag)
-			commit(gepAlgRun);
-		Population newPopulation;
-		gepAlgRun.getMaxFitnesses().clear();
-		gepAlgRun.getMinFitnesses().clear();
-		long start=System.nanoTime();
-		for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
-			fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
-			maxFitness=Collections.max(fitnessFloats);
-			minFitness=Collections.min(fitnessFloats);
-			gepAlgRun.getMaxFitnesses().add(maxFitness);
-			gepAlgRun.getMinFitnesses().add(minFitness);
-			if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
-				break;
-			newPopulation=algRunStep.select(gepAlgRun);
-			newPopulation.setGenerationNum(i+1);
-			gepAlgRun.getPopulations().add(newPopulation);
-			if(flag)
-				commit(gepAlgRun.getPrePopulation(),executorService);
-			algRunStep.mutate(gepAlgRun.getCurrentPopulation());
-			algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
-			algRunStep.risTransport(gepAlgRun.getCurrentPopulation());
-			algRunStep.geneTransport(gepAlgRun.getCurrentPopulation());
-			algRunStep.onePointRecombine(gepAlgRun.getCurrentPopulation());
-			algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
-			algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
-		}
-		long end=System.nanoTime();
-		long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
-		gepAlgRun.setPeriod(period);
-		if(flag)
-			commit(gepAlgRun.getCurrentPopulation(), executorService);
-		executorService.shutdown();
-		return gepAlgRun;
-	}
+		return exec.submit(new Callable<GepAlgRun>() {
 
-	@Override
-	public List<Float> getMaxFitness(GepAlgRun gepAlgRun) {
-		// TODO Auto-generated method stub
-		return gepAlgRun.getMaxFitnesses();
-	}
-
-	@Override
-	public List<Float> getMinFitness(GepAlgRun gepAlgRun) {
-		// TODO Auto-generated method stub
-		return gepAlgRun.getMinFitnesses();
+			@Override
+			public GepAlgRun call() {
+				// TODO Auto-generated method stub
+				ExecutorService execDB=Executors.newSingleThreadExecutor();
+				List<Float> fitnessFloats;
+				Float maxFitness;
+				Float minFitness;
+				GepAlgRun gepAlgRun=algRunStep.create(gepAlgConfiguration, dataSet);
+				gepAlgRun.getPopulations().add(gepAlgRun.getCurrentPopulation().clone());
+				if(flag)
+					commit(gepAlgRun);
+				Population newPopulation;
+				gepAlgRun.getMaxFitnesses().clear();
+				gepAlgRun.getMinFitnesses().clear();
+				long start=System.nanoTime();
+				for(long i=0;i<gepAlgConfiguration.getMaxGeneration();i++){
+					fitnessFloats=algRunStep.calculateFitness(gepAlgRun.getCurrentPopulation());
+					maxFitness=Collections.max(fitnessFloats);
+					minFitness=Collections.min(fitnessFloats);
+					gepAlgRun.getMaxFitnesses().add(maxFitness);
+					gepAlgRun.getMinFitnesses().add(minFitness);
+					if(Math.abs(maxFitness-gepAlgConfiguration.getMaxFitness())<=gepAlgConfiguration.getAccuracy()||i==gepAlgConfiguration.getMaxGeneration()-2)
+						break;
+					newPopulation=algRunStep.select(gepAlgRun);
+					newPopulation.setGenerationNum(i+1);
+					gepAlgRun.getPopulations().add(newPopulation);
+					if(flag)
+						commit(gepAlgRun.getPrePopulation(),execDB);
+					algRunStep.mutate(gepAlgRun.getCurrentPopulation());
+					algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
+					algRunStep.risTransport(gepAlgRun.getCurrentPopulation());
+					algRunStep.geneTransport(gepAlgRun.getCurrentPopulation());
+					algRunStep.onePointRecombine(gepAlgRun.getCurrentPopulation());
+					algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
+					algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
+				}
+				long end=System.nanoTime();
+				long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+				gepAlgRun.setPeriod(period);
+				if(flag)
+					commit(gepAlgRun.getCurrentPopulation(), execDB);
+				execDB.shutdown();
+				return gepAlgRun;
+			}
+		});
 	}
 	private void commit(final Population population,ExecutorService executorService){
 		executorService.execute(new DbSave<Population>(population));
@@ -109,5 +107,10 @@ public class AlgOutputService implements IAlgOutputService {
 		boolean original=this.flag;
 		this.flag=flag;
 		return original;
+	}
+	@Override
+	public void shutdownAll() {
+		// TODO Auto-generated method stub
+		exec.shutdown();
 	}
 }
