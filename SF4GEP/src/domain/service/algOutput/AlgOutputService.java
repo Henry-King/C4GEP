@@ -41,7 +41,7 @@ public class AlgOutputService implements IAlgOutputService {
 		this.hibernateDataContext=hibernateDataContext;
 	}
 	@Override
-	public Future<GepAlgRun> run(final GepAlgConfiguration gepAlgConfiguration, final IAlgRunStep algRunStep, final DataSet dataSet) {
+	public synchronized Future<GepAlgRun> run(final GepAlgConfiguration gepAlgConfiguration, final IAlgRunStep algRunStep, final DataSet dataSet) {
 		// TODO Auto-generated method stub
 		return exec.submit(new Callable<GepAlgRun>() {
 
@@ -102,14 +102,14 @@ public class AlgOutputService implements IAlgOutputService {
 		hibernateDataContext.save(gepAlgRun);
 	}
 	@Override
-	public boolean setWriteToDB(boolean flag) {
+	public synchronized boolean setWriteToDB(boolean flag) {
 		// TODO Auto-generated method stub
 		boolean original=this.flag;
 		this.flag=flag;
 		return original;
 	}
 	@Override
-	public void shutdownAll() {
+	public synchronized void shutdownAll() {
 		// TODO Auto-generated method stub
 		exec.shutdown();
 	}
