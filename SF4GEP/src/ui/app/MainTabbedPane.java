@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import ui.conf.ConfPanel;
+import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
 public class MainTabbedPane extends JTabbedPane{

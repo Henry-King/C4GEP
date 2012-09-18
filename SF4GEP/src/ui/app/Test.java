@@ -30,7 +30,7 @@ import java.net.URL;
 
 import javax.swing.JButton;
 
-import ui.conf.ConfPanel;
+import ui.conf.view.ConfPanel;
 
 public class Test {
 

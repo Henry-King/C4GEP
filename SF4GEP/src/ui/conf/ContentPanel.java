@@ -7,6 +7,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import ui.app.MainFrame;
+import ui.conf.view.AccuracyPanel;
+import ui.conf.view.GenePanel;
+import ui.conf.view.OperatorPanel;
 
 public class ContentPanel extends JPanel implements MouseListener,
 MouseMotionListener {

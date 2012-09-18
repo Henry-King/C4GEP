@@ -12,6 +12,7 @@ import com.jtattoo.plaf.JTattooUtilities;
 
 import ui.app.MainFrame;
 import ui.app.MainWnd;
+import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
 public class NewGEPDialog extends JDialog {

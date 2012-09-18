@@ -1,8 +1,10 @@
-package ui.conf;
+package ui.conf.view;
 
 import javax.swing.*;
 
 import ui.app.*;
+import ui.conf.ContentPanel;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

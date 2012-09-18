@@ -24,7 +24,7 @@ import javax.swing.JToolBar;
 import javax.swing.JLabel;
 
 
-import ui.conf.ConfPanel;
+import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
 public class MainWnd {
