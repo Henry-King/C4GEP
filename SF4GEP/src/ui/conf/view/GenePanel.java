@@ -36,7 +36,7 @@ public class GenePanel extends JPanel {
 	private JTextField homeoticGeneHeaderTextField;
 	private JTextField normalGeneHeaderTextField;
 	private ButtonGroup buttonGroup = new ButtonGroup();
-
+	private CardLayout cardLayout=new CardLayout(0, 0);
 
 	/**
 	 * Create the panel.
@@ -123,23 +123,15 @@ public class GenePanel extends JPanel {
 		add(connectionTypePanel, gbc_connectionTypePanel);
 
 		JRadioButton homeoticGeneRadioButton = new JRadioButton("\u4F7F\u7528\u540C\u6E90\u57FA\u56E0");
-		homeoticGeneRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		connectionTypePanel.add(homeoticGeneRadioButton);
 		buttonGroup.add(homeoticGeneRadioButton);
 
 		JRadioButton connectionFuncRadioButton = new JRadioButton(
 				"\u4F7F\u7528\u8FDE\u63A5\u51FD\u6570");
-		connectionFuncRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		connectionTypePanel.add(connectionFuncRadioButton);
 		buttonGroup.add(connectionFuncRadioButton);
 
-		JPanel connectionPanel = new JPanel();
+		final JPanel connectionPanel = new JPanel();
 		GridBagConstraints gbc_connectionPanel = new GridBagConstraints();
 		gbc_connectionPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_connectionPanel.gridwidth = 2;
@@ -147,10 +139,10 @@ public class GenePanel extends JPanel {
 		gbc_connectionPanel.gridx = 1;
 		gbc_connectionPanel.gridy = 5;
 		add(connectionPanel, gbc_connectionPanel);
-		connectionPanel.setLayout(new CardLayout(0, 0));
+		connectionPanel.setLayout(cardLayout);
 
 		JPanel homecticPanel = new JPanel();
-		connectionPanel.add(homecticPanel, homecticPanel.getClass().getName());
+		connectionPanel.add(homecticPanel, "homeoticPannel");
 		GridBagLayout gbl_homecticPanel = new GridBagLayout();
 		gbl_homecticPanel.columnWidths = new int[]{167, 236, 0};
 		gbl_homecticPanel.rowHeights = new int[]{21, 0};
@@ -175,7 +167,7 @@ public class GenePanel extends JPanel {
 		connectionComboBox.setMaximumSize(new Dimension(110, 21));
 
 		JPanel connectionFuncPanel = new JPanel();
-		connectionPanel.add(connectionFuncPanel, connectionPanel.getClass().getName());
+		connectionPanel.add(connectionFuncPanel, "connectionPannel");
 		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
 		gbl_connectionFuncPanel.columnWidths = new int[]{168, 78, 0};
 		gbl_connectionFuncPanel.rowHeights = new int[]{21, 0, 0};
@@ -234,6 +226,16 @@ public class GenePanel extends JPanel {
 		functionScrollPane.setViewportView(functionList);
 		functionScrollPane.setMaximumSize(new Dimension(126, 60));
 
+		homeoticGeneRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(connectionPanel, "homeoticPannel");
+			}
+		});
+		connectionFuncRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(connectionPanel, "connectionPannel");
+			}
+		});
 	}
 
 }
