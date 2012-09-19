@@ -34,7 +34,7 @@ public class OperatorPanel extends JPanel {
 	public OperatorPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 168, 94, 0};
-		gridBagLayout.rowHeights = new int[]{15, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0};
+		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);

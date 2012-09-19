@@ -145,7 +145,7 @@ public class GenePanel extends JPanel {
 		connectionPanel.add(homecticPanel, "homeoticPannel");
 		GridBagLayout gbl_homecticPanel = new GridBagLayout();
 		gbl_homecticPanel.columnWidths = new int[]{164, 236, 0};
-		gbl_homecticPanel.rowHeights = new int[]{21, 0};
+		gbl_homecticPanel.rowHeights = new int[]{40, 0};
 		gbl_homecticPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_homecticPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		homecticPanel.setLayout(gbl_homecticPanel);
@@ -160,7 +160,7 @@ public class GenePanel extends JPanel {
 
 		JComboBox<Function> connectionComboBox = new JComboBox<Function>();
 		GridBagConstraints gbc_connectionComboBox = new GridBagConstraints();
-		gbc_connectionComboBox.anchor = GridBagConstraints.NORTHWEST;
+		gbc_connectionComboBox.anchor = GridBagConstraints.WEST;
 		gbc_connectionComboBox.gridx = 1;
 		gbc_connectionComboBox.gridy = 0;
 		homecticPanel.add(connectionComboBox, gbc_connectionComboBox);
@@ -170,7 +170,7 @@ public class GenePanel extends JPanel {
 		connectionPanel.add(connectionFuncPanel, "connectionPannel");
 		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
 		gbl_connectionFuncPanel.columnWidths = new int[]{164, 78, 0};
-		gbl_connectionFuncPanel.rowHeights = new int[]{21, 0, 0};
+		gbl_connectionFuncPanel.rowHeights = new int[]{40, 40, 0};
 		gbl_connectionFuncPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_connectionFuncPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		connectionFuncPanel.setLayout(gbl_connectionFuncPanel);
@@ -185,7 +185,7 @@ public class GenePanel extends JPanel {
 
 		homeoticGeneTextField = new MyTextField();
 		GridBagConstraints gbc_homeoticGeneTextField = new GridBagConstraints();
-		gbc_homeoticGeneTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_homeoticGeneTextField.anchor = GridBagConstraints.WEST;
 		gbc_homeoticGeneTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_homeoticGeneTextField.gridx = 1;
 		gbc_homeoticGeneTextField.gridy = 0;
@@ -201,7 +201,7 @@ public class GenePanel extends JPanel {
 
 		homeoticGeneHeaderTextField = new MyTextField();
 		GridBagConstraints gbc_homeoticGeneHeaderTextField = new GridBagConstraints();
-		gbc_homeoticGeneHeaderTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_homeoticGeneHeaderTextField.anchor = GridBagConstraints.WEST;
 		gbc_homeoticGeneHeaderTextField.gridx = 1;
 		gbc_homeoticGeneHeaderTextField.gridy = 1;
 		connectionFuncPanel.add(homeoticGeneHeaderTextField, gbc_homeoticGeneHeaderTextField);
