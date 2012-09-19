@@ -207,6 +207,7 @@ public class GenePanel extends JPanel {
 		homecticPanel.add(homeoticGeneHeaderTextField, gbc_homeoticGeneHeaderTextField);
 
 		JLabel usedFuncLabel = new MyPrompt("\u6240\u7528\u7684\u51FD\u6570");
+		usedFuncLabel.setText("\u6240\u7528\u51FD\u6570");
 		GridBagConstraints gbc_usedFuncLabel = new GridBagConstraints();
 		gbc_usedFuncLabel.anchor = GridBagConstraints.WEST;
 		gbc_usedFuncLabel.insets = new Insets(0, 0, 0, 5);
