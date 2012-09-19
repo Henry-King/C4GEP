@@ -144,7 +144,7 @@ public class GenePanel extends JPanel {
 		JPanel homecticPanel = new JPanel();
 		connectionPanel.add(homecticPanel, "homeoticPannel");
 		GridBagLayout gbl_homecticPanel = new GridBagLayout();
-		gbl_homecticPanel.columnWidths = new int[]{167, 236, 0};
+		gbl_homecticPanel.columnWidths = new int[]{164, 236, 0};
 		gbl_homecticPanel.rowHeights = new int[]{21, 0};
 		gbl_homecticPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_homecticPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -169,7 +169,7 @@ public class GenePanel extends JPanel {
 		JPanel connectionFuncPanel = new JPanel();
 		connectionPanel.add(connectionFuncPanel, "connectionPannel");
 		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
-		gbl_connectionFuncPanel.columnWidths = new int[]{168, 78, 0};
+		gbl_connectionFuncPanel.columnWidths = new int[]{164, 78, 0};
 		gbl_connectionFuncPanel.rowHeights = new int[]{21, 0, 0};
 		gbl_connectionFuncPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_connectionFuncPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
