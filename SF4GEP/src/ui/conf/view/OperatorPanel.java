@@ -63,8 +63,6 @@ public class OperatorPanel extends JPanel {
 		gbc_mutateTextField.gridx = 2;
 		gbc_mutateTextField.gridy = 1;
 		add(mutateTextField, gbc_mutateTextField);
-		mutateTextField.setColumns(10);
-		mutateTextField.setMaximumSize(mutateTextField.getPreferredSize());
 		
 		JLabel ISLabel = new MyPrompt("IS\u8F6C\u5EA7\u6982\u7387 ");
 		GridBagConstraints gbc_ISLabel = new GridBagConstraints();
@@ -81,8 +79,6 @@ public class OperatorPanel extends JPanel {
 		gbc_ISTextField.gridx = 2;
 		gbc_ISTextField.gridy = 2;
 		add(ISTextField, gbc_ISTextField);
-		ISTextField.setColumns(10);
-		ISTextField.setMaximumSize(ISTextField.getPreferredSize());
 		
 		JLabel ISLengthLabel = new MyPrompt("IS\u8F6C\u5EA7\u957F\u5EA6 ");
 		GridBagConstraints gbc_ISLengthLabel = new GridBagConstraints();
@@ -99,8 +95,6 @@ public class OperatorPanel extends JPanel {
 		gbc_ISLengthTextField.gridx = 2;
 		gbc_ISLengthTextField.gridy = 3;
 		add(ISLengthTextField, gbc_ISLengthTextField);
-		ISLengthTextField.setColumns(10);
-		ISLengthTextField.setMaximumSize(ISLengthTextField.getPreferredSize());
 		
 		JLabel RISLabel = new MyPrompt("RIS\u8F6C\u5EA7\u6982\u7387");
 		GridBagConstraints gbc_RISLabel = new GridBagConstraints();
@@ -117,8 +111,6 @@ public class OperatorPanel extends JPanel {
 		gbc_RISTextField.gridx = 2;
 		gbc_RISTextField.gridy = 4;
 		add(RISTextField, gbc_RISTextField);
-		RISTextField.setColumns(10);
-		RISTextField.setMaximumSize(RISTextField.getPreferredSize());
 		
 		JLabel RISLengthLabel = new MyPrompt("RIS\u8F6C\u5EA7\u957F\u5EA6");
 		GridBagConstraints gbc_RISLengthLabel = new GridBagConstraints();
@@ -135,8 +127,6 @@ public class OperatorPanel extends JPanel {
 		gbc_RISLengthTextField.gridx = 2;
 		gbc_RISLengthTextField.gridy = 5;
 		add(RISLengthTextField, gbc_RISLengthTextField);
-		RISLengthTextField.setColumns(10);
-		RISLengthTextField.setMaximumSize(RISLengthTextField.getPreferredSize());
 		
 		JLabel geneLabel = new MyPrompt("\u57FA\u56E0\u8F6C\u5EA7\u6982\u7387");
 		GridBagConstraints gbc_geneLabel = new GridBagConstraints();
@@ -153,8 +143,6 @@ public class OperatorPanel extends JPanel {
 		gbc_geneTextField.gridx = 2;
 		gbc_geneTextField.gridy = 6;
 		add(geneTextField, gbc_geneTextField);
-		geneTextField.setColumns(10);
-		geneTextField.setMaximumSize(geneTextField.getPreferredSize());
 		
 		JLabel oneCombineLabel = new MyPrompt("\u5355\u70B9\u91CD\u7EC4\u6982\u7387");
 		GridBagConstraints gbc_oneCombineLabel = new GridBagConstraints();
@@ -171,8 +159,6 @@ public class OperatorPanel extends JPanel {
 		gbc_oneCombineTextField.gridx = 2;
 		gbc_oneCombineTextField.gridy = 7;
 		add(oneCombineTextField, gbc_oneCombineTextField);
-		oneCombineTextField.setColumns(10);
-		oneCombineTextField.setMaximumSize(oneCombineTextField.getPreferredSize());
 		
 		JLabel twoCombineLabel = new MyPrompt("\u4E24\u70B9\u91CD\u7EC4\u6982\u7387");
 		GridBagConstraints gbc_twoCombineLabel = new GridBagConstraints();
@@ -189,8 +175,6 @@ public class OperatorPanel extends JPanel {
 		gbc_twoCombineTextField.gridx = 2;
 		gbc_twoCombineTextField.gridy = 8;
 		add(twoCombineTextField, gbc_twoCombineTextField);
-		twoCombineTextField.setColumns(10);
-		twoCombineTextField.setMaximumSize(twoCombineTextField.getPreferredSize());
 		
 		JLabel geneCombineLabel = new MyPrompt("\u57FA\u56E0\u91CD\u7EC4\u6982\u7387");
 		GridBagConstraints gbc_geneCombineLabel = new GridBagConstraints();
@@ -206,8 +190,6 @@ public class OperatorPanel extends JPanel {
 		gbc_geneCombineTextField.gridx = 2;
 		gbc_geneCombineTextField.gridy = 9;
 		add(geneCombineTextField, gbc_geneCombineTextField);
-		geneCombineTextField.setColumns(10);
-		geneCombineTextField.setMaximumSize(geneCombineTextField.getPreferredSize());
 		
 	}
 
