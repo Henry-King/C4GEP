@@ -198,7 +198,13 @@ public class Population implements Serializable, Cloneable {
 					totalGeneNum, homeoticGeneLength);
 		return result;
 	}
-
+	public void setFittedValue(char[][] fittedValue){
+		
+	}
+	public void setGeneNum(char[] geneIndex){
+		for(int i=0;i<geneIndex.length;i++)
+			individuals.get(i).setSelectedHomeoticGeneNumber((int)geneIndex[i]);
+	}
 	/**
 	 * 对当前种群进行复制，产生一个新的种群，对于string
 	 * 这样的不可改变对象和int这样的基本数据类型和AlgRun，这是一个浅复制，对于其他的对象而言，这是一个深度复制
