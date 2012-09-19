@@ -8,7 +8,6 @@ import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
 import ui.conf.model.MyTitle;
 
-import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -34,8 +33,8 @@ public class OperatorPanel extends JPanel {
 	 */
 	public OperatorPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{71, 116, 94, 0};
-		gridBagLayout.rowHeights = new int[]{15, 21, 21, 21, 21, 21, 21, 21, 21, 21, 0};
+		gridBagLayout.columnWidths = new int[]{30, 168, 94, 0};
+		gridBagLayout.rowHeights = new int[]{15, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -59,7 +58,7 @@ public class OperatorPanel extends JPanel {
 		
 		mutateTextField = new MyTextField();
 		GridBagConstraints gbc_mutateTextField = new GridBagConstraints();
-		gbc_mutateTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_mutateTextField.anchor = GridBagConstraints.WEST;
 		gbc_mutateTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_mutateTextField.gridx = 2;
 		gbc_mutateTextField.gridy = 1;
@@ -77,7 +76,7 @@ public class OperatorPanel extends JPanel {
 		
 		ISTextField = new MyTextField();
 		GridBagConstraints gbc_ISTextField = new GridBagConstraints();
-		gbc_ISTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_ISTextField.anchor = GridBagConstraints.WEST;
 		gbc_ISTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_ISTextField.gridx = 2;
 		gbc_ISTextField.gridy = 2;
@@ -95,7 +94,7 @@ public class OperatorPanel extends JPanel {
 		
 		ISLengthTextField = new MyTextField();
 		GridBagConstraints gbc_ISLengthTextField = new GridBagConstraints();
-		gbc_ISLengthTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_ISLengthTextField.anchor = GridBagConstraints.WEST;
 		gbc_ISLengthTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_ISLengthTextField.gridx = 2;
 		gbc_ISLengthTextField.gridy = 3;
@@ -113,7 +112,7 @@ public class OperatorPanel extends JPanel {
 		
 		RISTextField = new MyTextField();
 		GridBagConstraints gbc_RISTextField = new GridBagConstraints();
-		gbc_RISTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_RISTextField.anchor = GridBagConstraints.WEST;
 		gbc_RISTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_RISTextField.gridx = 2;
 		gbc_RISTextField.gridy = 4;
@@ -131,7 +130,7 @@ public class OperatorPanel extends JPanel {
 		
 		RISLengthTextField = new MyTextField();
 		GridBagConstraints gbc_RISLengthTextField = new GridBagConstraints();
-		gbc_RISLengthTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_RISLengthTextField.anchor = GridBagConstraints.WEST;
 		gbc_RISLengthTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_RISLengthTextField.gridx = 2;
 		gbc_RISLengthTextField.gridy = 5;
@@ -149,7 +148,7 @@ public class OperatorPanel extends JPanel {
 		
 		geneTextField = new MyTextField();
 		GridBagConstraints gbc_geneTextField = new GridBagConstraints();
-		gbc_geneTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_geneTextField.anchor = GridBagConstraints.WEST;
 		gbc_geneTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_geneTextField.gridx = 2;
 		gbc_geneTextField.gridy = 6;
@@ -167,7 +166,7 @@ public class OperatorPanel extends JPanel {
 		
 		oneCombineTextField = new MyTextField();
 		GridBagConstraints gbc_oneCombineTextField = new GridBagConstraints();
-		gbc_oneCombineTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_oneCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_oneCombineTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_oneCombineTextField.gridx = 2;
 		gbc_oneCombineTextField.gridy = 7;
@@ -185,7 +184,7 @@ public class OperatorPanel extends JPanel {
 		
 		twoCombineTextField = new MyTextField();
 		GridBagConstraints gbc_twoCombineTextField = new GridBagConstraints();
-		gbc_twoCombineTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_twoCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_twoCombineTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_twoCombineTextField.gridx = 2;
 		gbc_twoCombineTextField.gridy = 8;
@@ -203,7 +202,7 @@ public class OperatorPanel extends JPanel {
 		
 		geneCombineTextField = new MyTextField();
 		GridBagConstraints gbc_geneCombineTextField = new GridBagConstraints();
-		gbc_geneCombineTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_geneCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_geneCombineTextField.gridx = 2;
 		gbc_geneCombineTextField.gridy = 9;
 		add(geneCombineTextField, gbc_geneCombineTextField);

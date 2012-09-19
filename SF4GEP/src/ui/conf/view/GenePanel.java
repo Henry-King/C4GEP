@@ -41,8 +41,8 @@ public class GenePanel extends JPanel {
 	 */
 	public GenePanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{30, 181, 225, 0};
-		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 84, 30, 0};
+		gridBagLayout.columnWidths = new int[]{30, 164, 126, 0};
+		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 56, 35, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -167,7 +167,7 @@ public class GenePanel extends JPanel {
 		JPanel connectionFuncPanel = new JPanel();
 		connectionPanel.add(connectionFuncPanel, "name_99163681758653");
 		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
-		gbl_connectionFuncPanel.columnWidths = new int[]{185, 78, 0};
+		gbl_connectionFuncPanel.columnWidths = new int[]{168, 78, 0};
 		gbl_connectionFuncPanel.rowHeights = new int[]{21, 0, 0};
 		gbl_connectionFuncPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_connectionFuncPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
