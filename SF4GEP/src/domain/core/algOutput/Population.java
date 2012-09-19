@@ -31,8 +31,7 @@ public class Population implements Serializable, Cloneable {
 	/**
 	 * 创建一个种群，用户需要提供种群大小
 	 * 
-	 * @param size
-	 *            种群大小
+	 * @param size 种群大小
 	 */
 	public Population(int size) {
 		individuals = new ArrayList<Individual>(size);
