@@ -141,14 +141,14 @@ public class GenePanel extends JPanel {
 		add(connectionPanel, gbc_connectionPanel);
 		connectionPanel.setLayout(cardLayout);
 
-		JPanel homecticPanel = new JPanel();
-		connectionPanel.add(homecticPanel, "homeoticPannel");
-		GridBagLayout gbl_homecticPanel = new GridBagLayout();
-		gbl_homecticPanel.columnWidths = new int[]{164, 236, 0};
-		gbl_homecticPanel.rowHeights = new int[]{40, 0};
-		gbl_homecticPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_homecticPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		homecticPanel.setLayout(gbl_homecticPanel);
+		JPanel connectionFuncPanel = new JPanel();
+		connectionPanel.add(connectionFuncPanel, "homeoticPannel");
+		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
+		gbl_connectionFuncPanel.columnWidths = new int[]{164, 236, 0};
+		gbl_connectionFuncPanel.rowHeights = new int[]{40, 0};
+		gbl_connectionFuncPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_connectionFuncPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		connectionFuncPanel.setLayout(gbl_connectionFuncPanel);
 
 		JLabel connectionFuncLabel = new MyPrompt("\u9009\u62E9\u8FDE\u63A5\u51FD\u6570");
 		GridBagConstraints gbc_connectionFuncLabel = new GridBagConstraints();
@@ -156,24 +156,24 @@ public class GenePanel extends JPanel {
 		gbc_connectionFuncLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_connectionFuncLabel.gridx = 0;
 		gbc_connectionFuncLabel.gridy = 0;
-		homecticPanel.add(connectionFuncLabel, gbc_connectionFuncLabel);
+		connectionFuncPanel.add(connectionFuncLabel, gbc_connectionFuncLabel);
 
 		JComboBox<Function> connectionComboBox = new JComboBox<Function>();
 		GridBagConstraints gbc_connectionComboBox = new GridBagConstraints();
 		gbc_connectionComboBox.anchor = GridBagConstraints.WEST;
 		gbc_connectionComboBox.gridx = 1;
 		gbc_connectionComboBox.gridy = 0;
-		homecticPanel.add(connectionComboBox, gbc_connectionComboBox);
+		connectionFuncPanel.add(connectionComboBox, gbc_connectionComboBox);
 		connectionComboBox.setMaximumSize(new Dimension(110, 21));
 
-		JPanel connectionFuncPanel = new JPanel();
-		connectionPanel.add(connectionFuncPanel, "connectionPannel");
-		GridBagLayout gbl_connectionFuncPanel = new GridBagLayout();
-		gbl_connectionFuncPanel.columnWidths = new int[]{164, 78, 0};
-		gbl_connectionFuncPanel.rowHeights = new int[]{40, 40, 0};
-		gbl_connectionFuncPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_connectionFuncPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		connectionFuncPanel.setLayout(gbl_connectionFuncPanel);
+		JPanel homecticPanel = new JPanel();
+		connectionPanel.add(homecticPanel, "connectionPannel");
+		GridBagLayout gbl_homecticPanel = new GridBagLayout();
+		gbl_homecticPanel.columnWidths = new int[]{164, 78, 0};
+		gbl_homecticPanel.rowHeights = new int[]{40, 40, 0};
+		gbl_homecticPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_homecticPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		homecticPanel.setLayout(gbl_homecticPanel);
 
 		JLabel homeoticGeneNumLabel = new MyPrompt("\u540C\u6E90\u57FA\u56E0\u6570\u91CF");
 		GridBagConstraints gbc_homeoticGeneNumLabel = new GridBagConstraints();
@@ -181,7 +181,7 @@ public class GenePanel extends JPanel {
 		gbc_homeoticGeneNumLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_homeoticGeneNumLabel.gridx = 0;
 		gbc_homeoticGeneNumLabel.gridy = 0;
-		connectionFuncPanel.add(homeoticGeneNumLabel, gbc_homeoticGeneNumLabel);
+		homecticPanel.add(homeoticGeneNumLabel, gbc_homeoticGeneNumLabel);
 
 		homeoticGeneTextField = new MyTextField();
 		GridBagConstraints gbc_homeoticGeneTextField = new GridBagConstraints();
@@ -189,7 +189,7 @@ public class GenePanel extends JPanel {
 		gbc_homeoticGeneTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_homeoticGeneTextField.gridx = 1;
 		gbc_homeoticGeneTextField.gridy = 0;
-		connectionFuncPanel.add(homeoticGeneTextField, gbc_homeoticGeneTextField);
+		homecticPanel.add(homeoticGeneTextField, gbc_homeoticGeneTextField);
 
 		JLabel homeoticGeneHeaderLabel = new MyPrompt("\u540C\u6E90\u57FA\u56E0\u5934\u957F");
 		GridBagConstraints gbc_homeoticGeneHeaderLabel = new GridBagConstraints();
@@ -197,14 +197,14 @@ public class GenePanel extends JPanel {
 		gbc_homeoticGeneHeaderLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_homeoticGeneHeaderLabel.gridx = 0;
 		gbc_homeoticGeneHeaderLabel.gridy = 1;
-		connectionFuncPanel.add(homeoticGeneHeaderLabel, gbc_homeoticGeneHeaderLabel);
+		homecticPanel.add(homeoticGeneHeaderLabel, gbc_homeoticGeneHeaderLabel);
 
 		homeoticGeneHeaderTextField = new MyTextField();
 		GridBagConstraints gbc_homeoticGeneHeaderTextField = new GridBagConstraints();
 		gbc_homeoticGeneHeaderTextField.anchor = GridBagConstraints.WEST;
 		gbc_homeoticGeneHeaderTextField.gridx = 1;
 		gbc_homeoticGeneHeaderTextField.gridy = 1;
-		connectionFuncPanel.add(homeoticGeneHeaderTextField, gbc_homeoticGeneHeaderTextField);
+		homecticPanel.add(homeoticGeneHeaderTextField, gbc_homeoticGeneHeaderTextField);
 
 		JLabel usedFuncLabel = new MyPrompt("\u6240\u7528\u7684\u51FD\u6570");
 		GridBagConstraints gbc_usedFuncLabel = new GridBagConstraints();
