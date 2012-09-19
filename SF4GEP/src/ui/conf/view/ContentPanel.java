@@ -70,6 +70,9 @@ public class ContentPanel extends JPanel implements MouseListener,
 		 */
 
 		add(tabbedPane);
+		
+		JPanel resultPanel = new ResultPanel();
+		tabbedPane.addTab("\u8fd0\u7b97\u7ed3\u679c", null, resultPanel, null);
 
 		OutputPicturePanel.addMouseListener(this);
 		OutputPicturePanel.addMouseMotionListener(this);
