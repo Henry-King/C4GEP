@@ -21,6 +21,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GenePanel extends JPanel {
 
@@ -33,7 +35,7 @@ public class GenePanel extends JPanel {
 	private JTextField homeoticGeneTextField;
 	private JTextField homeoticGeneHeaderTextField;
 	private JTextField normalGeneHeaderTextField;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private ButtonGroup buttonGroup = new ButtonGroup();
 
 
 	/**
@@ -121,11 +123,19 @@ public class GenePanel extends JPanel {
 		add(connectionTypePanel, gbc_connectionTypePanel);
 
 		JRadioButton homeoticGeneRadioButton = new JRadioButton("\u4F7F\u7528\u540C\u6E90\u57FA\u56E0");
+		homeoticGeneRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		connectionTypePanel.add(homeoticGeneRadioButton);
 		buttonGroup.add(homeoticGeneRadioButton);
 
 		JRadioButton connectionFuncRadioButton = new JRadioButton(
 				"\u4F7F\u7528\u8FDE\u63A5\u51FD\u6570");
+		connectionFuncRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		connectionTypePanel.add(connectionFuncRadioButton);
 		buttonGroup.add(connectionFuncRadioButton);
 
