@@ -42,7 +42,6 @@ public class OperatorPanel extends JPanel {
 		JLabel titleLabel = new MyTitle("\u8F93\u5165\u53D8\u5F02\u53C2\u6570");
 		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
 		gbc_titleLabel.gridwidth = 2;
-		gbc_titleLabel.anchor = GridBagConstraints.NORTH;
 		gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_titleLabel.gridx = 1;
 		gbc_titleLabel.gridy = 0;
