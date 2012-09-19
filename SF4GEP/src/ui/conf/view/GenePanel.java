@@ -41,7 +41,7 @@ public class GenePanel extends JPanel {
 	 */
 	public GenePanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{105, 181, 225, 0};
+		gridBagLayout.columnWidths = new int[]{66, 181, 225, 0};
 		gridBagLayout.rowHeights = new int[]{30, 30, 30, 30, 30, 84, 30, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
