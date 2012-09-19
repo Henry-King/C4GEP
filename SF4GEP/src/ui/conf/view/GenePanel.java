@@ -41,8 +41,8 @@ public class GenePanel extends JPanel {
 	 */
 	public GenePanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{66, 181, 225, 0};
-		gridBagLayout.rowHeights = new int[]{30, 30, 30, 30, 30, 84, 30, 0};
+		gridBagLayout.columnWidths = new int[]{30, 181, 225, 0};
+		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 84, 30, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
@@ -59,7 +59,6 @@ public class GenePanel extends JPanel {
 		JLabel individualNumLabel = new MyPrompt("\u79CD\u7FA4\u5927\u5C0F");
 		GridBagConstraints gbc_individualNumLabel = new GridBagConstraints();
 		gbc_individualNumLabel.anchor = GridBagConstraints.WEST;
-		gbc_individualNumLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_individualNumLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_individualNumLabel.gridx = 1;
 		gbc_individualNumLabel.gridy = 1;
@@ -68,7 +67,6 @@ public class GenePanel extends JPanel {
 		individualNumtextField = new MyTextField();
 		GridBagConstraints gbc_individualNumtextField = new GridBagConstraints();
 		gbc_individualNumtextField.anchor = GridBagConstraints.WEST;
-		gbc_individualNumtextField.fill = GridBagConstraints.VERTICAL;
 		gbc_individualNumtextField.insets = new Insets(0, 0, 5, 0);
 		gbc_individualNumtextField.gridx = 2;
 		gbc_individualNumtextField.gridy = 1;
@@ -77,7 +75,6 @@ public class GenePanel extends JPanel {
 		JLabel normalGeneNumLabel = new MyPrompt("\u666E\u901A\u57FA\u56E0\u6570\u91CF");
 		GridBagConstraints gbc_normalGeneNumLabel = new GridBagConstraints();
 		gbc_normalGeneNumLabel.anchor = GridBagConstraints.WEST;
-		gbc_normalGeneNumLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_normalGeneNumLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_normalGeneNumLabel.gridx = 1;
 		gbc_normalGeneNumLabel.gridy = 2;
@@ -86,7 +83,6 @@ public class GenePanel extends JPanel {
 		normalGeneNumTextField = new MyTextField();
 		GridBagConstraints gbc_normalGeneNumTextField = new GridBagConstraints();
 		gbc_normalGeneNumTextField.anchor = GridBagConstraints.WEST;
-		gbc_normalGeneNumTextField.fill = GridBagConstraints.VERTICAL;
 		gbc_normalGeneNumTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_normalGeneNumTextField.gridx = 2;
 		gbc_normalGeneNumTextField.gridy = 2;
@@ -95,7 +91,6 @@ public class GenePanel extends JPanel {
 		JLabel normalGeneHeaderLabel = new MyPrompt("\u666E\u901A\u57FA\u56E0\u5934\u957F");
 		GridBagConstraints gbc_normalGeneHeaderLabel = new GridBagConstraints();
 		gbc_normalGeneHeaderLabel.anchor = GridBagConstraints.WEST;
-		gbc_normalGeneHeaderLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_normalGeneHeaderLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_normalGeneHeaderLabel.gridx = 1;
 		gbc_normalGeneHeaderLabel.gridy = 3;
@@ -104,7 +99,6 @@ public class GenePanel extends JPanel {
 		normalGeneHeaderTextField = new MyTextField();
 		GridBagConstraints gbc_normalGeneHeaderTextField = new GridBagConstraints();
 		gbc_normalGeneHeaderTextField.anchor = GridBagConstraints.WEST;
-		gbc_normalGeneHeaderTextField.fill = GridBagConstraints.VERTICAL;
 		gbc_normalGeneHeaderTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_normalGeneHeaderTextField.gridx = 2;
 		gbc_normalGeneHeaderTextField.gridy = 3;
@@ -113,7 +107,6 @@ public class GenePanel extends JPanel {
 		JLabel connectionTypeLabel = new MyPrompt("\u666E\u901A\u57FA\u56E0\u8FDE\u63A5\u65B9\u5F0F");
 		GridBagConstraints gbc_connectionTypeLabel = new GridBagConstraints();
 		gbc_connectionTypeLabel.anchor = GridBagConstraints.WEST;
-		gbc_connectionTypeLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_connectionTypeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_connectionTypeLabel.gridx = 1;
 		gbc_connectionTypeLabel.gridy = 4;
@@ -122,7 +115,7 @@ public class GenePanel extends JPanel {
 		JPanel connectionTypePanel = new JPanel();
 		GridBagConstraints gbc_connectionTypePanel = new GridBagConstraints();
 		gbc_connectionTypePanel.insets = new Insets(0, 0, 5, 0);
-		gbc_connectionTypePanel.fill = GridBagConstraints.BOTH;
+		gbc_connectionTypePanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_connectionTypePanel.gridx = 2;
 		gbc_connectionTypePanel.gridy = 4;
 		add(connectionTypePanel, gbc_connectionTypePanel);
@@ -214,7 +207,6 @@ public class GenePanel extends JPanel {
 		JLabel usedFuncLabel = new MyPrompt("\u6240\u7528\u7684\u51FD\u6570");
 		GridBagConstraints gbc_usedFuncLabel = new GridBagConstraints();
 		gbc_usedFuncLabel.anchor = GridBagConstraints.WEST;
-		gbc_usedFuncLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_usedFuncLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_usedFuncLabel.gridx = 1;
 		gbc_usedFuncLabel.gridy = 6;
