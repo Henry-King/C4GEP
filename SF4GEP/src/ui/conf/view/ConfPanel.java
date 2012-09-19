@@ -6,12 +6,6 @@ import ui.app.*;
 import ui.conf.ContentPanel;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-
-import javax.swing.border.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class ConfPanel extends JPanel {
 
