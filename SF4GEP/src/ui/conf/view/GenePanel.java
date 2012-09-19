@@ -116,8 +116,8 @@ public class GenePanel extends JPanel {
 
 		JPanel connectionTypePanel = new JPanel();
 		GridBagConstraints gbc_connectionTypePanel = new GridBagConstraints();
+		gbc_connectionTypePanel.anchor = GridBagConstraints.WEST;
 		gbc_connectionTypePanel.insets = new Insets(0, 0, 5, 0);
-		gbc_connectionTypePanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_connectionTypePanel.gridx = 2;
 		gbc_connectionTypePanel.gridy = 4;
 		add(connectionTypePanel, gbc_connectionTypePanel);
