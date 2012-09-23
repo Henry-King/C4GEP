@@ -202,9 +202,9 @@ public class Population implements Serializable, Cloneable {
 			individuals.get(i).setFitness(fitness[i]);
 	}
 	public void setFittedValue(float[][] fittedValue){
-		int homeGeneNum=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration().getHomeoticGeneNumber();
+		int rowNum=gepAlgRun.getDataSet().getRowNum();
 		for(int i=0;i<fittedValue.length;i++)
-			for(int j=0;j<homeGeneNum;j++)
+			for(int j=0;j<rowNum;j++)
 				individuals.get(i).getFittedValues().get(j).setFittedValue(fittedValue[i][j]);
 	}
 	public void setGeneNum(char[] geneIndex){
