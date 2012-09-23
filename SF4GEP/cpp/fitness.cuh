@@ -7,8 +7,6 @@
 
 #ifndef FITNESS_CUH_
 #define FITNESS_CUH_
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 #include <stdlib.h>

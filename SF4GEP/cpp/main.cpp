@@ -9,7 +9,7 @@
 #include <jni.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "transformToc.h"
+#include "javaToC.h"
 JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject, jobject gepAlgRun){
 	iniAllId(env,gepAlgRun);
 	createDataSet(env);
