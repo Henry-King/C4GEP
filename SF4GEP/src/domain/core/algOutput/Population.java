@@ -197,6 +197,10 @@ public class Population implements Serializable, Cloneable {
 					totalGeneNum, homeoticGeneLength);
 		return result;
 	}
+	public void setFitness(float[] fitness){
+		for(int i=0;i<fitness.length;i++)
+			individuals.get(i).setFitness(fitness[i]);
+	}
 	public void setFittedValue(float[][] fittedValue){
 		int homeGeneNum=gepAlgRun.getGepAlgConfiguration().getIndividualConfiguration().getGeneConfiguration().getHomeoticGeneNumber();
 		for(int i=0;i<fittedValue.length;i++)
