@@ -21,5 +21,5 @@ public class AlgCudaRunStep extends AlgRunStep{
 			fList.add(individual.getFitness());
 		return fList;
 	}
-	private native float[] calcOnCuda(GepAlgRun gepAlgRun);
+	private native void calcOnCuda(GepAlgRun gepAlgRun);
 }
