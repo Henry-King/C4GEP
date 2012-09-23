@@ -27,7 +27,7 @@ int numofFun=6; //函数个数
 int numofFunOp=2; //最大函数操作个数
 float M=10.0; //
 
-float data[21][3];//测试数据集
+float **data;//测试数据集
 float *fitness;//适应值
 char *strVariable;//变量集
 char *strFun;//函数集
