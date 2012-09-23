@@ -129,7 +129,12 @@ float** createDataSet(JNIEnv *env){
 	}
 	return dataSetCp;
 }
-
+void iniAllId(JNIEnv * env,jobject gepAlgRun){
+	iniSysId(env);
+	iniGepAlgRunId(env);
+	iniDataSetId(env,gepAlgRun);
+	iniPopulationId(env,gepAlgRun);
+}
 char** createNormalGeneType(JNIEnv *env) {
 	jobjectArray  normalGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneTypeID);
 	if(normalGeneTypes==NULL){
