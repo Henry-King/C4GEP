@@ -27,7 +27,7 @@ import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
 import domain.service.algOutput.AlgOutputService;
-import domain.service.algOutput.AlgRunStep;
+import domain.service.algOutput.AlgCpuRunStep;
 
 public class ConfigurationTest {
 
@@ -77,7 +77,7 @@ public class ConfigurationTest {
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
 		algOutputService.setWriteToDB(false);
-		IAlgRunStep runStep=new AlgRunStep();
+		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
 		GepAlgRun gepAlgRun=null;

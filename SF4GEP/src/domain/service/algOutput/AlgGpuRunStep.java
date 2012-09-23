@@ -7,8 +7,8 @@ import domain.core.algOutput.GepAlgRun;
 import domain.core.algOutput.Individual;
 import domain.core.algOutput.Population;
 
-public class AlgCudaRunStep extends AlgRunStep{
-	public AlgCudaRunStep() {
+public class AlgGpuRunStep extends AlgCpuRunStep{
+	public AlgGpuRunStep() {
 		// TODO Auto-generated constructor stub
 		
 	}

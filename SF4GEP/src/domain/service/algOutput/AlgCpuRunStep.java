@@ -25,7 +25,7 @@ import domain.core.algconfiguration.OperatorConfiguration;
 import domain.iservice.algOutput.IAlgRunStep;
 import domain.iservice.algOutput.IGenerator;
 
-public class AlgRunStep implements IAlgRunStep {
+public class AlgCpuRunStep implements IAlgRunStep {
 	private IGenerator generator;
 	enum TransportEnum{
 		IS,RIS,GENE;

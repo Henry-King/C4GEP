@@ -30,7 +30,7 @@ import domain.core.algconfiguration.function.Addition;
 import domain.core.algconfiguration.function.Divide;
 import domain.core.algconfiguration.function.Minus;
 import domain.core.algconfiguration.function.Multiply;
-import domain.service.algOutput.AlgRunStep;
+import domain.service.algOutput.AlgCpuRunStep;
 
 /**
  * 测试计算适应值和变异检测通过， 但是计算适应值的测试输出结果为0.0， 没有找到出错的地方，可能是数据的问题
@@ -41,12 +41,12 @@ import domain.service.algOutput.AlgRunStep;
  */
 public class AlgRunStepTest {
 
-	private static AlgRunStep algRunStep = null;
+	private static AlgCpuRunStep algRunStep = null;
 	public Population population;
 
 	@Before
 	public void setUp() throws Exception {
-		algRunStep = new AlgRunStep();
+		algRunStep = new AlgCpuRunStep();
 
 		/** GepAlgConfiguration **/
 

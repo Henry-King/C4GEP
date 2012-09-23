@@ -19,7 +19,7 @@ import domain.core.algOutput.Individual;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.iservice.algOutput.IAlgOutputService;
 import domain.service.algOutput.AlgOutputService;
-import domain.service.algOutput.AlgRunStep;
+import domain.service.algOutput.AlgCpuRunStep;
 
 public class OutputController {
 	
