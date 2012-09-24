@@ -11,12 +11,12 @@
 #include <stdlib.h>
 #include "javaToC.h"
 JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject, jobject gepAlgRun){
-	iniAllId(env,gepAlgRun);
-	createDataSet(env);
-	createNormalGeneType(env);
-	createHomeoticGeneType(env);
-	createNormalGeneIndex(env);
-	createHomeoticGeneIndex(env);
+	iniAllId(env);
+	createDataSet(env,gepAlgRun);
+	createNormalGeneType(env,gepAlgRun);
+	createHomeoticGeneType(env,gepAlgRun);
+	createNormalGeneIndex(env,gepAlgRun);
+	createHomeoticGeneIndex(env,gepAlgRun);
 	return;
 }
 

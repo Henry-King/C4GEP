@@ -26,20 +26,20 @@ static jfieldID  gepAlgConfigurationID=NULL;
 static jfieldID  dataSetID=NULL;
 static jfieldID  populationsID=NULL;
 static jmethodID getCurrentPopulationID=NULL;
-static jobject dataSet=NULL;
 static jclass class_DataSet=NULL;
 static jfieldID rowNumID=NULL;
-static jobject rowNum=NULL;
 static jfieldID columnNumID=NULL;
-static jobject columnNum=NULL;
 static jmethodID toDeepArrayID=NULL;
-static jobject currentPopulation=NULL;
 static jclass class_Population=NULL;
 static jmethodID getNormalGeneTypeID=NULL;
 static jmethodID  getHomeoticGeneTypeID=NULL;
 static jmethodID  getNormalGeneIndexID=NULL;
 static jmethodID  getHomeoticGeneIndexID=NULL;
-void iniSysId(JNIEnv *env){
+static jclass gepAlgConfigurationClass=NULL;
+static jclass individualConfClass=NULL;
+static jfieldID individualConfigurationID=NULL;
+static jfieldID populationSizeID=NULL;
+static void iniSysId(JNIEnv *env){
 	if(!class_Boolean)
 		class_Boolean=env->FindClass("Ljava/lang/Boolean;");
 	if(!boolValueMethod)
@@ -67,7 +67,7 @@ void iniSysId(JNIEnv *env){
 	if(!getEnumName)
 		getEnumName=(*env).GetMethodID(class_Enum,"name","()Ljava/lang/String;");
 }
-void iniGepAlgRunId(JNIEnv *env){
+static void iniGepAlgRunId(JNIEnv *env){
 	if(!class_GepAlgRun)
 		class_GepAlgRun=env->FindClass("Ldomain/core/algOutput/GepAlgRun;");
 	if(!gepAlgConfigurationID)
@@ -79,25 +79,17 @@ void iniGepAlgRunId(JNIEnv *env){
 	if(!getCurrentPopulationID)
 		getCurrentPopulationID=env->GetMethodID(class_GepAlgRun,"getCurrentPopulation","()Ldomain/core/algOutput/Population;");
 }
-void iniDataSetId(JNIEnv * env,jobject gepAlgRun){
-	if(!dataSet)
-		dataSet=env->GetObjectField(gepAlgRun,dataSetID);
+static void iniDataSetId(JNIEnv * env){
 	if(!class_DataSet)
-		class_DataSet=env->GetObjectClass(dataSet);
+		class_DataSet=env->FindClass("Ldomain/core/algInputDataProcess/DataSet;");
 	if(!rowNumID)
 		rowNumID=env->GetFieldID(class_DataSet,"rowNum","Ljava/lang/Integer;");
-	if(!rowNum)
-		rowNum=env->GetObjectField(dataSet,rowNumID);//得到rowNum
 	if(!columnNumID)
 		columnNumID=env->GetFieldID(class_DataSet,"columnNum","Ljava/lang/Integer;");
-	if(!columnNum)
-		columnNum=env->GetObjectField(dataSet,columnNumID);//得到ColumnNum
 	if(!toDeepArrayID)
 		toDeepArrayID=env->GetMethodID(class_DataSet,"toDeepArray","()[[F");
 }
-void iniPopulationId(JNIEnv * env,jobject gepAlgRun){
-	if(!currentPopulation)
-		currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+static void iniPopulationId(JNIEnv * env){
 	if(!class_Population)
 		class_Population=env->FindClass("Ldomain/core/algOutput/Population;");
 	if(!getNormalGeneTypeID)
@@ -109,12 +101,31 @@ void iniPopulationId(JNIEnv * env,jobject gepAlgRun){
 	if(!getHomeoticGeneIndexID)
 		getHomeoticGeneIndexID=env->GetMethodID(class_Population,"getHomeoticGeneIndex","()[[C");
 }
-float** createDataSet(JNIEnv *env){
+static void iniConf(JNIEnv * env){
+	if(!gepAlgConfigurationClass)
+		gepAlgConfigurationClass=env->FindClass("Ldomain/core/algconfiguration/GepAlgConfiguration;");
+	if(!individualConfigurationID)
+		individualConfigurationID=env->GetFieldID(gepAlgConfigurationClass,"individualConfiguration","Ldomain/core/algconfiguration/IndividualConfiguration;");
+	if(!individualConfClass)
+		individualConfClass=env->FindClass("Ldomain/core/algconfiguration/IndividualConfiguration;");
+	if(!populationSizeID)
+		populationSizeID=env->GetFieldID(individualConfClass,"individualNumber","Ljava/lang/Integer;");
+
+}
+void iniAllId(JNIEnv * env){
+	iniSysId(env);
+	iniGepAlgRunId(env);
+	iniDataSetId(env);
+	iniPopulationId(env);
+	iniConf(env);
+}
+float** createDataSet(JNIEnv *env,jobject gepAlgRun){
+	jobject dataSet=env->GetObjectField(gepAlgRun,dataSetID);
 	jobjectArray dataSetArr=(jobjectArray)(*env).CallObjectMethod(dataSet,toDeepArrayID);
 	//动态分配--------------------------------------------------
-	int sizeOfDataSetArr=(*env).GetArrayLength(dataSetArr);//获得行数
+	int sizeOfDataSetArr=env->GetArrayLength(dataSetArr);//获得行数
 	jarray dataSetCpCols =(jarray)(*env).GetObjectArrayElement(dataSetArr, 0);
-	int colOfDataSetArr =(*env).GetArrayLength(dataSetCpCols); //获得列数
+	int colOfDataSetArr =env->GetArrayLength(dataSetCpCols); //获得列数
 	float** dataSetCp=(float**)malloc(sizeof(float*)*sizeOfDataSetArr);//分配二维数组行数
 	for(int i=0;i<sizeOfDataSetArr;i++)
 		dataSetCp[i]=(float*)malloc(sizeof(float)*colOfDataSetArr);//分配二维数组列数
@@ -129,13 +140,8 @@ float** createDataSet(JNIEnv *env){
 	}
 	return dataSetCp;
 }
-void iniAllId(JNIEnv * env,jobject gepAlgRun){
-	iniSysId(env);
-	iniGepAlgRunId(env);
-	iniDataSetId(env,gepAlgRun);
-	iniPopulationId(env,gepAlgRun);
-}
-char** createNormalGeneType(JNIEnv *env) {
+char** createNormalGeneType(JNIEnv *env,jobject gepAlgRun) {
+	jobject currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray  normalGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneTypeID);
 	if(normalGeneTypes==NULL){
 		return NULL;
@@ -158,7 +164,8 @@ char** createNormalGeneType(JNIEnv *env) {
 	}
 	return normalGeneTypesCp;
 }
-char** createHomeoticGeneType(JNIEnv *env){
+char** createHomeoticGeneType(JNIEnv *env,jobject gepAlgRun){
+	jobject currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray  homeoticGeneTypes=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getHomeoticGeneTypeID);
 	if(homeoticGeneTypes==NULL){
 		return NULL;
@@ -182,8 +189,9 @@ char** createHomeoticGeneType(JNIEnv *env){
 	return homeoticGeneTypesCp;
 }
 
-char** createNormalGeneIndex(JNIEnv* env) {
-	jobjectArray  normalGeneIndex=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneIndexID);
+char** createNormalGeneIndex(JNIEnv* env,jobject gepAlgRun) {
+	jobject currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray normalGeneIndex=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getNormalGeneIndexID);
 	if(normalGeneIndex==NULL){
 		return NULL;
 	}
@@ -206,7 +214,8 @@ char** createNormalGeneIndex(JNIEnv* env) {
 	return normalGeneIndexCp;
 }
 
-char** createHomeoticGeneIndex(JNIEnv* env) {
+char** createHomeoticGeneIndex(JNIEnv* env,jobject gepAlgRun) {
+	jobject currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray  homeoticGeneIndex=(jobjectArray)(*env).CallObjectMethod(currentPopulation,getHomeoticGeneIndexID);
 	if(homeoticGeneIndex==NULL){
 		return NULL;
@@ -229,7 +238,45 @@ char** createHomeoticGeneIndex(JNIEnv* env) {
 	}
 	return homeoticGeneIndexCp;
 }
-
+int getPopulationSize(JNIEnv* env,jobject gepAlgRun){
+	return 0;
+}
+int getNormalGeneNum(){
+	return 0;
+}
+int getHomeoticGeneNum(){
+	return 0;
+}
+int getNormalGeneHeaderLength(){
+	return 0;
+}
+int getNormalGeneLength(){
+	return 0;
+}
+int getHomeoticGeneHeaderLength(){
+	return 0;
+}
+int getHomeoticGeneLength(){
+	return 0;
+}
+int getRowNum(){
+	return 0;
+}
+int getColumnNum(){
+	return 0;
+}
+int getVaribaleNum(){
+	return 0;
+}
+int getFuncNum(){
+	return 0;
+}
+int getMaxArity(){
+	return 0;
+}
+float getSelectionRange(){
+	return 0;
+}
 
 
 #endif /* COPYTOGPU_H_ */
