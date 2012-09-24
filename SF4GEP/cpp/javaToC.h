@@ -39,6 +39,16 @@ static jclass gepAlgConfigurationClass=NULL;
 static jclass individualConfClass=NULL;
 static jfieldID individualConfigurationID=NULL;
 static jfieldID populationSizeID=NULL;
+static jfieldID geneConfigurationID=NULL;
+static jclass geneConfigurationClass=NULL;
+static jfieldID normalGeneNumberID=NULL;
+static jfieldID normalGeneHeaderLengthID=NULL;
+static jfieldID homeoticGeneNumberID=NULL;
+static jfieldID homeoticGeneHeaderLengthID=NULL;
+static jfieldID normalGeneLengthID=NULL;
+static jfieldID homeoticGeneLengthID=NULL;
+static jfieldID selectionRangeID=NULL;
+static jfieldID functionUsedID=NULL;
 static void iniSysId(JNIEnv *env){
 	if(!class_Boolean)
 		class_Boolean=env->FindClass("Ljava/lang/Boolean;");
@@ -110,7 +120,46 @@ static void iniConf(JNIEnv * env){
 		individualConfClass=env->FindClass("Ldomain/core/algconfiguration/IndividualConfiguration;");
 	if(!populationSizeID)
 		populationSizeID=env->GetFieldID(individualConfClass,"individualNumber","Ljava/lang/Integer;");
-
+	if(!geneConfigurationID)
+		geneConfigurationID=env->GetFieldID(individualConfClass,"geneConfiguration","Ldomain/core/algconfiguration/GeneConfiguration;");
+	if(!geneConfigurationClass)
+		geneConfigurationClass=env->FindClass("Ldomain/core/algconfiguration/GeneConfiguration;");
+	if(!normalGeneNumberID)
+		normalGeneNumberID=env->GetFieldID(geneConfigurationClass,"normalGeneNumber","Ljava/lang/Integer;");
+	if(!normalGeneHeaderLengthID)
+		normalGeneHeaderLengthID=env->GetFieldID(geneConfigurationClass,"normalGeneHeaderLength","Ljava/lang/Integer;");
+	if(!homeoticGeneNumberID)
+		homeoticGeneNumberID=env->GetFieldID(geneConfigurationClass,"homeoticGeneNumber","Ljava/lang/Integer;");
+	if(!homeoticGeneHeaderLengthID)
+		homeoticGeneHeaderLengthID=env->GetFieldID(geneConfigurationClass,"homeoticGeneHeaderLength","Ljava/lang/Integer;");
+	if(!normalGeneLengthID)
+		normalGeneLengthID=env->GetFieldID(geneConfigurationClass,"normalGeneLength","Ljava/lang/Integer;");
+	if(!homeoticGeneLengthID)
+		homeoticGeneLengthID=env->GetFieldID(geneConfigurationClass,"homeoticGeneLength","Ljava/lang/Integer;");
+	if(!selectionRangeID)
+		selectionRangeID=env->GetFieldID(gepAlgConfigurationClass,"selectionRange","Ljava/lang/Float;");
+}
+static jobject getIndividualConfObject(JNIEnv* env,jobject gepAlgRun){
+	jobject algConfObject=env->GetObjectField(gepAlgRun,gepAlgConfigurationID);
+	jobject individualConfObject=env->GetObjectField(algConfObject,individualConfigurationID);
+	return individualConfObject;
+}
+static jobject getGeneConfObj(JNIEnv* env,jobject gepAlgRun){
+	jobject individualConfObject=getIndividualConfObject(env,gepAlgRun);
+	jobject geneConfObject=env->GetObjectField(individualConfObject,geneConfigurationID);
+	return geneConfObject;
+}
+static jint getIntValueOnGeneConf(JNIEnv* env,jobject gepAlgRun,jfieldID field){
+	jobject geneConfObject=getGeneConfObj(env,gepAlgRun);
+	jobject fieldObj=env->GetObjectField(geneConfObject,field);
+	jint num=env->CallIntMethod(fieldObj,integerValueMethod);
+	return num;
+}
+static jint getIntValueOnDataSet(JNIEnv* env,jobject gepAlgRun,jfieldID field){
+	jobject dataSetObj=env->GetObjectField(gepAlgRun,dataSetID);
+	jobject obj=env->GetObjectField(dataSetObj,field);
+	jint num=env->CallIntMethod(obj,integerValueMethod);
+	return num;
 }
 void iniAllId(JNIEnv * env){
 	iniSysId(env);
@@ -239,43 +288,57 @@ char** createHomeoticGeneIndex(JNIEnv* env,jobject gepAlgRun) {
 	return homeoticGeneIndexCp;
 }
 int getPopulationSize(JNIEnv* env,jobject gepAlgRun){
+	jobject individualConfObject=getIndividualConfObject(env,gepAlgRun);
+	jobject populationSizeObject=env->GetObjectField(individualConfObject,populationSizeID);
+	jint size=env->CallIntMethod(populationSizeObject,integerValueMethod);
+	return size;
+}
+int getNormalGeneNum(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,normalGeneNumberID);
+	return num;
+}
+int getHomeoticGeneNum(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,homeoticGeneNumberID);
+	return num;
+}
+int getNormalGeneHeaderLength(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,normalGeneHeaderLengthID);
+	return num;
+}
+int getNormalGeneLength(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,normalGeneLengthID);
+	return num;
+}
+int getHomeoticGeneHeaderLength(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,homeoticGeneHeaderLengthID);
+	return num;
+}
+int getHomeoticGeneLength(JNIEnv* env,jobject gepAlgRun){
+	jint num=getIntValueOnGeneConf(env,gepAlgRun,homeoticGeneLengthID);
+	return num;
+}
+int getRowNum(JNIEnv* env,jobject gepAlgRun){
+	jint rowNum=getIntValueOnDataSet(env,gepAlgRun,rowNumID);
+	return rowNum;
+}
+int getColumnNum(JNIEnv* env,jobject gepAlgRun){
+	jint rowNum=getIntValueOnDataSet(env,gepAlgRun,columnNumID);
+	return rowNum;
+}
+int getVaribaleNum(JNIEnv* env,jobject gepAlgRun){
 	return 0;
 }
-int getNormalGeneNum(){
+int getFuncNum(JNIEnv* env,jobject gepAlgRun){
 	return 0;
 }
-int getHomeoticGeneNum(){
+int getMaxArity(JNIEnv* env,jobject gepAlgRun){
 	return 0;
 }
-int getNormalGeneHeaderLength(){
-	return 0;
-}
-int getNormalGeneLength(){
-	return 0;
-}
-int getHomeoticGeneHeaderLength(){
-	return 0;
-}
-int getHomeoticGeneLength(){
-	return 0;
-}
-int getRowNum(){
-	return 0;
-}
-int getColumnNum(){
-	return 0;
-}
-int getVaribaleNum(){
-	return 0;
-}
-int getFuncNum(){
-	return 0;
-}
-int getMaxArity(){
-	return 0;
-}
-float getSelectionRange(){
-	return 0;
+float getSelectionRange(JNIEnv* env,jobject gepAlgRun){
+	jobject algConfObject=env->GetObjectField(gepAlgRun,gepAlgConfigurationID);
+	jobject selectionRangeObject=env->GetObjectField(algConfObject,selectionRangeID);
+	jfloat num=env->CallFloatMethod(selectionRangeObject,floatValueMethod);
+	return num;
 }
 
 
