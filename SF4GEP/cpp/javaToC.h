@@ -325,15 +325,6 @@ int getColumnNum(JNIEnv* env,jobject gepAlgRun){
 	jint rowNum=getIntValueOnDataSet(env,gepAlgRun,columnNumID);
 	return rowNum;
 }
-int getVaribaleNum(JNIEnv* env,jobject gepAlgRun){
-	return 0;
-}
-int getFuncNum(JNIEnv* env,jobject gepAlgRun){
-	return 0;
-}
-int getMaxArity(JNIEnv* env,jobject gepAlgRun){
-	return 0;
-}
 float getSelectionRange(JNIEnv* env,jobject gepAlgRun){
 	jobject algConfObject=env->GetObjectField(gepAlgRun,gepAlgConfigurationID);
 	jobject selectionRangeObject=env->GetObjectField(algConfObject,selectionRangeID);
