@@ -6,9 +6,9 @@ public class GepAlgConfiguration implements Serializable{
 	private static final long serialVersionUID = 1450046907494125922L;
 	private Integer id;
 	private String name;
-	private Long maxGeneration;
-	private Float selectionRange;
-	private Float accuracy;
+	private Long maxGeneration;		//最大求解代数
+	private Float selectionRange;	//选择范围
+	private Float accuracy;			//求解精度
 	private Float maxFitness;
 	private IndividualConfiguration individualConfiguration;
 	private OperatorConfiguration operatorConfiguration;
