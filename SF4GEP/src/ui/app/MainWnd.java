@@ -1,7 +1,9 @@
 package ui.app;
 
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -30,34 +32,14 @@ import ui.images.ImageHelper;
 public class MainWnd {
 
 	public MainFrame frame;
-	public MainTabbedPane mainTabbedPane;
-	
-	
-	
+	//public MainTabbedPane mainTabbedPane;
+	private MainWnd mainWnd;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
-			
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWnd window = new MainWnd();
-					window.frame.setTitle("GEP Framework");
-					window.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					window.frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		MainWnd window = new MainWnd();
 	}
 
 	/**
@@ -71,27 +53,44 @@ public class MainWnd {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new MainFrame();
-		frame.setBounds(100, 100, 630, 448);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-		frame.setIconImage(ImageHelper.loadImage("logo.png").getImage());
+		mainWnd = this;
+		try {
+			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new MainFrame(mainWnd);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+//		frame.setBounds(100, 100, 630, 448);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+//		frame.setIconImage(ImageHelper.loadImage("logo.png").getImage());
 		
 		/*样式设置*/
-		Font defaultFont = new Font("Courier",Font.PLAIN,14);
 		
 		
 		/*主菜单*/
-		MainMenuBar menuBar = new MainMenuBar(this);
-		frame.setJMenuBar(menuBar);
+		//MainMenuBar menuBar = new MainMenuBar(this);
+		//frame.setJMenuBar(menuBar);
 		
 		
 		
 		/*主要的Tabbed面板*/
-		mainTabbedPane = new MainTabbedPane(JTabbedPane.LEFT,this);
-		frame.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
-		mainTabbedPane.setFont(defaultFont);
+		//mainTabbedPane = new MainTabbedPane(JTabbedPane.LEFT,this);
+		//frame.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
 		
+		
+		//mainTabbedPane.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
+		
+		//mainTabbedPane.setForeground(defaultColor);
 		
 		
 	}

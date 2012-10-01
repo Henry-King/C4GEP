@@ -52,7 +52,7 @@ public class MainMenuBar extends JMenuBar {
         JMenuItem menuItem = new JMenuItem("New", newIcon);
         menuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	final NewGEPDialog newGEPDialog = new NewGEPDialog(parent.frame, "New GEP Project",parent);
+            	final NewGEPDialog newGEPDialog = new NewGEPDialog("New GEP Project",parent);
             }
         });
         menuItem.setMnemonic('N');

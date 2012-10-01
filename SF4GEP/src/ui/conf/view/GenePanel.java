@@ -1,5 +1,6 @@
 package ui.conf.view;
 
+import javax.swing.ButtonModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -13,6 +14,9 @@ import javax.swing.JScrollPane;
 
 import domain.core.algconfiguration.Function;
 
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.GeneModel;
+import ui.conf.model.Model;
 import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
 import ui.conf.model.MyTitle;
@@ -23,20 +27,34 @@ import java.awt.Insets;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-public class GenePanel extends JPanel {
+public class GenePanel extends JPanel implements Observer{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5180414798333601078L;
-	private JTextField individualNumtextField;
-	private JTextField normalGeneNumTextField;
-	private JTextField homeoticGeneTextField;
-	private JTextField homeoticGeneHeaderTextField;
-	private JTextField normalGeneHeaderTextField;
+	
+	
+	public JTextField individualNumtextField;
+	public JTextField normalGeneNumTextField;
+	public JTextField homeoticGeneTextField;
+	public JTextField homeoticGeneHeaderTextField;
+	public JTextField normalGeneHeaderTextField;
+	
+	public JRadioButton homeoticGeneRadioButton;
+	public JRadioButton connectionFuncRadioButton;
+	
 	private ButtonGroup buttonGroup = new ButtonGroup();
-	private CardLayout cardLayout=new CardLayout(0, 0);
+	public  CardLayout cardLayout=new CardLayout(0, 0);
+	public final JPanel connectionPanel;
+	private GeneModel geneModel;
+	
+	
+	//public boolean useHomeoticGene = true;
+
 
 	/**
 	 * Create the panel.
@@ -67,6 +85,13 @@ public class GenePanel extends JPanel {
 		add(individualNumLabel, gbc_individualNumLabel);
 
 		individualNumtextField = new MyTextField();
+		individualNumtextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				individualNumtextField.selectAll();
+			}
+		});
+		individualNumtextField.setText("0");
 		GridBagConstraints gbc_individualNumtextField = new GridBagConstraints();
 		gbc_individualNumtextField.anchor = GridBagConstraints.WEST;
 		gbc_individualNumtextField.insets = new Insets(0, 0, 5, 0);
@@ -83,6 +108,13 @@ public class GenePanel extends JPanel {
 		add(normalGeneNumLabel, gbc_normalGeneNumLabel);
 
 		normalGeneNumTextField = new MyTextField();
+		normalGeneNumTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				normalGeneNumTextField.selectAll();
+			}
+		});
+		normalGeneNumTextField.setText("0");
 		GridBagConstraints gbc_normalGeneNumTextField = new GridBagConstraints();
 		gbc_normalGeneNumTextField.anchor = GridBagConstraints.WEST;
 		gbc_normalGeneNumTextField.insets = new Insets(0, 0, 5, 0);
@@ -99,6 +131,13 @@ public class GenePanel extends JPanel {
 		add(normalGeneHeaderLabel, gbc_normalGeneHeaderLabel);
 
 		normalGeneHeaderTextField = new MyTextField();
+		normalGeneHeaderTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				normalGeneHeaderTextField.selectAll();
+			}
+		});
+		normalGeneHeaderTextField.setText("0");
 		GridBagConstraints gbc_normalGeneHeaderTextField = new GridBagConstraints();
 		gbc_normalGeneHeaderTextField.anchor = GridBagConstraints.WEST;
 		gbc_normalGeneHeaderTextField.insets = new Insets(0, 0, 5, 0);
@@ -122,16 +161,25 @@ public class GenePanel extends JPanel {
 		gbc_connectionTypePanel.gridy = 4;
 		add(connectionTypePanel, gbc_connectionTypePanel);
 
-		JRadioButton homeoticGeneRadioButton = new JRadioButton("\u4F7F\u7528\u540C\u6E90\u57FA\u56E0");
+		
+		
+		homeoticGeneRadioButton = new JRadioButton("\u4F7F\u7528\u540C\u6E90\u57FA\u56E0");
 		connectionTypePanel.add(homeoticGeneRadioButton);
 		buttonGroup.add(homeoticGeneRadioButton);
 
-		JRadioButton connectionFuncRadioButton = new JRadioButton(
+		connectionFuncRadioButton = new JRadioButton(
 				"\u4F7F\u7528\u8FDE\u63A5\u51FD\u6570");
 		connectionTypePanel.add(connectionFuncRadioButton);
 		buttonGroup.add(connectionFuncRadioButton);
+		
+		ButtonGroup group = new ButtonGroup ();
+		group.add(homeoticGeneRadioButton);
+		group.add(connectionFuncRadioButton);
+//--		group.setSelected((ButtonModel) homeoticGeneRadioButton, true);
+		connectionFuncRadioButton.setSelected(true);
+		
 
-		final JPanel connectionPanel = new JPanel();
+		connectionPanel = new JPanel();
 		GridBagConstraints gbc_connectionPanel = new GridBagConstraints();
 		gbc_connectionPanel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_connectionPanel.gridwidth = 2;
@@ -184,6 +232,13 @@ public class GenePanel extends JPanel {
 		homecticPanel.add(homeoticGeneNumLabel, gbc_homeoticGeneNumLabel);
 
 		homeoticGeneTextField = new MyTextField();
+		homeoticGeneTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				homeoticGeneTextField.selectAll();
+			}
+		});
+		homeoticGeneTextField.setText("0");
 		GridBagConstraints gbc_homeoticGeneTextField = new GridBagConstraints();
 		gbc_homeoticGeneTextField.anchor = GridBagConstraints.WEST;
 		gbc_homeoticGeneTextField.insets = new Insets(0, 0, 5, 0);
@@ -200,6 +255,13 @@ public class GenePanel extends JPanel {
 		homecticPanel.add(homeoticGeneHeaderLabel, gbc_homeoticGeneHeaderLabel);
 
 		homeoticGeneHeaderTextField = new MyTextField();
+		homeoticGeneHeaderTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				homeoticGeneHeaderTextField.selectAll();
+			}
+		});
+		homeoticGeneHeaderTextField.setText("0");
 		GridBagConstraints gbc_homeoticGeneHeaderTextField = new GridBagConstraints();
 		gbc_homeoticGeneHeaderTextField.anchor = GridBagConstraints.WEST;
 		gbc_homeoticGeneHeaderTextField.gridx = 1;
@@ -227,16 +289,47 @@ public class GenePanel extends JPanel {
 		functionScrollPane.setViewportView(functionList);
 		functionScrollPane.setMaximumSize(new Dimension(126, 60));
 
-		homeoticGeneRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(connectionPanel, "homeoticPannel");
-			}
-		});
-		connectionFuncRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(connectionPanel, "connectionPannel");
-			}
-		});
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public void dataUpdate(Model model) {
+		this.geneModel = (GeneModel)model;
+		individualNumtextField.setText(geneModel.getIndividualNumber().toString());
+		normalGeneNumTextField.setText(geneModel.getNormalGeneNumber().toString());
+		normalGeneHeaderTextField.setText(geneModel.getNormalGeneHeaderLength().toString());
+		
+		//homeoticGeneTextField.setText(geneModel.getHomeoticGeneNumber().toString());
+		//homeoticGeneHeaderTextField.setText(geneModel.getHomeoticGeneHeaderLength().toString());
+		
+	}
+	
+	public void fillModel(GeneModel model){
+//model.setUseHomeoticGene(useHomeoticGene);
+		model.setIndividualNumber(Integer.parseInt(individualNumtextField.getText().toString()));
+		model.setNormalGeneNumber(Integer.parseInt(normalGeneNumTextField.getText().toString()));
+		model.setNormalGeneHeaderLength(Integer.parseInt(normalGeneHeaderTextField.getText().toString()));
+		
+		if (model.isUseHomeoticGene()) {
+			model.setHomeoticGeneNumber(Integer.parseInt(homeoticGeneTextField.getText().toString()));
+			model.setHomeoticGeneHeaderLength(Integer.parseInt(homeoticGeneHeaderTextField.getText().toString()));
+		}
+		
+		
+		
+		
+		
+		
 	}
 
 }

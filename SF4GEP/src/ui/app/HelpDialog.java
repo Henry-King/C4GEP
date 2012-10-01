@@ -23,7 +23,7 @@ import ui.images.ImageHelper;
  * @author  Michael Hagen
  */
 public class HelpDialog extends JDialog implements HyperlinkListener {
-    private final String HELP_PATH = "/com/jtattoo/demo/resources/help/";
+    private final String HELP_PATH = "/ui/resources/help/";
     private final String INDEX_PROPERTIES = HELP_PATH + "index.properties";
     private final String HOME_PAGE = HELP_PATH + "home.html";
 

@@ -4,30 +4,38 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.Model;
 import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
 import ui.conf.model.MyTitle;
+import ui.conf.model.OperatorModel;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-public class OperatorPanel extends JPanel {
+public class OperatorPanel extends JPanel implements Observer{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2305610876923730049L;
-	private JTextField mutateTextField;
-	private JTextField ISTextField;
-	private JTextField ISLengthTextField;
-	private JTextField RISTextField;
-	private JTextField RISLengthTextField;
-	private JTextField oneCombineTextField;
-	private JTextField twoCombineTextField;
-	private JTextField geneCombineTextField;
-	private JTextField geneTextField;
+	public JTextField mutateTextField;
+	public JTextField ISTextField;
+	public JTextField ISLengthTextField;
+	public JTextField RISTextField;
+	public JTextField RISLengthTextField;
+	public JTextField oneCombineTextField;
+	public JTextField twoCombineTextField;
+	public JTextField geneCombineTextField;
+	public JTextField geneTextField;
 
+	OperatorModel operatorModel;
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -56,6 +64,13 @@ public class OperatorPanel extends JPanel {
 		add(mutateLabel, gbc_mutateLabel);
 		
 		mutateTextField = new MyTextField();
+		mutateTextField.setText("0");
+		mutateTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				mutateTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_mutateTextField = new GridBagConstraints();
 		gbc_mutateTextField.anchor = GridBagConstraints.WEST;
 		gbc_mutateTextField.insets = new Insets(0, 0, 5, 0);
@@ -72,6 +87,13 @@ public class OperatorPanel extends JPanel {
 		add(ISLabel, gbc_ISLabel);
 		
 		ISTextField = new MyTextField();
+		ISTextField.setText("0");
+		ISTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				ISTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_ISTextField = new GridBagConstraints();
 		gbc_ISTextField.anchor = GridBagConstraints.WEST;
 		gbc_ISTextField.insets = new Insets(0, 0, 5, 0);
@@ -88,6 +110,13 @@ public class OperatorPanel extends JPanel {
 		add(ISLengthLabel, gbc_ISLengthLabel);
 		
 		ISLengthTextField = new MyTextField();
+		ISLengthTextField.setText("0");
+		ISLengthTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				ISLengthTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_ISLengthTextField = new GridBagConstraints();
 		gbc_ISLengthTextField.anchor = GridBagConstraints.WEST;
 		gbc_ISLengthTextField.insets = new Insets(0, 0, 5, 0);
@@ -104,6 +133,13 @@ public class OperatorPanel extends JPanel {
 		add(RISLabel, gbc_RISLabel);
 		
 		RISTextField = new MyTextField();
+		RISTextField.setText("0");
+		RISTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				RISTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_RISTextField = new GridBagConstraints();
 		gbc_RISTextField.anchor = GridBagConstraints.WEST;
 		gbc_RISTextField.insets = new Insets(0, 0, 5, 0);
@@ -120,6 +156,13 @@ public class OperatorPanel extends JPanel {
 		add(RISLengthLabel, gbc_RISLengthLabel);
 		
 		RISLengthTextField = new MyTextField();
+		RISLengthTextField.setText("0");
+		RISLengthTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				RISLengthTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_RISLengthTextField = new GridBagConstraints();
 		gbc_RISLengthTextField.anchor = GridBagConstraints.WEST;
 		gbc_RISLengthTextField.insets = new Insets(0, 0, 5, 0);
@@ -136,6 +179,13 @@ public class OperatorPanel extends JPanel {
 		add(geneLabel, gbc_geneLabel);
 		
 		geneTextField = new MyTextField();
+		geneTextField.setText("0");
+		geneTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				geneTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_geneTextField = new GridBagConstraints();
 		gbc_geneTextField.anchor = GridBagConstraints.WEST;
 		gbc_geneTextField.insets = new Insets(0, 0, 5, 0);
@@ -152,6 +202,13 @@ public class OperatorPanel extends JPanel {
 		add(oneCombineLabel, gbc_oneCombineLabel);
 		
 		oneCombineTextField = new MyTextField();
+		oneCombineTextField.setText("0");
+		oneCombineTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				oneCombineTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_oneCombineTextField = new GridBagConstraints();
 		gbc_oneCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_oneCombineTextField.insets = new Insets(0, 0, 5, 0);
@@ -168,6 +225,13 @@ public class OperatorPanel extends JPanel {
 		add(twoCombineLabel, gbc_twoCombineLabel);
 		
 		twoCombineTextField = new MyTextField();
+		twoCombineTextField.setText("0");
+		twoCombineTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				twoCombineTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_twoCombineTextField = new GridBagConstraints();
 		gbc_twoCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_twoCombineTextField.insets = new Insets(0, 0, 5, 0);
@@ -184,11 +248,95 @@ public class OperatorPanel extends JPanel {
 		add(geneCombineLabel, gbc_geneCombineLabel);
 		
 		geneCombineTextField = new MyTextField();
+		geneCombineTextField.setText("0");
+		geneCombineTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				geneCombineTextField.selectAll();
+			}
+		});
 		GridBagConstraints gbc_geneCombineTextField = new GridBagConstraints();
 		gbc_geneCombineTextField.anchor = GridBagConstraints.WEST;
 		gbc_geneCombineTextField.gridx = 2;
 		gbc_geneCombineTextField.gridy = 9;
 		add(geneCombineTextField, gbc_geneCombineTextField);
+		
+	}
+
+	@Override
+	public void dataUpdate(Model model) {
+		this.operatorModel = (OperatorModel)model;
+		mutateTextField.setText(operatorModel.getMutateRate().toString());
+		ISTextField.setText(operatorModel.getIsTransportRate().toString());
+		
+		
+		
+		Integer[] elements = operatorModel.getIsElement();
+		StringBuffer sb = new StringBuffer();
+		int len = elements.length;
+		for(int i = 0; i < len; i++){
+		 sb. append(elements[i] + ",");
+		}
+		sb.replace(len-2, len, "");
+		ISLengthTextField.setText(sb.toString());
+		
+		
+		
+		RISTextField.setText(operatorModel.getRisTransportRate().toString());
+		
+		elements = operatorModel.getRisElement();
+		sb = new StringBuffer();
+		len = elements.length;
+		for(int i = 0; i < len; i++){
+		 sb. append(elements[i] + ",");
+		}
+		sb.replace(len-2, len, "");
+		RISLengthTextField.setText(sb.toString());
+		geneTextField.setText(operatorModel.getGeneTransportRate().toString());
+		
+		oneCombineTextField.setText(operatorModel.getOnePointRecombineRate().toString());
+		twoCombineTextField.setText(operatorModel.getTwoPointRecombineRate().toString());
+		geneCombineTextField.setText(operatorModel.getGeneRecombineRate().toString());
+		
+		
+		
+		
+	}
+	
+	
+	
+	public void fillModel(OperatorModel model){
+		
+		model.setMutateRate(Float.parseFloat(mutateTextField.getText().toString()));
+		model.setIsTransportRate(Float.parseFloat(ISTextField.getText().toString()));
+		
+		
+		String str = ISLengthTextField.getText().toString();
+		String IsElements[] = str.split(",");
+		Integer ISIntegerElements[] = new Integer[IsElements.length];
+		for (int i = 0; i < ISIntegerElements.length; i++) {
+			ISIntegerElements[i] = Integer.parseInt(IsElements[i]);
+		}
+		model.setIsElement(ISIntegerElements);
+		
+		
+		model.setRisTransportRate(Float.parseFloat(RISTextField.getText().toString()));
+		
+		
+		str = RISLengthTextField.getText().toString();
+		String RISElements[] = str.split(",");
+		Integer RISIntegerElements[] = new Integer[RISElements.length];
+		for (int i = 0; i < RISIntegerElements.length; i++) {
+			RISIntegerElements[i] = Integer.parseInt(RISElements[i]);
+		}
+		model.setRisElement(RISIntegerElements);
+		
+		
+		model.setGeneTransportRate(Float.parseFloat(geneTextField.getText().toString()));
+		model.setOnePointRecombineRate(Float.parseFloat(oneCombineTextField.getText().toString()));
+		model.setTwoPointRecombineRate(Float.parseFloat(twoCombineTextField.getText().toString()));
+		model.setGeneRecombineRate(Float.parseFloat(geneCombineTextField.getText().toString()));
+		
 		
 	}
 

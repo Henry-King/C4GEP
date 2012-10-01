@@ -86,7 +86,7 @@ public class WelcomePanel extends JPanel {
 	
 	
 	private void initListForBrowsePro() {
-		listForBrowsePro.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
+		//listForBrowsePro.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForBrowsePro.setSelectedIndex(0);
 		listForBrowsePro.setFont(new Font("ËÎÌו", Font.PLAIN, 16));
 		listForBrowsePro.addListSelectionListener( new ListSelectionListener() {
@@ -115,8 +115,8 @@ public class WelcomePanel extends JPanel {
 	}
 
 	private void updateIntroduction() {
-		   ProjectCreateDialog pro=new ProjectCreateDialog(mainWnd.frame);
-		   pro.setVisible(true);
+		   /*ProjectCreateDialog pro=new ProjectCreateDialog(mainWnd.frame);
+		   pro.setVisible(true);*/
 	}
 	
 	

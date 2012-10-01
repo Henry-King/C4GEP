@@ -1,46 +1,14 @@
 package ui.conf;
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Label;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.tree.*;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 import java.awt.Component;
@@ -52,12 +20,16 @@ import com.jtattoo.plaf.JTattooUtilities;
 
 import ui.app.GUIProperties;
 import ui.app.JTBorderFactory;
+import ui.app.MainWnd;
 import ui.images.ImageHelper;
 
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class NewGEPDialog2 extends JDialog {
 
@@ -80,17 +52,29 @@ public class NewGEPDialog2 extends JDialog {
 	JPanel top_Panel = new JPanel();
 	JPanel center_Panel = new JPanel();
 	
-	private NewGEPDialog2 cur;
+	public NewGEPDialog pre;
+	public NewGEPDialog2 cur;
+	public NewGEPDialog3 late;
 	
-	public NewGEPDialog2(final Component parent,NewGEPDialog step1) {
-		
-		super(JOptionPane.getFrameForComponent(parent), "Configuration Parameter", true);
+	public MainWnd mainWnd;
+	
+	public NewGEPDialog2(final MainWnd mainWnd,NewGEPDialog step1) {
+		super(JOptionPane.getFrameForComponent(mainWnd.frame), "Configuration Parameter", true);
 		this.setSize(800, 600);
+		this.mainWnd = mainWnd;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(parent);
+		setLocationRelativeTo(mainWnd.frame);
 		this.setResizable(false);
+		pre = step1;
 		cur = this;
-		
+		addWindowListener(new WindowAdapter() {
+	 		@Override
+	 		public void windowClosing(WindowEvent arg0) {
+	 			if (late!=null) {
+					late.dispose();
+				}
+	 		}
+	 	});
 		
 		JPanel project_Panel = new JPanel();
 		project_Panel.setBackground(Color.WHITE);
@@ -133,7 +117,7 @@ public class NewGEPDialog2 extends JDialog {
 		
 	}
 	private void initListParr() {
-		listForParr.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
+		//listForParr.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForParr.setBackground(Color.WHITE);
 		listForParr.setSelectedIndex(0);
 		listForParr.setFont(new Font("宋体", Font.PLAIN, 16));
@@ -142,13 +126,14 @@ public class NewGEPDialog2 extends JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
                     updateIntroduction();
+                    pre.data.setFrameworkType((String)listForParr.getSelectedValue());
                 }
             }
         });
 		
 	}
 	private void initListSerr() {
-		listForSer.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
+		//listForSer.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForSer.setBackground(Color.WHITE);
 		listForSer.setSelectedIndex(0);
 		listForSer.setFont(new Font("宋体", Font.PLAIN, 16));
@@ -156,8 +141,12 @@ public class NewGEPDialog2 extends JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
                    updateIntroduction();
+                   pre.data.setFrameworkType((String)listForSer.getSelectedValue());
                 }
             }
+            
+            
+            
         });
 		listForSer.setListData(new String[]{"串行式"});
 		introduction.setText("主从式");
@@ -204,13 +193,12 @@ public class NewGEPDialog2 extends JDialog {
         
         
         JButton btn_Back = new JButton("< Back");
-        //btn_Back.setBorder(new EmptyBorder(20, 10, 20, 10));
         btn_Back.setContentAreaFilled(false);
-        //btn_Back.setSize(new Dimension(100, 30));
         btn_Back.setBounds(327, 10, 100, 30);
         btn_Back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //setTitle("New Title");
+            		pre.setVisible(true);
+            		cur.setVisible(false);
             }
         });
         
@@ -220,9 +208,12 @@ public class NewGEPDialog2 extends JDialog {
         btn_Next.setBounds(437, 10, 100, 30);
         btn_Next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	/*final NewGEPDialog2 newGEPDialog2 = new NewGEPDialog2(mainWnd.frame,curDialog);
-            	curDialog.setVisible(false);
-            	newGEPDialog2.setVisible(true);*/
+            	if (late==null) {
+            		late = new NewGEPDialog3(mainWnd,cur);
+				}
+            	
+            	cur.setVisible(false);
+            	late.setVisible(true);
             }
         });
         
@@ -278,17 +269,19 @@ public class NewGEPDialog2 extends JDialog {
 	
 	private void updateIntroduction() {
 		final String frameName= (String)listForParr.getSelectedValue();
-		if(frameName.equals("主从式")){
-			introduction.setText("主从式");
-		}
-		else if(frameName.equals("粗粒度")){
-			introduction.setText("粗粒度");
-		}
-		else if(frameName.equals("细粒度")){
-			introduction.setText("细粒度");
-		}
-		else if(frameName.equals("混合式")){
-			introduction.setText("混合式");
+		if(frameName!=null){
+			if(frameName.equals("主从式")){
+				introduction.setText("主从式");
+			}
+			else if(frameName.equals("粗粒度")){
+				introduction.setText("粗粒度");
+			}
+			else if(frameName.equals("细粒度")){
+				introduction.setText("细粒度");
+			}
+			else if(frameName.equals("混合式")){
+				introduction.setText("混合式");
+			}
 		}
 		
 	}

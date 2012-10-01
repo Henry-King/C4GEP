@@ -5,10 +5,28 @@
 
 package ui.app;
 
-import java.awt.Insets;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 import javax.swing.*;
 
+import com.sun.istack.internal.FinalArrayList;
+
+import domain.core.algconfiguration.*;
+
+import ui.conf.*;
+import ui.conf.controller.AccuracyController;
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.GeneModel;
+import ui.conf.model.OperatorModel;
+import ui.conf.view.ContentPanel;
+import ui.app.*;
 import ui.images.ImageHelper;
+
+
 
 /**
  * @author Michael Hagen
@@ -40,13 +58,29 @@ public class MainToolBar extends JToolBar {
     private ToolButton debugButton = null;
     private ToolButton cfgButton = null;
 //    private JButton defaultBorderButton = null;
+    
+    private MainWnd mainWnd;
+    private ContentPanel contentPanel;
+    
+    
+    
+    
+    
 
-    public MainToolBar() {
+    public MainToolBar(final MainWnd mainWnd,final ContentPanel contentPanel) {
         super();
+        this.mainWnd = mainWnd;
+        this.contentPanel = contentPanel;
+        //this.contentPanel = contentPanel;
         setFloatable(false);
         setMargin(new Insets(2, 0, 2, 0));
         newImage = ImageHelper.loadImage("new.png");
         newButton = new ToolButton(newImage);
+        newButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	NewGEPDialog newGEPDialog = new NewGEPDialog("NewGEPDialog",mainWnd);
+            }
+        });
         newButton.setToolTipText("新建");
         
         openImage = ImageHelper.loadImage("open.png");
@@ -87,9 +121,128 @@ public class MainToolBar extends JToolBar {
         
         
         
+        
+        
         runImage = ImageHelper.loadImage("run.png");
         runButton = new ToolButton(runImage);
+        runButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	
+            	
+            	
+            	
+            	
+            	/*精度面板*/
+            	AccuracyModel accuracyModel = contentPanel.accuracyController.getAccuracyModel();
+            	Hashtable<String, Boolean> isAccuracyFited = accuracyModel.getIsDataFitedHashtable();
+            	Collection<Boolean> isAccuracyFitedValues = isAccuracyFited.values();
+            	
+            	
+            	if (isAccuracyFitedValues.contains(false)) {
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
+				}else{
+					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
+				
+					GepAlgConfiguration gepAlgConfiguration = new GepAlgConfiguration();
+	            	gepAlgConfiguration.setMaxGeneration(accuracyModel.getMaxGeneration());
+	            	gepAlgConfiguration.setSelectionRange(accuracyModel.getSelectionRange());
+	            	gepAlgConfiguration.setAccuracy(accuracyModel.getAccuracy());
+				
+				}
+            	
+            	
+            	
+            	/*基因面板*/
+            	GeneModel geneModel = contentPanel.geneController.getGeneModel();
+            	Hashtable<String, Boolean> isGeneFited = geneModel.getIsDataFitedHashtable();
+            	Collection<Boolean> isGeneFitedValues = isGeneFited.values();
+            	
+            	
+            	if (isGeneFitedValues.contains(false)) {
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
+				}else{
+					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
+					
+					IndividualConfiguration individualConfiguration = new IndividualConfiguration();
+					GeneConfiguration geneConfiguration = new GeneConfiguration();
+					individualConfiguration.setGeneConfiguration(geneConfiguration);
+					
+					individualConfiguration.setIndividualNumber(geneModel.getIndividualNumber());
+					geneConfiguration.setNormalGeneNumber(geneModel.getNormalGeneNumber());
+					geneConfiguration.setNormalGeneHeaderLength(geneModel.getNormalGeneHeaderLength());
+					
+					if (geneModel.isUseHomeoticGene()) {	//使用同源基因连接
+						geneConfiguration.setHomeoticGeneNumber(geneModel.getHomeoticGeneNumber());
+						geneConfiguration.setHomeoticGeneHeaderLength(geneModel.getHomeoticGeneHeaderLength());
+						
+						/*JOptionPane.showMessageDialog(mainWnd.frame,geneModel.getIndividualNumber()+"|"
+								+geneModel.getNormalGeneNumber()+"|"
+								+geneModel.getNormalGeneHeaderLength()+"|"
+								+geneModel.getHomeoticGeneNumber()+"|"
+								+geneModel.getHomeoticGeneHeaderLength());
+						*/
+					}else{	//使用函数连接
+						JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
+						//geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
+						
+					}
+					
+				
+				}
+            	
+            	
+            	
+            	/*修饰面板*/
+            	OperatorModel operatorModel = contentPanel.operatorController.getOperatorModel();
+            	Hashtable<String, Boolean> isOperatorFited = operatorModel.getIsDataFitedHashtable();
+            	Collection<Boolean> isOperatorFitedValues = isOperatorFited.values();
+            	
+            	
+            	if (isOperatorFitedValues.contains(false)) {
+            		JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
+				}else{
+				
+					OperatorConfiguration operatorConfiguration = new OperatorConfiguration();
+					operatorConfiguration.setMutateRate(operatorModel.getMutateRate());
+					operatorConfiguration.setIsTransportRate(operatorModel.getIsTransportRate());
+					operatorConfiguration.setIsElement(operatorModel.getIsElement());
+					operatorConfiguration.setRisTransportRate(operatorModel.getRisTransportRate());
+					operatorConfiguration.setRisElement(operatorModel.getRisElement());
+					operatorConfiguration.setGeneTransportRate(operatorModel.getGeneTransportRate());
+					operatorConfiguration.setOnePointRecombineRate(operatorModel.getOnePointRecombineRate());
+					operatorConfiguration.setTwoPointRecombineRate(operatorModel.getTwoPointRecombineRate());
+					operatorConfiguration.setGeneRecombineRate(operatorModel.getGeneRecombineRate());
+			
+					JOptionPane.showMessageDialog(mainWnd.frame,operatorModel.getMutateRate()+"|"
+							+operatorModel.getIsTransportRate()+"|"
+							+operatorModel.getIsElement()+"|"
+							+operatorModel.getRisTransportRate()+"|"
+							+operatorModel.getRisElement()+"|"
+							+operatorModel.getGeneTransportRate()+"|"
+							+operatorModel.getOnePointRecombineRate()+"|"
+							+operatorModel.getTwoPointRecombineRate()+"|"
+							+operatorModel.getGeneRecombineRate());
+				
+				}
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            }
+        });
         runButton.setToolTipText("执行算法");
+        
+        
+        
         
         
         debugImage = ImageHelper.loadImage("debug.png");

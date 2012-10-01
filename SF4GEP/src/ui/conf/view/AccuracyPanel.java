@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.Model;
 import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
 import ui.conf.model.MyTitle;
@@ -11,21 +13,29 @@ import ui.conf.model.MyTitle;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
-public class AccuracyPanel extends JPanel {
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+public class AccuracyPanel extends JPanel implements Observer{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8245739950136079772L;
-	private JTextField generationNumTextField;
-	private JTextField selectionRangeTextField;
-	private JTextField accuracytextField;
+	public JTextField generationNumTextField;
+	public JTextField selectionRangeTextField;
+	public JTextField accuracytextField;
 
+	
+	AccuracyModel accuracyModel;
+	
 	/**
 	 * Create the panel.
 	 */
 	public AccuracyPanel() {
+		
+		
+		
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 130, 126, 0};
 		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 0};
@@ -52,11 +62,19 @@ public class AccuracyPanel extends JPanel {
 		add(maxGenerationLabel, gbc_maxGenerationLabel);
 		
 		accuracytextField = new MyTextField();
+		accuracytextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				accuracytextField.selectAll();
+			}
+		});
+		
+		accuracytextField.setText("0");
 		GridBagConstraints gbc_accuracytextField = new GridBagConstraints();
 		gbc_accuracytextField.anchor = GridBagConstraints.WEST;
 		gbc_accuracytextField.insets = new Insets(0, 0, 5, 0);
 		gbc_accuracytextField.gridx = 2;
-		gbc_accuracytextField.gridy = 1;
+		gbc_accuracytextField.gridy = 2;
 		add(accuracytextField, gbc_accuracytextField);
 		
 		
@@ -69,11 +87,18 @@ public class AccuracyPanel extends JPanel {
 		add(accuracyLabel, gbc_accuracyLabel);
 		
 		generationNumTextField = new MyTextField();
+		generationNumTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				generationNumTextField.selectAll();
+			}
+		});
+		generationNumTextField.setText("0");
 		GridBagConstraints gbc_generationNumTextField = new GridBagConstraints();
 		gbc_generationNumTextField.anchor = GridBagConstraints.WEST;
 		gbc_generationNumTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_generationNumTextField.gridx = 2;
-		gbc_generationNumTextField.gridy = 2;
+		gbc_generationNumTextField.gridy = 1;
 		add(generationNumTextField, gbc_generationNumTextField);
 		
 		
@@ -86,6 +111,13 @@ public class AccuracyPanel extends JPanel {
 		add(selectionRangeLabel, gbc_selectionRangeLabel);
 		
 		selectionRangeTextField = new MyTextField();
+		selectionRangeTextField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				selectionRangeTextField.selectAll();
+			}
+		});
+		selectionRangeTextField.setText("0");
 		GridBagConstraints gbc_selectionRangeTextField = new GridBagConstraints();
 		gbc_selectionRangeTextField.anchor = GridBagConstraints.WEST;
 		gbc_selectionRangeTextField.gridx = 2;
@@ -93,6 +125,20 @@ public class AccuracyPanel extends JPanel {
 		add(selectionRangeTextField, gbc_selectionRangeTextField);
 		
 		
+	}
+
+	@Override
+	public void dataUpdate(Model model) {
+		this.accuracyModel = (AccuracyModel)model;
+		generationNumTextField.setText(accuracyModel.getMaxGeneration().toString());
+		selectionRangeTextField.setText(accuracyModel.getSelectionRange().toString());
+		accuracytextField.setText(accuracyModel.getAccuracy().toString());
+	}
+	
+	public void fillModel(AccuracyModel model){
+		model.setMaxGeneration(Long.parseLong(generationNumTextField.getText().toString()));
+		model.setSelectionRange(Float.parseFloat(selectionRangeTextField.getText().toString()));
+		model.setAccuracy(Float.parseFloat(accuracytextField.getText().toString()));
 	}
 
 }

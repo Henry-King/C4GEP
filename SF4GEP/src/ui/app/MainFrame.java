@@ -17,29 +17,123 @@ import ui.images.ImageHelper;
 
 
 public class MainFrame extends JFrame implements IDemoApp {
-
+	
+ 	public static MainFrame app = null;
+    public static GUIProperties guiProps = new GUIProperties();
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final Dimension appSize = new Dimension(880, 660);
+    private static final int appPosX = (screenSize.width / 2) - (appSize.width / 2);
+    private static final int appPosY = (screenSize.height / 2) - (appSize.height / 2);
+    private static Rectangle appBounds = new Rectangle(appPosX, appPosY, appSize.width, appSize.height);
+    private static final String appTitle = "JTattoo - Demo";
+    //private JWindow splashScreen = null;
+    //private SplashPanel splashPanel = null;
+    private MainMenuBar menuBar = null;
+    public JTabbedPane mainTabbedPane = null;
+    private MainWnd mainWnd;
     
 
     public MainFrame() {
+    	super(appTitle);
+        init();
+    }
+    
+    public MainFrame(MainWnd mainWnd) {
+    	super(appTitle);
+    	this.mainWnd = mainWnd;
+        init();
+    }
+    
+    public MainFrame(Rectangle bounds) {
+        super(appTitle);
+        appBounds = bounds;
+        init();
+    }
+    
+    private void init() {
+    	
+        /*// create splash screen
+        splashPanel = new SplashPanel();
+        splashScreen = new JWindow();
+        splashScreen.getContentPane().add(splashPanel);
+        splashScreen.pack();
+        Dimension size = splashScreen.getSize();
+        splashScreen.setLocation(screenSize.width / 2 - size.width / 2, screenSize.height / 2 - size.height / 2);
+         */
+        // Show the splash screen on the gui thread using invokeLater
+        /*SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                splashScreen.setVisible(true);
+            }
+        });*/
+
+        
+    	initMenuBar();
+        initMainTabbedPane();
+        initListeners();
+        // Show the demo and take down the splash screen. Note that we again must do this on the GUI thread using invokeLater.
+        SwingUtilities.invokeLater(new Runnable() {
+
+            public void run() {
+                showApp();
+                /*if (splashScreen != null) {
+                    splashScreen.setVisible(false);
+                }*/
+            }
+        });
         
     }
+    
+
+    private void initMenuBar() {
+        menuBar = new MainMenuBar(mainWnd);
+        setJMenuBar(menuBar);
+    }
+
+    private void initMainTabbedPane() {
+    	getContentPane().setLayout(new BorderLayout(0, 0));
+    	mainTabbedPane = new MainTabbedPane(JTabbedPane.LEFT,mainWnd);
+    	setMainTabbedPane(mainTabbedPane);
+    	getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
+    }
+
+   
+
+    private void initListeners() {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                performExit();
+            }
+        });
+    }
+
+    private void showApp() {
+    	//setBounds(100, 100, 630, 448);
+    	setTitle("GEP Framework (µ¥»ú°æ)");
+    	setMinimumSize(new Dimension(JFrame.MAXIMIZED_BOTH, JFrame.MAXIMIZED_BOTH));
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(ImageHelper.loadImage("logo.png").getImage());
+        setBounds(appBounds);
+        setVisible(true);
+    }
+    
+    
 
 	@Override
 	public GUIProperties getGuiProps() {
-		// TODO Auto-generated method stub
-		return null;
+		return guiProps;
 	}
 
 	@Override
 	public void setMainTabbedPane(JTabbedPane tabPane) {
-		// TODO Auto-generated method stub
-		
+		 mainTabbedPane = tabPane;
 	}
 
 	@Override
 	public JTabbedPane getMainTabbedPane() {
-		// TODO Auto-generated method stub
-		return null;
+		return mainTabbedPane;
 	}
 
 	@Override
@@ -68,8 +162,7 @@ public class MainFrame extends JFrame implements IDemoApp {
 
 	@Override
 	public void performExit() {
-		// TODO Auto-generated method stub
-		
+		System.exit(0);
 	}
 
 }

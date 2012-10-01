@@ -2,6 +2,7 @@ package ui.app;
 
 import java.awt.*;
 import javax.swing.*;
+
 import java.beans.*;
 
 /**
@@ -43,7 +44,10 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 	 * @see #verifyRotation
 	 */
 	public VTextIcon(Component component, String label) {
+		
 		this(component, label, ROTATE_DEFAULT);
+		
+		
 	}
 
 	/**

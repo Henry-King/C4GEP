@@ -7,11 +7,16 @@ import javassist.tools.framedump;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.*;
+import javax.swing.plaf.multi.*;
+
+import ui.app.*;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
 import ui.app.MainFrame;
 import ui.app.MainWnd;
+import ui.app.VTextIcon;
 import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
@@ -21,16 +26,19 @@ public class NewGEPDialog extends JDialog {
 
 	private static final long serialVersionUID = 3843396641685701638L;
 	private MainWnd mainWnd;
-	private NewGEPDialog curDialog;
+	private NewGEPDialog cur;
+	private NewGEPDialog2 late;
+	NewGEPData data = new NewGEPData();
 	
-	public NewGEPDialog(MainFrame owner, String title,final MainWnd mainWnd) {
-		 	super(owner, title, false);
+	public NewGEPDialog(String title,final MainWnd mainWnd) {
+		 	super(mainWnd.frame, title, false);
+		 	
 		 	this.mainWnd = mainWnd;
 		 	this.setResizable(false);
-		 	curDialog = this;
+		 	cur = this;
 		 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	        setSize(550, 500);
-	        setLocationRelativeTo(owner);
+	        setLocationRelativeTo(mainWnd.frame);
 	        getContentPane().setLayout(new BorderLayout());
 	        
 	        
@@ -60,6 +68,12 @@ public class NewGEPDialog extends JDialog {
     		
     		
     		final JTextField txt_projectName = new JTextField();
+    		txt_projectName.addFocusListener(new FocusAdapter() {
+    			@Override
+    			public void focusLost(FocusEvent arg0) {
+    				data.setProfileName(txt_projectName.getText());
+    			}
+    		});
     		txt_projectName.setBounds(139, 132, 345, 24);
     		
     		txt_projectName.setColumns(25);
@@ -72,7 +86,13 @@ public class NewGEPDialog extends JDialog {
     		lbl_savePath.setBounds(31, 168, 100, 30);
             
             
-            JTextField txt_savePath = new JTextField();
+            final JTextField txt_savePath = new JTextField();
+            txt_savePath.addFocusListener(new FocusAdapter() {
+            	@Override
+            	public void focusLost(FocusEvent e) {
+            		data.setProjectPath(txt_savePath.getText());
+            	}
+            });
             txt_savePath.setMaximumSize(new Dimension(126, 21));
             txt_savePath.setColumns(25);
             txt_savePath.setBounds(111, 172, 289, 24);
@@ -93,6 +113,7 @@ public class NewGEPDialog extends JDialog {
             buttonPanel.setBounds(0, 424, 550, 48);
             
             JButton btn_Back = new JButton("< Back");
+            btn_Back.setEnabled(false);
             btn_Back.setContentAreaFilled(false);
             btn_Back.setBounds(67, 10, 100, 30);
             btn_Back.addActionListener(new ActionListener() {
@@ -106,9 +127,13 @@ public class NewGEPDialog extends JDialog {
             btn_Next.setBounds(177, 10, 100, 30);
             btn_Next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                	final NewGEPDialog2 newGEPDialog2 = new NewGEPDialog2(mainWnd.frame,curDialog);
-                	curDialog.setVisible(false);
-                	newGEPDialog2.setVisible(true);
+                	if (late==null) {
+                		late = new NewGEPDialog2(mainWnd,cur);
+					}
+                	cur.setVisible(false);
+                	late.setVisible(true);
+                	
+                	
                 }
             });
             
@@ -119,12 +144,28 @@ public class NewGEPDialog extends JDialog {
             btn_Finish.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                 	if (JTattooUtilities.getJavaVersion() >= 1.6) {
-                		JTabbedPane jtp = mainWnd.mainTabbedPane;
+                		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
                 		String title = txt_projectName.getText().toString();
                         int tabCount = jtp.getTabCount();
-                        jtp.add("Tab", new ConfPanel());
-                        jtp.setTabComponentAt(tabCount, new CloseableTabComponent(jtp,title));
-                        jtp.setToolTipTextAt(tabCount, "This is tab No. " + (tabCount + 1));
+                        ConfPanel newConfPanel = new ConfPanel(mainWnd);
+                        VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
+                        jtp.addTab(null,newVTextIcon, newConfPanel, null);
+                        //jtp.addTab("Tab", null,welcomeVTextIcon,null);
+                        
+                       
+                        CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
+                        
+                        jtp.setSelectedIndex(tabCount);
+                        jtp.setTabComponentAt(tabCount, ctc);
+                        jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
+                        
+                        
+                        
+                        
+                        cur.dispose();
+                        if (late!=null) {
+							late.dispose();
+						}
                     }
                 	
                 	
@@ -138,7 +179,6 @@ public class NewGEPDialog extends JDialog {
             btn_Cancel.setContentAreaFilled(false);
             btn_Cancel.setBounds(427, 10, 100, 30);
             btn_Cancel.addActionListener(new ActionListener() {
-
                 public void actionPerformed(ActionEvent e) {
                     dispose();
                 }
@@ -188,13 +228,15 @@ public class NewGEPDialog extends JDialog {
         public CloseableTabComponent(JTabbedPane aTabbedPane,String title) {
             super(new BorderLayout());
             tabbedPane = aTabbedPane;
-            
+            setFont(new Font("Courier",Font.PLAIN,14));
             setOpaque(false);
             setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
             
             titleLabel = new JLabel(title);
             titleLabel.setOpaque(false);
-
+            titleLabel.setFont(new Font("Courier",Font.PLAIN,14));
+            
+            
             closeButton = new JButton(closerImage);
             closeButton.setRolloverIcon(closerRolloverImage);
             closeButton.setPressedIcon(closerPressedImage);
