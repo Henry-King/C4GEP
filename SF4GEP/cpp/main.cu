@@ -9,7 +9,7 @@
 #include <jni.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "javaToC.h"
+#include "jniTransform.h"
 #include "cudaTool.cuh"
 static void initContext(JNIEnv*,jobject);
 static int populationSize;
@@ -31,6 +31,7 @@ JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JN
 	initgpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum);
 	cputogpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum,dataSet,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 	callKernel(normalGeneNum,homeoticGeneNum,populationSize,rowNum,columnNum,normalGeneLength,homeoticGeneLength,selectionRange);
+	gputocpu(populationSize,rowNum);
 	freecpuandgpu(populationSize,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 	return;
 }

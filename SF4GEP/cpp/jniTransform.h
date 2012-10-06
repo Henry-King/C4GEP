@@ -331,6 +331,13 @@ float getSelectionRange(JNIEnv* env,jobject gepAlgRun){
 	jfloat num=env->CallFloatMethod(selectionRangeObject,floatValueMethod);
 	return num;
 }
-
+void toJavaFitness(JNIEnv* env,jobject gepAlgRun){
+	 jmethodID  setFitnessID=env->GetMethodID(class_Population,"setFitness","([F)V");
+	 long popuSize=getPopulationSize(env,gepAlgRun);
+	 jfloatArray fitnessInJava=env->NewFloatArray(popuSize);
+	 jobject currentPopulation=env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	 env->SetFloatArrayRegion(fitnessInJava,0,popuSize,fitness);
+	 env->CallVoidMethod(currentPopulation,setFitnessID,fitnessInJava);
+}
 
 #endif /* COPYTOGPU_H_ */
