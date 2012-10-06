@@ -8,71 +8,44 @@
 #ifndef FITNESS_CUH_
 #define FITNESS_CUH_
 #include "cuda_runtime.h"
-#include "device_launch_parameters.h"
 #include <stdlib.h>
+#include "kernelRun.cuh"
 
-int numofpopulation=20; //种群大小
-int numofnormalgenes=4; //基因个数
-int numofhomeoticgenes=4;//同源基因个数
-int lenofheader=7; //普通基因头长
-int lenofgene=15; //普通基因长度
-int lenofhometicgene=15;//同源基因长度
-int lenofhometicheader=7; //同源基因头长
-int row=21; //测试数据的行数
-int col=3; //测试数据的列数
-int numofVariable=2; //变量个数
-int numofFun=6; //函数个数
-int numofFunOp=2; //最大函数操作个数
-float M=10.0; //
+static float *fitness;//适应值
+static float *dev_data;
+static float *dev_fitness;
+static char *numofhometic;//计算出最大适应值的同源基因编号
+static float **fittedvalue;//计算出最大适应值的同源基因对应的拟合值
+static char *dev_numofhometic;
+static float *dev_fittedvalue;
 
-float **data;//测试数据集
-float *fitness;//适应值
-char *strVariable;//变量集
-char *strFun;//函数集
-char *dev_strVariable;
-char *dev_strFun;
-float *dev_data;
-float *dev_fitness;
-char *numofhometic;//计算出最大适应值的同源基因编号
-float **fittedvalue;//计算出最大适应值的同源基因对应的拟合值
-char *dev_numofhometic;
-float *dev_fittedvalue;
+static char *dev_normalGenes;
+static char *dev_normalGenesIndex;
+static char *dev_homeoticGenes;
+static char *dev_homeoticGenesIndex;
 
-char **normalGenes;//普通基因变量与函数的索引
-char **normalGenesIndex;
-char *dev_normalGenes;
-char *dev_normalGenesIndex;
-char **homeoticGenes;
-char **homeoticGenesIndex;
-char *dev_homeoticGenes;
-char *dev_homeoticGenesIndex;
+static size_t pitchNG;
+static size_t pitchNI;
+static size_t pitchHG;
+static size_t pitchHI;
+static size_t pitchDT;
+static size_t pitchFV;
 
-size_t pitchNG;
-size_t pitchNI;
-size_t pitchHG;
-size_t pitchHI;
-size_t pitchDT;
-size_t pitchFV;
-
-int funcNum;//操作数个数
-
-void initcpu()
+void initcpu(int numofpopulation,int row)
 {
 	fittedvalue=(float**)malloc(sizeof(float*)*numofpopulation);
 	fittedvalue[0]=(float*)malloc(sizeof(float)*numofpopulation*row);
 	for(int i=1;i<numofpopulation;i++)
 		fittedvalue[i]=fittedvalue[i-1]+row;
-
-	strFun=(char*)malloc(sizeof(char)*numofFun);//动态分配存放函数的数组
-	strVariable=(char*)malloc(sizeof(char)*numofVariable);//动态分配存放变量的数组
 	fitness=(float*)malloc(sizeof(float)*numofpopulation);//动态分配适应值数组，长度为中群大小
 	numofhometic=(char*)malloc(sizeof(char)*numofpopulation);
 }
-void initgpu()
+
+void initgpu(int lenofnormalgene,int numofnormalgenes,int numofpopulation,int col,int row,int lenofhometicgene,int numofhomeoticgenes)
 {
 	//在设备为二维数组分配空间
-	cudaMallocPitch((void**)&dev_normalGenes,&pitchNG,lenofgene*numofnormalgenes*sizeof(char),numofpopulation);
-	cudaMallocPitch((void**)&dev_normalGenesIndex,&pitchNI,lenofgene*numofnormalgenes*sizeof(char),numofpopulation);
+	cudaMallocPitch((void**)&dev_normalGenes,&pitchNG,lenofnormalgene*numofnormalgenes*sizeof(char),numofpopulation);
+	cudaMallocPitch((void**)&dev_normalGenesIndex,&pitchNI,lenofnormalgene*numofnormalgenes*sizeof(char),numofpopulation);
 
 	cudaMallocPitch((void**)&dev_data,&pitchDT,col*sizeof(float),row);
 
@@ -84,7 +57,7 @@ void initgpu()
 	cudaMalloc((void**)&dev_numofhometic,sizeof(char)*numofpopulation);
 }
 
-void freecpuandgpu()
+void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesIndex,char** homeoticGenes,char** homeoticGenesIndex)
 {
 	cudaFree(dev_normalGenes);
 	cudaFree(dev_normalGenesIndex);
@@ -108,7 +81,7 @@ void freecpuandgpu()
 	free(fittedvalue[0]);
 	free(fittedvalue);
 }
-void cputogpu()//拷贝：cpu到gpu
+void cputogpu(int lenofgene,int numofnormalgenes,int numofpopulation,int col,int row,int lenofhometicgene,int numofhomeoticgenes,float **data,char **normalGenes,char **normalGenesIndex,char **homeoticGenes,char **homeoticGenesIndex)//拷贝：cpu到gpu
 {
 	cudaMemcpy2D(dev_normalGenes,pitchNG,normalGenes[0],lenofgene*numofnormalgenes*sizeof(char),lenofgene*numofnormalgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
 	cudaMemcpy2D(dev_normalGenesIndex,pitchNI,normalGenesIndex[0],lenofgene*numofnormalgenes,lenofgene*numofnormalgenes,numofpopulation,cudaMemcpyHostToDevice);
@@ -118,11 +91,19 @@ void cputogpu()//拷贝：cpu到gpu
 	cudaMemcpy2D(dev_homeoticGenes,pitchHG,homeoticGenes[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
 	cudaMemcpy2D(dev_homeoticGenesIndex,pitchHI,homeoticGenesIndex[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
 }
-void gputocpu()//拷贝：gpu到cpu
+void gputocpu(int numofpopulation,int row)//拷贝：gpu到cpu
 {
 	cudaMemcpy(fitness,dev_fitness,sizeof(float)*numofpopulation,cudaMemcpyDeviceToHost);
 	cudaMemcpy(numofhometic,dev_numofhometic,sizeof(char)*numofpopulation,cudaMemcpyDeviceToHost);
 	cudaMemcpy2D(fittedvalue[0],row*sizeof(float),dev_fittedvalue,pitchFV,sizeof(float)*row,numofpopulation,cudaMemcpyDeviceToHost);
 }
-
+void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int rowNum,int columnNum,int normalGeneLength,int homeoticGeneLength,int selectionRange){
+	int threadsPerBlock=(normalGeneNum>homeoticGeneNum?normalGeneNum:homeoticGeneNum);
+	int blocksPerGrid=populationSize;
+	size_t share_size=(rowNum*normalGeneNum+rowNum*homeoticGeneNum+homeoticGeneNum)*sizeof(float);
+	int sizeofarray=rowNum*normalGeneLength*populationSize;
+	float *dev_array;
+	cudaMalloc((void**)&dev_array,sizeof(float)*sizeofarray);
+	kernel<<<blocksPerGrid,threadsPerBlock,share_size>>>(dev_normalGenes,dev_normalGenesIndex,dev_homeoticGenes,dev_homeoticGenesIndex,dev_data,pitchNG,pitchNI,pitchHG,pitchHI,pitchDT,rowNum,columnNum,dev_fitness,dev_numofhometic,dev_fittedvalue,pitchFV,dev_array,normalGeneLength,normalGeneNum,homeoticGeneLength,homeoticGeneNum,selectionRange);
+}
 #endif /* FITNESS_CUH_ */
