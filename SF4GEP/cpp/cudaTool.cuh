@@ -115,6 +115,6 @@ void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int row
 	cudaMalloc((void**)&dev_array,sizeof(float)*sizeofarray);
 	kernel<<<blocksPerGrid,threadsPerBlock,share_size>>>(dev_normalGenes,dev_normalGenesIndex,dev_homeoticGenes,dev_homeoticGenesIndex,dev_data,pitchNG,pitchNI,pitchHG,pitchHI,pitchDT,rowNum,columnNum,dev_fitness,dev_numofhometic,dev_fittedvalue,pitchFV,dev_array,normalGeneLength,normalGeneNum,homeoticGeneLength,homeoticGeneNum,selectionRange);
 	cudaDeviceSynchronize();
-	//	cudaFree(dev_array);
+	cudaFree(dev_array);
 }
 #endif /* FITNESS_CUH_ */
