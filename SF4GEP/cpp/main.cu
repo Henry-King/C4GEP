@@ -12,6 +12,7 @@
 #include "jniTransform.h"
 #include "cudaTool.cuh"
 static void initContext(JNIEnv*,jobject);
+static void cToJava(JNIEnv*,jobject);
 static int populationSize;
 static int rowNum;
 static int columnNum;
@@ -32,6 +33,7 @@ JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JN
 	cputogpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum,dataSet,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 	callKernel(normalGeneNum,homeoticGeneNum,populationSize,rowNum,columnNum,normalGeneLength,homeoticGeneLength,selectionRange);
 	gputocpu(populationSize,rowNum);
+	cToJava(env,gepAlgRun);
 	freecpuandgpu(populationSize,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 	return;
 }
@@ -50,4 +52,9 @@ static void initContext(JNIEnv *env,jobject gepAlgRun){
 	homeoticGeneLength=getHomeoticGeneLength(env,gepAlgRun);
 	homeoticGeneNum=getHomeoticGeneNum(env,gepAlgRun);
 	selectionRange=getSelectionRange(env,gepAlgRun);
+}
+static void cToJava(JNIEnv *env,jobject gepAlgRun){
+	toJavaFitness(env,gepAlgRun,getFitnessArray());
+	toJavaFittedValue(env,gepAlgRun,getFittedValueArray());
+	toJavaHomeoticGeneIndex(env,gepAlgRun,getHomeoticArray());
 }

@@ -97,6 +97,15 @@ void gputocpu(int numofpopulation,int row)//¿½±´£ºgpuµ½cpu
 	cudaMemcpy(numofhometic,dev_numofhometic,sizeof(char)*numofpopulation,cudaMemcpyDeviceToHost);
 	cudaMemcpy2D(fittedvalue[0],row*sizeof(float),dev_fittedvalue,pitchFV,sizeof(float)*row,numofpopulation,cudaMemcpyDeviceToHost);
 }
+float* getFitnessArray(){
+	return fitness;
+}
+char* getHomeoticArray(){
+	return numofhometic;
+}
+float **getFittedValueArray(){
+	return fittedvalue;
+}
 void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int rowNum,int columnNum,int normalGeneLength,int homeoticGeneLength,int selectionRange){
 	int threadsPerBlock=(normalGeneNum>homeoticGeneNum?normalGeneNum:homeoticGeneNum);
 	int blocksPerGrid=populationSize;
