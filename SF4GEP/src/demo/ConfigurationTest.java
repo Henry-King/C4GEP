@@ -26,8 +26,8 @@ import domain.iservice.algOutput.IAlgOutputService;
 import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
-import domain.service.algOutput.AlgOutputService;
 import domain.service.algOutput.AlgCpuRunStep;
+import domain.service.algOutput.AlgOutputService;
 
 public class ConfigurationTest {
 
