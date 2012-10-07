@@ -25,9 +25,8 @@ public class MainFrame extends JFrame implements IDemoApp {
     private static final int appPosX = (screenSize.width / 2) - (appSize.width / 2);
     private static final int appPosY = (screenSize.height / 2) - (appSize.height / 2);
     private static Rectangle appBounds = new Rectangle(appPosX, appPosY, appSize.width, appSize.height);
-    private static final String appTitle = "JTattoo - Demo";
-    //private JWindow splashScreen = null;
-    //private SplashPanel splashPanel = null;
+    private static final String appTitle = "GEP Framework (单机版)";
+   
     private MainMenuBar menuBar = null;
     public JTabbedPane mainTabbedPane = null;
     private MainWnd mainWnd;
@@ -52,34 +51,32 @@ public class MainFrame extends JFrame implements IDemoApp {
     
     private void init() {
     	
-        /*// create splash screen
-        splashPanel = new SplashPanel();
-        splashScreen = new JWindow();
-        splashScreen.getContentPane().add(splashPanel);
-        splashScreen.pack();
-        Dimension size = splashScreen.getSize();
-        splashScreen.setLocation(screenSize.width / 2 - size.width / 2, screenSize.height / 2 - size.height / 2);
-         */
-        // Show the splash screen on the gui thread using invokeLater
-        /*SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-                splashScreen.setVisible(true);
-            }
-        });*/
-
         
-    	initMenuBar();
+       
+
+        /*try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+        
+        initMenuBar();
         initMainTabbedPane();
         initListeners();
+        
+
+        
+        
+        
         // Show the demo and take down the splash screen. Note that we again must do this on the GUI thread using invokeLater.
         SwingUtilities.invokeLater(new Runnable() {
-
             public void run() {
-                showApp();
-                /*if (splashScreen != null) {
-                    splashScreen.setVisible(false);
-                }*/
+            	showApp();
+                if (mainWnd.splashScreen != null) {
+                	mainWnd.splashScreen.setVisible(false);
+                }
+                
             }
         });
         
@@ -104,13 +101,14 @@ public class MainFrame extends JFrame implements IDemoApp {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 performExit();
+                mainWnd.closeMl();
             }
         });
     }
 
     private void showApp() {
-    	//setBounds(100, 100, 630, 448);
-    	setTitle("GEP Framework (单机版)");
+    	setBounds(100, 100, 630, 448);
+    	setTitle(appTitle);
     	setMinimumSize(new Dimension(JFrame.MAXIMIZED_BOTH, JFrame.MAXIMIZED_BOTH));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

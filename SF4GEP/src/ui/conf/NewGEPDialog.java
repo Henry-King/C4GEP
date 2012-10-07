@@ -2,6 +2,7 @@ package ui.conf;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 import javassist.tools.framedump;
 
@@ -14,9 +15,16 @@ import ui.app.*;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
+import data.dao.HibernateDataContext;
+import domain.core.algInputDataProcess.DataColumn;
+import domain.core.algInputDataProcess.DataRow;
+import domain.core.algInputDataProcess.DataSet;
+
 import ui.app.MainFrame;
 import ui.app.MainWnd;
 import ui.app.VTextIcon;
+import ui.conf.controller.InputDataController;
+import ui.conf.model.NewProjectModel;
 import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
@@ -28,8 +36,9 @@ public class NewGEPDialog extends JDialog {
 	private MainWnd mainWnd;
 	private NewGEPDialog cur;
 	private NewGEPDialog2 late;
-	NewGEPData data = new NewGEPData();
-	
+	private HibernateDataContext hibernateDataContext;
+	private NewProjectModel data = new NewProjectModel();
+	private final JTextField txt_projectName;
 	public NewGEPDialog(String title,final MainWnd mainWnd) {
 		 	super(mainWnd.frame, title, false);
 		 	
@@ -67,7 +76,7 @@ public class NewGEPDialog extends JDialog {
     		lbl_projectName.setFont(new Font("宋体", Font.PLAIN, 13));
     		
     		
-    		final JTextField txt_projectName = new JTextField();
+    		txt_projectName = new JTextField();
     		txt_projectName.addFocusListener(new FocusAdapter() {
     			@Override
     			public void focusLost(FocusEvent arg0) {
@@ -143,32 +152,7 @@ public class NewGEPDialog extends JDialog {
             btn_Finish.setBounds(317, 10, 100, 30);
             btn_Finish.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                	if (JTattooUtilities.getJavaVersion() >= 1.6) {
-                		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
-                		String title = txt_projectName.getText().toString();
-                        int tabCount = jtp.getTabCount();
-                        ConfPanel newConfPanel = new ConfPanel(mainWnd);
-                        VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
-                        jtp.addTab(null,newVTextIcon, newConfPanel, null);
-                        //jtp.addTab("Tab", null,welcomeVTextIcon,null);
-                        
-                       
-                        CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
-                        
-                        jtp.setSelectedIndex(tabCount);
-                        jtp.setTabComponentAt(tabCount, ctc);
-                        jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
-                        
-                        
-                        
-                        
-                        cur.dispose();
-                        if (late!=null) {
-							late.dispose();
-						}
-                    }
-                	
-                	
+                	loadNewProject();
                 }
             });
             
@@ -215,6 +199,76 @@ public class NewGEPDialog extends JDialog {
             
             
 	 }
+	public void loadNewProject(){
+		
+		if (JTattooUtilities.getJavaVersion() >= 1.6) {
+    		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
+    		String title = txt_projectName.getText().toString();
+            int tabCount = jtp.getTabCount();
+            ConfPanel newConfPanel = new ConfPanel(mainWnd);
+            VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
+            jtp.addTab(null,newVTextIcon, newConfPanel, null);
+            //jtp.addTab("Tab", null,welcomeVTextIcon,null);
+           
+            CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
+            
+            jtp.setSelectedIndex(tabCount);
+            jtp.setTabComponentAt(tabCount, ctc);
+            jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
+            
+            
+            if (cur.late!=null&&cur.late.late!=null) {
+            	String inputPath = cur.late.late.txt_InputPath.getText();
+            	if (inputPath.equals("")||inputPath.equals(null)) {
+            		//未设置输入数据集路径
+				}else{
+					data.setInputDataPath(inputPath);
+                    hibernateDataContext = mainWnd.getHibernateDataContext();
+                    InputDataController inputDataController = new InputDataController(hibernateDataContext);
+                    DataSet inputDataSet = inputDataController.getInputSet(inputPath);
+                    data.setInputDataSet(inputDataSet);
+                    System.out.println("inputdata");
+                    List<DataRow> rows = inputDataSet.getDataRows();
+                    for (int i = 0; i < rows.size()-1; i++) {
+						DataRow row = rows.get(i);
+						List<DataColumn> dc =row.getDataColumns();
+						
+						for (int j = 0; j < dc.size(); j++) {
+							System.out.print(dc.get(j).getValue()+ " ");
+						}
+						DataColumn dcr = row.getResultColumn();
+						System.out.println(dcr.getValue());
+						System.out.println();
+					}
+                    
+                    newConfPanel.setNewProjectModel(data);	//为新建算法项目设置配置文件
+				}
+                
+			}
+            
+            
+            
+            
+            
+            cur.dispose();
+            if (late!=null) {
+            	if (late.late!=null) {
+    				late.late.dispose();
+    			}
+				late.dispose();
+			}
+            
+        }
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public static class CloseableTabComponent extends JPanel {
@@ -264,4 +318,14 @@ public class NewGEPDialog extends JDialog {
         }
         
     }
+
+
+	public NewProjectModel getData() {
+		return data;
+	}
+
+
+	public void setData(NewProjectModel data) {
+		this.data = data;
+	}
 }

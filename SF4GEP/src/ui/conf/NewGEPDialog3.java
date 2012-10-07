@@ -2,6 +2,7 @@ package ui.conf;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -14,6 +15,8 @@ import ui.images.ImageHelper;
 public class NewGEPDialog3 extends JDialog {
 
 	public MainWnd mainWnd;
+	
+	public NewGEPDialog mainDialog;
 	private NewGEPDialog2 pre;
 	private NewGEPDialog3 cur;
 	
@@ -38,6 +41,7 @@ public class NewGEPDialog3 extends JDialog {
 		super(mainWnd.frame, "Other Parameter", false);
 	 	this.mainWnd = mainWnd;
 	 	this.pre = newGEPDialog2;
+	 	mainDialog = newGEPDialog2.mainDialog;
 	 	this.cur = this;
 	 	this.setResizable(false);
 	 	setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -109,6 +113,10 @@ public class NewGEPDialog3 extends JDialog {
         btn_Finish.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	if (JTattooUtilities.getJavaVersion() >= 1.6) {
+            		mainDialog.loadNewProject();
+            		
+            		
+            		
                 }
             }
         });
@@ -160,7 +168,7 @@ public class NewGEPDialog3 extends JDialog {
                  txt_profileName.addFocusListener(new FocusAdapter() {
                  	@Override
                  	public void focusLost(FocusEvent e) {
-                 		pre.pre.data.setProjectPath(txt_profileName.getText());
+                 		pre.pre.getData().setProjectPath(txt_profileName.getText());
                  	}
                  });
                 txt_profileName.setMaximumSize(new Dimension(126, 21));
@@ -193,7 +201,7 @@ public class NewGEPDialog3 extends JDialog {
                  txt_profilePath.addFocusListener(new FocusAdapter() {
                  	@Override
                  	public void focusLost(FocusEvent e) {
-                 		pre.pre.data.setProjectPath(txt_profilePath.getText());
+                 		pre.pre.getData().setProjectPath(txt_profilePath.getText());
                  	}
                  });
                 txt_profilePath.setMaximumSize(new Dimension(126, 21));
@@ -259,7 +267,7 @@ public class NewGEPDialog3 extends JDialog {
                     txt_InputPath.addFocusListener(new FocusAdapter() {
                     	@Override
                     	public void focusLost(FocusEvent e) {
-                    		pre.pre.data.setProjectPath(txt_InputPath.getText());
+                    		pre.pre.getData().setProjectPath(txt_InputPath.getText());
                     	}
                     });
                     txt_InputPath.setMaximumSize(new Dimension(126, 21));
@@ -267,12 +275,16 @@ public class NewGEPDialog3 extends JDialog {
                     txt_InputPath.setBounds(134, 88, 284, 24);
                     inputDataPanel.add(txt_InputPath);
                     
-                     btn_browseInputDataPath = new JButton("Browse...");
+                    btn_browseInputDataPath = new JButton("Browse...");
+                    btn_browseInputDataPath.addActionListener(new OpenHandler());
                     btn_browseInputDataPath.setFont(new Font("Calibri", Font.PLAIN, 14));
                     btn_browseInputDataPath.setContentAreaFilled(false);
                     btn_browseInputDataPath.setBounds(433, 86, 81, 28);
                     inputDataPanel.add(btn_browseInputDataPath);
                 	
+                    
+                    
+                    
                 }
         
         
@@ -319,4 +331,44 @@ public class NewGEPDialog3 extends JDialog {
 				btn_browseInputDataPath.setEnabled(true);
 			}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	class OpenHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser jc = new JFileChooser();
+			int rVal = jc.showOpenDialog(NewGEPDialog3.this);
+			if (rVal == JFileChooser.APPROVE_OPTION) {
+				File dir = jc.getCurrentDirectory();
+				File file = jc.getSelectedFile();
+				txt_InputPath.setText(file.toString());
+				
+				
+				
+			}
+			if (rVal == JFileChooser.CANCEL_OPTION) {
+				txt_InputPath.setText("You pressed cancel");
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

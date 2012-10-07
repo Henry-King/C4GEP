@@ -52,6 +52,8 @@ public class NewGEPDialog2 extends JDialog {
 	JPanel top_Panel = new JPanel();
 	JPanel center_Panel = new JPanel();
 	
+	
+	public NewGEPDialog mainDialog;
 	public NewGEPDialog pre;
 	public NewGEPDialog2 cur;
 	public NewGEPDialog3 late;
@@ -66,6 +68,7 @@ public class NewGEPDialog2 extends JDialog {
 		setLocationRelativeTo(mainWnd.frame);
 		this.setResizable(false);
 		pre = step1;
+		mainDialog = step1;
 		cur = this;
 		addWindowListener(new WindowAdapter() {
 	 		@Override
@@ -126,7 +129,7 @@ public class NewGEPDialog2 extends JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
                     updateIntroduction();
-                    pre.data.setFrameworkType((String)listForParr.getSelectedValue());
+                    pre.getData().setFrameworkType((String)listForParr.getSelectedValue());
                 }
             }
         });
@@ -141,7 +144,7 @@ public class NewGEPDialog2 extends JDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
                    updateIntroduction();
-                   pre.data.setFrameworkType((String)listForSer.getSelectedValue());
+                   pre.getData().setFrameworkType((String)listForSer.getSelectedValue());
                 }
             }
             

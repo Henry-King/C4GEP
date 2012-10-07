@@ -7,24 +7,22 @@ package ui.app;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.*;
 
 import javax.swing.*;
 
-import com.sun.istack.internal.FinalArrayList;
 
+import data.dao.HibernateDataContext;
+import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.*;
 
 import ui.conf.*;
-import ui.conf.controller.AccuracyController;
-import ui.conf.model.AccuracyModel;
-import ui.conf.model.GeneModel;
-import ui.conf.model.OperatorModel;
-import ui.conf.view.ContentPanel;
+import ui.conf.controller.InputDataController;
+import ui.conf.model.*;
+import ui.conf.view.*;
+import ui.alginputdataprocess.controller.InputFileController;
 import ui.app.*;
-import ui.images.ImageHelper;
+import ui.images.*;
 
 
 
@@ -60,18 +58,20 @@ public class MainToolBar extends JToolBar {
 //    private JButton defaultBorderButton = null;
     
     private MainWnd mainWnd;
-    private ContentPanel contentPanel;
-    
-    
+    private ConfPanel confPanel;
+    private HibernateDataContext hibernateDataContext;
+    private DataSet inputDataSet;
     
     
     
 
-    public MainToolBar(final MainWnd mainWnd,final ContentPanel contentPanel) {
+    public MainToolBar(final MainWnd mainWnd,final ConfPanel confPanel) {
         super();
         this.mainWnd = mainWnd;
-        this.contentPanel = contentPanel;
-        //this.contentPanel = contentPanel;
+        this.confPanel = confPanel;
+        hibernateDataContext = mainWnd.getHibernateDataContext();
+        inputDataSet = confPanel.getInputData();
+        
         setFloatable(false);
         setMargin(new Insets(2, 0, 2, 0));
         newImage = ImageHelper.loadImage("new.png");
@@ -134,7 +134,7 @@ public class MainToolBar extends JToolBar {
             	
             	
             	/*精度面板*/
-            	AccuracyModel accuracyModel = contentPanel.accuracyController.getAccuracyModel();
+            	AccuracyModel accuracyModel = confPanel.contentPanel.accuracyController.getAccuracyModel();
             	Hashtable<String, Boolean> isAccuracyFited = accuracyModel.getIsDataFitedHashtable();
             	Collection<Boolean> isAccuracyFitedValues = isAccuracyFited.values();
             	
@@ -154,7 +154,7 @@ public class MainToolBar extends JToolBar {
             	
             	
             	/*基因面板*/
-            	GeneModel geneModel = contentPanel.geneController.getGeneModel();
+            	GeneModel geneModel = confPanel.contentPanel.geneController.getGeneModel();
             	Hashtable<String, Boolean> isGeneFited = geneModel.getIsDataFitedHashtable();
             	Collection<Boolean> isGeneFitedValues = isGeneFited.values();
             	
@@ -194,7 +194,7 @@ public class MainToolBar extends JToolBar {
             	
             	
             	/*修饰面板*/
-            	OperatorModel operatorModel = contentPanel.operatorController.getOperatorModel();
+            	OperatorModel operatorModel = confPanel.contentPanel.operatorController.getOperatorModel();
             	Hashtable<String, Boolean> isOperatorFited = operatorModel.getIsDataFitedHashtable();
             	Collection<Boolean> isOperatorFitedValues = isOperatorFited.values();
             	

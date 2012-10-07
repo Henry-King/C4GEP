@@ -1,12 +1,15 @@
-package ui.conf;
+package ui.conf.model;
 
-public class NewGEPData {
+import domain.core.algInputDataProcess.DataSet;
+
+public class NewProjectModel {
 	private String projectName = null;
 	private String projectPath = null;
 	private String frameworkType = "´®ÐÐÊ½";
 	private String profileName = "default";
 	private String profilePath = "defaultProfile.txt";
 	private String inputDataPath = null;
+	private DataSet inputDataSet = null;
 
 	public void setProjectName(String projectName){
 		this.projectName = projectName;
@@ -49,6 +52,12 @@ public class NewGEPData {
 	public String getInputDataPath(){
 		return this.inputDataPath;
 	}
-	
+	public DataSet getInputDataSet() {
+		return inputDataSet;
+	}
+	public void setInputDataSet(DataSet inputDataSet) {
+		this.inputDataSet = inputDataSet;
+	}
+
 	
 }
