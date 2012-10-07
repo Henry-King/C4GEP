@@ -27,6 +27,8 @@ static char** homeoticGeneType;
 static char** normalGeneIndex;
 static char** homeoticGeneIndex;
 JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject me, jobject gepAlgRun){
+	printf("Hi\n");
+	fflush(stdout);
 	initContext(env,gepAlgRun);
 	initcpu(populationSize,rowNum);
 	initgpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum);
