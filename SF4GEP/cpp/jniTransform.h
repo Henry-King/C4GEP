@@ -431,8 +431,6 @@ void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 			temp2DArr);
 	env->CallVoidMethod(currentPopulation, setFittedValueID,
 			(jobjectArray) fittedValueInJava);
-	printf("Hi\n");
-	fflush(stdout);
 }
 void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) {
 	int numofpopulation = getPopulationSize(env, gepAlgRun);
