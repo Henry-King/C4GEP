@@ -203,9 +203,14 @@ public class Population implements Serializable, Cloneable {
 	}
 	public void setFittedValue(float[] fittedValue){
 		int rowNum=gepAlgRun.getDataSet().getRowNum();
-		for(int i=0;i<fittedValue.length;i++)
-			for(int j=0;j<rowNum;j++)
-				individuals.get(i).getFittedValues().get(j).setFittedValue(fittedValue[i*rowNum+j]);
+		int max=fittedValue.length/rowNum;
+		List<FittedValue> fittedValues;
+		for(int i=0;i<max;i++){
+			fittedValues=individuals.get(i).getFittedValues();
+			for(int j=0;j<rowNum;j++){
+				fittedValues.get(j).setFittedValue(fittedValue[i*rowNum+j]);
+			}
+		}		
 	}
 	public void setGeneNum(char[] geneIndex){
 		for(int i=0;i<geneIndex.length;i++)

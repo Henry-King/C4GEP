@@ -60,6 +60,8 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		Individual individual;
 		Gene addedGene;
 		Population population;
+		FittedValue fittedValue;
+		List<FittedValue> fittedValues;
 		GeneConfiguration geneConfiguration=gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();
 		int dataColumns=dataSet.getVariableUsed().size();
 		GepAlgRun gepAlgRun=generateGepAlgRun(dataSet, gepAlgConfiguration);
@@ -75,6 +77,13 @@ public class AlgCpuRunStep implements IAlgRunStep {
 			for(int j=0;j<geneConfiguration.getHomeoticGeneNumber();j++){
 				addedGene=nextGene(GeneType.HomeoticGene, geneConfiguration, dataColumns);
 				individual.getGenes().add(addedGene);
+			}
+			fittedValues=new ArrayList<FittedValue>(dataSet.getRowNum());
+			individual.setFittedValues(fittedValues);
+			for(int j=0;j<dataSet.getRowNum();j++){
+				fittedValue=new FittedValue();
+				fittedValue.setDataRow(dataSet.getDataRows().get(j));
+				fittedValues.add(fittedValue);
 			}
 			population.addIndividual(individual);
 		}
