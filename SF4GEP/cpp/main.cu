@@ -26,7 +26,7 @@ static char** normalGeneType;
 static char** homeoticGeneType;
 static char** normalGeneIndex;
 static char** homeoticGeneIndex;
-JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject, jobject gepAlgRun){
+JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject me, jobject gepAlgRun){
 	initContext(env,gepAlgRun);
 	initcpu(populationSize,rowNum);
 	initgpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum);
@@ -54,6 +54,8 @@ static void initContext(JNIEnv *env,jobject gepAlgRun){
 	selectionRange=getSelectionRange(env,gepAlgRun);
 }
 static void cToJava(JNIEnv *env,jobject gepAlgRun){
+//	printf("Hi\n");
+//	fflush(stdout);
 	toJavaFitness(env,gepAlgRun,getFitnessArray());
 	toJavaFittedValue(env,gepAlgRun,getFittedValueArray());
 	toJavaHomeoticGeneIndex(env,gepAlgRun,getHomeoticArray());

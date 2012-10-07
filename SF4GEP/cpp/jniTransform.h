@@ -402,8 +402,11 @@ float getSelectionRange(JNIEnv* env, jobject gepAlgRun) {
 	return num;
 }
 void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
+
 	jmethodID setFitnessID = env->GetMethodID(class_Population, "setFitness",
 			"([F)V");
+//	printf("Hi\n");
+//	fflush(stdout);
 	long popuSize = getPopulationSize(env, gepAlgRun);
 	jfloatArray fitnessInJava = env->NewFloatArray(popuSize);
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
