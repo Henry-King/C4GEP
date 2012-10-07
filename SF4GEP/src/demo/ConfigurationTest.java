@@ -97,6 +97,7 @@ public class ConfigurationTest {
 		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		System.out.println("总耗时：\t"+result+"\t毫秒");
 		System.out.println(gepAlgRun.getBestIndividual().toExprString(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration()));
+		System.out.println(gepAlgRun.getBestIndividual().toGeneString());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneIndex());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneType());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getHomeoticGeneType());
