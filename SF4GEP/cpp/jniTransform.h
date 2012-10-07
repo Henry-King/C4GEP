@@ -431,6 +431,8 @@ void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 			temp2DArr);
 	env->CallVoidMethod(currentPopulation, setFittedValueID,
 			(jobjectArray) fittedValueInJava);
+	printf("Hi\n");
+	fflush(stdout);
 }
 void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) {
 	int numofpopulation = getPopulationSize(env, gepAlgRun);
@@ -442,8 +444,8 @@ void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) 
 	jclass strClass = env->FindClass("Ljava/lang/String;");
 	jmethodID ctorID = env->GetMethodID(strClass, "<init>",
 			"([BLjava/lang/String;)V");
-	jbyteArray bytes = env->NewByteArray(strlen(numofhometic));
-	env->SetByteArrayRegion(bytes, 0, strlen(numofhometic),
+	jbyteArray bytes = env->NewByteArray(numofpopulation);
+	env->SetByteArrayRegion(bytes, 0, numofpopulation,
 			(jbyte*) numofhometic);
 	jstring encoding = env->NewStringUTF("utf-8");
 	jstring strTemp = (jstring) (*env).NewObject(strClass, ctorID, bytes,
