@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import ui.app.MainWnd;
 import ui.conf.controller.AccuracyController;
 import ui.conf.controller.GeneController;
 import ui.conf.controller.OperatorController;
@@ -36,7 +37,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 	/**
 	 * Create the panel.
 	 */
-	public ContentPanel() {
+	public ContentPanel(MainWnd mainWnd) {
 		this.setLayout(new BorderLayout());
 		/* »­Í¼Ãæ°å */
 		OutputPicturePanel = new JPanel();
@@ -69,7 +70,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		
 		
-		genePanel = new GenePanel();
+		genePanel = new GenePanel(mainWnd);
 		GeneModel geneModel = new GeneModel();
 		geneController = new GeneController(geneModel,genePanel);
 		

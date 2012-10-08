@@ -42,7 +42,7 @@ public class ConfPanel extends JPanel {
 		
 		
 		/*ÄÚÈÝÃæ°å*/
-		contentPanel = new ContentPanel();
+		contentPanel = new ContentPanel(mainWnd);
 		add(contentPanel);
 		
 		

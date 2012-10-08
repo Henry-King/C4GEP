@@ -15,6 +15,8 @@ import javax.swing.*;
 import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.*;
+import domain.service.algConfiguration.GepConfigurationService;
+import domain.service.algOutput.AlgOutputService;
 
 import ui.conf.*;
 import ui.conf.controller.InputDataController;
@@ -128,8 +130,10 @@ public class MainToolBar extends JToolBar {
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
-            	
-            	
+            	GepAlgConfiguration gepAlgConfiguration=null;
+				IndividualConfiguration individualConfiguration = null;
+				GeneConfiguration geneConfiguration = null;
+				OperatorConfiguration operatorConfiguration = null;
             	
             	
             	
@@ -144,7 +148,7 @@ public class MainToolBar extends JToolBar {
 				}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 				
-					GepAlgConfiguration gepAlgConfiguration = new GepAlgConfiguration();
+					gepAlgConfiguration = new GepAlgConfiguration();
 	            	gepAlgConfiguration.setMaxGeneration(accuracyModel.getMaxGeneration());
 	            	gepAlgConfiguration.setSelectionRange(accuracyModel.getSelectionRange());
 	            	gepAlgConfiguration.setAccuracy(accuracyModel.getAccuracy());
@@ -164,8 +168,8 @@ public class MainToolBar extends JToolBar {
 				}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 					
-					IndividualConfiguration individualConfiguration = new IndividualConfiguration();
-					GeneConfiguration geneConfiguration = new GeneConfiguration();
+					individualConfiguration = new IndividualConfiguration();
+					geneConfiguration = new GeneConfiguration();
 					individualConfiguration.setGeneConfiguration(geneConfiguration);
 					
 					individualConfiguration.setIndividualNumber(geneModel.getIndividualNumber());
@@ -203,7 +207,7 @@ public class MainToolBar extends JToolBar {
             		JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
 				}else{
 				
-					OperatorConfiguration operatorConfiguration = new OperatorConfiguration();
+					operatorConfiguration = new OperatorConfiguration();
 					operatorConfiguration.setMutateRate(operatorModel.getMutateRate());
 					operatorConfiguration.setIsTransportRate(operatorModel.getIsTransportRate());
 					operatorConfiguration.setIsElement(operatorModel.getIsElement());
@@ -225,17 +229,13 @@ public class MainToolBar extends JToolBar {
 							+operatorModel.getGeneRecombineRate());
 				
 				}
+            	gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
+            	gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);
             	
-            	
-            	
-            	
-            	
-            	
-            	
-            	
-            	
-            	
-            	
+            	GepConfigurationService configurationService=new GepConfigurationService(hibernateDataContext);
+            	gepAlgConfiguration=configurationService.processConf(gepAlgConfiguration, inputDataSet);
+            	AlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
+            	algOutputService.setWriteToDB(true);
             	
             }
         });

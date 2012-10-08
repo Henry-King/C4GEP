@@ -3,7 +3,13 @@ package ui.conf.controller;
 import ui.conf.model.*;
 import ui.conf.view.*;
 
+import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.event.*;
+
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.Function;
+import domain.service.algConfiguration.GepConfigurationService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +19,7 @@ public class GeneController {
 	GeneModel geneModel = null;
 	GenePanel genePanel = null;
 	Hashtable<String, Boolean> isDataFitedHashtable = null;
-	
+	private GepConfigurationService gepConfigurationService=null;
 	public GeneController(GeneModel geneModel,GenePanel genePanel) {
 		this.geneModel = geneModel;
 		this.genePanel = genePanel;
@@ -94,12 +100,14 @@ public class GeneController {
 			}
 		});
 		
-		
-		
-		
-		
-		
-		
+		IHibernateDataContext hibernateDataContext=genePanel.getMainWnd().getHibernateDataContext();
+		gepConfigurationService=new GepConfigurationService(hibernateDataContext);
+		List<Function> functions=gepConfigurationService.getAvailableFunctions();
+		JComboBox<Function> connectionComboBox=genePanel.connectionComboBox;
+		for(Function added:functions)
+			connectionComboBox.addItem(added);
+		JList<Function> functionList=genePanel.functionList;
+		functionList.setListData(functions.toArray(new Function[]{}));
 	}
 
 

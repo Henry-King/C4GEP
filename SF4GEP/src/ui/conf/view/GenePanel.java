@@ -1,6 +1,5 @@
 package ui.conf.view;
 
-import javax.swing.ButtonModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,7 +13,7 @@ import javax.swing.JScrollPane;
 
 import domain.core.algconfiguration.Function;
 
-import ui.conf.model.AccuracyModel;
+import ui.app.MainWnd;
 import ui.conf.model.GeneModel;
 import ui.conf.model.Model;
 import ui.conf.model.MyPrompt;
@@ -25,8 +24,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.CardLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -51,7 +48,9 @@ public class GenePanel extends JPanel implements Observer{
 	public  CardLayout cardLayout=new CardLayout(0, 0);
 	public final JPanel connectionPanel;
 	private GeneModel geneModel;
-	
+	public JComboBox<Function> connectionComboBox;
+	private MainWnd mainWnd;
+	public JList<Function> functionList;
 	
 	//public boolean useHomeoticGene = true;
 
@@ -59,7 +58,8 @@ public class GenePanel extends JPanel implements Observer{
 	/**
 	 * Create the panel.
 	 */
-	public GenePanel() {
+	public GenePanel(MainWnd mainWnd) {
+		this.mainWnd=mainWnd;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 164, 126, 0};
 		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 56, 35, 0};
@@ -206,7 +206,7 @@ public class GenePanel extends JPanel implements Observer{
 		gbc_connectionFuncLabel.gridy = 0;
 		connectionFuncPanel.add(connectionFuncLabel, gbc_connectionFuncLabel);
 
-		JComboBox<Function> connectionComboBox = new JComboBox<Function>();
+		connectionComboBox = new JComboBox<Function>();
 		GridBagConstraints gbc_connectionComboBox = new GridBagConstraints();
 		gbc_connectionComboBox.anchor = GridBagConstraints.WEST;
 		gbc_connectionComboBox.gridx = 1;
@@ -284,7 +284,7 @@ public class GenePanel extends JPanel implements Observer{
 		gbc_functionScrollPane.gridy = 6;
 		add(functionScrollPane, gbc_functionScrollPane);
 
-		JList<Function> functionList = new JList<Function>();
+		functionList = new JList<Function>();
 		functionList.setVisibleRowCount(4);
 		functionScrollPane.setViewportView(functionList);
 		functionScrollPane.setMaximumSize(new Dimension(126, 60));
@@ -292,16 +292,7 @@ public class GenePanel extends JPanel implements Observer{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public void dataUpdate(Model model) {
 		this.geneModel = (GeneModel)model;
@@ -324,12 +315,11 @@ public class GenePanel extends JPanel implements Observer{
 			model.setHomeoticGeneNumber(Integer.parseInt(homeoticGeneTextField.getText().toString()));
 			model.setHomeoticGeneHeaderLength(Integer.parseInt(homeoticGeneHeaderTextField.getText().toString()));
 		}
-		
-		
-		
-		
-		
-		
+
+	}
+
+	public MainWnd getMainWnd() {
+		return mainWnd;
 	}
 
 }
