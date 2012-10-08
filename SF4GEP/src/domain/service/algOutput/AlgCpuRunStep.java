@@ -508,15 +508,13 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		else {
 			individual.setFitness(fitness[index]);
 			individual.setSelectedHomeoticGeneNumber(index);
-			List<FittedValue> fittedValues=new ArrayList<FittedValue>(individualVaule.length);
+			List<FittedValue> fittedValues=individual.getFittedValues();
 			FittedValue fittedValue;
 			for(int i=0;i<individualVaule.length;i++){
-				fittedValue=new FittedValue();
+				fittedValue=fittedValues.get(i);
 				fittedValue.setFittedValue(individualVaule[i][index]);
-				fittedValue.setDataRow(dataSet.getDataRows().get(i));
-				fittedValues.add(fittedValue);
 			}
-			individual.setFittedValues(fittedValues);
+
 		}
 		return individual;
 	}
