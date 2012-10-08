@@ -8,7 +8,6 @@
 #define COPYTOGPU_H_
 #include <jni.h>
 #include <stdio.h>
-#include<string.h>
 static jclass class_Boolean = NULL;
 static jmethodID boolValueMethod = NULL;
 static jclass class_Float = NULL;
@@ -51,122 +50,122 @@ static jfieldID homeoticGeneLengthID = NULL;
 static jfieldID selectionRangeID = NULL;
 static jfieldID functionUsedID = NULL;
 static void iniSysId(JNIEnv *env) {
-	if (!class_Boolean)
+//	if (!class_Boolean)
 		class_Boolean = env->FindClass("Ljava/lang/Boolean;");
-	if (!boolValueMethod)
+//	if (!boolValueMethod)
 		boolValueMethod = env->GetMethodID(class_Boolean, "booleanValue",
 				"()Z");
-	if (!class_Float)
+//	if (!class_Float)
 		class_Float = env->FindClass("Ljava/lang/Float;");
-	if (!floatValueMethod)
+//	if (!floatValueMethod)
 		floatValueMethod = env->GetMethodID(class_Float, "floatValue", "()F");
-	if (!class_Integer)
+//	if (!class_Integer)
 		class_Integer = env->FindClass("Ljava/lang/Integer;");
-	if (!integerValueMethod)
+//	if (!integerValueMethod)
 		integerValueMethod = env->GetMethodID(class_Integer, "intValue", "()I");
-	if (!class_Long)
+//	if (!class_Long)
 		class_Long = env->FindClass("Ljava/lang/Long;");
-	if (!longValueMethod)
+//	if (!longValueMethod)
 		longValueMethod = env->GetMethodID(class_Long, "longValue", "()J");
-	if (!class_List)
+//	if (!class_List)
 		class_List = env->FindClass("Ljava/util/List;");
-	if (!getListSize)
+//	if (!getListSize)
 		getListSize = env->GetMethodID(class_List, "size", "()I");
-	if (!getListObject)
+//	if (!getListObject)
 		getListObject = env->GetMethodID(class_List, "get",
 				"(I)Ljava/lang/Object;");
-	if (!class_Enum)
+//	if (!class_Enum)
 		class_Enum = env->FindClass("Ljava/lang/Enum;");
-	if (!getEnumName)
+//	if (!getEnumName)
 		getEnumName = (*env).GetMethodID(class_Enum, "name",
 				"()Ljava/lang/String;");
 }
 static void iniGepAlgRunId(JNIEnv *env) {
-	if (!class_GepAlgRun)
+//	if (!class_GepAlgRun)
 		class_GepAlgRun = env->FindClass("Ldomain/core/algOutput/GepAlgRun;");
-	if (!gepAlgConfigurationID)
+//	if (!gepAlgConfigurationID)
 		gepAlgConfigurationID = env->GetFieldID(class_GepAlgRun,
 				"gepAlgConfiguration",
 				"Ldomain/core/algconfiguration/GepAlgConfiguration;");
-	if (!dataSetID)
+//	if (!dataSetID)
 		dataSetID = env->GetFieldID(class_GepAlgRun, "dataSet",
 				"Ldomain/core/algInputDataProcess/DataSet;");
-	if (!populationsID)
+//	if (!populationsID)
 		populationsID = env->GetFieldID(class_GepAlgRun, "populations",
 				"Ljava/util/List;");
-	if (!getCurrentPopulationID)
+//	if (!getCurrentPopulationID)
 		getCurrentPopulationID = env->GetMethodID(class_GepAlgRun,
 				"getCurrentPopulation", "()Ldomain/core/algOutput/Population;");
 }
 static void iniDataSetId(JNIEnv * env) {
-	if (!class_DataSet)
+//	if (!class_DataSet)
 		class_DataSet = env->FindClass(
 				"Ldomain/core/algInputDataProcess/DataSet;");
-	if (!rowNumID)
+//	if (!rowNumID)
 		rowNumID = env->GetFieldID(class_DataSet, "rowNum",
 				"Ljava/lang/Integer;");
-	if (!columnNumID)
+//	if (!columnNumID)
 		columnNumID = env->GetFieldID(class_DataSet, "columnNum",
 				"Ljava/lang/Integer;");
-	if (!toDeepArrayID)
+//	if (!toDeepArrayID)
 		toDeepArrayID = env->GetMethodID(class_DataSet, "toDeepArray", "()[[F");
 }
 static void iniPopulationId(JNIEnv * env) {
-	if (!class_Population)
+//	if (!class_Population)
 		class_Population = env->FindClass("Ldomain/core/algOutput/Population;");
-	if (!getNormalGeneTypeID)
+//	if (!getNormalGeneTypeID)
 		getNormalGeneTypeID = env->GetMethodID(class_Population,
 				"getNormalGeneType", "()[[C");
-	if (!getHomeoticGeneTypeID)
+//	if (!getHomeoticGeneTypeID)
 		getHomeoticGeneTypeID = env->GetMethodID(class_Population,
 				"getHomeoticGeneType", "()[[C");
-	if (!getNormalGeneIndexID)
+//	if (!getNormalGeneIndexID)
 		getNormalGeneIndexID = env->GetMethodID(class_Population,
 				"getNormalGeneIndex", "()[[C");
-	if (!getHomeoticGeneIndexID)
+//	if (!getHomeoticGeneIndexID)
 		getHomeoticGeneIndexID = env->GetMethodID(class_Population,
 				"getHomeoticGeneIndex", "()[[C");
 }
 static void iniConf(JNIEnv * env) {
-	if (!gepAlgConfigurationClass)
+//	if (!gepAlgConfigurationClass)
 		gepAlgConfigurationClass = env->FindClass(
 				"Ldomain/core/algconfiguration/GepAlgConfiguration;");
-	if (!individualConfigurationID)
+//	if (!individualConfigurationID)
 		individualConfigurationID = env->GetFieldID(gepAlgConfigurationClass,
 				"individualConfiguration",
 				"Ldomain/core/algconfiguration/IndividualConfiguration;");
-	if (!individualConfClass)
+//	if (!individualConfClass)
 		individualConfClass = env->FindClass(
 				"Ldomain/core/algconfiguration/IndividualConfiguration;");
-	if (!populationSizeID)
+//	if (!populationSizeID)
 		populationSizeID = env->GetFieldID(individualConfClass,
 				"individualNumber", "Ljava/lang/Integer;");
-	if (!geneConfigurationID)
+//	if (!geneConfigurationID)
 		geneConfigurationID = env->GetFieldID(individualConfClass,
 				"geneConfiguration",
 				"Ldomain/core/algconfiguration/GeneConfiguration;");
-	if (!geneConfigurationClass)
+//	if (!geneConfigurationClass)
 		geneConfigurationClass = env->FindClass(
 				"Ldomain/core/algconfiguration/GeneConfiguration;");
-	if (!normalGeneNumberID)
+//	if (!normalGeneNumberID)
 		normalGeneNumberID = env->GetFieldID(geneConfigurationClass,
 				"normalGeneNumber", "Ljava/lang/Integer;");
-	if (!normalGeneHeaderLengthID)
+//	if (!normalGeneHeaderLengthID)
 		normalGeneHeaderLengthID = env->GetFieldID(geneConfigurationClass,
 				"normalGeneHeaderLength", "Ljava/lang/Integer;");
-	if (!homeoticGeneNumberID)
+//	if (!homeoticGeneNumberID)
 		homeoticGeneNumberID = env->GetFieldID(geneConfigurationClass,
 				"homeoticGeneNumber", "Ljava/lang/Integer;");
-	if (!homeoticGeneHeaderLengthID)
+//	if (!homeoticGeneHeaderLengthID)
 		homeoticGeneHeaderLengthID = env->GetFieldID(geneConfigurationClass,
 				"homeoticGeneHeaderLength", "Ljava/lang/Integer;");
-	if (!normalGeneLengthID)
+//	if (!normalGeneLengthID)
 		normalGeneLengthID = env->GetFieldID(geneConfigurationClass,
 				"normalGeneLength", "Ljava/lang/Integer;");
-	if (!homeoticGeneLengthID)
+//	if (!homeoticGeneLengthID)
 		homeoticGeneLengthID = env->GetFieldID(geneConfigurationClass,
 				"homeoticGeneLength", "Ljava/lang/Integer;");
-	if (!selectionRangeID)
+//	if (!selectionRangeID)
 		selectionRangeID = env->GetFieldID(gepAlgConfigurationClass,
 				"selectionRange", "Ljava/lang/Float;");
 }
@@ -402,17 +401,17 @@ float getSelectionRange(JNIEnv* env, jobject gepAlgRun) {
 	return num;
 }
 void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
-
 	jmethodID setFitnessID = env->GetMethodID(class_Population, "setFitness",
 			"([F)V");
-//	printf("Hi\n");
-//	fflush(stdout);
+
 	long popuSize = getPopulationSize(env, gepAlgRun);
 	jfloatArray fitnessInJava = env->NewFloatArray(popuSize);
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
 			getCurrentPopulationID);
 	env->SetFloatArrayRegion(fitnessInJava, 0, popuSize, fitness);
 	env->CallVoidMethod(currentPopulation, setFitnessID, fitnessInJava);
+	env->DeleteLocalRef(fitnessInJava);
+	env->DeleteLocalRef(currentPopulation);
 }
 void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 	int rowNum = getRowNum(env, gepAlgRun);
@@ -434,12 +433,15 @@ void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 			temp2DArr);
 	env->CallVoidMethod(currentPopulation, setFittedValueID,
 			(jobjectArray) fittedValueInJava);
+	env->DeleteLocalRef(currentPopulation);
+	env->DeleteLocalRef(fittedValueInJava );
+
 }
 void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) {
 	int numofpopulation = getPopulationSize(env, gepAlgRun);
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
 			getCurrentPopulationID);
-	jmethodID setGeneNumID = (*env).GetMethodID(class_Population, "setGeneNum",
+	jmethodID setGeneNumID = env->GetMethodID(class_Population, "setGeneNum",
 			"([C)V");
 	//将char*转为JString再转为jcharArray
 	jclass strClass = env->FindClass("Ljava/lang/String;");
@@ -449,9 +451,9 @@ void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) 
 	env->SetByteArrayRegion(bytes, 0, numofpopulation,
 			(jbyte*) numofhometic);
 	jstring encoding = env->NewStringUTF("utf-8");
-	jstring strTemp = (jstring) (*env).NewObject(strClass, ctorID, bytes,
+	jstring strTemp = (jstring) env->NewObject(strClass, ctorID, bytes,
 			encoding);
-	jmethodID subStringID = (*env).GetMethodID(strClass, "substring",
+	jmethodID subStringID = env->GetMethodID(strClass, "substring",
 			"(II)Ljava/lang/String;");
 	strTemp = (jstring) env->CallObjectMethod(strTemp, subStringID, 0,
 			numofpopulation);
@@ -459,5 +461,10 @@ void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) 
 	jcharArray geneNumInJava = (jcharArray) env->CallObjectMethod(strTemp,
 			toCharArrID);
 	env->CallVoidMethod(currentPopulation, setGeneNumID, geneNumInJava);
+	env->DeleteLocalRef(currentPopulation);
+	env->DeleteLocalRef(bytes);
+	env->DeleteLocalRef(encoding);
+	env->DeleteLocalRef(strTemp);
+	env->DeleteLocalRef(geneNumInJava);
 }
 #endif /* COPYTOGPU_H_ */

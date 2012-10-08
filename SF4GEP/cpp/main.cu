@@ -27,15 +27,23 @@ static char** homeoticGeneType;
 static char** normalGeneIndex;
 static char** homeoticGeneIndex;
 JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject me, jobject gepAlgRun){
-	printf("Hi\n");
-	fflush(stdout);
 	initContext(env,gepAlgRun);
 	initcpu(populationSize,rowNum);
 	initgpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum);
+	printf("a\n");
+	fflush(stdout);
 	cputogpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum,dataSet,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
+	printf("b\n");
+	fflush(stdout);
 	callKernel(normalGeneNum,homeoticGeneNum,populationSize,rowNum,columnNum,normalGeneLength,homeoticGeneLength,selectionRange);
+	printf("c\n");
+	fflush(stdout);
 	gputocpu(populationSize,rowNum);
+	printf("d\n");
+	fflush(stdout);
 	cToJava(env,gepAlgRun);
+	printf("e\n");
+	fflush(stdout);
 	freecpuandgpu(populationSize,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 	return;
 }
