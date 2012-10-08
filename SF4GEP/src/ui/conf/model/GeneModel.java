@@ -1,6 +1,7 @@
 package ui.conf.model;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import domain.core.algconfiguration.Function;
 
@@ -19,7 +20,7 @@ public class GeneModel extends Model{
 	
 	private Integer homeoticGeneNumber;
 	private Integer homeoticGeneHeaderLength;
-	
+	private List<Function> functionList;
 	
 	
 	public GeneModel() {
@@ -117,6 +118,16 @@ public class GeneModel extends Model{
 
 	public void setUseHomeoticGene(boolean useHomeoticGene) {
 		this.useHomeoticGene = useHomeoticGene;
+	}
+
+
+	public List<Function> getFunctionList() {
+		return functionList;
+	}
+
+
+	public void setFunctionList(List<Function> functionList) {
+		this.functionList = functionList;
 	}
 	
 	

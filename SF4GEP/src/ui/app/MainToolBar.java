@@ -8,14 +8,18 @@ package ui.app;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import javax.swing.*;
 
 
 import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.*;
 import domain.service.algConfiguration.GepConfigurationService;
+import domain.service.algOutput.AlgCpuRunStep;
 import domain.service.algOutput.AlgOutputService;
 
 import ui.conf.*;
@@ -175,7 +179,7 @@ public class MainToolBar extends JToolBar {
 					individualConfiguration.setIndividualNumber(geneModel.getIndividualNumber());
 					geneConfiguration.setNormalGeneNumber(geneModel.getNormalGeneNumber());
 					geneConfiguration.setNormalGeneHeaderLength(geneModel.getNormalGeneHeaderLength());
-					
+					geneConfiguration.setFunctionUsed(geneModel.getFunctionList());
 					if (geneModel.isUseHomeoticGene()) {	//使用同源基因连接
 						geneConfiguration.setHomeoticGeneNumber(geneModel.getHomeoticGeneNumber());
 						geneConfiguration.setHomeoticGeneHeaderLength(geneModel.getHomeoticGeneHeaderLength());
@@ -189,7 +193,7 @@ public class MainToolBar extends JToolBar {
 					}else{	//使用函数连接
 						JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
 						//geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
-						
+						geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
 					}
 					
 				
@@ -235,7 +239,14 @@ public class MainToolBar extends JToolBar {
             	GepConfigurationService configurationService=new GepConfigurationService(hibernateDataContext);
             	gepAlgConfiguration=configurationService.processConf(gepAlgConfiguration, inputDataSet);
             	AlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
-            	algOutputService.setWriteToDB(true);
+            	algOutputService.setWriteToDB(false);
+            	Future<GepAlgRun> result=algOutputService.run(gepAlgConfiguration, new AlgCpuRunStep(), inputDataSet);
+            	try {
+					result.get();
+				} catch (InterruptedException | ExecutionException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             	
             }
         });

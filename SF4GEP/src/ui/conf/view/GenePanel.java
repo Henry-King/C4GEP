@@ -310,10 +310,13 @@ public class GenePanel extends JPanel implements Observer{
 		model.setIndividualNumber(Integer.parseInt(individualNumtextField.getText().toString()));
 		model.setNormalGeneNumber(Integer.parseInt(normalGeneNumTextField.getText().toString()));
 		model.setNormalGeneHeaderLength(Integer.parseInt(normalGeneHeaderTextField.getText().toString()));
-		
+		model.setFunctionList(functionList.getSelectedValuesList());
 		if (model.isUseHomeoticGene()) {
 			model.setHomeoticGeneNumber(Integer.parseInt(homeoticGeneTextField.getText().toString()));
 			model.setHomeoticGeneHeaderLength(Integer.parseInt(homeoticGeneHeaderTextField.getText().toString()));
+		}
+		else {
+			model.setConnectionFunction(connectionComboBox.getItemAt(connectionComboBox.getSelectedIndex()));
 		}
 
 	}
