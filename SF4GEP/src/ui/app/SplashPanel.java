@@ -37,7 +37,7 @@ public class SplashPanel extends JPanel {
         
         int x = 10;
         int y = splashImage.getIconHeight()-10;
-        g.setFont(new Font("Cambria", Font.PLAIN, 14));
+        g.setFont(new Font("Calibri", Font.PLAIN, 14));
         g.setColor(Color.WHITE);
         g.drawString(loadString, x, y);
 

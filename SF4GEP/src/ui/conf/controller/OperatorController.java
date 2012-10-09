@@ -27,7 +27,7 @@ public class OperatorController {
 		operatorModel.registerObserver(operatorPanel);
 		
 		
-		operatorPanel.mutateTextField.getDocument().addDocumentListener
+		/*operatorPanel.mutateTextField.getDocument().addDocumentListener
 		(new MutateTextField_onValueChanged ());
 
 		
@@ -54,7 +54,7 @@ public class OperatorController {
 		
 		operatorPanel.geneCombineTextField.getDocument().addDocumentListener
 		(new GeneCombineTextField_onValueChanged());
-		
+		*/
 		
 	}
 	

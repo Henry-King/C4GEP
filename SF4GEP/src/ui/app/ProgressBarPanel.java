@@ -42,7 +42,8 @@ public class ProgressBarPanel extends JPanel{
         loadBar.setForeground(Color.GREEN);
         loadBar.setString("Loading...");
         loadBar.setStringPainted(true);
-        loadBar.setIndeterminate(false);  
+        loadBar.setIndeterminate(false);
+        loadBar.setValue(20);
         loadBar.putClientProperty("selectionForeground", Color.yellow);
         loadBar.putClientProperty("selectionBackground", Color.gray);
         loadBar.setPreferredSize(new Dimension(300,20));

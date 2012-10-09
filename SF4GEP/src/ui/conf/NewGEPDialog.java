@@ -200,7 +200,6 @@ public class NewGEPDialog extends JDialog {
             
 	 }
 	public void loadNewProject(){
-		
 		if (JTattooUtilities.getJavaVersion() >= 1.6) {
     		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
     		String title = txt_projectName.getText().toString();

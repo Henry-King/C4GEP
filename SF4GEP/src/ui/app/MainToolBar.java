@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import javax.swing.*;
+import javax.swing.Timer;
 
 
 import data.dao.HibernateDataContext;
@@ -36,6 +37,10 @@ import ui.images.*;
  * @author Michael Hagen
  */
 public class MainToolBar extends JToolBar {
+	private InputDataWnd inputDataWnd;
+	private Point prePoint = null;
+	private Timer timer = null;
+	
     private ImageIcon newImage = null;
     private ImageIcon openImage = null;
     private ImageIcon saveImage = null;
@@ -48,6 +53,7 @@ public class MainToolBar extends JToolBar {
     private ImageIcon clearImage = null;
     private ImageIcon debugImage = null;
     private ImageIcon cfgImage = null;
+    private ImageIcon inputDataImage = null;
     
     private ToolButton newButton = null;
     private ToolButton openButton = null;
@@ -61,6 +67,7 @@ public class MainToolBar extends JToolBar {
     private ToolButton clearButton = null;
     private ToolButton debugButton = null;
     private ToolButton cfgButton = null;
+    private ToolButton inputDataButton = null;
 //    private JButton defaultBorderButton = null;
     
     private MainWnd mainWnd;
@@ -98,7 +105,86 @@ public class MainToolBar extends JToolBar {
         saveButton.setToolTipText("保存");
         
         
+        inputDataImage = ImageHelper.loadImage("inputdata.png");
+        inputDataButton = new ToolButton(inputDataImage);
+        inputDataButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            }
+        });
+        timer = new Timer(500,new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (inputDataWnd!=null) {
+					if (!inputDataWnd.isInWnd()) {
+						inputDataWnd.setVisible(false);
+						inputDataWnd.dispose();
+					}
+					
+				}
+				
+			}
+		});
+        inputDataButton.addMouseListener(new MouseAdapter() {
+        	
+        	
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+}
+        	
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		//if (inputDataWnd==null) {
+        			Point p = inputDataButton.getLocation();
+        			System.out.println(p.x+"|"+p.y);
+        			System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
+        			inputDataWnd = new InputDataWnd(confPanel,p);
+                    inputDataWnd.setVisible(true);
+				//}
+                    if (timer.isRunning()) {
+    					timer.stop();
+    				}
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		/*if (inputDataWnd!=null) {
+					inputDataWnd.setVisible(false);
+					inputDataWnd.dispose();
+					inputDataWnd = null;
+				}*/
+        		if (!timer.isRunning()) {
+					timer.start();
+				}
+        	}
+        });
+        inputDataButton.addMouseMotionListener(new MouseMotionAdapter() {
+            /*public void mouseMoved(final MouseEvent e) {
+            	if (inputDataWnd==null) {
+            		
+                    inputDataWnd = new InputDataWnd(inputDataButton.getLocation());
+                    inputDataWnd.setVisible(true);
+				}else{
+					
+					//if 右移
+						//固定位置，鼠标移出消失
+					//else
+					if (prePoint!=null) {
+						if (prePoint.getX()<e.getPoint().getX()) {	//右移
+							
+						}else{
+							inputDataWnd.setLocation(e.getPoint());
+						}
+						
+					}
+					
+				}
+                
+                
+            	prePoint = e.getPoint();
+            }*/
+        });
         
+        inputDataButton.setToolTipText("选择输入数据集");
         
         cutImage = ImageHelper.loadImage("cut.png");
         cutButton = new ToolButton(cutImage);
@@ -183,7 +269,7 @@ public class MainToolBar extends JToolBar {
 					if (geneModel.isUseHomeoticGene()) {	//使用同源基因连接
 						geneConfiguration.setHomeoticGeneNumber(geneModel.getHomeoticGeneNumber());
 						geneConfiguration.setHomeoticGeneHeaderLength(geneModel.getHomeoticGeneHeaderLength());
-						
+						geneConfiguration.setUseHomeoticGene(true);
 						/*JOptionPane.showMessageDialog(mainWnd.frame,geneModel.getIndividualNumber()+"|"
 								+geneModel.getNormalGeneNumber()+"|"
 								+geneModel.getNormalGeneHeaderLength()+"|"
@@ -191,6 +277,7 @@ public class MainToolBar extends JToolBar {
 								+geneModel.getHomeoticGeneHeaderLength());
 						*/
 					}else{	//使用函数连接
+						geneConfiguration.setUseHomeoticGene(false);
 						JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
 						//geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
 						geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
@@ -274,6 +361,7 @@ public class MainToolBar extends JToolBar {
         add(saveButton);
         
         addSeparator();
+        add(inputDataButton);
         add(cutButton);
         add(copyButton);
         add(pasteButton);

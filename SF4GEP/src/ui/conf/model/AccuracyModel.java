@@ -12,6 +12,9 @@ public class AccuracyModel extends Model{
 	
 	public AccuracyModel() {
 		super();
+		this.maxGeneration = Long.parseLong("0");
+		this.selectionRange = Float.parseFloat("0.0");
+		this.accuracy = Float.parseFloat("0.0");
 		init();
 	}
 	

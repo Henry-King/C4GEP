@@ -15,7 +15,21 @@ import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.*;
 
+import ui.conf.NewGEPDialog.CloseableTabComponent;
+import ui.conf.controller.AccuracyController;
+import ui.conf.controller.GeneController;
+import ui.conf.controller.OperatorController;
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.GeneModel;
+import ui.conf.model.OperatorModel;
+import ui.conf.view.ConfPanel;
+
+import com.jtattoo.plaf.JTattooUtilities;
+
+import domain.core.algconfiguration.Function;
+import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
 import domain.service.algConfiguration.GepConfigurationService;
 import java.awt.event.MouseAdapter;
 
@@ -54,9 +68,75 @@ public class TablePanel extends JPanel {
         	myTable.getColumn(myTable.getColumnName(i)).setCellRenderer(new MyTableCellRenderer());
         }
         
-        
-        
         myTable.addMouseListener(new MouseAdapter() {
+        	
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		//JOptionPane.showMessageDialog(mainWnd.frame,"test click");
+        		GepAlgConfiguration gepAlgConfiguration = (GepAlgConfiguration)modelList.get(myTable.rowAtPoint(e.getPoint()));
+        		
+        		
+        		if (JTattooUtilities.getJavaVersion() >= 1.6) {
+        			
+        			//Open Window
+            		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
+            		String title = gepAlgConfiguration.getName().toString();
+                    int tabCount = jtp.getTabCount();
+                    ConfPanel newConfPanel = new ConfPanel(mainWnd);
+                    VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
+                    jtp.addTab(null,newVTextIcon, newConfPanel, null);
+                    //jtp.addTab("Tab", null,welcomeVTextIcon,null);
+                   
+                    CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
+                    
+                    jtp.setSelectedIndex(tabCount);
+                    jtp.setTabComponentAt(tabCount, ctc);
+                    jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
+                    
+                    
+                    //initial model
+                	 AccuracyController accuracyController = newConfPanel.contentPanel.getAccuracyController();
+                	 GeneController geneController = newConfPanel.contentPanel.getGeneController();
+                	 OperatorController operatorController = newConfPanel.contentPanel.getOperatorController();
+                	 
+                	 AccuracyModel accuracyModel = accuracyController.getAccuracyModel();
+                	 accuracyModel.setMaxGeneration(gepAlgConfiguration.getMaxGeneration());
+                	 accuracyModel.setSelectionRange(gepAlgConfiguration.getSelectionRange());
+                	 accuracyModel.setAccuracy(gepAlgConfiguration.getAccuracy());
+                	 accuracyModel.changeModel();
+                	 GeneConfiguration geneConfiguration = gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();
+                	 
+                	 
+                	 GeneModel geneModel = geneController.getGeneModel();
+                	 geneModel.setIndividualNumber(gepAlgConfiguration.getIndividualConfiguration().getIndividualNumber());
+                	 geneModel.setNormalGeneNumber(geneConfiguration.getNormalGeneNumber());
+                	 geneModel.setNormalGeneHeaderLength(geneConfiguration.getNormalGeneHeaderLength());
+                	 geneModel.setFunctionList(geneConfiguration.getFunctionUsed());
+             		if (geneModel.isUseHomeoticGene()) {
+             			geneModel.setHomeoticGeneNumber(geneConfiguration.getHomeoticGeneNumber());
+             			geneModel.setHomeoticGeneHeaderLength(geneConfiguration.getHomeoticGeneHeaderLength());
+             		}
+             		else {
+             			geneModel.setConnectionFunction(geneConfiguration.getConnectionFunction());
+             		}
+             		geneModel.changeModel();
+             		
+             		OperatorConfiguration operatorConfiguration = gepAlgConfiguration.getOperatorConfiguration();
+             		OperatorModel operatorModel = operatorController.getOperatorModel();
+             		operatorModel.setMutateRate(operatorConfiguration.getMutateRate());
+             		operatorModel.setIsTransportRate(operatorConfiguration.getIsTransportRate());
+            		operatorModel.setIsElement(operatorConfiguration.getIsElement());
+            		operatorModel.setRisTransportRate(operatorConfiguration.getRisTransportRate());
+            		operatorModel.setRisElement(operatorConfiguration.getRisElement());
+            		operatorModel.setGeneTransportRate(operatorConfiguration.getGeneTransportRate());
+            		operatorModel.setOnePointRecombineRate(operatorConfiguration.getOnePointRecombineRate());
+            		operatorModel.setTwoPointRecombineRate(operatorConfiguration.getTwoPointRecombineRate());
+            		operatorModel.setGeneRecombineRate(operatorConfiguration.getGeneRecombineRate());
+            		operatorModel.changeModel();
+        		}
+        		
+        		
+        	}
         	
         	@Override
         	public void mouseEntered(MouseEvent e) {
@@ -120,6 +200,7 @@ public class TablePanel extends JPanel {
 //        tableCol.setPreferredWidth(30);
         
         JScrollPane scrollPane = new JScrollPane(myTable);
+        
         
         add(scrollPane, BorderLayout.CENTER);
 

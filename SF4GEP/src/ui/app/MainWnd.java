@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
@@ -87,13 +88,11 @@ public class MainWnd {
         splashScreen = new SplashWnd();
         splashScreen.setVisible(true);
         
-        		
-        EventQueue.invokeLater(new Runnable() {
+        
+        /*new Thread() {
             public void run() {
-            	loadBar = splashScreen.getLoadBar();
 
-            	
-            	
+            	loadBar = splashScreen.getLoadBar();
             	
                 loadBar.setValue(30);
             	splashScreen.splashPanel.setLoadString("initial HibernateDataContext");
@@ -102,19 +101,57 @@ public class MainWnd {
             	
             	splashScreen.splashPanel.setLoadString("initial Mathematica Kernel");
             	initKernel();
-            	
+
             	
             }
-        });
+        }.start();*/
+        
+        		
+        try {
+			EventQueue.invokeAndWait(new Runnable() {
+			    public void run() {
+			    	
+			    	loadBar = splashScreen.getLoadBar();
+			        loadBar.setValue(30);
+			    	splashScreen.splashPanel.setLoadString("initial HibernateDataContext");
+			    	hibernateDataContext =  GepConfigurationService.initSystem();
+
+			    	splashScreen.splashPanel.setLoadString("initial Mathematica Kernel");
+			    	initKernel();
+			    	
+			    }
+			});
+		} catch (InvocationTargetException | InterruptedException e1) {
+		}
 		
 		
 		
-		
-		
+        /*new Thread() {
+            public void run() {
+            	try {
+            		while (true) {
+            			if (splashScreen.getLoadBar().getValue()==100) {
+            				frame = new MainFrame(mainWnd);
+        					if (splashScreen != null) {
+        	                    splashScreen.setVisible(false);
+        	                }
+							break;
+						}
+					}
+            		
+            		
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+            }
+        }.start();
+		*/
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					frame = new MainFrame(mainWnd);
 					if (splashScreen != null) {
 	                    splashScreen.setVisible(false);
@@ -154,7 +191,7 @@ public class MainWnd {
 	private void initKernel(){	
 		try {
 			splashScreen.splashPanel.setLoadString("load kernel link");
-			//loadBar.setValue(50);
+			loadBar.setValue(50);
 			ml = MathLinkFactory
 			.createKernelLink("-linkmode launch -linkname 'D:\\program files\\wolfram research\\mathematica\\8.0\\mathkernel.exe'");
 			ml.discardAnswer();
@@ -165,7 +202,7 @@ public class MainWnd {
 			return;
 		}
 		splashScreen.splashPanel.setLoadString("initial kernel parameter");
-		//loadBar.setValue(70);
+		loadBar.setValue(70);
 		ml.evaluateToInputForm("Needs[\"" + KernelLink.PACKAGE_CONTEXT + "\"]", 0);
 		ml.evaluateToInputForm("ConnectToFrontEnd[]", 0);
 		loadBar.setValue(100);

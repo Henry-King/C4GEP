@@ -34,6 +34,7 @@ public class OperatorModel extends Model{
 		
 	}
 
+
 	public Float getMutateRate() {
 		return mutateRate;
 	}

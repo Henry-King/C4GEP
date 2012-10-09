@@ -39,7 +39,7 @@ public class GeneController {
 //		HomeoticGeneTextField_onValueChanged
 //		HomeoticGeneHeaderTextField_onValueChanged
 		
-		genePanel.individualNumtextField.getDocument().addDocumentListener
+		/*genePanel.individualNumtextField.getDocument().addDocumentListener
 		(new IndividualNumTextField_onValueChanged ());
 		
 		genePanel.normalGeneNumTextField.getDocument().addDocumentListener
@@ -52,7 +52,10 @@ public class GeneController {
 		(new HomeoticGeneTextField_onValueChanged());
 		
 		genePanel.homeoticGeneHeaderTextField.getDocument().addDocumentListener
-		(new HomeoticGeneHeaderTextField_onValueChanged());
+		(new HomeoticGeneHeaderTextField_onValueChanged());*/
+		
+		
+		
 		
 		genePanel.homeoticGeneRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -161,7 +164,7 @@ public class GeneController {
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = genePanel.individualNumtextField.getText().toString();
 			
-			try {
+			/*try {
 				Integer.parseInt(str);
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, true);
@@ -169,7 +172,7 @@ public class GeneController {
 			} catch (NumberFormatException e) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 		@Override

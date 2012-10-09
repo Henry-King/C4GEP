@@ -76,6 +76,9 @@ public class GepConfigurationService implements IgepConfigurationService {
 		individualConfiguration.setHomeoticGeneTotalLength(geneConfiguration.getHomeoticGeneLength()*geneConfiguration.getHomeoticGeneNumber());
 		individualConfiguration.setGeneTotalLength(individualConfiguration.getHomeoticGeneTotalLength()+individualConfiguration.getNormalGeneTotalLength());
 		gepAlgConfiguration.setMaxFitness(gepAlgConfiguration.getSelectionRange()*dataSet.getRowNum());
+		
+		//System.out.println(gepAlgConfiguration.getSelectionRange() + "|"+dataSet.getRowNum());
+		
 		return gepAlgConfiguration;
 	}
 	private int maxArity(List<Function> functions){

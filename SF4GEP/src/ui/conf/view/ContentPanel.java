@@ -161,4 +161,28 @@ public class ContentPanel extends JPanel implements MouseListener,
 		}
 	}
 
+	public AccuracyController getAccuracyController() {
+		return accuracyController;
+	}
+
+	public void setAccuracyController(AccuracyController accuracyController) {
+		this.accuracyController = accuracyController;
+	}
+
+	public GeneController getGeneController() {
+		return geneController;
+	}
+
+	public void setGeneController(GeneController geneController) {
+		this.geneController = geneController;
+	}
+
+	public OperatorController getOperatorController() {
+		return operatorController;
+	}
+
+	public void setOperatorController(OperatorController operatorController) {
+		this.operatorController = operatorController;
+	}
+
 }

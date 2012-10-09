@@ -27,6 +27,10 @@ public abstract class Model {
        dataUpdate();
    }
    
+   public void changeModel(){
+	   dataUpdate();
+   }
+   
    private void dataUpdate()
    {
 	   Iterator<Observer> i = observers.iterator();

@@ -27,7 +27,7 @@ public class ConfPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -5609826898115031426L;
-	private MainWnd mainWnd;
+	public MainWnd mainWnd;
 	private DataSet inputData;
 	private NewProjectModel newProjectModel;
 	
@@ -84,6 +84,7 @@ public class ConfPanel extends JPanel {
 
 	public void setNewProjectModel(NewProjectModel newProjectModel) {
 		this.newProjectModel = newProjectModel;
+		this.inputData = newProjectModel.getInputDataSet();
 	}
 
 }

@@ -32,7 +32,7 @@ public class AccuracyController {
 		accuracyModel.registerObserver(accuracyPanel);
 		accuracyPanel.generationNumTextField.getDocument().addDocumentListener
 		(new GenerationNumTextField_onValueChanged ());
-
+		
 		
 		accuracyPanel.accuracytextField.getDocument().addDocumentListener
 		(new AccuracyTextField_onValueChanged());
@@ -51,6 +51,7 @@ public class AccuracyController {
 
 	public void setAccuracyModel(AccuracyModel accuracyModel) {
 		this.accuracyModel = accuracyModel;
+		
 	}
 
 	public AccuracyPanel getAccuracyPanel() {
@@ -79,27 +80,40 @@ public class AccuracyController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = accuracyPanel.generationNumTextField.getText().toString();
-			
-			try {
-				Long.parseLong(str);
+			if (str.equals(null)) {
 				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
-				accuracyPanel.fillModel(accuracyModel);
+				isDataFitedHashtable.put(thisKeyString, false);
+				return;
+			}
+			
+			/*
+			try {
+				
+				if (str.equals("")||str.equals(null)) {
+					isDataFitedHashtable.remove(thisKeyString);
+					isDataFitedHashtable.put(thisKeyString, false);
+				}else{
+					Long.parseLong(str);
+					isDataFitedHashtable.remove(thisKeyString);
+					isDataFitedHashtable.put(thisKeyString, true);
+					accuracyPanel.fillModel(accuracyModel);
+				}
 			} catch (NumberFormatException e) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = accuracyPanel.generationNumTextField.getText().toString();
-			try {
-				Long.parseLong(str);
+			/*try {
+				
 				if (str.equals("")||str.equals(null)) {
 					isDataFitedHashtable.remove(thisKeyString);
 					isDataFitedHashtable.put(thisKeyString, false);
 				}else{
+					Long.parseLong(str);
 					isDataFitedHashtable.remove(thisKeyString);
 					isDataFitedHashtable.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
@@ -107,7 +121,7 @@ public class AccuracyController {
 			}catch (NumberFormatException e1) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 	}
@@ -130,21 +144,26 @@ public class AccuracyController {
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = accuracyPanel.selectionRangeTextField.getText().toString();
 			
-			try {
+			/*try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
-				accuracyPanel.fillModel(accuracyModel);
+				if (str.equals("")||str.equals(null)) {
+					isDataFitedHashtable.remove(thisKeyString);
+					isDataFitedHashtable.put(thisKeyString, false);
+				}else{
+					isDataFitedHashtable.remove(thisKeyString);
+					isDataFitedHashtable.put(thisKeyString, true);
+					accuracyPanel.fillModel(accuracyModel);
+				}
 			} catch (NumberFormatException e) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = accuracyPanel.selectionRangeTextField.getText().toString();
-			try {
+			/*try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
 					isDataFitedHashtable.remove(thisKeyString);
@@ -157,7 +176,7 @@ public class AccuracyController {
 			}catch (NumberFormatException e1) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 	}
@@ -183,7 +202,7 @@ public class AccuracyController {
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = accuracyPanel.accuracytextField.getText().toString();
 			
-			try {
+			/*try {
 				Float.parseFloat(str);
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, true);
@@ -191,13 +210,13 @@ public class AccuracyController {
 			} catch (NumberFormatException e) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = accuracyPanel.accuracytextField.getText().toString();
-			try {
+			/*try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
 					isDataFitedHashtable.remove(thisKeyString);
@@ -210,7 +229,7 @@ public class AccuracyController {
 			}catch (NumberFormatException e1) {
 				isDataFitedHashtable.remove(thisKeyString);
 				isDataFitedHashtable.put(thisKeyString, false);
-			}
+			}*/
 		}
 
 	}

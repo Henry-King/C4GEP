@@ -162,7 +162,6 @@ public class GenePanel extends JPanel implements Observer{
 		add(connectionTypePanel, gbc_connectionTypePanel);
 
 		
-		
 		homeoticGeneRadioButton = new JRadioButton("\u4F7F\u7528\u540C\u6E90\u57FA\u56E0");
 		connectionTypePanel.add(homeoticGeneRadioButton);
 		buttonGroup.add(homeoticGeneRadioButton);
@@ -299,7 +298,24 @@ public class GenePanel extends JPanel implements Observer{
 		individualNumtextField.setText(geneModel.getIndividualNumber().toString());
 		normalGeneNumTextField.setText(geneModel.getNormalGeneNumber().toString());
 		normalGeneHeaderTextField.setText(geneModel.getNormalGeneHeaderLength().toString());
-		
+		if (geneModel.isUseHomeoticGene()) {
+			
+			
+			
+			homeoticGeneRadioButton.setSelected(true);
+			//connectionFuncRadioButton.setSelected(false);
+			homeoticGeneHeaderTextField.setText(geneModel.getHomeoticGeneHeaderLength().toString());
+			homeoticGeneTextField.setText(geneModel.getHomeoticGeneNumber().toString());
+			
+		}
+		else {
+			//homeoticGeneRadioButton.setSelected(false);
+			connectionFuncRadioButton.setSelected(true);
+			/**
+			 * ´ý²¹³ä
+			 */
+			//geneModel.setConnectionFunction(connectionComboBox.getItemAt(connectionComboBox.getSelectedIndex()));
+		}
 		//homeoticGeneTextField.setText(geneModel.getHomeoticGeneNumber().toString());
 		//homeoticGeneHeaderTextField.setText(geneModel.getHomeoticGeneHeaderLength().toString());
 		
