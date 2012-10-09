@@ -26,7 +26,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 	 * @return Hibernate上下文连接对象
 	 */
 	public static HibernateDataContext initSystem() {
-		System.loadLibrary("SF4GEP");
+		//System.loadLibrary("SF4GEP");
 		System.loadLibrary("JLinkNativeLibrary");
 		return new HibernateDataContext();
 	}

@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 
 import ui.app.GUIProperties;
+import ui.app.MainWnd;
 import ui.app.TablePanel;
 import ui.images.*;
 import java.awt.GridBagLayout;
@@ -30,10 +31,14 @@ import javax.swing.border.MatteBorder;
 
 public class WelcomeContent_HistoryProject extends JPanel {
 
+	private MainWnd mainWnd;
+	
+	
 	/**
 	 * Create the panel.
 	 */
-	public WelcomeContent_HistoryProject() {
+	public WelcomeContent_HistoryProject(MainWnd mainWnd) {
+		this.mainWnd = mainWnd;
 		setBorder(new EmptyBorder(5, 2, 5, 2));
 		setSize(648,212);
 		JList list = new JList();
@@ -54,7 +59,7 @@ public class WelcomeContent_HistoryProject extends JPanel {
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		
 		
-		TablePanel projectTable = new TablePanel();
+		TablePanel projectTable = new TablePanel(mainWnd);
 		projectTable.setBorder(new EmptyBorder(8, 8, 1, 8));
 		
 		
@@ -62,14 +67,14 @@ public class WelcomeContent_HistoryProject extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(14)
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 631, GroupLayout.PREFERRED_SIZE))
 						.addComponent(list)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(projectTable, GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE))
+							.addComponent(projectTable, GroupLayout.PREFERRED_SIZE, 635, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(26)
 							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 589, GroupLayout.PREFERRED_SIZE)))

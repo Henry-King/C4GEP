@@ -26,7 +26,7 @@ public class WelcomePanel extends JPanel {
 		
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		WelcomeContent_HistoryProject hp = new WelcomeContent_HistoryProject();
+		WelcomeContent_HistoryProject hp = new WelcomeContent_HistoryProject(mainWnd);
 		WelcomeContent_ProfileUsed  pu= new WelcomeContent_ProfileUsed();
 		leftPanel.add(hp);
 		leftPanel.add(pu);

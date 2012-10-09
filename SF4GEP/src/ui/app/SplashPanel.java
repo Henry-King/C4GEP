@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import ui.conf.model.NewProjectModel;
 import ui.images.ImageHelper;
 
 /**
@@ -17,7 +18,9 @@ import ui.images.ImageHelper;
 public class SplashPanel extends JPanel {
     private ImageIcon splashImage = ImageHelper.loadImage("splash.jpg");
     private Dimension size = new Dimension(splashImage.getIconWidth(), splashImage.getIconHeight());
-
+    private String loadString = "loading...";
+    
+    
     public SplashPanel() {
         super();
         setForeground(new Color(233, 115, 103));
@@ -29,11 +32,17 @@ public class SplashPanel extends JPanel {
     }
 
     public void paint(Graphics g) {
-        Graphics2D g2D = (Graphics2D)g;
+        //Graphics2D g2D = (Graphics2D)g;
         splashImage.paintIcon(this, g, 0, 0);
-        int x = 316;
-        int y = 172;
-        Object rh = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
+        
+        int x = 10;
+        int y = splashImage.getIconHeight()-10;
+        g.setFont(new Font("Cambria", Font.PLAIN, 14));
+        g.setColor(Color.WHITE);
+        g.drawString(loadString, x, y);
+
+        
+        /*Object rh = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
         g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setFont(getFont());
         g.setColor(Color.black);
@@ -41,7 +50,23 @@ public class SplashPanel extends JPanel {
         g.setColor(getForeground());
         g.drawString(com.jtattoo.plaf.About.JTATTOO_VERSION, x, y);
         g.drawString(com.jtattoo.plaf.About.JTATTOO_VERSION, x + 1, y);
-        g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, rh);
+        g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, rh);*/
+        
     }
+
+	public String getLoadString() {
+		return loadString;
+	}
+
+	public void setLoadString(String loadString) {
+		this.loadString = loadString;
+		updata();
+	}
+	
+	  public void updata() {
+	            Graphics g = this.getGraphics();
+	            paint(g);
+	  }
+	
 
 }
