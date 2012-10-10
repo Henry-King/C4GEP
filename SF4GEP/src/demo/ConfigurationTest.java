@@ -72,7 +72,6 @@ public class ConfigurationTest {
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.processConf(gepAlgConfiguration, dataSet);
 		gepConfigurationService.save(gepAlgConfiguration);
-		
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
