@@ -234,7 +234,7 @@ public class GeneConfiguration implements Serializable{
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException|NullPointerException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			connectionFunction=null;
 		}
 	}
 	/**
