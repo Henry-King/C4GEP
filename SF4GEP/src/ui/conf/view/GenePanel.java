@@ -299,9 +299,6 @@ public class GenePanel extends JPanel implements Observer{
 		normalGeneNumTextField.setText(geneModel.getNormalGeneNumber().toString());
 		normalGeneHeaderTextField.setText(geneModel.getNormalGeneHeaderLength().toString());
 		if (geneModel.isUseHomeoticGene()) {
-			
-			
-			
 			homeoticGeneRadioButton.setSelected(true);
 			//connectionFuncRadioButton.setSelected(false);
 			homeoticGeneHeaderTextField.setText(geneModel.getHomeoticGeneHeaderLength().toString());
@@ -311,12 +308,24 @@ public class GenePanel extends JPanel implements Observer{
 		else {
 			//homeoticGeneRadioButton.setSelected(false);
 			connectionFuncRadioButton.setSelected(true);
-			connectionComboBox.setSelectedItem(geneModel.getConnectionFunction());
-			/**
-			 * ´ý²¹³ä
-			 */
-			//geneModel.setConnectionFunction(connectionComboBox.getItemAt(connectionComboBox.getSelectedIndex()));
+			Function function;
+			for(int i=0;i<connectionComboBox.getItemCount();i++){
+				function=connectionComboBox.getItemAt(i);
+				if(function.equals(geneModel.getConnectionFunction()))
+					connectionComboBox.setSelectedIndex(i);
+			}
 		}
+		Function function;
+		int result[]=new int[geneModel.getFunctionList().size()];
+		for(int i=0;i<geneModel.getFunctionList().size();i++){
+			function=geneModel.getFunctionList().get(i);
+			for(int j=0;j<functionList.getModel().getSize();j++)
+				if(functionList.getModel().getElementAt(j).equals(function)){
+					result[i]=j;
+					break;
+				}
+		}
+		functionList.setSelectedIndices(result);
 		//homeoticGeneTextField.setText(geneModel.getHomeoticGeneNumber().toString());
 		//homeoticGeneHeaderTextField.setText(geneModel.getHomeoticGeneHeaderLength().toString());
 		
