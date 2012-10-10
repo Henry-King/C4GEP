@@ -26,6 +26,7 @@ import domain.service.algOutput.AlgOutputService;
 
 import ui.conf.*;
 import ui.conf.controller.InputDataController;
+import ui.conf.controller.OutputPictureController;
 import ui.conf.model.*;
 import ui.conf.view.*;
 import ui.alginputdataprocess.controller.InputFileController;
@@ -81,7 +82,7 @@ public class MainToolBar extends JToolBar {
     private HibernateDataContext hibernateDataContext;
     private DataSet inputDataSet;
     
-    
+    private GepAlgRun gepAlgRun;
     
 
     public MainToolBar(final MainWnd mainWnd,final ConfPanel confPanel) {
@@ -206,11 +207,6 @@ public class MainToolBar extends JToolBar {
         profileImage = ImageHelper.loadImage("profile.png");
         profileButton = new ToolButton(profileImage);
         profileButton.setToolTipText("算法配置");
-        profileButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	
-            }
-        });
         
         profileButton.addMouseListener(new MouseAdapter() {
         	
@@ -227,8 +223,8 @@ public class MainToolBar extends JToolBar {
         			inputDataWnd.dispose();
 				}
     			Point p = profileButton.getLocation();
-    			System.out.println(p.x+"|"+p.y);
-    			System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
+    			//System.out.println(p.x+"|"+p.y);
+    			//System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
     			profileWnd = new ProfileWnd(confPanel,p);
     			profileWnd.setVisible(true);
                 if (timer.isRunning()) {
@@ -287,7 +283,7 @@ public class MainToolBar extends JToolBar {
 				IndividualConfiguration individualConfiguration = null;
 				GeneConfiguration geneConfiguration = null;
 				OperatorConfiguration operatorConfiguration = null;
-            	
+				inputDataSet = confPanel.getInputData();
             	
             	
             	/*精度面板*/
@@ -395,9 +391,12 @@ public class MainToolBar extends JToolBar {
             	algOutputService.setWriteToDB(false);
             	Future<GepAlgRun> result=algOutputService.run(gepAlgConfiguration, new AlgCpuRunStep(), inputDataSet);
             	try {
-					result.get();
+            		gepAlgRun = result.get();
+            		
+            		OutputPictureController ouputPictureController = confPanel.contentPanel.getOutputPictureController();
+            		ouputPictureController.setGepAlgRun(gepAlgRun);
+            		
 				} catch (InterruptedException | ExecutionException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             	
@@ -482,4 +481,12 @@ public class MainToolBar extends JToolBar {
         public void requestFocus() {
         }
     }
+
+	public GepAlgRun getGepAlgRun() {
+		return gepAlgRun;
+	}
+
+	public void setGepAlgRun(GepAlgRun gepAlgRun) {
+		this.gepAlgRun = gepAlgRun;
+	}
 }

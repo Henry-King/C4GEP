@@ -222,6 +222,14 @@ public class MainWnd {
 	public void setHibernateDataContext(HibernateDataContext hibernateDataContext) {
 		this.hibernateDataContext = hibernateDataContext;
 	}
+
+	public KernelLink getMl() {
+		return ml;
+	}
+
+	public void setMl(KernelLink ml) {
+		this.ml = ml;
+	}
 	
 	
 

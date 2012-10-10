@@ -6,13 +6,17 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.wolfram.jlink.MathCanvas;
+
 import ui.app.MainWnd;
 import ui.conf.controller.AccuracyController;
 import ui.conf.controller.GeneController;
 import ui.conf.controller.OperatorController;
+import ui.conf.controller.OutputPictureController;
 import ui.conf.model.AccuracyModel;
 import ui.conf.model.GeneModel;
 import ui.conf.model.OperatorModel;
+import ui.conf.model.OutputPictureModel;
 
 public class ContentPanel extends JPanel implements MouseListener,
 		MouseMotionListener {
@@ -21,37 +25,49 @@ public class ContentPanel extends JPanel implements MouseListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 143362423596329375L;
-	JPanel OutputPicturePanel;
+	OutputPicturePanel outputPicturePanel;
 	JTabbedPane tabbedPane;
 
 	private AccuracyPanel accuracyPanel;
 	private GenePanel genePanel;
 	private OperatorPanel operatorPanel;
 	private JPanel resultPanel;
-	
+	private MainWnd mainWnd;
 	
 	public AccuracyController accuracyController;
 	public GeneController geneController;
 	public OperatorController operatorController;
-
+	public OutputPictureController outputPictureController;
+	
+	
+	
 	/**
 	 * Create the panel.
 	 */
 	public ContentPanel(MainWnd mainWnd) {
+		this.mainWnd = mainWnd;
 		this.setLayout(new BorderLayout());
 		/* »­Í¼Ãæ°å */
-		OutputPicturePanel = new JPanel();
-		OutputPicturePanel.setBorder(new MatteBorder(0, 0, 7, 0,
-				(Color) Color.LIGHT_GRAY));
-		add("North", OutputPicturePanel);
-		OutputPicturePanel.setLayout(new GridLayout(1, 2));
+		outputPicturePanel = new OutputPicturePanel(mainWnd);
+		OutputPictureModel outputPictureModel = new OutputPictureModel();
+		outputPictureController = new OutputPictureController(outputPictureModel,outputPicturePanel);
+		add("North", outputPicturePanel);
 
+		
+		
+		/*
 		JPanel FittingCurvePanel = new JPanel();
 		OutputPicturePanel.add(FittingCurvePanel);
 
 		JPanel EvolutionGraphPanel = new JPanel();
 		OutputPicturePanel.add(EvolutionGraphPanel);
-
+		*/
+		
+		
+		
+		
+		
+		
 		/* TabbedPanel */
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		accuracyPanel = new AccuracyPanel();
@@ -92,8 +108,8 @@ public class ContentPanel extends JPanel implements MouseListener,
 		resultPanel = new ResultPanel();
 		tabbedPane.addTab("\u8fd0\u7b97\u7ed3\u679c", null, resultPanel, null);
 
-		OutputPicturePanel.addMouseListener(this);
-		OutputPicturePanel.addMouseMotionListener(this);
+		outputPicturePanel.addMouseListener(this);
+		outputPicturePanel.addMouseMotionListener(this);
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -127,20 +143,20 @@ public class ContentPanel extends JPanel implements MouseListener,
 
 			this.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
 			Point po = e.getPoint();
-			Dimension di = OutputPicturePanel.getPreferredSize();
+			Dimension di = outputPicturePanel.getPreferredSize();
 
 			if (po.y < 5 || this.getHeight() < po.y) {
 
 			} else {
-				OutputPicturePanel.setPreferredSize(new Dimension(di.width,
-						(OutputPicturePanel.getY() + po.y)));
+				outputPicturePanel.setPreferredSize(new Dimension(di.width,
+						(outputPicturePanel.getY() + po.y)));
 				// System.out.println(po.y);
 				// System.out.println(mainFrame.getY());
 				// System.out.println(this.getHeight() + "|" + po.y);
 			}
 
-			OutputPicturePanel.revalidate();
-			OutputPicturePanel.repaint();
+			outputPicturePanel.revalidate();
+			outputPicturePanel.repaint();
 		}
 
 	}
@@ -152,8 +168,8 @@ public class ContentPanel extends JPanel implements MouseListener,
 		this.setCursor(Cursor.getDefaultCursor());
 		flag = false;
 		dragFlag = false;
-		if (((OutputPicturePanel.getY() + OutputPicturePanel.getHeight() - point.y) < 15)
-				&& ((OutputPicturePanel.getY() + OutputPicturePanel.getHeight() - point.y) > -15)) {
+		if (((outputPicturePanel.getY() + outputPicturePanel.getHeight() - point.y) < 15)
+				&& ((outputPicturePanel.getY() + outputPicturePanel.getHeight() - point.y) > -15)) {
 			this.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
 			flag = true;
 		} else {
@@ -183,6 +199,15 @@ public class ContentPanel extends JPanel implements MouseListener,
 
 	public void setOperatorController(OperatorController operatorController) {
 		this.operatorController = operatorController;
+	}
+
+	public OutputPictureController getOutputPictureController() {
+		return outputPictureController;
+	}
+
+	public void setOutputPictureController(
+			OutputPictureController outputPictureController) {
+		this.outputPictureController = outputPictureController;
 	}
 
 }
