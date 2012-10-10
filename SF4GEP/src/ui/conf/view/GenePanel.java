@@ -311,6 +311,7 @@ public class GenePanel extends JPanel implements Observer{
 		else {
 			//homeoticGeneRadioButton.setSelected(false);
 			connectionFuncRadioButton.setSelected(true);
+			connectionComboBox.setSelectedItem(geneModel.getConnectionFunction());
 			/**
 			 * ´ý²¹³ä
 			 */
