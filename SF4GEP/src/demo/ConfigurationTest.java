@@ -72,11 +72,12 @@ public class ConfigurationTest {
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.processConf(gepAlgConfiguration, dataSet);
 		gepConfigurationService.save(gepAlgConfiguration);
+		
 		run(gepAlgConfiguration,dataSet,hibernateDataContext);
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
-		algOutputService.setWriteToDB(false);
+		algOutputService.setWriteToDB(true);
 		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
