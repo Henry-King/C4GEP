@@ -4,13 +4,16 @@ import ui.conf.model.*;
 import ui.conf.view.*;
 
 import javax.swing.event.*;
+
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class OperatorController {
 	
 	OperatorModel operatorModel = null;
 	OperatorPanel operatorPanel = null;
-	Hashtable<String, Boolean> isDataFitedHashtable = null;
+	Map<String, Boolean> isDataFitedMap = null;
 	
 	
 	public OperatorController(OperatorModel operatorModel,OperatorPanel operatorPanel) {
@@ -22,7 +25,7 @@ public class OperatorController {
 	
 	public void init(){
 		
-		isDataFitedHashtable = operatorModel.getIsDataFitedHashtable();
+		isDataFitedMap = operatorModel.getIsDataFitedMap();
 		operatorPanel.fillModel(operatorModel);
 		operatorModel.registerObserver(operatorPanel);
 		
@@ -76,12 +79,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -91,16 +94,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -132,12 +135,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -147,16 +150,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -186,17 +189,17 @@ public class OperatorController {
 			/**
 			 * 需要正则判断
 			 */
-			isDataFitedHashtable.remove(thisKeyString);
-			isDataFitedHashtable.put(thisKeyString, true);
+			isDataFitedMap.remove(thisKeyString);
+			isDataFitedMap.put(thisKeyString, true);
 			operatorPanel.fillModel(operatorModel);
 			/*try {
 				Long.parseLong(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -206,16 +209,16 @@ public class OperatorController {
 			try {
 				Long.parseLong(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -244,12 +247,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -259,16 +262,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -297,17 +300,17 @@ public class OperatorController {
 			/**
 			 * 需要正则判断
 			 */
-			isDataFitedHashtable.remove(thisKeyString);
-			isDataFitedHashtable.put(thisKeyString, true);
+			isDataFitedMap.remove(thisKeyString);
+			isDataFitedMap.put(thisKeyString, true);
 			operatorPanel.fillModel(operatorModel);
 			/*try {
 				Long.parseLong(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -317,16 +320,16 @@ public class OperatorController {
 			try {
 				Long.parseLong(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -355,12 +358,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -370,16 +373,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -408,12 +411,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -423,16 +426,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -461,12 +464,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -476,16 +479,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -511,12 +514,12 @@ public class OperatorController {
 			
 			try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				operatorPanel.fillModel(operatorModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -526,16 +529,16 @@ public class OperatorController {
 			try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					operatorPanel.fillModel(operatorModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -566,14 +569,14 @@ public class OperatorController {
 	}
 
 
-	public Hashtable<String, Boolean> getIsDataFitedHashtable() {
-		return isDataFitedHashtable;
+	public Map<String, Boolean> getIsDataFitedMap() {
+		return isDataFitedMap;
 	}
 
 
-	public void setIsDataFitedHashtable(
-			Hashtable<String, Boolean> isDataFitedHashtable) {
-		this.isDataFitedHashtable = isDataFitedHashtable;
+	public void setisDataFitedMap(
+			Map<String, Boolean> isDataFitedMap) {
+		this.isDataFitedMap = isDataFitedMap;
 	}
 	
 	

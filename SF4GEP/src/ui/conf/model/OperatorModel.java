@@ -1,6 +1,8 @@
 package ui.conf.model;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class OperatorModel extends Model{
 	private Float mutateRate;
@@ -18,7 +20,7 @@ public class OperatorModel extends Model{
 	
 	private Float geneRecombineRate;
 	
-	private Hashtable<String, Boolean> isDataFitedHashtable = new Hashtable<String, Boolean>();
+	private Map<String, Boolean> isDataFitedMap = new HashMap<String, Boolean>();
 	
 	
 	public OperatorModel() {
@@ -27,15 +29,15 @@ public class OperatorModel extends Model{
 	}
 	
 	private void init(){
-		isDataFitedHashtable.put("mutateRate", false);
-		isDataFitedHashtable.put("isTransportRate", false);
-		isDataFitedHashtable.put("isElement", false);
-		isDataFitedHashtable.put("risTransportRate", false);
-		isDataFitedHashtable.put("risElement", false);
-		isDataFitedHashtable.put("geneTransportRate", false);
-		isDataFitedHashtable.put("onePointRecombineRate", false);
-		isDataFitedHashtable.put("twoPointRecombineRate", false);
-		isDataFitedHashtable.put("geneRecombineRate", false);
+		isDataFitedMap.put("mutateRate", false);
+		isDataFitedMap.put("isTransportRate", false);
+		isDataFitedMap.put("isElement", false);
+		isDataFitedMap.put("risTransportRate", false);
+		isDataFitedMap.put("risElement", false);
+		isDataFitedMap.put("geneTransportRate", false);
+		isDataFitedMap.put("onePointRecombineRate", false);
+		isDataFitedMap.put("twoPointRecombineRate", false);
+		isDataFitedMap.put("geneRecombineRate", false);
 		
 	}
 
@@ -112,13 +114,13 @@ public class OperatorModel extends Model{
 		this.geneRecombineRate = geneRecombineRate;
 	}
 
-	public Hashtable<String, Boolean> getIsDataFitedHashtable() {
-		return isDataFitedHashtable;
+	public Map<String, Boolean> getIsDataFitedMap() {
+		return isDataFitedMap;
 	}
 
-	public void setIsDataFitedHashtable(
-			Hashtable<String, Boolean> isDataFitedHashtable) {
-		this.isDataFitedHashtable = isDataFitedHashtable;
+	public void setisDataFitedMap(
+			Hashtable<String, Boolean> isDataFitedMap) {
+		this.isDataFitedMap = isDataFitedMap;
 	}
 	
 	

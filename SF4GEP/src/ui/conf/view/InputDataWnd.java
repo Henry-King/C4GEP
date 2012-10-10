@@ -29,9 +29,12 @@ public class InputDataWnd extends JWindow{
 	private InputDataWnd thisWnd;
 	private Timer timer;
 	private boolean inWnd = false;
+	public boolean inBtn = false;
+	public boolean inTextField = false;
 	private JTextField textField;
 	private ConfPanel confPanel;
 	private DataSet inputDataSet;
+	public JButton btnNewButton;
 
 	public InputDataWnd(ConfPanel confPanel,Point p) {
 		thisWnd = this;
@@ -55,8 +58,12 @@ public class InputDataWnd extends JWindow{
 		timer= new Timer(500,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				thisWnd.setVisible(false);
-				thisWnd.dispose();
+				if (!inBtn&&!inTextField) {
+					thisWnd.setVisible(false);
+					thisWnd.dispose();
+				}
+				
+				
 			}
 		});
 		 
@@ -136,11 +143,31 @@ public class InputDataWnd extends JWindow{
 		noSetPanel.add(lblFilePath);
 		
 		textField = new JTextField();
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				inTextField = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				inTextField = false;
+			}
+		});
 		textField.setBounds(70, 57, 224, 21);
 		noSetPanel.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("brower");
+		btnNewButton = new JButton("brower");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				inBtn = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				inBtn = false;
+			}
+		});
 		btnNewButton.addActionListener(new OpenHandler());
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 10));
@@ -154,7 +181,7 @@ public class InputDataWnd extends JWindow{
 		
 		JPanel settedPanel = new JPanel();
 		settedPanel.setVisible(false);
-		settedPanel.setBounds(10, 54, 381, 336);
+		settedPanel.setBounds(11, 54, 381, 336);
 		settedPanel.setBackground(Color.WHITE);
 		
 		
@@ -180,7 +207,7 @@ public class InputDataWnd extends JWindow{
 		
 		JLabel lblColumnrows = new JLabel("DataRows:");
 		lblColumnrows.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblColumnrows.setBounds(10, 53, 94, 15);
+		lblColumnrows.setBounds(11, 53, 94, 15);
 		settedPanel.add(lblColumnrows);
 		
 		JLabel label = new JLabel("DataColumns:");
@@ -193,15 +220,15 @@ public class InputDataWnd extends JWindow{
 		info_dataPath.setBounds(120, 29, 231, 15);
 		settedPanel.add(info_dataPath);
 		
-		JLabel lbl_dataRowNum = new JLabel("xxx");
-		lbl_dataRowNum.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_dataRowNum.setBounds(120, 53, 231, 15);
-		settedPanel.add(lbl_dataRowNum);
+		JLabel info_dataRowNum = new JLabel("xxx");
+		info_dataRowNum.setFont(new Font("Arial", Font.PLAIN, 13));
+		info_dataRowNum.setBounds(120, 53, 231, 15);
+		settedPanel.add(info_dataRowNum);
 		
-		JLabel lbl_dataColumnNum = new JLabel("xxx");
-		lbl_dataColumnNum.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_dataColumnNum.setBounds(120, 78, 231, 15);
-		settedPanel.add(lbl_dataColumnNum);
+		JLabel info_dataColumnNum = new JLabel("xxx");
+		info_dataColumnNum.setFont(new Font("Arial", Font.PLAIN, 13));
+		info_dataColumnNum.setBounds(120, 78, 231, 15);
+		settedPanel.add(info_dataColumnNum);
 		
 		
 		//this.pack();
@@ -209,19 +236,31 @@ public class InputDataWnd extends JWindow{
 		//this.setLocation(screenSize.width / 2 - size.width / 2, screenSize.height / 2 - size.height / 2);
 		setLocation(p);
 		
-		
 		mainPanel.add(noSetPanel);
 		mainPanel.add(settedPanel);
+		
+		
 		
 		inputDataSet = confPanel.getInputData();
 		if (inputDataSet!=null) {
 			noSetPanel.setVisible(false);
 			settedPanel.setVisible(true);
+			File file = confPanel.getInputFile();
+			info_currentStatus.setText("has setted");
+			info_inputDataName.setText(file.getName());
+			info_dataPath.setText(file.getPath());
+			info_dataRowNum.setText(inputDataSet.getRowNum().toString());
+			info_dataColumnNum.setText(((int)inputDataSet.getColumnNum()+1) + "");
+			
 			
 		}else{
 			noSetPanel.setVisible(true);
 			settedPanel.setVisible(false);
+			
+			
+			
 		}
+		
 		
 		
 		
@@ -253,6 +292,7 @@ public class InputDataWnd extends JWindow{
 				InputDataController inputDataController = new InputDataController(confPanel.mainWnd.getHibernateDataContext());
 				inputDataSet = inputDataController.getInputSet(file.toString());
 				confPanel.setInputData(inputDataSet);
+				confPanel.setInputFile(file);
 				
                  System.out.println("inputdata");
                  List<DataRow> rows = inputDataSet.getDataRows();

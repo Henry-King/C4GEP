@@ -18,7 +18,7 @@ import java.util.*;
 public class GeneController {
 	GeneModel geneModel = null;
 	GenePanel genePanel = null;
-	Hashtable<String, Boolean> isDataFitedHashtable = null;
+	Map<String, Boolean> isDataFitedMap = null;
 	private GepConfigurationService gepConfigurationService=null;
 	public GeneController(GeneModel geneModel,GenePanel genePanel) {
 		this.geneModel = geneModel;
@@ -28,7 +28,7 @@ public class GeneController {
 	
 	
 	public void init(){
-		isDataFitedHashtable = geneModel.getIsDataFitedHashtable();
+		isDataFitedMap = geneModel.getIsDataFitedMap();
 		genePanel.fillModel(geneModel);
 		geneModel.registerObserver(genePanel);
 		
@@ -61,7 +61,7 @@ public class GeneController {
 			public void actionPerformed(ActionEvent e) {
 				//genePanel.useHomeoticGene = true;
 				geneModel.setUseHomeoticGene(true);
-				if (isDataFitedHashtable.contains("homeoticGeneNumber")||isDataFitedHashtable.contains("homeoticGeneHeaderLength")) {
+				if (isDataFitedMap.containsKey("homeoticGeneNumber")||isDataFitedMap.containsKey("homeoticGeneHeaderLength")) {
 					
 				}else{
 					String homeoticGeneString = genePanel.homeoticGeneTextField.getText();
@@ -73,11 +73,11 @@ public class GeneController {
 						try {
 							Integer.parseInt(homeoticGeneString);
 							Integer.parseInt(homeoticGeneHeaderString);
-							isDataFitedHashtable.put("homeoticGeneNumber", true);
-							isDataFitedHashtable.put("homeoticGeneHeaderLength", true);
+							isDataFitedMap.put("homeoticGeneNumber", true);
+							isDataFitedMap.put("homeoticGeneHeaderLength", true);
 						} catch (Exception e2) {
-							isDataFitedHashtable.put("homeoticGeneNumber", false);
-							isDataFitedHashtable.put("homeoticGeneHeaderLength", false);
+							isDataFitedMap.put("homeoticGeneNumber", false);
+							isDataFitedMap.put("homeoticGeneHeaderLength", false);
 						}
 					}
 				}
@@ -92,10 +92,9 @@ public class GeneController {
 			public void actionPerformed(ActionEvent e) {
 				//genePanel.useHomeoticGene = false;
 				geneModel.setUseHomeoticGene(false);
-				
-				if (isDataFitedHashtable.contains("homeoticGeneNumber")||isDataFitedHashtable.contains("homeoticGeneHeaderLength")) {
-					isDataFitedHashtable.remove("homeoticGeneNumber");
-					isDataFitedHashtable.remove("homeoticGeneHeaderLength");
+				if (isDataFitedMap.containsKey("homeoticGeneNumber")||isDataFitedMap.containsKey("homeoticGeneHeaderLength")) {
+					isDataFitedMap.remove("homeoticGeneNumber");
+					isDataFitedMap.remove("homeoticGeneHeaderLength");
 				}
 				
 				
@@ -134,14 +133,14 @@ public class GeneController {
 	}
 
 
-	public Hashtable<String, Boolean> getIsDataFitedHashtable() {
-		return isDataFitedHashtable;
+	public Map<String, Boolean> getisDataFitedMap() {
+		return isDataFitedMap;
 	}
 
 
-	public void setIsDataFitedHashtable(
-			Hashtable<String, Boolean> isDataFitedHashtable) {
-		this.isDataFitedHashtable = isDataFitedHashtable;
+	public void setisDataFitedMap(
+			Hashtable<String, Boolean> isDataFitedMap) {
+		this.isDataFitedMap = isDataFitedMap;
 	}
 	
 	
@@ -166,12 +165,12 @@ public class GeneController {
 			
 			/*try {
 				Integer.parseInt(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				genePanel.fillModel(geneModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -181,16 +180,16 @@ public class GeneController {
 			try {
 				Integer.parseInt(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					genePanel.fillModel(geneModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -212,12 +211,12 @@ public class GeneController {
 			
 			try {
 				Integer.parseInt(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				genePanel.fillModel(geneModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -227,16 +226,16 @@ public class GeneController {
 			try {
 				Integer.parseInt(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					genePanel.fillModel(geneModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -257,12 +256,12 @@ public class GeneController {
 			
 			try {
 				Integer.parseInt(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				genePanel.fillModel(geneModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -272,16 +271,16 @@ public class GeneController {
 			try {
 				Integer.parseInt(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					genePanel.fillModel(geneModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -320,12 +319,12 @@ public class GeneController {
 			
 			try {
 				Integer.parseInt(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				genePanel.fillModel(geneModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -337,16 +336,16 @@ public class GeneController {
 			try {
 				Integer.parseInt(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					genePanel.fillModel(geneModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
@@ -384,20 +383,20 @@ public class GeneController {
 			
 			try {
 				Long.parseLong(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				genePanel.fillModel(geneModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			/*if (!geneModel.isUseHomeoticGene()) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				return;
 			}*/
 			
@@ -405,16 +404,16 @@ public class GeneController {
 			try {
 				Long.parseLong(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					genePanel.fillModel(geneModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}
 		}
 

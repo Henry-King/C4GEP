@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -30,7 +31,7 @@ public class ConfPanel extends JPanel {
 	public MainWnd mainWnd;
 	private DataSet inputData;
 	private NewProjectModel newProjectModel;
-	
+	private File inputFile;
 	
 	public ContentPanel contentPanel;
 	/**
@@ -85,6 +86,16 @@ public class ConfPanel extends JPanel {
 	public void setNewProjectModel(NewProjectModel newProjectModel) {
 		this.newProjectModel = newProjectModel;
 		this.inputData = newProjectModel.getInputDataSet();
+	}
+
+
+	public File getInputFile() {
+		return inputFile;
+	}
+
+
+	public void setInputFile(File inputFile) {
+		this.inputFile = inputFile;
 	}
 
 }

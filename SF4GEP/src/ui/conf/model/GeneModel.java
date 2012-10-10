@@ -1,13 +1,15 @@
 package ui.conf.model;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import domain.core.algconfiguration.Function;
 
 public class GeneModel extends Model{
 	
-	private Hashtable<String, Boolean> isDataFitedHashtable = new Hashtable<String, Boolean>();
+	private Map<String, Boolean> isDataFitedMap = new HashMap<String, Boolean>();
 	
 	private Integer individualNumber;
 	private Integer normalGeneNumber;
@@ -31,23 +33,23 @@ public class GeneModel extends Model{
 	
 	private void init(){
 		useHomeoticGene = false;
-		isDataFitedHashtable.put("individualNumber", false);
-		isDataFitedHashtable.put("normalGeneNumber", false);
-		isDataFitedHashtable.put("normalGeneHeaderLength", false);
-		//isDataFitedHashtable.put("homeoticGeneNumber", false);
-		//isDataFitedHashtable.put("homeoticGeneHeaderLength", false);
+		isDataFitedMap.put("individualNumber", false);
+		isDataFitedMap.put("normalGeneNumber", false);
+		isDataFitedMap.put("normalGeneHeaderLength", false);
+		//isDataFitedMap.put("homeoticGeneNumber", false);
+		//isDataFitedMap.put("homeoticGeneHeaderLength", false);
 	}
 	
 
 
-	public Hashtable<String, Boolean> getIsDataFitedHashtable() {
-		return isDataFitedHashtable;
+	public Map<String, Boolean> getIsDataFitedMap() {
+		return isDataFitedMap;
 	}
 
 
-	public void setIsDataFitedHashtable(
-			Hashtable<String, Boolean> isDataFitedHashtable) {
-		this.isDataFitedHashtable = isDataFitedHashtable;
+	public void setIsDataFitedMap(
+			Map<String, Boolean> isDataFitedMap) {
+		this.isDataFitedMap = isDataFitedMap;
 	}
 
 

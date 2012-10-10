@@ -123,9 +123,14 @@ public class MainToolBar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				if (inputDataWnd!=null) {
 					if (!inputDataWnd.isInWnd()) {
-						inputDataWnd.setVisible(false);
-						inputDataWnd.dispose();
+						if (!inputDataWnd.inBtn&&!inputDataWnd.inTextField) {
+							inputDataWnd.setVisible(false);
+							inputDataWnd.dispose();
+						}
+						
 					}
+					
+					
 				}
 				if (profileWnd!=null) {
 					if (!profileWnd.isInWnd()) {
@@ -287,13 +292,13 @@ public class MainToolBar extends JToolBar {
             	
             	/*精度面板*/
             	AccuracyModel accuracyModel = confPanel.contentPanel.accuracyController.getAccuracyModel();
-            	Hashtable<String, Boolean> isAccuracyFited = accuracyModel.getIsDataFitedHashtable();
+            	Map<String, Boolean> isAccuracyFited = accuracyModel.getIsDataFitedMap();
             	Collection<Boolean> isAccuracyFitedValues = isAccuracyFited.values();
             	
             	
-            	if (isAccuracyFitedValues.contains(false)) {
+            	//if (isAccuracyFitedValues.contains(false)) {
             		//JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
-				}else{
+				//}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 				
 					gepAlgConfiguration = new GepAlgConfiguration();
@@ -301,19 +306,19 @@ public class MainToolBar extends JToolBar {
 	            	gepAlgConfiguration.setSelectionRange(accuracyModel.getSelectionRange());
 	            	gepAlgConfiguration.setAccuracy(accuracyModel.getAccuracy());
 				
-				}
+				//}
             	
             	
             	
             	/*基因面板*/
             	GeneModel geneModel = confPanel.contentPanel.geneController.getGeneModel();
-            	Hashtable<String, Boolean> isGeneFited = geneModel.getIsDataFitedHashtable();
+            	Map<String, Boolean> isGeneFited = geneModel.getIsDataFitedMap();
             	Collection<Boolean> isGeneFitedValues = isGeneFited.values();
             	
             	
-            	if (isGeneFitedValues.contains(false)) {
+            	//if (isGeneFitedValues.contains(false)) {
             		//JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
-				}else{
+				//}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 					
 					individualConfiguration = new IndividualConfiguration();
@@ -342,19 +347,19 @@ public class MainToolBar extends JToolBar {
 					}
 					
 				
-				}
+				//}
             	
             	
             	
             	/*修饰面板*/
             	OperatorModel operatorModel = confPanel.contentPanel.operatorController.getOperatorModel();
-            	Hashtable<String, Boolean> isOperatorFited = operatorModel.getIsDataFitedHashtable();
+            	Map<String, Boolean> isOperatorFited = operatorModel.getIsDataFitedMap();
             	Collection<Boolean> isOperatorFitedValues = isOperatorFited.values();
             	
             	
-            	if (isOperatorFitedValues.contains(false)) {
+            	//if (isOperatorFitedValues.contains(false)) {
             		//JOptionPane.showMessageDialog(mainWnd.frame,"Operator参数不正确");
-				}else{
+				//}else{
 				
 					operatorConfiguration = new OperatorConfiguration();
 					operatorConfiguration.setMutateRate(operatorModel.getMutateRate());
@@ -377,7 +382,7 @@ public class MainToolBar extends JToolBar {
 							+operatorModel.getTwoPointRecombineRate()+"|"
 							+operatorModel.getGeneRecombineRate());
 				
-				}
+				//}
             	
             	
             	

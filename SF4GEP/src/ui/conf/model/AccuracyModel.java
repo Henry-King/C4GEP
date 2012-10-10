@@ -1,13 +1,15 @@
 package ui.conf.model;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class AccuracyModel extends Model{
 	private Long maxGeneration;		//最大求解代数
 	private Float selectionRange;	//选择范围
 	private Float accuracy;			//求解精度
 	
-	private Hashtable<String, Boolean> isDataFitedHashtable = new Hashtable<String, Boolean>();
+	private Map<String, Boolean> isDataFitedMap = new HashMap<String, Boolean>();
 	
 	
 	public AccuracyModel() {
@@ -27,9 +29,9 @@ public class AccuracyModel extends Model{
 	}
 	
 	private void init(){
-		isDataFitedHashtable.put("maxGeneration", false);
-		isDataFitedHashtable.put("selectionRange", false);
-		isDataFitedHashtable.put("accuracy", false);
+		isDataFitedMap.put("maxGeneration", false);
+		isDataFitedMap.put("selectionRange", false);
+		isDataFitedMap.put("accuracy", false);
 	}
 
 	public Long getMaxGeneration() {
@@ -58,13 +60,13 @@ public class AccuracyModel extends Model{
 
 
 
-	public Hashtable<String, Boolean> getIsDataFitedHashtable() {
-		return isDataFitedHashtable;
+	public Map<String, Boolean> getIsDataFitedMap() {
+		return isDataFitedMap;
 	}
 
-	public void setIsDataFitedHashtable(
-			Hashtable<String, Boolean> isDataFitedHashtable) {
-		this.isDataFitedHashtable = isDataFitedHashtable;
+	public void setisDataFitedMap(
+			Map<String, Boolean> isDataFitedMap) {
+		this.isDataFitedMap = isDataFitedMap;
 	}
 	
 	

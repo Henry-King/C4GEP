@@ -6,12 +6,13 @@ import ui.conf.view.*;
 
 import javax.swing.event.*;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class AccuracyController {
 	
 	AccuracyModel accuracyModel = null;
 	AccuracyPanel accuracyPanel = null;
-	Hashtable<String, Boolean> isDataFitedHashtable = null;
+	Map<String, Boolean> isDataFitedMap = null;
 	
 	
 	public AccuracyController(AccuracyModel accuracyModel,AccuracyPanel accuracyPanel) {
@@ -27,7 +28,7 @@ public class AccuracyController {
 	}
 	
 	public void init(){
-		isDataFitedHashtable = accuracyModel.getIsDataFitedHashtable();
+		isDataFitedMap = accuracyModel.getIsDataFitedMap();
 		accuracyPanel.fillModel(accuracyModel);
 		accuracyModel.registerObserver(accuracyPanel);
 		accuracyPanel.generationNumTextField.getDocument().addDocumentListener
@@ -81,8 +82,8 @@ public class AccuracyController {
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = accuracyPanel.generationNumTextField.getText().toString();
 			if (str.equals(null)) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 				return;
 			}
 			
@@ -90,17 +91,17 @@ public class AccuracyController {
 			try {
 				
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
 					Long.parseLong(str);
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
 				}
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -110,17 +111,17 @@ public class AccuracyController {
 			/*try {
 				
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
 					Long.parseLong(str);
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -147,16 +148,16 @@ public class AccuracyController {
 			/*try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
 				}
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -166,16 +167,16 @@ public class AccuracyController {
 			/*try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -204,12 +205,12 @@ public class AccuracyController {
 			
 			/*try {
 				Float.parseFloat(str);
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, true);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
 				accuracyPanel.fillModel(accuracyModel);
 			} catch (NumberFormatException e) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
@@ -219,16 +220,16 @@ public class AccuracyController {
 			/*try {
 				Float.parseFloat(str);
 				if (str.equals("")||str.equals(null)) {
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, false);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, false);
 				}else{
-					isDataFitedHashtable.remove(thisKeyString);
-					isDataFitedHashtable.put(thisKeyString, true);
+					isDataFitedMap.remove(thisKeyString);
+					isDataFitedMap.put(thisKeyString, true);
 					accuracyPanel.fillModel(accuracyModel);
 				}
 			}catch (NumberFormatException e1) {
-				isDataFitedHashtable.remove(thisKeyString);
-				isDataFitedHashtable.put(thisKeyString, false);
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, false);
 			}*/
 		}
 
