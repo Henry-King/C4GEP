@@ -295,7 +295,7 @@ public class MainToolBar extends JToolBar {
             	
             	
             	if (isOperatorFitedValues.contains(false)) {
-            		JOptionPane.showMessageDialog(mainWnd.frame,"参数不正确");
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"Operator参数不正确");
 				}else{
 				
 					operatorConfiguration = new OperatorConfiguration();
@@ -320,6 +320,9 @@ public class MainToolBar extends JToolBar {
 							+operatorModel.getGeneRecombineRate());
 				
 				}
+            	
+            	
+            	
             	gepAlgConfiguration.setOperatorConfiguration(operatorConfiguration);
             	gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);
             	

@@ -90,7 +90,7 @@ public class InputDataWnd extends JWindow{
 		mainPanel.setLayout(null);
 		
 		JLabel lbl_Title = new JLabel("Input Data Setting");
-		lbl_Title.setForeground(Color.DARK_GRAY);
+		lbl_Title.setForeground(SystemColor.windowText);
 		lbl_Title.setFont(new Font("Arial", Font.BOLD, 16));
 		lbl_Title.setFont(new Font("ËÎÌו", Font.BOLD, 16));
 		lbl_Title.setBounds(10, 0, 242, 26);

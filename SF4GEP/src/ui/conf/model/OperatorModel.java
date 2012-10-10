@@ -4,13 +4,18 @@ import java.util.Hashtable;
 
 public class OperatorModel extends Model{
 	private Float mutateRate;
+	
 	private Float isTransportRate;
 	private Integer[] isElement;
+	
 	private Float risTransportRate;
 	private Integer[] risElement;
+	
 	private Float geneTransportRate;
+	
 	private Float onePointRecombineRate;
 	private Float twoPointRecombineRate;
+	
 	private Float geneRecombineRate;
 	
 	private Hashtable<String, Boolean> isDataFitedHashtable = new Hashtable<String, Boolean>();
