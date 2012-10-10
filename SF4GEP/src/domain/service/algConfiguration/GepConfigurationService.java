@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import data.dao.HibernateDataContext;
 import data.dao.IHibernateDataContext;
@@ -26,8 +27,13 @@ public class GepConfigurationService implements IgepConfigurationService {
 	 * @return Hibernate上下文连接对象
 	 */
 	public static HibernateDataContext initSystem() {
-		//System.loadLibrary("SF4GEP");
-		System.loadLibrary("JLinkNativeLibrary");
+		Properties properties = System.getProperties();
+		String modelString=properties.getProperty("sun.arch.data.model");
+		System.loadLibrary("SF4GEP");
+		if(modelString.equals("32"))
+			System.loadLibrary("JLinkNativeLibrary-32");
+		else
+			System.loadLibrary("JLinkNativeLibrary-64");
 		return new HibernateDataContext();
 	}
 	
