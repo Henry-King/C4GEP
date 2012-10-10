@@ -25,15 +25,19 @@ public class Generator implements IGenerator{
 	@Override
 	public GenePiece nextFunction() {
 		// TODO Auto-generated method stub
+		Function function=functionList.get(functionRandom.nextInt(functionList.size()));
+		return nextFunction(function);
+	}
+	@Override
+	public GenePiece nextFunction(Function function) {
+		// TODO Auto-generated method stub
 		GenePiece result=new GenePiece();
 		result.setGenePieceType(GenePieceType.Function);
-		Function function=functionList.get(functionRandom.nextInt(functionList.size()));
 		result.setFunc(function);
 		result.setName(function.getName());
 		result.setSymbol(function.getSymbol());
 		return result;
 	}
-
 	@Override
 	public GenePiece nextVariable() {
 		// TODO Auto-generated method stub
@@ -50,9 +54,15 @@ public class Generator implements IGenerator{
 	@Override
 	public GenePiece nextNoramlGeneNum() {
 		// TODO Auto-generated method stub
+		float value=(float) constantRandom.nextInt(normalGeneNumber);
+		return nextNoramlGeneNum((int) value);
+	}
+	@Override
+	public GenePiece nextNoramlGeneNum(int num) {
+		// TODO Auto-generated method stub
 		GenePiece result=new GenePiece();
 		result.setGenePieceType(GenePieceType.Constant);
-		result.setValue((float) constantRandom.nextInt(normalGeneNumber));
+		result.setValue((float) num);
 		result.setName("");
 		result.setSymbol(result.getValue().toString());
 		return result;
@@ -66,4 +76,5 @@ public class Generator implements IGenerator{
 	public void setNormalGeneNumber(int normalGeneNumber) {
 		this.normalGeneNumber = normalGeneNumber;
 	}
+
 }

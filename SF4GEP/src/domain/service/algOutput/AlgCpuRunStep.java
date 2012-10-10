@@ -268,11 +268,14 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		}
 		else {
 			geneLength=geneConfiguration.getHomeoticGeneLength();
-			headerLength=geneConfiguration.getNormalGeneHeaderLength();
-			tailLength=geneConfiguration.getNormalGeneTailLength();
+			headerLength=geneConfiguration.getHomeoticGeneHeaderLength();
+			tailLength=geneConfiguration.getHomeoticGeneTailLength();
 			maxType=geneConfiguration.getFunctionUsed().size()+geneConfiguration.getNormalGeneNumber();
 			j=1;
-			genePiece=generator.nextFunction();
+			if(geneConfiguration.getUseHomeoticGene())
+				genePiece=generator.nextFunction();
+			else
+				genePiece=generator.nextFunction(geneConfiguration.getConnectionFunction());
 		}
 		Gene result=new Gene();
 		result.setGeneType(geneType);
@@ -280,12 +283,18 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		if(genePiece!=null)
 			genePiecesList.add(genePiece);
 		for(;j<headerLength;j++){
-			genePiece=nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size());
-			genePiecesList.add(genePiece);				
+			if(geneConfiguration.getUseHomeoticGene())
+				genePiece=nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size());
+			else
+				genePiece=generator.nextFunction(geneConfiguration.getConnectionFunction());
+			genePiecesList.add(genePiece);
 		}
 		for(j=0;j<tailLength;j++){
-			genePiece=nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size());
-			genePiecesList.add(genePiece);			
+			if(geneConfiguration.getUseHomeoticGene())
+				genePiece = nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size());
+			else
+				genePiece=generator.nextNoramlGeneNum(j);
+				genePiecesList.add(genePiece);
 		}
 		result.setGenePieces(genePiecesList);
 		return result;
