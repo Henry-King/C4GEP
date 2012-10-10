@@ -112,11 +112,13 @@ public class TablePanel extends JPanel {
                 	 geneModel.setNormalGeneNumber(geneConfiguration.getNormalGeneNumber());
                 	 geneModel.setNormalGeneHeaderLength(geneConfiguration.getNormalGeneHeaderLength());
                 	 geneModel.setFunctionList(geneConfiguration.getFunctionUsed());
-             		if (geneModel.isUseHomeoticGene()) {
+             		if (geneConfiguration.getUseHomeoticGene()) {
+             			geneModel.setUseHomeoticGene(true);
              			geneModel.setHomeoticGeneNumber(geneConfiguration.getHomeoticGeneNumber());
              			geneModel.setHomeoticGeneHeaderLength(geneConfiguration.getHomeoticGeneHeaderLength());
              		}
              		else {
+             			geneModel.setUseHomeoticGene(false);
              			geneModel.setConnectionFunction(geneConfiguration.getConnectionFunction());
              		}
              		geneModel.changeModel();
