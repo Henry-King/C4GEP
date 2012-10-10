@@ -65,6 +65,8 @@ void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesInde
 	cudaFree(dev_homeoticGenesIndex);
 	cudaFree(dev_fitness);
 	cudaFree(dev_data);    //这个，应该是需要的
+	cudaFree(dev_fittedvalue);
+	cudaFree(dev_numofhometic);
 	free(numofhometic);
 
 	for(int i=0;i<numofpopulation;i++)//释放申请的空间

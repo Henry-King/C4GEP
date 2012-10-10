@@ -189,7 +189,7 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 		case Constant:
 			return 2;
 		default:
-			return Character.MAX_VALUE;
+			throw new RuntimeException("不存在此类型的基因位");
 		}
 	}
 	private char getGeneBitIndex(int gene,int index){
@@ -199,8 +199,10 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 			return (char) genePiece.getVariableIndex().intValue();
 		case Function:
 			return getFuncIndex(genePiece.getFunc());
+		case Constant:
+			return (char)genePiece.getValue().intValue();
 		default:
-			return Character.MAX_VALUE;
+			throw new RuntimeException("不存在此基因位的索引");
 		}
 	}
 	private char getFuncIndex(Function function){
@@ -218,6 +220,6 @@ public class Individual implements Comparable<Individual>,Serializable,Cloneable
 		else if(funcClass==Cos.class)
 			return 5;
 		else 
-			return Character.MAX_VALUE;
+			throw new RuntimeException("该函数没有对应的c++版本");			
 	}
 }

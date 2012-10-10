@@ -27,6 +27,7 @@ static char** homeoticGeneType;
 static char** normalGeneIndex;
 static char** homeoticGeneIndex;
 JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JNIEnv *env, jobject me, jobject gepAlgRun){
+	cudaSetDevice(0);
 	initContext(env,gepAlgRun);
 	initcpu(populationSize,rowNum);
 	initgpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum);
@@ -45,6 +46,7 @@ JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JN
 	printf("e\n");
 	fflush(stdout);
 	freecpuandgpu(populationSize,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
+	cudaDeviceReset();
 	return;
 }
 static void initContext(JNIEnv *env,jobject gepAlgRun){
