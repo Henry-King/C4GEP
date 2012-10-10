@@ -340,8 +340,7 @@ public class GepAlgCfgInfoWnd extends JWindow{
 			info_isUsedHomeoticGene.setText("true");
 			info_HomeoticGeneNumber.setText(geneConfiguration.getHomeoticGeneNumber().toString());
 			info_HomeoticGeneHeaderNumber.setText(geneConfiguration.getHomeoticGeneHeaderLength().toString());
-			info_mutateRate.setText(operatorConfiguration.getMutateRate().toString());
-			info_IsTransportRate.setText(operatorConfiguration.getIsTransportRate().toString());
+			
 		}else{
 			info_isUsedHomeoticGene.setText("false");
 			info_connectionFunction.setText(geneConfiguration.getConnectionFunctionString());
@@ -361,7 +360,8 @@ public class GepAlgCfgInfoWnd extends JWindow{
 		
 		
 		
-		
+		info_mutateRate.setText(nt.format(operatorConfiguration.getMutateRate()).toString());
+		info_IsTransportRate.setText(nt.format(operatorConfiguration.getIsTransportRate()).toString());
 		
 		
 		
@@ -375,7 +375,7 @@ public class GepAlgCfgInfoWnd extends JWindow{
 		sb.replace(len-1, len, "");
 		info_IsElements.setText(sb.toString());
 		
-		info_RisTransportRate.setText(operatorConfiguration.getRisTransportRate().toString());
+		info_RisTransportRate.setText(nt.format(operatorConfiguration.getRisTransportRate()).toString());
 		
 		elements = operatorConfiguration.getRisElement();
 		sb = new StringBuffer();
@@ -388,10 +388,10 @@ public class GepAlgCfgInfoWnd extends JWindow{
 		info_RisElements.setText(sb.toString());
 		
 		
-		info_geneTransportRate.setText(operatorConfiguration.getGeneTransportRate().toString());
-		info_onePointRecombineRate.setText(operatorConfiguration.getOnePointRecombineRate().toString());
-		info_twoPointRecombineRate.setText(operatorConfiguration.getTwoPointRecombineRate().toString());
-		info_geneRecombineRate.setText(operatorConfiguration.getGeneRecombineRate().toString());
+		info_geneTransportRate.setText(nt.format(operatorConfiguration.getGeneTransportRate()).toString());
+		info_onePointRecombineRate.setText(nt.format(operatorConfiguration.getOnePointRecombineRate()).toString());
+		info_twoPointRecombineRate.setText(nt.format(operatorConfiguration.getTwoPointRecombineRate()).toString());
+		info_geneRecombineRate.setText(nt.format(operatorConfiguration.getGeneRecombineRate()).toString());
 		
 		
 		

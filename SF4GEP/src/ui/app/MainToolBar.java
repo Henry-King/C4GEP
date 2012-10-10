@@ -8,6 +8,7 @@ package ui.app;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -38,8 +39,11 @@ import ui.images.*;
  */
 public class MainToolBar extends JToolBar {
 	private InputDataWnd inputDataWnd;
+	private ProfileWnd profileWnd;
 	private Point prePoint = null;
 	private Timer timer = null;
+	
+	//private List<JWindow> winList = new ArrayList<JWindow>();
 	
     private ImageIcon newImage = null;
     private ImageIcon openImage = null;
@@ -54,6 +58,7 @@ public class MainToolBar extends JToolBar {
     private ImageIcon debugImage = null;
     private ImageIcon cfgImage = null;
     private ImageIcon inputDataImage = null;
+    private ImageIcon profileImage = null;
     
     private ToolButton newButton = null;
     private ToolButton openButton = null;
@@ -68,6 +73,7 @@ public class MainToolBar extends JToolBar {
     private ToolButton debugButton = null;
     private ToolButton cfgButton = null;
     private ToolButton inputDataButton = null;
+    private ToolButton profileButton = null;
 //    private JButton defaultBorderButton = null;
     
     private MainWnd mainWnd;
@@ -120,30 +126,36 @@ public class MainToolBar extends JToolBar {
 						inputDataWnd.setVisible(false);
 						inputDataWnd.dispose();
 					}
-					
+				}
+				if (profileWnd!=null) {
+					if (!profileWnd.isInWnd()) {
+						profileWnd.setVisible(false);
+						profileWnd.dispose();
+					}
 				}
 				
 			}
 		});
         inputDataButton.addMouseListener(new MouseAdapter() {
-        	
-        	
         	@Override
         	public void mouseClicked(MouseEvent e) {
 }
         	
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		//if (inputDataWnd==null) {
-        			Point p = inputDataButton.getLocation();
-        			System.out.println(p.x+"|"+p.y);
-        			System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
-        			inputDataWnd = new InputDataWnd(confPanel,p);
-                    inputDataWnd.setVisible(true);
-				//}
-                    if (timer.isRunning()) {
-    					timer.stop();
-    				}
+        		
+        		if (profileWnd!=null) {
+        			profileWnd.setVisible(false);
+        			profileWnd.dispose();
+				}
+    			Point p = inputDataButton.getLocation();
+    			
+    			inputDataWnd = new InputDataWnd(confPanel,p);
+                inputDataWnd.setVisible(true);
+                
+                if (timer.isRunning()) {
+					timer.stop();
+				}
         	}
         	@Override
         	public void mouseExited(MouseEvent e) {
@@ -183,8 +195,54 @@ public class MainToolBar extends JToolBar {
             	prePoint = e.getPoint();
             }*/
         });
-        
         inputDataButton.setToolTipText("选择输入数据集");
+        
+        
+        profileImage = ImageHelper.loadImage("profile.png");
+        profileButton = new ToolButton(profileImage);
+        profileButton.setToolTipText("算法配置");
+        profileButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            }
+        });
+        
+        profileButton.addMouseListener(new MouseAdapter() {
+        	
+        	
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+}
+        	
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		
+        		if (inputDataWnd!=null) {
+        			inputDataWnd.setVisible(false);
+        			inputDataWnd.dispose();
+				}
+    			Point p = profileButton.getLocation();
+    			System.out.println(p.x+"|"+p.y);
+    			System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
+    			profileWnd = new ProfileWnd(confPanel,p);
+    			profileWnd.setVisible(true);
+                if (timer.isRunning()) {
+					timer.stop();
+				}
+        	}
+        	@Override
+        	public void mouseExited(MouseEvent e) {
+        		/*if (inputDataWnd!=null) {
+					inputDataWnd.setVisible(false);
+					inputDataWnd.dispose();
+					inputDataWnd = null;
+				}*/
+        		if (!timer.isRunning()) {
+					timer.start();
+				}
+        	}
+        });
+        
         
         cutImage = ImageHelper.loadImage("cut.png");
         cutButton = new ToolButton(cutImage);
@@ -365,10 +423,13 @@ public class MainToolBar extends JToolBar {
         
         addSeparator();
         add(inputDataButton);
+        add(profileButton);
+        /*addSeparator();
         add(cutButton);
         add(copyButton);
         add(pasteButton);
         add(clearButton);
+        */
         addSeparator();
         add(undoButton);
         add(redoButton);
@@ -379,6 +440,11 @@ public class MainToolBar extends JToolBar {
 
 //        addSeparator();
 //        add(defaultBorderButton);
+        
+        
+        
+        
+        
 
     }
 
