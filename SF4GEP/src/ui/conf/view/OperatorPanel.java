@@ -277,6 +277,7 @@ public class OperatorPanel extends JPanel implements Observer{
 		for(int i = 0; i < len; i++){
 		 sb. append(elements[i] + ",");
 		}
+		len = sb.length();
 		sb.replace(len-1, len, "");
 		ISLengthTextField.setText(sb.toString());
 		
@@ -290,6 +291,7 @@ public class OperatorPanel extends JPanel implements Observer{
 		for(int i = 0; i < len; i++){
 		 sb. append(elements[i] + ",");
 		}
+		len = sb.length();
 		sb.replace(len-1, len, "");
 		RISLengthTextField.setText(sb.toString());
 		geneTextField.setText(operatorModel.getGeneTransportRate().toString());
