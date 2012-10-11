@@ -46,7 +46,6 @@ void initgpu(int lenofnormalgene,int numofnormalgenes,int numofpopulation,int co
 	//在设备为二维数组分配空间
 	cudaMallocPitch((void**)&dev_normalGenes,&pitchNG,lenofnormalgene*numofnormalgenes*sizeof(char),numofpopulation);
 	cudaMallocPitch((void**)&dev_normalGenesIndex,&pitchNI,lenofnormalgene*numofnormalgenes*sizeof(char),numofpopulation);
-
 	cudaMallocPitch((void**)&dev_data,&pitchDT,col*sizeof(float),row);
 
 	cudaMallocPitch((void**)&dev_homeoticGenes,&pitchHG,lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation);
@@ -59,49 +58,46 @@ void initgpu(int lenofnormalgene,int numofnormalgenes,int numofpopulation,int co
 
 void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesIndex,char** homeoticGenes,char** homeoticGenesIndex)
 {
+	cudaFree(dev_data);
 	cudaFree(dev_normalGenes);
 	cudaFree(dev_normalGenesIndex);
 	cudaFree(dev_homeoticGenes);
 	cudaFree(dev_homeoticGenesIndex);
-	cudaFree(dev_fitness);
-	cudaFree(dev_data);    //这个，应该是需要的
-	cudaFree(dev_fittedvalue);
 	cudaFree(dev_numofhometic);
+	cudaFree(dev_fittedvalue);
+	cudaFree(dev_fitness);
+	free(fitness);
 	free(numofhometic);
-
-	for(int i=0;i<numofpopulation;i++)//释放申请的空间
-	{
-		free(normalGenes[i]);
-		free(normalGenesIndex[i]);
-		free(homeoticGenes[i]);
-		free(homeoticGenesIndex[i]);
-	}
+	free(normalGenes[0]);
 	free(normalGenes);
+	free(normalGenesIndex[0]);
 	free(normalGenesIndex);
+	free(homeoticGenes[0]);
 	free(homeoticGenes);
+	free(homeoticGenesIndex[0]);
 	free(homeoticGenesIndex);
 	free(fittedvalue[0]);
 	free(fittedvalue);
 }
 void cputogpu(int lenofgene,int numofnormalgenes,int numofpopulation,int col,int row,int lenofhometicgene,int numofhomeoticgenes,float **data,char **normalGenes,char **normalGenesIndex,char **homeoticGenes,char **homeoticGenesIndex)//拷贝：cpu到gpu
 {
-	printf("1\n");
-	fflush(stdout);
+//	printf("1\n");
+//	fflush(stdout);
 	cudaMemcpy2D(dev_normalGenes,pitchNG,normalGenes[0],lenofgene*numofnormalgenes*sizeof(char),lenofgene*numofnormalgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-	printf("2\n");
-	fflush(stdout);
+//	printf("2\n");
+//	fflush(stdout);
 	cudaMemcpy2D(dev_normalGenesIndex,pitchNI,normalGenesIndex[0],lenofgene*numofnormalgenes,lenofgene*numofnormalgenes,numofpopulation,cudaMemcpyHostToDevice);
-	printf("3\n");
-	fflush(stdout);
+//	printf("3\n");
+//	fflush(stdout);
 	cudaMemcpy2D(dev_data,pitchDT,data[0],col*sizeof(float),col*sizeof(float),row,cudaMemcpyHostToDevice);
-	printf("4\n");
-	fflush(stdout);
+//	printf("4\n");
+//	fflush(stdout);
 	cudaMemcpy2D(dev_homeoticGenes,pitchHG,homeoticGenes[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-	printf("5\n");
-	fflush(stdout);
+//	printf("5\n");
+//	fflush(stdout);
 	cudaMemcpy2D(dev_homeoticGenesIndex,pitchHI,homeoticGenesIndex[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-	printf("6\n");
-	fflush(stdout);
+//	printf("6\n");
+//	fflush(stdout);
 }
 void gputocpu(int numofpopulation,int row)//拷贝：gpu到cpu
 {
@@ -126,7 +122,7 @@ void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int row
 	float *dev_array;
 	cudaMalloc((void**)&dev_array,sizeof(float)*sizeofarray);
 	kernel<<<blocksPerGrid,threadsPerBlock,share_size>>>(dev_normalGenes,dev_normalGenesIndex,dev_homeoticGenes,dev_homeoticGenesIndex,dev_data,pitchNG,pitchNI,pitchHG,pitchHI,pitchDT,rowNum,columnNum,dev_fitness,dev_numofhometic,dev_fittedvalue,pitchFV,dev_array,normalGeneLength,normalGeneNum,homeoticGeneLength,homeoticGeneNum,selectionRange);
-	cudaDeviceSynchronize();
 	cudaFree(dev_array);
+	cudaDeviceSynchronize();
 }
 #endif /* FITNESS_CUH_ */
