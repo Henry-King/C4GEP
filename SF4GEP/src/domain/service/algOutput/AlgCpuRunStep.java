@@ -283,18 +283,18 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		if(genePiece!=null)
 			genePiecesList.add(genePiece);
 		for(;j<headerLength;j++){
-			if(geneConfiguration.getUseHomeoticGene())
-				genePiece=nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size());
-			else
+			if(!geneConfiguration.getUseHomeoticGene()&&geneType==GeneType.HomeoticGene)
 				genePiece=generator.nextFunction(geneConfiguration.getConnectionFunction());
+			else
+				genePiece=nextGenePiece(geneType, true, maxType,geneConfiguration.getFunctionUsed().size());
 			genePiecesList.add(genePiece);
 		}
 		for(j=0;j<tailLength;j++){
-			if(geneConfiguration.getUseHomeoticGene())
-				genePiece = nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size());
-			else
+			if(!geneConfiguration.getUseHomeoticGene()&&geneType==GeneType.HomeoticGene)
 				genePiece=generator.nextNoramlGeneNum(j);
-				genePiecesList.add(genePiece);
+			else
+				genePiece = nextGenePiece(geneType, false, maxType,geneConfiguration.getFunctionUsed().size());
+			genePiecesList.add(genePiece);
 		}
 		result.setGenePieces(genePiecesList);
 		return result;
