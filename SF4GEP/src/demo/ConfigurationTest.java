@@ -76,7 +76,7 @@ public class ConfigurationTest {
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
-		algOutputService.setWriteToDB(true);
+		algOutputService.setWriteToDB(false);
 		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
