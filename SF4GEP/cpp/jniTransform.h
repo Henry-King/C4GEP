@@ -201,9 +201,9 @@ static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns){
 		normalGeneTypesCol = (jcharArray) env->GetObjectArrayElement(normalGeneTypes, i);
 		jchar *coldata = env->GetCharArrayElements(normalGeneTypesCol, NULL);
 		for (int j = 0; j < columns; j++) {
-			printf("%d ",coldata[j]);
+//			printf("%d\n",coldata[j]);
 //			fflush(stdout);
-//			gene[i][j] = coldata[j];
+			gene[i][j] = coldata[j];
 		}
 		env->ReleaseCharArrayElements(normalGeneTypesCol,coldata,JNI_ABORT);
 	}
