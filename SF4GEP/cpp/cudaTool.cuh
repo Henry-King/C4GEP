@@ -83,23 +83,11 @@ void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesInde
 }
 void cputogpu(int lenofgene,int numofnormalgenes,int numofpopulation,int col,int row,int lenofhometicgene,int numofhomeoticgenes,float **data,char **normalGenes,char **normalGenesIndex,char **homeoticGenes,char **homeoticGenesIndex)//¿½±´£ºcpuµ½gpu
 {
-//	printf("1\n");
-//	fflush(stdout);
 	cudaMemcpy2D(dev_normalGenes,pitchNG,normalGenes[0],lenofgene*numofnormalgenes*sizeof(char),lenofgene*numofnormalgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-//	printf("2\n");
-//	fflush(stdout);
 	cudaMemcpy2D(dev_normalGenesIndex,pitchNI,normalGenesIndex[0],lenofgene*numofnormalgenes,lenofgene*numofnormalgenes,numofpopulation,cudaMemcpyHostToDevice);
-//	printf("3\n");
-//	fflush(stdout);
 	cudaMemcpy2D(dev_data,pitchDT,data[0],col*sizeof(float),col*sizeof(float),row,cudaMemcpyHostToDevice);
-//	printf("4\n");
-//	fflush(stdout);
 	cudaMemcpy2D(dev_homeoticGenes,pitchHG,homeoticGenes[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-//	printf("5\n");
-//	fflush(stdout);
 	cudaMemcpy2D(dev_homeoticGenesIndex,pitchHI,homeoticGenesIndex[0],lenofhometicgene*numofhomeoticgenes*sizeof(char),lenofhometicgene*numofhomeoticgenes*sizeof(char),numofpopulation,cudaMemcpyHostToDevice);
-//	printf("6\n");
-//	fflush(stdout);
 }
 void gputocpu(int numofpopulation,int row)//¿½±´£ºgpuµ½cpu
 {

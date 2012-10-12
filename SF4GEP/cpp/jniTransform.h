@@ -178,11 +178,11 @@ void iniAllId(JNIEnv * env) {
 	iniPopulationId(env);
 	iniConf(env);
 }
-static char** createGeneArray(int populationSize,int geneLength,int geneNumber){
-	char** geneArray = (char**)malloc(sizeof(char*)*populationSize); //分配二维数组行数
-	geneArray[0]=(char*)malloc(sizeof(char)*populationSize*geneLength*geneNumber);
+static char** createGeneArray(int populationSize,int columns){
+	char** geneArray = (char**)malloc(sizeof(char*)*populationSize);
+	geneArray[0]=(char*)malloc(sizeof(char)*populationSize*columns);
 	for (int i = 1; i < populationSize; i++)
-		geneArray[i] = geneArray[i-1]+geneLength*geneNumber;
+		geneArray[i] = geneArray[i-1]+columns;
 	return geneArray;
 }
 static float** createDataArray(int rows,int columns){
@@ -191,6 +191,23 @@ static float** createDataArray(int rows,int columns){
 	for(int i=1;i<rows;i++)
 		array[i]=array[i-1]+columns;
 	return array;
+}
+static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns){
+	jcharArray normalGeneTypesCol;
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray normalGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneTypeID);
+	char** gene = createGeneArray(rows,columns);
+	for (int i = 0; i < rows; i++) {
+		normalGeneTypesCol = (jcharArray) env->GetObjectArrayElement(normalGeneTypes, i);
+		jchar *coldata = env->GetCharArrayElements(normalGeneTypesCol, NULL);
+		for (int j = 0; j < columns; j++) {
+			printf("%d ",coldata[j]);
+//			fflush(stdout);
+//			gene[i][j] = coldata[j];
+		}
+		env->ReleaseCharArrayElements(normalGeneTypesCol,coldata,JNI_ABORT);
+	}
+	return gene;
 }
 float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 	jfloatArray dataSetCpCols;
@@ -211,94 +228,18 @@ float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 	return dataSetCp;
 }
 char** createNormalGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
-	jobjectArray normalGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneTypeID);
-	if (normalGeneTypes == NULL) {
-		return NULL;
-	}
-	//动态分配----------------------------------------------------------------------
-	jarray normalGeneTypesCol = (jarray)env->GetObjectArrayElement(normalGeneTypes, 0);
-	int sizeOfNormalGeneTypes = env->GetArrayLength(normalGeneTypes); //获得行数
-	int colOfNormalGeneTypes = env->GetArrayLength(normalGeneTypesCol); //获得列数
-	char** normalGeneTypesCp = createGeneArray(populationSize,normalGeneLength,normalGeneNumber);
-	//赋值-------------------------------------------------------------------
-	for (int i = 0; i < sizeOfNormalGeneTypes; i++) {
-		normalGeneTypesCol = (jarray) env->GetObjectArrayElement(normalGeneTypes, 0);
-		jchar *coldata = env->GetCharArrayElements((jcharArray) normalGeneTypesCol, 0);
-		for (int j = 0; j < colOfNormalGeneTypes; j++) {
-			//printf("%d ",sizeOfNormalGeneTypes);
-			normalGeneTypesCp[i][j] = coldata[j];
-		}
-	}
-	return normalGeneTypesCp;
+	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber);
 }
 char** createHomeoticGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
-	jobjectArray homeoticGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getHomeoticGeneTypeID);
-	if (homeoticGeneTypes == NULL) {
-		return NULL;
-	}
-	//动态分配----------------------------------------------------------------------
-	jarray homeoticGeneTypesCol = (jarray) env->GetObjectArrayElement(homeoticGeneTypes, 0);
-	int sizeOfHomeoticGeneTypes = env->GetArrayLength(homeoticGeneTypes); //获得行数
-	int colOfHomeoticGeneTypes = env->GetArrayLength(homeoticGeneTypesCol); //获得列数
-	char** homeoticGeneTypesCp = createGeneArray(populationSize,homeoticGeneLength,homeoticGeneNum);
-	//赋值-------------------------------------------------------------------
-	for (int i = 0; i < sizeOfHomeoticGeneTypes; i++) {
-		homeoticGeneTypesCol = (jarray) env->GetObjectArrayElement(homeoticGeneTypes, 0);
-		jchar *coldata = env->GetCharArrayElements((jcharArray) homeoticGeneTypesCol, 0);
-		for (int j = 0; j < colOfHomeoticGeneTypes; j++) {
-			//printf("%d ",colOfHomeoticGeneTypes);
-			homeoticGeneTypesCp[i][j] = coldata[j];
-		}
-	}
-	return homeoticGeneTypesCp;
+	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum);
 }
 
 char** createNormalGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
-	jobjectArray normalGeneIndex = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneIndexID);
-	if (normalGeneIndex == NULL) {
-		return NULL;
-	}
-	jarray normalGeneIndexCol = (jarray) env->GetObjectArrayElement(normalGeneIndex, 0);
-	//动态分配----------------------------------------------------------------------
-	int sizeOfNormalGeneIndex = env->GetArrayLength(normalGeneIndex); //获得行数
-	int colOfNormalGeneIndex = env->GetArrayLength(normalGeneIndexCol); //获得列数
-	char** normalGeneIndexCp =createGeneArray(populationSize,normalGeneLength,normalGeneNumber);
-	//赋值-------------------------------------------------------------------
-	for (int i = 0; i < sizeOfNormalGeneIndex; i++) {
-		normalGeneIndexCol = (jarray) env->GetObjectArrayElement(normalGeneIndex, 0);
-		jchar *coldata = env->GetCharArrayElements((jcharArray) normalGeneIndexCol, 0);
-		for (int j = 0; j < colOfNormalGeneIndex; j++) {
-			//printf("%d ",coldata[j]);
-			normalGeneIndexCp[i][j] = coldata[j];
-		}
-	}
-	return normalGeneIndexCp;
+	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber);
 }
 
 char** createHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
-	jobjectArray homeoticGeneIndex = (jobjectArray)env->CallObjectMethod(currentPopulation, getHomeoticGeneIndexID);
-	if (homeoticGeneIndex == NULL) {
-		return NULL;
-	}
-	//动态分配----------------------------------------------------------------------
-	int sizeOfHomeoticGeneIndex = env->GetArrayLength(homeoticGeneIndex); //获得行数
-	jarray homeoticGeneIndexCol = (jarray) env->GetObjectArrayElement(homeoticGeneIndex, 0);
-	int colOfHomeoticGeneIndex = env->GetArrayLength(homeoticGeneIndexCol); //获得列数
-	char** homeoticGeneIndexCp = createGeneArray(populationSize,homeoticGeneLength,homeoticGeneNum);
-	//赋值-------------------------------------------------------------------
-	for (int i = 0; i < sizeOfHomeoticGeneIndex; i++) {
-		homeoticGeneIndexCol = (jarray) env->GetObjectArrayElement(homeoticGeneIndex, 0);
-		jchar *coldata = env->GetCharArrayElements((jcharArray) homeoticGeneIndexCol, 0);
-		for (int j = 0; j < colOfHomeoticGeneIndex; j++) {
-			//printf("%d ",coldata[j]);
-			homeoticGeneIndexCp[i][j] = coldata[j];
-		}
-	}
-	return homeoticGeneIndexCp;
+	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum);
 }
 int getPopulationSize(JNIEnv* env, jobject gepAlgRun) {
 	jobject individualConfObject = getIndividualConfObject(env, gepAlgRun);
