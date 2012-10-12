@@ -21,6 +21,7 @@ static int homeoticGeneLength;
 static int homeoticGeneNum;
 static int normalGeneNum;
 static int selectionRange;
+static float accuracy;
 static float** dataSet;
 static char** normalGeneType;
 static char** homeoticGeneType;
@@ -36,7 +37,7 @@ JNIEXPORT void JNICALL Java_domain_service_algOutput_AlgGpuRunStep_calcOnCuda(JN
 	cputogpu(normalGeneLength,normalGeneNum,populationSize,columnNum,rowNum,homeoticGeneLength,homeoticGeneNum,dataSet,normalGeneType,normalGeneIndex,homeoticGeneType,homeoticGeneIndex);
 //	printf("b\n");
 //	fflush(stdout);
-	callKernel(normalGeneNum,homeoticGeneNum,populationSize,rowNum,columnNum,normalGeneLength,homeoticGeneLength,selectionRange);
+	callKernel(normalGeneNum,homeoticGeneNum,populationSize,rowNum,columnNum,normalGeneLength,homeoticGeneLength,selectionRange,accuracy);
 //	printf("c\n");
 //	fflush(stdout);
 	gputocpu(populationSize,rowNum);
@@ -66,6 +67,7 @@ static void initContext(JNIEnv *env,jobject gepAlgRun){
 	homeoticGeneLength=getHomeoticGeneLength(env,gepAlgRun);
 	homeoticGeneNum=getHomeoticGeneNum(env,gepAlgRun);
 	selectionRange=getSelectionRange(env,gepAlgRun);
+	accuracy=getAccuracy(env,gepAlgRun);
 	dataSet=createDataSet(env,gepAlgRun);
 	normalGeneType=createNormalGeneType(env,gepAlgRun);
 	homeoticGeneType=createHomeoticGeneType(env,gepAlgRun);

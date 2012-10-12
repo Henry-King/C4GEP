@@ -114,14 +114,14 @@ char* getHomeoticArray(){
 float **getFittedValueArray(){
 	return fittedvalue;
 }
-void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int rowNum,int columnNum,int normalGeneLength,int homeoticGeneLength,int selectionRange){
+void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int rowNum,int columnNum,int normalGeneLength,int homeoticGeneLength,int selectionRange,float accuracy){
 	int threadsPerBlock=(normalGeneNum>homeoticGeneNum?normalGeneNum:homeoticGeneNum);
 	int blocksPerGrid=populationSize;
 	size_t share_size=(rowNum*normalGeneNum+rowNum*homeoticGeneNum+homeoticGeneNum)*sizeof(float);
 	int sizeofarray=rowNum*normalGeneLength*populationSize;
 	float *dev_array;
 	cudaMalloc((void**)&dev_array,sizeof(float)*sizeofarray);
-	kernel<<<blocksPerGrid,threadsPerBlock,share_size>>>(dev_normalGenes,dev_normalGenesIndex,dev_homeoticGenes,dev_homeoticGenesIndex,dev_data,pitchNG,pitchNI,pitchHG,pitchHI,pitchDT,rowNum,columnNum,dev_fitness,dev_numofhometic,dev_fittedvalue,pitchFV,dev_array,normalGeneLength,normalGeneNum,homeoticGeneLength,homeoticGeneNum,selectionRange);
+	kernel<<<blocksPerGrid,threadsPerBlock,share_size>>>(dev_normalGenes,dev_normalGenesIndex,dev_homeoticGenes,dev_homeoticGenesIndex,dev_data,pitchNG,pitchNI,pitchHG,pitchHI,pitchDT,rowNum,columnNum,dev_fitness,dev_numofhometic,dev_fittedvalue,pitchFV,dev_array,normalGeneLength,normalGeneNum,homeoticGeneLength,homeoticGeneNum,selectionRange,accuracy);
 	cudaFree(dev_array);
 	cudaDeviceSynchronize();
 }

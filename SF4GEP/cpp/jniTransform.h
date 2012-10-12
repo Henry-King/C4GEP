@@ -49,6 +49,7 @@ static jfieldID normalGeneLengthID = NULL;
 static jfieldID homeoticGeneLengthID = NULL;
 static jfieldID selectionRangeID = NULL;
 static jfieldID functionUsedID = NULL;
+static jfieldID accuracyID=NULL;
 static void iniSysId(JNIEnv *env) {
 //	if (!class_Boolean)
 		class_Boolean = env->FindClass("Ljava/lang/Boolean;");
@@ -168,6 +169,8 @@ static void iniConf(JNIEnv * env) {
 //	if (!selectionRangeID)
 		selectionRangeID = env->GetFieldID(gepAlgConfigurationClass,
 				"selectionRange", "Ljava/lang/Float;");
+		accuracyID= env->GetFieldID(gepAlgConfigurationClass,
+				"accuracy", "Ljava/lang/Float;");
 }
 static jobject getIndividualConfObject(JNIEnv* env, jobject gepAlgRun) {
 	jobject algConfObject = env->GetObjectField(gepAlgRun,
@@ -391,6 +394,14 @@ int getRowNum(JNIEnv* env, jobject gepAlgRun) {
 int getColumnNum(JNIEnv* env, jobject gepAlgRun) {
 	jint rowNum = getIntValueOnDataSet(env, gepAlgRun, columnNumID);
 	return rowNum;
+}
+float getAccuracy(JNIEnv* env, jobject gepAlgRun){
+	jobject algConfObject = env->GetObjectField(gepAlgRun,
+			gepAlgConfigurationID);
+	jobject accuracyObject = env->GetObjectField(algConfObject,
+			accuracyID);
+	jfloat accuracy=env->CallFloatMethod(accuracyObject, floatValueMethod);;
+	return accuracy;
 }
 float getSelectionRange(JNIEnv* env, jobject gepAlgRun) {
 	jobject algConfObject = env->GetObjectField(gepAlgRun,

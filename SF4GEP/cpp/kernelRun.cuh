@@ -74,7 +74,7 @@ extern __shared__ float share[];//动态分配共享数组
 __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticgenes,char *homeoticgenesIndex,float *data,
 	size_t pitchNG,size_t pitchNI,size_t pitchHG,size_t pitchHI,size_t pitchDT,int rowofdata,int colofdata,float *fit,
 	char *numofhometic,float *fittedvalue,size_t pitchFV,float *allarray,int lenofgene,int numofnormalgenes,
-	int lenofhometicgene,int numofhomeoticgenes,float M)
+	int lenofhometicgene,int numofhomeoticgenes,float M,float accuracy)
 {
 	int bid=blockIdx.x;//个体
 	int tid=threadIdx.x;//基因
@@ -166,7 +166,10 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 	for(int n=0;n<rowofdata;n++)
 	{
 		float *row_data=(float*)((char*)data+n*pitchDT);
-		sumoffitness+=fabs(M-fabs((fitness2[n*numofhomeoticgenes+tid]-row_data[colofdata-1])));
+		float result=fabs((fitness2[n*numofhomeoticgenes+tid]-row_data[colofdata-1]));
+		if(result<accuracy)
+			result=0;
+		sumoffitness+=fabs(M-result);
 	}
 	if(isnan(sumoffitness)==true)
 		fitness3[tid]=0;
