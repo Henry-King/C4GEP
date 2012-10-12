@@ -50,6 +50,13 @@ static jfieldID homeoticGeneLengthID = NULL;
 static jfieldID selectionRangeID = NULL;
 static jfieldID functionUsedID = NULL;
 static jfieldID accuracyID=NULL;
+static jmethodID setFitnessID=NULL;
+static jmethodID setFittedValueID=NULL;
+static jmethodID setGeneNumID=NULL;
+static jclass strClass=NULL;
+static jmethodID ctorID=NULL;
+static jmethodID subStringID=NULL;
+static jmethodID toCharArrID=NULL;
 static void iniSysId(JNIEnv *env) {
 //	if (!class_Boolean)
 		class_Boolean = env->FindClass("Ljava/lang/Boolean;");
@@ -114,6 +121,12 @@ static void iniPopulationId(JNIEnv * env) {
 		getNormalGeneIndexID = env->GetMethodID(class_Population,"getNormalGeneIndex", "()[[C");
 //	if (!getHomeoticGeneIndexID)
 		getHomeoticGeneIndexID = env->GetMethodID(class_Population,"getHomeoticGeneIndex", "()[[C");
+//	if(!setFitnessID)
+		setFitnessID = env->GetMethodID(class_Population, "setFitness","([F)V");
+//	if(!setFittedValueID)
+		setFittedValueID = env->GetMethodID(class_Population,"setFittedValue", "([F)V");
+	//if(!setGeneNumID)
+		setGeneNumID = env->GetMethodID(class_Population, "setGeneNum","([C)V");
 }
 static void iniConf(JNIEnv * env) {
 //	if (!gepAlgConfigurationClass)
@@ -142,7 +155,14 @@ static void iniConf(JNIEnv * env) {
 		homeoticGeneLengthID = env->GetFieldID(geneConfigurationClass,"homeoticGeneLength", "Ljava/lang/Integer;");
 //	if (!selectionRangeID)
 		selectionRangeID = env->GetFieldID(gepAlgConfigurationClass,"selectionRange", "Ljava/lang/Float;");
+//	if(!accuracyID)
 		accuracyID= env->GetFieldID(gepAlgConfigurationClass,"accuracy", "Ljava/lang/Float;");
+}
+static void iniString(JNIEnv * env){
+	strClass = env->FindClass("Ljava/lang/String;");
+	ctorID = env->GetMethodID(strClass, "<init>","([BLjava/lang/String;)V");
+	subStringID = env->GetMethodID(strClass, "substring","(II)Ljava/lang/String;");
+	toCharArrID = env->GetMethodID(strClass, "toCharArray", "()[C");
 }
 static jobject getIndividualConfObject(JNIEnv* env, jobject gepAlgRun) {
 	jobject algConfObject = env->GetObjectField(gepAlgRun,
@@ -177,6 +197,7 @@ void iniAllId(JNIEnv * env) {
 	iniDataSetId(env);
 	iniPopulationId(env);
 	iniConf(env);
+	iniString(env);
 }
 static char** createGeneArray(int populationSize,int columns){
 	char** geneArray = (char**)malloc(sizeof(char*)*populationSize);
@@ -305,7 +326,6 @@ float getSelectionRange(JNIEnv* env, jobject gepAlgRun) {
 	return num;
 }
 void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
-	jmethodID setFitnessID = env->GetMethodID(class_Population, "setFitness","([F)V");
 	long popuSize = getPopulationSize(env, gepAlgRun);
 	jfloatArray fitnessInJava = env->NewFloatArray(popuSize);
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
@@ -316,9 +336,8 @@ void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
 void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 	int rowNum = getRowNum(env, gepAlgRun);
 	int popuSize = getPopulationSize(env, gepAlgRun);
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
-			getCurrentPopulationID);
-	float*temp2DArr = (float *) malloc(rowNum * popuSize * sizeof(float));
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	float*temp2DArr = (float*) malloc(rowNum * popuSize * sizeof(float));
 	int index = 0;
 	for (int i = 0; i < rowNum; i++) {
 		for (int j = 0; j < popuSize; j++) {
@@ -326,38 +345,21 @@ void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 			index++;
 		}
 	}
-	jmethodID setFittedValueID = env->GetMethodID(class_Population,
-			"setFittedValue", "([F)V");
 	jfloatArray fittedValueInJava = env->NewFloatArray(rowNum * popuSize);
-	env->SetFloatArrayRegion(fittedValueInJava, 0, rowNum * popuSize,
-			temp2DArr);
-	env->CallVoidMethod(currentPopulation, setFittedValueID,
-			(jobjectArray) fittedValueInJava);
+	env->SetFloatArrayRegion(fittedValueInJava, 0, rowNum * popuSize,temp2DArr);
+	env->CallVoidMethod(currentPopulation, setFittedValueID,(jobjectArray) fittedValueInJava);
 	env->DeleteLocalRef(fittedValueInJava );
 }
 void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) {
 	int numofpopulation = getPopulationSize(env, gepAlgRun);
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
-			getCurrentPopulationID);
-	jmethodID setGeneNumID = env->GetMethodID(class_Population, "setGeneNum",
-			"([C)V");
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	//将char*转为JString再转为jcharArray
-	jclass strClass = env->FindClass("Ljava/lang/String;");
-	jmethodID ctorID = env->GetMethodID(strClass, "<init>",
-			"([BLjava/lang/String;)V");
 	jbyteArray bytes = env->NewByteArray(numofpopulation);
-	env->SetByteArrayRegion(bytes, 0, numofpopulation,
-			(jbyte*) numofhometic);
+	env->SetByteArrayRegion(bytes, 0, numofpopulation,(jbyte*) numofhometic);
 	jstring encoding = env->NewStringUTF("utf-8");
-	jstring strTemp = (jstring) env->NewObject(strClass, ctorID, bytes,
-			encoding);
-	jmethodID subStringID = env->GetMethodID(strClass, "substring",
-			"(II)Ljava/lang/String;");
-	strTemp = (jstring) env->CallObjectMethod(strTemp, subStringID, 0,
-			numofpopulation);
-	jmethodID toCharArrID = env->GetMethodID(strClass, "toCharArray", "()[C");
-	jcharArray geneNumInJava = (jcharArray) env->CallObjectMethod(strTemp,
-			toCharArrID);
+	jstring strTemp = (jstring) env->NewObject(strClass, ctorID, bytes,encoding);
+	strTemp = (jstring) env->CallObjectMethod(strTemp, subStringID, 0,numofpopulation);
+	jcharArray geneNumInJava = (jcharArray) env->CallObjectMethod(strTemp,toCharArrID);
 	env->CallVoidMethod(currentPopulation, setGeneNumID, geneNumInJava);
 	env->DeleteLocalRef(bytes);
 	env->DeleteLocalRef(encoding);
