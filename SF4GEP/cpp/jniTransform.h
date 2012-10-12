@@ -312,7 +312,6 @@ void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
 	env->SetFloatArrayRegion(fitnessInJava, 0, popuSize, fitness);
 	env->CallVoidMethod(currentPopulation, setFitnessID, fitnessInJava);
 	env->DeleteLocalRef(fitnessInJava);
-	env->DeleteLocalRef(currentPopulation);
 }
 void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 	int rowNum = getRowNum(env, gepAlgRun);
@@ -334,9 +333,7 @@ void toJavaFittedValue(JNIEnv* env, jobject gepAlgRun,float** fittedvalue) {
 			temp2DArr);
 	env->CallVoidMethod(currentPopulation, setFittedValueID,
 			(jobjectArray) fittedValueInJava);
-	env->DeleteLocalRef(currentPopulation);
 	env->DeleteLocalRef(fittedValueInJava );
-
 }
 void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) {
 	int numofpopulation = getPopulationSize(env, gepAlgRun);
@@ -362,7 +359,6 @@ void toJavaHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,char* numofhometic) 
 	jcharArray geneNumInJava = (jcharArray) env->CallObjectMethod(strTemp,
 			toCharArrID);
 	env->CallVoidMethod(currentPopulation, setGeneNumID, geneNumInJava);
-	env->DeleteLocalRef(currentPopulation);
 	env->DeleteLocalRef(bytes);
 	env->DeleteLocalRef(encoding);
 	env->DeleteLocalRef(strTemp);
