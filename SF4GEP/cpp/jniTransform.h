@@ -192,13 +192,11 @@ static float** createDataArray(int rows,int columns){
 		array[i]=array[i-1]+columns;
 	return array;
 }
-static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns){
+static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns,jobjectArray geneInfo){
 	jcharArray normalGeneTypesCol;
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
-	jobjectArray normalGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneTypeID);
 	char** gene = createGeneArray(rows,columns);
 	for (int i = 0; i < rows; i++) {
-		normalGeneTypesCol = (jcharArray) env->GetObjectArrayElement(normalGeneTypes, i);
+		normalGeneTypesCol = (jcharArray) env->GetObjectArrayElement(geneInfo, i);
 		jchar *coldata = env->GetCharArrayElements(normalGeneTypesCol, NULL);
 		for (int j = 0; j < columns; j++) {
 //			printf("%d\n",coldata[j]);
@@ -207,6 +205,7 @@ static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns){
 		}
 		env->ReleaseCharArrayElements(normalGeneTypesCol,coldata,JNI_ABORT);
 	}
+//	printf("start\n");
 	return gene;
 }
 float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
@@ -219,7 +218,7 @@ float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 		dataSetCpCols = (jfloatArray)env->GetObjectArrayElement(dataSetArr, i);
 		jfloat *coldata = env->GetFloatArrayElements(dataSetCpCols, NULL);
 		for (int j = 0; j < columNum; j++) {
-//			printf("%f\n ",coldata[j]);
+//			printf("%f\t ",coldata[j]);
 //			fflush(stdout);
 			dataSetCp[i][j] = coldata[j];
 		}
@@ -228,18 +227,26 @@ float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 	return dataSetCp;
 }
 char** createNormalGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
-	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber);
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray normalGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneTypeID);
+	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneTypes);
 }
 char** createHomeoticGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
-	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum);
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray homeoticGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getHomeoticGeneTypeID);
+	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneTypes);
 }
 
 char** createNormalGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
-	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber);
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray normalGeneIndex = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneIndexID);
+	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneIndex);
 }
 
 char** createHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
-	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum);
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
+	jobjectArray homeoticGeneIndex = (jobjectArray) env->CallObjectMethod(currentPopulation, getHomeoticGeneIndexID);
+	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneIndex);
 }
 int getPopulationSize(JNIEnv* env, jobject gepAlgRun) {
 	jobject individualConfObject = getIndividualConfObject(env, gepAlgRun);
@@ -298,13 +305,10 @@ float getSelectionRange(JNIEnv* env, jobject gepAlgRun) {
 	return num;
 }
 void toJavaFitness(JNIEnv* env, jobject gepAlgRun,float *fitness) {
-	jmethodID setFitnessID = env->GetMethodID(class_Population, "setFitness",
-			"([F)V");
-
+	jmethodID setFitnessID = env->GetMethodID(class_Population, "setFitness","([F)V");
 	long popuSize = getPopulationSize(env, gepAlgRun);
 	jfloatArray fitnessInJava = env->NewFloatArray(popuSize);
-	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,
-			getCurrentPopulationID);
+	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	env->SetFloatArrayRegion(fitnessInJava, 0, popuSize, fitness);
 	env->CallVoidMethod(currentPopulation, setFitnessID, fitnessInJava);
 	env->DeleteLocalRef(fitnessInJava);
