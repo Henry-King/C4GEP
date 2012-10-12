@@ -56,7 +56,7 @@ void initgpu(int lenofnormalgene,int numofnormalgenes,int numofpopulation,int co
 	cudaMalloc((void**)&dev_numofhometic,sizeof(char)*numofpopulation);
 }
 
-void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesIndex,char** homeoticGenes,char** homeoticGenesIndex)
+void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesIndex,char** homeoticGenes,char** homeoticGenesIndex,float **data)
 {
 	cudaFree(dev_data);
 	cudaFree(dev_normalGenes);
@@ -78,6 +78,8 @@ void freecpuandgpu(int numofpopulation,char** normalGenes,char** normalGenesInde
 	free(homeoticGenesIndex);
 	free(fittedvalue[0]);
 	free(fittedvalue);
+	free(data[0]);
+	free(data);
 }
 void cputogpu(int lenofgene,int numofnormalgenes,int numofpopulation,int col,int row,int lenofhometicgene,int numofhomeoticgenes,float **data,char **normalGenes,char **normalGenesIndex,char **homeoticGenes,char **homeoticGenesIndex)//¿½±´£ºcpuµ½gpu
 {
