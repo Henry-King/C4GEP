@@ -71,6 +71,8 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 	private Element EvolutionBestElement;
 	private Element EvolutionWorseElement;
 	
+	public JLabel tooltip_PicturePanel;
+	
 	private void init(){
 		FittingCurveBox = new TDataBox();
 		EvolutionBox = new TDataBox();
@@ -91,7 +93,7 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		setLayout(new BorderLayout(0,0));
 		setBorder(new MatteBorder(0, 0, 7, 0, (Color) new Color(250, 250, 210)));
 		
-		JLabel tooltip_PicturePanel = new JLabel("It's no picture info now.");
+		tooltip_PicturePanel = new JLabel("It's no picture info now.");
 		tooltip_PicturePanel.setToolTipText("The picture status will show here");
 		tooltip_PicturePanel.setFont(new Font("Century", Font.PLAIN, 14));
 		tooltip_PicturePanel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(250, 240, 230)));

@@ -405,7 +405,14 @@ public class MainToolBar extends JToolBar {
             		gepAlgRun = result.get();
             		
             		OutputPictureController ouputPictureController = confPanel.contentPanel.getOutputPictureController();
-            		ouputPictureController.setGepAlgRun(gepAlgRun);
+            		ouputPictureController.setGepAlgRun(gepAlgRun);	//这里开始画图，修改模型相应的UI界面
+            		
+            		OutputPicturePanel outputPicturePanel = confPanel.contentPanel.outputPicturePanel;
+            		Dimension di = outputPicturePanel.getPreferredSize();
+            		outputPicturePanel.setPreferredSize(new Dimension(di.width,confPanel.contentPanel.getHeight()-25));
+            		outputPicturePanel.tooltip_PicturePanel.setText("  Here shows the Fitting Curve Gragh and Evolution Gragh,You can "
+            				+"do more by click the link label.");	//其实是个Label
+            		
             		
 				} catch (InterruptedException | ExecutionException e1) {
 					e1.printStackTrace();

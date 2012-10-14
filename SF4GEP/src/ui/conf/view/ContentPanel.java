@@ -27,7 +27,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 143362423596329375L;
-	private OutputPicturePanel outputPicturePanel;
+	
 	private JTabbedPane tabbedPane;
 
 	private AccuracyPanel accuracyPanel;
@@ -37,6 +37,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 	private MainWnd mainWnd;
 	private ConfPanel confPanel;
 	
+	public OutputPicturePanel outputPicturePanel;
 	public AccuracyController accuracyController;
 	public GeneController geneController;
 	public OperatorController operatorController;
@@ -59,6 +60,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		OutputPictureModel outputPictureModel = new OutputPictureModel();
 		outputPicturePanel.setPreferredSize(new Dimension(di.width,40));
+		outputPictureController = new OutputPictureController(outputPictureModel, outputPicturePanel);
 		add("North", outputPicturePanel);
 
 		
