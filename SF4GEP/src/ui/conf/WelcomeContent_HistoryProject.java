@@ -14,6 +14,8 @@ import java.awt.SystemColor;
 import ui.app.GUIProperties;
 import ui.app.MainWnd;
 import ui.app.TablePanel;
+import ui.conf.view.TypeHelper;
+import ui.conf.view.TypeHelper.TableType;
 import ui.images.*;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -28,6 +30,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
+import ui.conf.view.*;
 
 public class WelcomeContent_HistoryProject extends JPanel {
 
@@ -59,7 +62,7 @@ public class WelcomeContent_HistoryProject extends JPanel {
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		
 		
-		TablePanel projectTable = new TablePanel(mainWnd);
+		TablePanel projectTable = new TablePanel(mainWnd,TableType.CreateNewProfileTable);
 		projectTable.setBorder(new EmptyBorder(8, 8, 1, 8));
 		
 		

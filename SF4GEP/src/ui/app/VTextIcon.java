@@ -44,9 +44,7 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 	 * @see #verifyRotation
 	 */
 	public VTextIcon(Component component, String label) {
-		
 		this(component, label, ROTATE_DEFAULT);
-		
 		
 	}
 
@@ -63,6 +61,9 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 		fRotation = verifyRotation(label, rotateHint);
 		calcDimensions();
 		fComponent.addPropertyChangeListener(this);
+		
+		
+		
 	}
 
 	/**
@@ -99,17 +100,20 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 		calcDimensions();
 		if (wOld != getIconWidth() || hOld != getIconHeight())
 			fComponent.invalidate();
+		
 	}
 
 	void calcDimensions() {
 		FontMetrics fm = fComponent.getFontMetrics(fComponent.getFont());
 		fCharHeight = fm.getAscent() + fm.getDescent();
-		fDescent = fm.getDescent();
-		if (fRotation == ROTATE_NONE) {
+		//fDescent = fm.getDescent();
+		fDescent = 0;
+		/*if (fRotation == ROTATE_NONE) {
 			int len = fLabel.length();
 			char data[] = new char[len];
 			fLabel.getChars(0, len, data, 0);
 			// if not rotated, width is that of the widest char in the string
+			//fWidth = 0;
 			fWidth = 0;
 			// we need an array of one-char strings for drawString
 			fCharStrings = new String[len];
@@ -134,12 +138,14 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 			// and height is the font height * the char count, + one extra
 			// leading at the bottom
 			fHeight = fCharHeight * len + fDescent;
-		} else {
+			fWidth = -15;
+		} else {*/
 			// if rotated, width is the height of the string
-			fWidth = fCharHeight;
+			//fWidth = fCharHeight;	//修改竖向的高度
 			// and height is the width, plus some buffer space
-			fHeight = fm.stringWidth(fLabel) + 2 * kBufferSpace;
-		}
+			fHeight = fm.stringWidth(fLabel) + 2 * kBufferSpace+30;//修改竖向的宽度
+			fWidth = -25;
+		//}
 	}
 
 	/**
@@ -149,9 +155,13 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		// We don't insist that it be on the same Component
-		g.setColor(c.getForeground());
-		g.setFont(c.getFont());
-		if (fRotation == ROTATE_NONE) {
+		//g.setColor(c.getForeground());
+		g.setColor(Color.BLACK);
+		//g.setFont(c.getFont());
+		g.setFont(new Font("微软雅黑", Font.BOLD, 14));
+		
+		
+		/*if (fRotation == ROTATE_NONE) {
 			int yPos = y + fCharHeight;
 			for (int i = 0; i < fCharStrings.length; i++) {
 				// Special rules for Japanese - "half-height" characters (like
@@ -178,19 +188,29 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 				}
 				yPos += fCharHeight;
 			}
-		} else if (fRotation == ROTATE_LEFT) {
-			g.translate(x + fWidth, y + fHeight);
+		} else if (fRotation == ROTATE_LEFT) {*/
+			/**
+			 * Here
+			 */
+			g.translate(x + fWidth+12, y + fHeight-10);
 			((Graphics2D) g).rotate(-NINETY_DEGREES);
 			g.drawString(fLabel, kBufferSpace, -fDescent);
 			((Graphics2D) g).rotate(NINETY_DEGREES);
-			g.translate(-(x + fWidth), -(y + fHeight));
-		} else if (fRotation == ROTATE_RIGHT) {
+			g.translate(-(x + fWidth+12), -(y + fHeight-10));
+			
+			
+			/*g.translate(x + fWidth, y + fHeight);
+			((Graphics2D) g).rotate(-NINETY_DEGREES);
+			g.drawString(fLabel, kBufferSpace, -fDescent);
+			((Graphics2D) g).rotate(NINETY_DEGREES);
+			g.translate(-(x + fWidth), -(y + fHeight));*/
+		/*} else if (fRotation == ROTATE_RIGHT) {
 			g.translate(x, y);
 			((Graphics2D) g).rotate(NINETY_DEGREES);
 			g.drawString(fLabel, kBufferSpace, -fDescent);
 			((Graphics2D) g).rotate(-NINETY_DEGREES);
 			g.translate(-x, -y);
-		}
+		}*/
 
 	}
 

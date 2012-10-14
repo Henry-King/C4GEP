@@ -10,11 +10,20 @@ import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
 import ui.conf.model.MyTitle;
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.MatteBorder;
+import javax.swing.UIManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 public class AccuracyPanel extends JPanel implements Observer{
 
 	/**
@@ -25,8 +34,11 @@ public class AccuracyPanel extends JPanel implements Observer{
 	public JTextField selectionRangeTextField;
 	public JTextField accuracytextField;
 
+	public JLabel tooltip_maxGeneration;
 	
 	AccuracyModel accuracyModel;
+	
+	private JPanel mainPanel = null; 
 	
 	/**
 	 * Create the panel.
@@ -36,57 +48,47 @@ public class AccuracyPanel extends JPanel implements Observer{
 		
 		
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{30, 130, 126, 0};
-		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
 		
-		JLabel titleLabel = new MyTitle("\u8BBE\u7F6E\u7B97\u6CD5\u7684\u6C42\u89E3\u7CBE\u5EA6");
-		titleLabel.setText("\u8BBE\u7F6E\u7B97\u6CD5\u7CBE\u5EA6");
-		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
-		gbc_titleLabel.gridwidth = 2;
-		gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_titleLabel.gridx = 1;
-		gbc_titleLabel.gridy = 0;
-		add(titleLabel, gbc_titleLabel);
+		
+		
 		
 		
 		JLabel maxGenerationLabel = new MyPrompt("\u6700\u5927\u6F14\u5316\u4EE3\u6570");
-		GridBagConstraints gbc_maxGenerationLabel = new GridBagConstraints();
-		gbc_maxGenerationLabel.anchor = GridBagConstraints.WEST;
-		gbc_maxGenerationLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_maxGenerationLabel.gridx = 1;
-		gbc_maxGenerationLabel.gridy = 1;
-		add(maxGenerationLabel, gbc_maxGenerationLabel);
+		maxGenerationLabel.setFont(new Font("Century", Font.PLAIN, 14));
+		maxGenerationLabel.setText("Max Generation:");
+		maxGenerationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		accuracytextField = new MyTextField();
+		accuracytextField.setFont(new Font("Century", Font.PLAIN, 14));
+		accuracytextField.setHorizontalAlignment(SwingConstants.CENTER);
 		accuracytextField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				accuracytextField.selectAll();
 			}
 		});
-		
 		accuracytextField.setText("0");
-		GridBagConstraints gbc_accuracytextField = new GridBagConstraints();
-		gbc_accuracytextField.anchor = GridBagConstraints.WEST;
-		gbc_accuracytextField.insets = new Insets(0, 0, 5, 0);
-		gbc_accuracytextField.gridx = 2;
-		gbc_accuracytextField.gridy = 2;
-		add(accuracytextField, gbc_accuracytextField);
 		
 		
 		JLabel accuracyLabel = new MyPrompt("\u6C42\u89E3\u7CBE\u5EA6");
-		GridBagConstraints gbc_accuracyLabel = new GridBagConstraints();
-		gbc_accuracyLabel.anchor = GridBagConstraints.WEST;
-		gbc_accuracyLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_accuracyLabel.gridx = 1;
-		gbc_accuracyLabel.gridy = 2;
-		add(accuracyLabel, gbc_accuracyLabel);
+		accuracyLabel.setFont(new Font("Century", Font.PLAIN, 14));
+		accuracyLabel.setText("Accuracy:");
+		accuracyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		generationNumTextField = new MyTextField();
+		generationNumTextField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				tooltip_maxGeneration.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tooltip_maxGeneration.setVisible(false);
+			}
+		});
+		generationNumTextField.setToolTipText("");
+		generationNumTextField.setFont(new Font("Century", Font.PLAIN, 14));
+		generationNumTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		generationNumTextField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -94,23 +96,16 @@ public class AccuracyPanel extends JPanel implements Observer{
 			}
 		});
 		generationNumTextField.setText("0");
-		GridBagConstraints gbc_generationNumTextField = new GridBagConstraints();
-		gbc_generationNumTextField.anchor = GridBagConstraints.WEST;
-		gbc_generationNumTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_generationNumTextField.gridx = 2;
-		gbc_generationNumTextField.gridy = 1;
-		add(generationNumTextField, gbc_generationNumTextField);
 		
 		
 		JLabel selectionRangeLabel = new MyPrompt("\u9009\u62E9\u8303\u56F4");
-		GridBagConstraints gbc_selectionRangeLabel = new GridBagConstraints();
-		gbc_selectionRangeLabel.anchor = GridBagConstraints.WEST;
-		gbc_selectionRangeLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_selectionRangeLabel.gridx = 1;
-		gbc_selectionRangeLabel.gridy = 3;
-		add(selectionRangeLabel, gbc_selectionRangeLabel);
+		selectionRangeLabel.setFont(new Font("Century", Font.PLAIN, 14));
+		selectionRangeLabel.setText("Selection Range:");
+		selectionRangeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		selectionRangeTextField = new MyTextField();
+		selectionRangeTextField.setFont(new Font("Century", Font.PLAIN, 14));
+		selectionRangeTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		selectionRangeTextField.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -118,11 +113,59 @@ public class AccuracyPanel extends JPanel implements Observer{
 			}
 		});
 		selectionRangeTextField.setText("0");
-		GridBagConstraints gbc_selectionRangeTextField = new GridBagConstraints();
-		gbc_selectionRangeTextField.anchor = GridBagConstraints.WEST;
-		gbc_selectionRangeTextField.gridx = 2;
-		gbc_selectionRangeTextField.gridy = 3;
-		add(selectionRangeTextField, gbc_selectionRangeTextField);
+		
+		tooltip_maxGeneration = new JLabel("  Setting the max generation that needs a long type num greater than zero ");
+		tooltip_maxGeneration.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(109, 109, 109)));
+		tooltip_maxGeneration.setBackground(new Color(255, 255, 102));
+		tooltip_maxGeneration.setOpaque(true);
+		tooltip_maxGeneration.setFont(new Font("Century", Font.PLAIN, 14));
+		tooltip_maxGeneration.setVisible(false);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(maxGenerationLabel, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addComponent(generationNumTextField, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+							.addGap(26)
+							.addComponent(tooltip_maxGeneration, GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(accuracyLabel, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addComponent(accuracytextField, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(selectionRangeLabel, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
+							.addComponent(selectionRangeTextField, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)))
+					.addGap(26))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(13)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(maxGenerationLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(generationNumTextField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tooltip_maxGeneration, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addGap(9)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(accuracyLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(accuracytextField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
+					.addGap(9)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(selectionRangeLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(selectionRangeTextField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))))
+		);
+		setLayout(groupLayout);
 		
 		
 	}
@@ -140,5 +183,4 @@ public class AccuracyPanel extends JPanel implements Observer{
 		model.setSelectionRange(Float.parseFloat(selectionRangeTextField.getText().toString()));
 		model.setAccuracy(Float.parseFloat(accuracytextField.getText().toString()));
 	}
-
 }

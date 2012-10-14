@@ -31,6 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
+import com.jtattoo.plaf.JTattooUtilities;
+import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathCanvas;
 import com.wolfram.jlink.MathLinkException;
@@ -43,6 +45,7 @@ import domain.service.algConfiguration.GepConfigurationService;
 import ui.algoutput.view.OutputView;
 import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
+
 
 public class MainWnd {
 	
@@ -60,6 +63,11 @@ public class MainWnd {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		MainWnd window = new MainWnd();
 	}
 
@@ -75,10 +83,11 @@ public class MainWnd {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+			UIManager.setLookAndFeel("com.nilo.plaf.nimrod.NimRODLookAndFeel");
+			
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -115,9 +124,9 @@ public class MainWnd {
 			        loadBar.setValue(30);
 			    	splashScreen.splashPanel.setLoadString("initial HibernateDataContext");
 			    	hibernateDataContext =  GepConfigurationService.initSystem();
-
-			    	splashScreen.splashPanel.setLoadString("initial Mathematica Kernel");
-			    	initKernel();
+			    	loadBar.setValue(100);
+			    	//splashScreen.splashPanel.setLoadString("initial Mathematica Kernel");
+			    	//initKernel();
 			    	
 			    }
 			});

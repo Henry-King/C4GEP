@@ -135,17 +135,23 @@ public class MainToolBar extends JToolBar {
 				}
 				if (profileWnd!=null) {
 					if (!profileWnd.isInWnd()) {
-						profileWnd.setVisible(false);
-						profileWnd.dispose();
+						if (!profileWnd.isInElement()) {
+							profileWnd.setVisible(false);
+							profileWnd.dispose();
+						}
 					}
 				}
 				
 			}
 		});
+        
+        
+        
+        
         inputDataButton.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-}
+        	}
         	
         	@Override
         	public void mouseEntered(MouseEvent e) {
@@ -154,9 +160,13 @@ public class MainToolBar extends JToolBar {
         			profileWnd.setVisible(false);
         			profileWnd.dispose();
 				}
-    			Point p = inputDataButton.getLocation();
+    			//Point p = inputDataButton.getLocation();
+        		Point p= inputDataButton.getLocationOnScreen();
     			
-    			inputDataWnd = new InputDataWnd(confPanel,p);
+    			inputDataWnd = new InputDataWnd(confPanel);
+    			p.y=p.y+inputDataButton.getIcon().getIconHeight()+7;
+    			inputDataWnd.setLocation(p);
+    			
                 inputDataWnd.setVisible(true);
                 
                 if (timer.isRunning()) {
@@ -206,8 +216,7 @@ public class MainToolBar extends JToolBar {
         
         profileImage = ImageHelper.loadImage("profile.png");
         profileButton = new ToolButton(profileImage);
-        profileButton.setToolTipText("À„∑®≈‰÷√");
-        
+        profileButton.setToolTipText("Profile");
         profileButton.addMouseListener(new MouseAdapter() {
         	
         	
@@ -222,10 +231,12 @@ public class MainToolBar extends JToolBar {
         			inputDataWnd.setVisible(false);
         			inputDataWnd.dispose();
 				}
-    			Point p = profileButton.getLocation();
+    			Point p = profileButton.getLocationOnScreen();
     			//System.out.println(p.x+"|"+p.y);
     			//System.out.println("cur " + e.getPoint().x + "|"+e.getPoint().y);
-    			profileWnd = new ProfileWnd(confPanel,p);
+    			profileWnd = new ProfileWnd(confPanel);
+    			p.y=p.y+profileButton.getIcon().getIconHeight()+7;
+    			profileWnd.setLocation(p);
     			profileWnd.setVisible(true);
                 if (timer.isRunning()) {
 					timer.stop();
@@ -368,7 +379,7 @@ public class MainToolBar extends JToolBar {
 					operatorConfiguration.setTwoPointRecombineRate(operatorModel.getTwoPointRecombineRate());
 					operatorConfiguration.setGeneRecombineRate(operatorModel.getGeneRecombineRate());
 			
-					JOptionPane.showMessageDialog(mainWnd.frame,operatorModel.getMutateRate()+"|"
+					/*JOptionPane.showMessageDialog(mainWnd.frame,operatorModel.getMutateRate()+"|"
 							+operatorModel.getIsTransportRate()+"|"
 							+operatorModel.getIsElement()+"|"
 							+operatorModel.getRisTransportRate()+"|"
@@ -376,7 +387,7 @@ public class MainToolBar extends JToolBar {
 							+operatorModel.getGeneTransportRate()+"|"
 							+operatorModel.getOnePointRecombineRate()+"|"
 							+operatorModel.getTwoPointRecombineRate()+"|"
-							+operatorModel.getGeneRecombineRate());
+							+operatorModel.getGeneRecombineRate());*/
 				
 				//}
             	

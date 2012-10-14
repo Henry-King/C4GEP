@@ -10,39 +10,23 @@ import javax.swing.border.*;
 import javax.swing.plaf.*;
 import javax.swing.plaf.multi.*;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 import ui.app.*;
 
 public class LinkLabel extends JLabel {
-	private String text, url;
+	private String text,url;
 	private boolean isSupported;
+	
+	
+	
 	
 	public LinkLabel(String text) {
 		this.text = text;
-		
-		setText(false);
-		addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
-				setText(isSupported);
-				if (isSupported)
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
-			}
-
-			public void mouseExited(MouseEvent e) {
-				setText(false);
-			}
-
-//			public void mouseClicked(MouseEvent e) {
-//
-//			}
-		});
+		init();
 	}
 	
-	
-	
-
-	public LinkLabel(String text, String url) {
-		this.text = text;
-		this.url = url;
+	private void init(){
 		try {
 			this.isSupported = Desktop.isDesktopSupported()
 					&& Desktop.getDesktop().isSupported(Desktop.Action.BROWSE);
@@ -60,7 +44,17 @@ public class LinkLabel extends JLabel {
 			public void mouseExited(MouseEvent e) {
 				setText(false);
 			}
+		});
+	}
+	
+	
+	
 
+	public LinkLabel(String text, String url) {
+		this.text = text;
+		this.url = url;
+		init();
+		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					Desktop.getDesktop().browse(
@@ -70,6 +64,15 @@ public class LinkLabel extends JLabel {
 			}
 		});
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private void setText(boolean b) {
 		if (!b)

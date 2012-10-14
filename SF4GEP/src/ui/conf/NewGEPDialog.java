@@ -206,13 +206,15 @@ public class NewGEPDialog extends JDialog {
             int tabCount = jtp.getTabCount();
             ConfPanel newConfPanel = new ConfPanel(mainWnd);
             VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
-            jtp.addTab(null,newVTextIcon, newConfPanel, null);
+            //jtp.addTab(null,newVTextIcon, newConfPanel, null);
             //jtp.addTab("Tab", null,welcomeVTextIcon,null);
            
-            CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
-            
+            //CloseableTabComponent ctc = new CloseableTabComponent(jtp,newVTextIcon);
+            //ctc.setSize(new Dimension(14, 14));
+            //jtp.add(newConfPanel,tabCount);
+            jtp.addTab(null,newVTextIcon, newConfPanel, null);
             jtp.setSelectedIndex(tabCount);
-            jtp.setTabComponentAt(tabCount, ctc);
+            //jtp.setTabComponentAt(tabCount, ctc);
             jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
             
             
@@ -270,53 +272,7 @@ public class NewGEPDialog extends JDialog {
 	
 	
 	
-	public static class CloseableTabComponent extends JPanel {
-        private static ImageIcon closerImage = ImageHelper.loadImage("closer.gif");
-        private static ImageIcon closerRolloverImage = ImageHelper.loadImage("closer_rollover.gif");
-        private static ImageIcon closerPressedImage = ImageHelper.loadImage("closer_pressed.gif");
-        private JLabel titleLabel = null;
-        private JButton closeButton = null; 
-        private JTabbedPane tabbedPane = null;
-        
-        public CloseableTabComponent(JTabbedPane aTabbedPane,String title) {
-            super(new BorderLayout());
-            tabbedPane = aTabbedPane;
-            setFont(new Font("Courier",Font.PLAIN,14));
-            setOpaque(false);
-            setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
-            
-            titleLabel = new JLabel(title);
-            titleLabel.setOpaque(false);
-            titleLabel.setFont(new Font("Courier",Font.PLAIN,14));
-            
-            
-            closeButton = new JButton(closerImage);
-            closeButton.setRolloverIcon(closerRolloverImage);
-            closeButton.setPressedIcon(closerPressedImage);
-            closeButton.setBorderPainted(false);
-            closeButton.setBorder(BorderFactory.createEmptyBorder());
-            closeButton.setFocusPainted(false);
-            closeButton.setRolloverEnabled(true);
-            closeButton.setOpaque(false);
-            closeButton.setContentAreaFilled(false);
-            closeButton.setPreferredSize(new Dimension(closerImage.getIconWidth(), closerImage.getIconHeight()));
-            closeButton.setSize(new Dimension(closerImage.getIconWidth(), closerImage.getIconHeight()));
-            closeButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    for (int i = 0; i < tabbedPane.getTabCount(); i++) {
-                        if (CloseableTabComponent.this.equals(tabbedPane.getTabComponentAt(i))) {
-                            tabbedPane.removeTabAt(i);
-                            break;
-                        }
-                    }
-                }
-            });
-            
-            add(titleLabel, BorderLayout.CENTER);
-            add(closeButton, BorderLayout.EAST);
-        }
-        
-    }
+	
 
 
 	public NewProjectModel getData() {

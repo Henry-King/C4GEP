@@ -24,7 +24,7 @@ public class SplashPanel extends JPanel {
     public SplashPanel() {
         super();
         setForeground(new Color(233, 115, 103));
-        setFont(new Font("Serif", Font.PLAIN, 28));
+        setFont(new Font("Century", Font.PLAIN, 28));
     }
 
     public Dimension getPreferredSize() {
@@ -37,7 +37,7 @@ public class SplashPanel extends JPanel {
         
         int x = 10;
         int y = splashImage.getIconHeight()-10;
-        g.setFont(new Font("Calibri", Font.PLAIN, 14));
+        g.setFont(new Font("Century", Font.PLAIN, 14));
         g.setColor(Color.WHITE);
         g.drawString(loadString, x, y);
 

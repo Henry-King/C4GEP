@@ -17,7 +17,9 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.util.List;
 
+import ui.app.TablePanel;
 import ui.conf.controller.InputDataController;
+import ui.conf.view.TypeHelper.TableType;
 
 
 
@@ -32,23 +34,26 @@ public class ProfileWnd extends JWindow{
 	private JTextField textField;
 	private ConfPanel confPanel;
 	private DataSet inputDataSet;
+	private TablePanel table;
+	private boolean inElement = false;
+	
 
-	public ProfileWnd(ConfPanel confPanel,Point p) {
+	public ProfileWnd(ConfPanel confPanel) {
 		thisWnd = this;
 		this.confPanel = confPanel;
-		this.setSize(400,400);
+		this.setSize(600,450);
 		mainPanel = new JPanel();
 		mainPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		mainPanel.setFont(new Font("Arial", Font.PLAIN, 13));
-		
 		
 		
 		
 		timer= new Timer(500,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				thisWnd.setVisible(false);
-				thisWnd.dispose();
+				if (!inElement) {
+					thisWnd.setVisible(false);
+					thisWnd.dispose();
+				}
 			}
 		});
 		 
@@ -83,129 +88,98 @@ public class ProfileWnd extends JWindow{
 		
 		JLabel lbl_Title = new JLabel("Profile Setting");
 		lbl_Title.setForeground(SystemColor.windowText);
-		lbl_Title.setFont(new Font("Arial", Font.BOLD, 16));
-		lbl_Title.setFont(new Font("ËÎÌו", Font.BOLD, 16));
-		lbl_Title.setBounds(10, 0, 242, 26);
+		lbl_Title.setFont(new Font("Kartika", Font.BOLD, 16));
+		lbl_Title.setBounds(16, 7, 242, 26);
 		mainPanel.add(lbl_Title);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(11, 27, 380, 2);
+		separator.setBounds(10, 32, 580, 1);
 		mainPanel.add(separator);
-		
-		JLabel lbl_currentSatus = new JLabel("Current Input Data Status:");
-		lbl_currentSatus.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_currentSatus.setBounds(20, 36, 157, 15);
-		mainPanel.add(lbl_currentSatus);
-		
-		JLabel info_currentStatus = new JLabel("no set");
-		info_currentStatus.setFont(new Font("Arial", Font.PLAIN, 13));
-		info_currentStatus.setBounds(187, 36, 157, 15);
-		mainPanel.add(info_currentStatus);
-		
-		JPanel noSetPanel = new JPanel();
-		noSetPanel.setVisible(false);
-		noSetPanel.setBackground(Color.WHITE);
-		noSetPanel.setBounds(10, 54, 381, 336);
-		
-		noSetPanel.setLayout(null);
-		
-		JLabel lbl_chooseTip = new JLabel(" You can choose a way to load the input data!");
-		lbl_chooseTip.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_chooseTip.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		lbl_chooseTip.setBounds(0, 0, 381, 24);
-		lbl_chooseTip.setBackground(new Color(255, 255, 102));
-		lbl_chooseTip.setOpaque(true);
-		noSetPanel.add(lbl_chooseTip);
-		
-		JLabel lblChooseA = new JLabel("#1 Choose a input file in your computer");
-		lblChooseA.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblChooseA.setBounds(24, 35, 270, 15);
-		noSetPanel.add(lblChooseA);
-		
-		JLabel lblFilePath = new JLabel("File Path:");
-		lblFilePath.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblFilePath.setBounds(10, 60, 56, 15);
-		noSetPanel.add(lblFilePath);
-		
-		textField = new JTextField();
-		textField.setBounds(70, 57, 224, 21);
-		noSetPanel.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("brower");
-		btnNewButton.addActionListener(new OpenHandler());
-		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setFont(new Font("Arial", Font.PLAIN, 10));
-		btnNewButton.setBounds(305, 56, 66, 23);
-		noSetPanel.add(btnNewButton);
-		
-		JLabel lblChooseA_1 = new JLabel("#2 Choose a input file you used before");
-		lblChooseA_1.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblChooseA_1.setBounds(24, 99, 270, 15);
-		noSetPanel.add(lblChooseA_1);
-		
-		JPanel settedPanel = new JPanel();
-		settedPanel.setVisible(false);
-		settedPanel.setBounds(10, 54, 381, 336);
-		settedPanel.setBackground(Color.WHITE);
-		
-		
-		
-		
-		
-		settedPanel.setLayout(null);
-		
-		JLabel lblInputDataName = new JLabel("Input Data Name:");
-		lblInputDataName.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblInputDataName.setBounds(11, 4, 107, 15);
-		settedPanel.add(lblInputDataName);
-		
-		JLabel info_inputDataName = new JLabel("xxx");
-		info_inputDataName.setFont(new Font("Arial", Font.PLAIN, 13));
-		info_inputDataName.setBounds(120, 4, 231, 15);
-		settedPanel.add(info_inputDataName);
-		
-		JLabel lblDatarows = new JLabel("Data File Path:");
-		lblDatarows.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblDatarows.setBounds(11, 28, 93, 15);
-		settedPanel.add(lblDatarows);
-		
-		JLabel lblColumnrows = new JLabel("DataRows:");
-		lblColumnrows.setFont(new Font("Arial", Font.PLAIN, 13));
-		lblColumnrows.setBounds(10, 53, 94, 15);
-		settedPanel.add(lblColumnrows);
-		
-		JLabel label = new JLabel("DataColumns:");
-		label.setFont(new Font("Arial", Font.PLAIN, 13));
-		label.setBounds(11, 78, 94, 15);
-		settedPanel.add(label);
-		
-		JLabel info_dataPath = new JLabel("xxx");
-		info_dataPath.setFont(new Font("Arial", Font.PLAIN, 13));
-		info_dataPath.setBounds(120, 29, 231, 15);
-		settedPanel.add(info_dataPath);
-		
-		JLabel lbl_dataRowNum = new JLabel("xxx");
-		lbl_dataRowNum.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_dataRowNum.setBounds(120, 53, 231, 15);
-		settedPanel.add(lbl_dataRowNum);
-		
-		JLabel lbl_dataColumnNum = new JLabel("xxx");
-		lbl_dataColumnNum.setFont(new Font("Arial", Font.PLAIN, 13));
-		lbl_dataColumnNum.setBounds(120, 78, 231, 15);
-		settedPanel.add(lbl_dataColumnNum);
 		
 		
 		//this.pack();
 		//Dimension size = this.getSize();
 		//this.setLocation(screenSize.width / 2 - size.width / 2, screenSize.height / 2 - size.height / 2);
-		setLocation(p);
+		//setLocation(p);
 		
+		JLabel lblChooseA = new JLabel("Setting here will help you to handle parameters well");
+		lblChooseA.setBounds(27, 46, 551, 15);
+		mainPanel.add(lblChooseA);
+		lblChooseA.setFont(new Font("Century", Font.PLAIN, 14));
 		
-		mainPanel.add(noSetPanel);
-		mainPanel.add(settedPanel);
+		textField = new JTextField();
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				inElement = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				inElement = false;
+			}
+		});
+		textField.setBounds(125, 109, 340, 21);
+		mainPanel.add(textField);
+		textField.setColumns(10);
 		
-		inputDataSet = confPanel.getInputData();
+		JLabel lblFilePath = new JLabel("Profile Path:");
+		lblFilePath.setBounds(27, 111, 98, 15);
+		mainPanel.add(lblFilePath);
+		lblFilePath.setFont(new Font("Century", Font.PLAIN, 14));
+		
+		JButton btnNewButton = new JButton("brower");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				inElement = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				inElement = false;
+			}
+		});
+		btnNewButton.setBounds(482, 104, 85, 30);
+		mainPanel.add(btnNewButton);
+		btnNewButton.addActionListener(new OpenHandler());
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setFont(new Font("Century", Font.PLAIN, 12));
+		
+		JLabel lblChooseAProfile = new JLabel("Choose a profile to fille the view");
+		lblChooseAProfile.setFont(new Font("Century", Font.PLAIN, 14));
+		lblChooseAProfile.setBounds(27, 79, 232, 15);
+		mainPanel.add(lblChooseAProfile);
+		
+		JLabel lblChooseAHistory = new JLabel("Choose a history profile in the table bolows");
+		lblChooseAHistory.setFont(new Font("Century", Font.PLAIN, 14));
+		lblChooseAHistory.setBounds(27, 156, 349, 15);
+		mainPanel.add(lblChooseAHistory);
+		
+		table = new TablePanel(confPanel,TableType.LoadProfileTable);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				inElement = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				inElement = false;
+			}
+		});
+		table.setBounds(27, 181, 551, 132);
+		table.setBackground(Color.WHITE);
+		mainPanel.add(table);
+		
+		JLabel lblIfYouWant = new JLabel("If you want load a profile above,please click it,then,system will load the profile ");
+		lblIfYouWant.setFont(new Font("Century", Font.PLAIN, 14));
+		lblIfYouWant.setBounds(27, 352, 551, 15);
+		mainPanel.add(lblIfYouWant);
+		
+		JLabel lblSetting = new JLabel("setting automatically");
+		lblSetting.setFont(new Font("Century", Font.PLAIN, 14));
+		lblSetting.setBounds(27, 377, 551, 15);
+		mainPanel.add(lblSetting);
+		
+		/*inputDataSet = confPanel.getInputData();
 		if (inputDataSet!=null) {
 			noSetPanel.setVisible(false);
 			settedPanel.setVisible(true);
@@ -213,7 +187,7 @@ public class ProfileWnd extends JWindow{
 		}else{
 			noSetPanel.setVisible(true);
 			settedPanel.setVisible(false);
-		}
+		}*/
 		
 		
 		
@@ -226,7 +200,7 @@ public class ProfileWnd extends JWindow{
 	
 	
 	public void setLocation(Point p){
-		this.setLocation((int)p.getX()+80, (int)p.getY()+90);
+		this.setLocation((int)p.getX(), (int)p.getY());
 	}
 	
 	public boolean isInWnd() {
@@ -266,5 +240,16 @@ public class ProfileWnd extends JWindow{
 				textField.setText("You pressed cancel");
 			}
 		}
+	}
+
+
+	public boolean isInElement() {
+		return inElement;
+	}
+
+
+
+	public void setInElement(boolean inElement) {
+		this.inElement = inElement;
 	}
 }

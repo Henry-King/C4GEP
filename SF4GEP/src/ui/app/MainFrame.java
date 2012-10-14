@@ -91,6 +91,15 @@ public class MainFrame extends JFrame implements IDemoApp {
     private void initMainTabbedPane() {
     	getContentPane().setLayout(new BorderLayout(0, 0));
     	mainTabbedPane = new MainTabbedPane(JTabbedPane.LEFT,mainWnd);
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	setMainTabbedPane(mainTabbedPane);
     	getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
     }

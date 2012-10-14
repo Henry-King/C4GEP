@@ -15,7 +15,7 @@ import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.*;
 
-import ui.conf.NewGEPDialog.CloseableTabComponent;
+import twaver.Element;
 import ui.conf.controller.AccuracyController;
 import ui.conf.controller.GeneController;
 import ui.conf.controller.OperatorController;
@@ -23,6 +23,7 @@ import ui.conf.model.AccuracyModel;
 import ui.conf.model.GeneModel;
 import ui.conf.model.OperatorModel;
 import ui.conf.view.ConfPanel;
+import ui.conf.view.TypeHelper.TableType;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
@@ -44,21 +45,30 @@ public class TablePanel extends JPanel {
     private List<GepAlgConfiguration> modelList;
     
     private MainWnd mainWnd;
+    private ConfPanel confPanel;
     private GepAlgCfgInfoWnd cfgInfoWnd;
     
     private Point prePoint = null;
+    private TableType tableType;
     
-    public TablePanel(MainWnd mainWnd) {
+    public TablePanel(MainWnd mainWnd,TableType tableType) {
         super(new BorderLayout());
-        
         this.mainWnd = mainWnd;
-        GepConfigurationService gepConfigurationService = new GepConfigurationService(mainWnd.getHibernateDataContext());
-        modelList = gepConfigurationService.getAllGepAlgConfiguration();
-
+        this.tableType = tableType;
+        init();
+    }
+    
+    public TablePanel(ConfPanel confPanel,TableType tableType) {
+        super(new BorderLayout());
+        this.confPanel = confPanel;
+        this.mainWnd = confPanel.mainWnd;
+        this.tableType = tableType;
         init();
     }
 
     private void init() {
+    	GepConfigurationService gepConfigurationService = new GepConfigurationService(mainWnd.getHibernateDataContext());
+        modelList = gepConfigurationService.getAllGepAlgConfiguration();
         setName("Table");
         setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         initModel();
@@ -78,27 +88,40 @@ public class TablePanel extends JPanel {
         		
         		if (JTattooUtilities.getJavaVersion() >= 1.6) {
         			
-        			//Open Window
-            		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
-            		String title = gepAlgConfiguration.getName().toString();
-                    int tabCount = jtp.getTabCount();
-                    ConfPanel newConfPanel = new ConfPanel(mainWnd);
-                    VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
-                    jtp.addTab(null,newVTextIcon, newConfPanel, null);
-                    //jtp.addTab("Tab", null,welcomeVTextIcon,null);
-                   
-                    CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
-                    
-                    jtp.setSelectedIndex(tabCount);
-                    jtp.setTabComponentAt(tabCount, ctc);
-                    jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
-                    
+        			AccuracyController accuracyController = null;
+               	 	GeneController geneController = null;
+               	 	OperatorController operatorController = null;
+        			
+        			
+        			if (tableType.equals(TableType.CreateNewProfileTable)) {
+        				//Open Window
+	            		JTabbedPane jtp = mainWnd.frame.mainTabbedPane;
+	            		String title = gepAlgConfiguration.getName().toString();
+	                    int tabCount = jtp.getTabCount();
+	                    ConfPanel newConfPanel = new ConfPanel(mainWnd);
+	                    VTextIcon newVTextIcon=new VTextIcon(newConfPanel, title,VTextIcon.ROTATE_LEFT);
+	                    jtp.addTab(null,newVTextIcon, newConfPanel, null);
+	                    //jtp.addTab("Tab", null,welcomeVTextIcon,null);
+	                   
+	                    //CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
+	                    
+	                    jtp.setSelectedIndex(tabCount);
+	                    //jtp.setTabComponentAt(tabCount, ctc);
+	                    jtp.setToolTipTextAt(tabCount, "This is project " + (tabCount + 1) + "  "+title);
+	                    
+	                     accuracyController = newConfPanel.contentPanel.getAccuracyController();
+	                     geneController = newConfPanel.contentPanel.getGeneController();
+	                     operatorController = newConfPanel.contentPanel.getOperatorController();
+	                    
+					}else if(tableType.equals(TableType.LoadProfileTable)){
+						 accuracyController = confPanel.contentPanel.getAccuracyController();
+	                     geneController = confPanel.contentPanel.getGeneController();
+	                     operatorController = confPanel.contentPanel.getOperatorController();
+					}else{
+						
+					}
                     
                     //initial model
-                	 AccuracyController accuracyController = newConfPanel.contentPanel.getAccuracyController();
-                	 GeneController geneController = newConfPanel.contentPanel.getGeneController();
-                	 OperatorController operatorController = newConfPanel.contentPanel.getOperatorController();
-                	 
                 	 AccuracyModel accuracyModel = accuracyController.getAccuracyModel();
                 	 accuracyModel.setMaxGeneration(gepAlgConfiguration.getMaxGeneration());
                 	 accuracyModel.setSelectionRange(gepAlgConfiguration.getSelectionRange());

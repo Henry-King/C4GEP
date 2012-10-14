@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.wolfram.jlink.MathCanvas;
 
@@ -25,14 +27,15 @@ public class ContentPanel extends JPanel implements MouseListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 143362423596329375L;
-	OutputPicturePanel outputPicturePanel;
-	JTabbedPane tabbedPane;
+	private OutputPicturePanel outputPicturePanel;
+	private JTabbedPane tabbedPane;
 
 	private AccuracyPanel accuracyPanel;
 	private GenePanel genePanel;
 	private OperatorPanel operatorPanel;
 	private JPanel resultPanel;
 	private MainWnd mainWnd;
+	private ConfPanel confPanel;
 	
 	public AccuracyController accuracyController;
 	public GeneController geneController;
@@ -40,17 +43,22 @@ public class ContentPanel extends JPanel implements MouseListener,
 	public OutputPictureController outputPictureController;
 	
 	
-	
+	private int SettingsTabIndex = 0;
+	private double dragBarYPosition = 0;
 	/**
 	 * Create the panel.
 	 */
-	public ContentPanel(MainWnd mainWnd) {
+	public ContentPanel(MainWnd mainWnd,ConfPanel confPanel) {
 		this.mainWnd = mainWnd;
+		this.confPanel = confPanel;
 		this.setLayout(new BorderLayout());
 		/* »­Í¼Ãæ°å */
-		outputPicturePanel = new OutputPicturePanel(mainWnd);
+		outputPicturePanel = new OutputPicturePanel(mainWnd,confPanel);
+		Dimension di = outputPicturePanel.getPreferredSize();
+		outputPicturePanel.setPreferredSize(new Dimension());
+		
 		OutputPictureModel outputPictureModel = new OutputPictureModel();
-		outputPictureController = new OutputPictureController(outputPictureModel,outputPicturePanel);
+		outputPicturePanel.setPreferredSize(new Dimension(di.width,40));
 		add("North", outputPicturePanel);
 
 		
@@ -70,6 +78,38 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		/* TabbedPanel */
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+            	
+            	if (SettingsTabIndex!=tabbedPane.getSelectedIndex()){
+            		
+            		Dimension di = outputPicturePanel.getPreferredSize();
+            		//System.out.println(dragBarYPosition+"|"+ContentPanel.this.getHeight()/2);
+            		if (dragBarYPosition<ContentPanel.this.getHeight()/2) {
+            			outputPicturePanel.setPreferredSize(new Dimension(di.width,162));
+					}else{
+	            		outputPicturePanel.setPreferredSize(new Dimension(di.width,ContentPanel.this.getHeight()-200));
+					}
+            		
+            		
+                }
+            	SettingsTabIndex=tabbedPane.getSelectedIndex();
+            	
+            	
+            	
+            	
+            }
+        });
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		accuracyPanel = new AccuracyPanel();
 		AccuracyModel accuracyModel = new AccuracyModel();
 		accuracyController = new AccuracyController(accuracyModel,accuracyPanel);
@@ -77,10 +117,10 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		
 		tabbedPane
-				.addTab("\u6C42\u89E3\u7CBE\u5EA6",
+				.addTab("Accuracy Setting",
 						null,
 						accuracyPanel,
-						"\u5728\u8FD9\u91CC\u8BBE\u7F6E\u6C42\u89E3\u7CBE\u5EA6\u548C\u505C\u673A\u6761\u4EF6");
+						null);
 
 		
 		
@@ -91,7 +131,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 		geneController = new GeneController(geneModel,genePanel);
 		
 		
-		tabbedPane.addTab("\u4E2A\u4F53/\u57FA\u56E0\u53C2\u6570", null,
+		tabbedPane.addTab("Individual&Gene Para", null,
 				genePanel, null);
 
 		operatorPanel = new OperatorPanel();
@@ -100,13 +140,13 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		
 		tabbedPane
-				.addTab("\u6F14\u5316\u53C2\u6570", null, operatorPanel, null);
+				.addTab("Evolution Para", null, operatorPanel, null);
 
 
 		add(tabbedPane);
 		
-		resultPanel = new ResultPanel();
-		tabbedPane.addTab("\u8fd0\u7b97\u7ed3\u679c", null, resultPanel, null);
+		/*resultPanel = new ResultPanel();
+		tabbedPane.addTab("\u8fd0\u7b97\u7ed3\u679c", null, resultPanel, null);*/
 
 		outputPicturePanel.addMouseListener(this);
 		outputPicturePanel.addMouseMotionListener(this);
@@ -144,8 +184,9 @@ public class ContentPanel extends JPanel implements MouseListener,
 			this.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
 			Point po = e.getPoint();
 			Dimension di = outputPicturePanel.getPreferredSize();
-
-			if (po.y < 5 || this.getHeight() < po.y) {
+			//System.out.println(dragBarYPosition+"|"+e.getPoint().getY());
+			dragBarYPosition = e.getPoint().getY();
+			if (po.y < 43 || this.getHeight()-25 < po.y) {
 
 			} else {
 				outputPicturePanel.setPreferredSize(new Dimension(di.width,

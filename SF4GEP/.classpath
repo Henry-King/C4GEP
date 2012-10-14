@@ -18,5 +18,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="lib/twaver.jar" sourcepath="D:/Desktop/java/demo1/twaver.jar"/>
+	<classpathentry kind="lib" path="lib/nimrodlf.jar"/>
+	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
