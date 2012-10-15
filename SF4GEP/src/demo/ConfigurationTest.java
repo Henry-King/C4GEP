@@ -45,7 +45,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("ÔËÐÐ");
-		gepAlgConfiguration.setMaxGeneration((long) 100000);
+		gepAlgConfiguration.setMaxGeneration((long) 10000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(200);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -76,7 +76,7 @@ public class ConfigurationTest {
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
-		algOutputService.setWriteToDB(false);
+		algOutputService.setWriteToDB(true);
 		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
