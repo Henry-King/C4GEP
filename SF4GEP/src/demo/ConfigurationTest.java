@@ -49,7 +49,7 @@ public class ConfigurationTest {
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(200);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
-		geneConfiguration.setUseHomeoticGene(true);
+		geneConfiguration.setUseHomeoticGene(false);
 		geneConfiguration.setConnectionFunction(new Addition());
 		geneConfiguration.setHomeoticGeneHeaderLength(5);
 		geneConfiguration.setHomeoticGeneNumber(30);
