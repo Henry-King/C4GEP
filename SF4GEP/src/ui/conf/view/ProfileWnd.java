@@ -105,7 +105,7 @@ public class ProfileWnd extends JWindow{
 		JLabel lblChooseA = new JLabel("Setting here will help you to handle parameters well");
 		lblChooseA.setBounds(27, 46, 551, 15);
 		mainPanel.add(lblChooseA);
-		lblChooseA.setFont(new Font("Century", Font.PLAIN, 14));
+		lblChooseA.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		
 		textField = new JTextField();
 		textField.addMouseListener(new MouseAdapter() {

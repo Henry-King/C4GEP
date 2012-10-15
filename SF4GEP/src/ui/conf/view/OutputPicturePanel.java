@@ -482,7 +482,7 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		EvolutionGraphChart.setXScaleTextVisible(true);
 		EvolutionScrollBar.setEnabled(true);
 		EvolutionScrollBar.setMinimum(0);
-		EvolutionScrollBar.setMaximum(len);
+		EvolutionScrollBar.setMaximum(len-10);
 		
 			
 		return true;
