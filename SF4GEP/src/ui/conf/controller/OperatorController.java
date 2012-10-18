@@ -5,6 +5,7 @@ import ui.conf.view.*;
 
 import javax.swing.event.*;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class OperatorController {
 		operatorModel.registerObserver(operatorPanel);
 		
 		
-		/*operatorPanel.mutateTextField.getDocument().addDocumentListener
+		operatorPanel.mutateTextField.getDocument().addDocumentListener
 		(new MutateTextField_onValueChanged ());
 
 		
@@ -57,11 +58,106 @@ public class OperatorController {
 		
 		operatorPanel.geneCombineTextField.getDocument().addDocumentListener
 		(new GeneCombineTextField_onValueChanged());
-		*/
+		
 		
 	}
 	
-	
+	private void checkValue(String thisKeyString,String str){
+		if (str.equals("")||str.equals(null)) {
+			isDataFitedMap.remove(thisKeyString);
+			isDataFitedMap.put(thisKeyString, false);
+			return;
+		}
+		try {
+			switch (thisKeyString) {
+			case "mutateRate":
+				operatorModel.setMutateRate(Float.parseFloat(str));
+				operatorPanel.mutateTextField.setBackground(Color.WHITE);
+				break;
+			case "isTransportRate":
+				operatorModel.setIsTransportRate(Float.parseFloat(str));
+				operatorPanel.ISTextField.setBackground(Color.WHITE);
+				break;
+			case "isElement":
+				String[] isString = str.split(",");
+				Integer[] isIntStr = new Integer[isString.length];
+				for (int i = 0; i < isString.length; i++) {
+					isIntStr[i] = Integer.valueOf(isString[i]);
+				}
+				operatorModel.setIsElement(isIntStr);
+				operatorPanel.ISLengthTextField.setBackground(Color.WHITE);
+				break;
+			case "risTransportRate":
+				operatorModel.setRisTransportRate(Float.parseFloat(str));
+				operatorPanel.RISTextField.setBackground(Color.WHITE);
+				break;
+			case "risElement":
+				String[] risString = str.split(",");
+				Integer[] risIntStr = new Integer[risString.length];
+				for (int i = 0; i < risString.length; i++) {
+					risIntStr[i] = Integer.valueOf(risString[i]);
+				}
+				operatorModel.setRisElement(risIntStr);
+				operatorPanel.RISLengthTextField.setBackground(Color.WHITE);
+				break;
+			case "geneTransportRate":
+				operatorModel.setGeneTransportRate(Float.parseFloat(str));
+				operatorPanel.geneTextField.setBackground(Color.WHITE);
+				break;
+			case "onePointRecombineRate":
+				operatorModel.setOnePointRecombineRate(Float.parseFloat(str));
+				operatorPanel.oneCombineTextField.setBackground(Color.WHITE);
+				break;
+			case "twoPointRecombineRate":
+				operatorModel.setTwoPointRecombineRate(Float.parseFloat(str));
+				operatorPanel.twoCombineTextField.setBackground(Color.WHITE);
+				break;
+			case "geneRecombineRate":
+				operatorModel.setGeneRecombineRate(Float.parseFloat(str));
+				operatorPanel.geneCombineTextField.setBackground(Color.WHITE);
+				break;
+			default:
+				break;
+			}
+				isDataFitedMap.remove(thisKeyString);
+				isDataFitedMap.put(thisKeyString, true);
+		} catch (NumberFormatException e) {
+			Color color = new Color(255, 69, 0);
+			switch (thisKeyString) {
+			case "mutateRate":
+				operatorPanel.mutateTextField.setBackground(color);
+				break;
+			case "isTransportRate":
+				operatorPanel.ISTextField.setBackground(color);
+				break;
+			case "isElement":
+				operatorPanel.ISLengthTextField.setBackground(color);
+				break;
+			case "risTransportRate":
+				operatorPanel.RISTextField.setBackground(color);
+				break;
+			case "risElement":
+				operatorPanel.RISLengthTextField.setBackground(color);
+				break;
+			case "geneTransportRate":
+				operatorPanel.geneTextField.setBackground(color);
+				break;
+			case "onePointRecombineRate":
+				operatorPanel.oneCombineTextField.setBackground(color);
+				break;
+			case "twoPointRecombineRate":
+				operatorPanel.twoCombineTextField.setBackground(color);
+				break;
+			case "geneRecombineRate":
+				operatorPanel.geneCombineTextField.setBackground(color);
+				break;
+			default:
+				break;
+			}
+			isDataFitedMap.remove(thisKeyString);
+			isDataFitedMap.put(thisKeyString, false);
+		}
+	}
 	
 	
 	class MutateTextField_onValueChanged implements DocumentListener
@@ -76,35 +172,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.mutateTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.mutateTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -132,35 +206,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.ISTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.ISTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -185,41 +237,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.ISLengthTextField.getText().toString();
-			
-			/**
-			 * 需要正则判断
-			 */
-			isDataFitedMap.remove(thisKeyString);
-			isDataFitedMap.put(thisKeyString, true);
-			operatorPanel.fillModel(operatorModel);
-			/*try {
-				Long.parseLong(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}*/
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.ISLengthTextField.getText().toString();
-			try {
-				Long.parseLong(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -245,34 +269,13 @@ public class OperatorController {
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.RISTextField.getText().toString();
 			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.RISTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -297,40 +300,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.RISLengthTextField.getText().toString();
-			/**
-			 * 需要正则判断
-			 */
-			isDataFitedMap.remove(thisKeyString);
-			isDataFitedMap.put(thisKeyString, true);
-			operatorPanel.fillModel(operatorModel);
-			/*try {
-				Long.parseLong(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}*/
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.RISLengthTextField.getText().toString();
-			try {
-				Long.parseLong(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -355,35 +331,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.geneTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.geneTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -408,35 +362,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.oneCombineTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.oneCombineTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -461,35 +393,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.twoCombineTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.twoCombineTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}
@@ -511,35 +421,13 @@ public class OperatorController {
 		@Override
 		public void insertUpdate(DocumentEvent arg0) {
 			String str = operatorPanel.geneCombineTextField.getText().toString();
-			
-			try {
-				Float.parseFloat(str);
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, true);
-				operatorPanel.fillModel(operatorModel);
-			} catch (NumberFormatException e) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			String str = operatorPanel.geneCombineTextField.getText().toString();
-			try {
-				Float.parseFloat(str);
-				if (str.equals("")||str.equals(null)) {
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, false);
-				}else{
-					isDataFitedMap.remove(thisKeyString);
-					isDataFitedMap.put(thisKeyString, true);
-					operatorPanel.fillModel(operatorModel);
-				}
-			}catch (NumberFormatException e1) {
-				isDataFitedMap.remove(thisKeyString);
-				isDataFitedMap.put(thisKeyString, false);
-			}
+			checkValue(thisKeyString,str);
 		}
 
 	}

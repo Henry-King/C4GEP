@@ -35,7 +35,7 @@ import ui.conf.view.*;
 public class WelcomeContent_HistoryProject extends JPanel {
 
 	private MainWnd mainWnd;
-	
+	public TablePanel projectTable;
 	
 	/**
 	 * Create the panel.
@@ -62,7 +62,7 @@ public class WelcomeContent_HistoryProject extends JPanel {
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		
 		
-		TablePanel projectTable = new TablePanel(mainWnd,TableType.CreateNewProfileTable);
+		projectTable = new TablePanel(mainWnd,TableType.CreateNewProfileTable);
 		projectTable.setBorder(new EmptyBorder(8, 8, 1, 8));
 		
 		

@@ -35,6 +35,8 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class GenePanel extends JPanel implements Observer{
 
@@ -135,29 +137,35 @@ public class GenePanel extends JPanel implements Observer{
 		
 				
 				homeoticGeneRadioButton = new JRadioButton("Homeotic Gene");
-				homeoticGeneRadioButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						homeoticGeneRadioButton.setSelected(true);
-						connectionFuncRadioButton.setSelected(false);
-						 connectionFuncPanel.setVisible(false);
-						 homecticPanel.setVisible(true);
+				homeoticGeneRadioButton.addItemListener(new ItemListener() {
+					public void itemStateChanged(ItemEvent e) {
+						if (homeoticGeneRadioButton.isSelected()) {
+							//System.out.println("选择同源");
+							homeoticGeneRadioButton.setSelected(true);
+							connectionFuncRadioButton.setSelected(false);
+							 connectionFuncPanel.setVisible(false);
+							 homecticPanel.setVisible(true);
+						}
+						
 						
 					}
 				});
 				homeoticGeneRadioButton.setFont(new Font("Century", Font.PLAIN, 14));
-				homeoticGeneRadioButton.setSelected(true);
+				
 				buttonGroup.add(homeoticGeneRadioButton);
 				
 						connectionFuncRadioButton = new JRadioButton(
 								"Connection Function");
-						connectionFuncRadioButton.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								homeoticGeneRadioButton.setSelected(false);
-								connectionFuncRadioButton.setSelected(true);
-								connectionFuncPanel.setVisible(true);
-								homecticPanel.setVisible(false);
+						connectionFuncRadioButton.addItemListener(new ItemListener() {
+							public void itemStateChanged(ItemEvent e) {
+								if (connectionFuncRadioButton.isSelected()) {
+									//System.out.println("选择连接函数");
+									homeoticGeneRadioButton.setSelected(false);
+									connectionFuncRadioButton.setSelected(true);
+									connectionFuncPanel.setVisible(true);
+									homecticPanel.setVisible(false);
+								}
+								
 								
 							}
 						});
@@ -212,6 +220,7 @@ public class GenePanel extends JPanel implements Observer{
 																												homecticPanel.add(homeoticGeneHeaderTextField);
 																												
 																														connectionComboBox = new JComboBox<Function>();
+																														
 																														connectionComboBox.setLocation(224, 5);
 																														connectionComboBox.setSize(129, 30);
 																														connectionComboBox.setMaximumSize(new Dimension(110, 21));
@@ -306,7 +315,7 @@ public class GenePanel extends JPanel implements Observer{
 																				setLayout(groupLayout);
 						//--		group.setSelected((ButtonModel) homeoticGeneRadioButton, true);
 								//connectionFuncRadioButton.setSelected(true);
-
+																				homeoticGeneRadioButton.setSelected(true);
 		
 	}
 	
@@ -327,6 +336,7 @@ public class GenePanel extends JPanel implements Observer{
 		else {
 			//homeoticGeneRadioButton.setSelected(false);
 			connectionFuncRadioButton.setSelected(true);
+			
 			Function function;
 			for(int i=0;i<connectionComboBox.getItemCount();i++){
 				function=connectionComboBox.getItemAt(i);

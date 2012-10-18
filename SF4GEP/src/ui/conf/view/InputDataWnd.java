@@ -378,6 +378,7 @@ public class InputDataWnd extends JWindow{
 					inputDataSet = inputDataController.getInputSet(file.toString());
 					confPanel.setInputData(inputDataSet);
 					confPanel.setInputFile(file);
+					confPanel.outputStatusLabel.setText("You can run now,and it will show the result with two pictures.");
 				}else if(e.getSource()==btn_viewInputData){
 					//
 				}

@@ -15,6 +15,7 @@ import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import domain.core.algInputDataProcess.DataSet;
+import domain.core.algconfiguration.GepAlgConfiguration;
 
 
 /**
@@ -33,11 +34,15 @@ public class ConfPanel extends JPanel {
 	private DataSet inputData;
 	private NewProjectModel newProjectModel;
 	private File inputFile;
+	private GepAlgConfiguration gepAlgConfiguration;
 	
+	
+
+
 	private boolean hasFittingCurve = false;
 	private boolean hasEvolution = false;
 	
-	
+	public JLabel outputStatusLabel;
 	
 	public ContentPanel contentPanel;
 	/**
@@ -75,8 +80,8 @@ public class ConfPanel extends JPanel {
 		toolBar.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 0));
 		TLPanel.add(toolBar, BorderLayout.NORTH);
 
-		JLabel outputStatusLabel = new JLabel("这里显示状态信息");
-		outputStatusLabel.setFont(new Font("宋体", Font.PLAIN, 12));
+		outputStatusLabel = new JLabel("Status Information");
+		outputStatusLabel.setFont(new Font("宋体", Font.PLAIN, 14));
 		outputStatusLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10,
 				10));
 		TLPanel.add(outputStatusLabel, BorderLayout.SOUTH);
@@ -134,6 +139,15 @@ public class ConfPanel extends JPanel {
 
 	public void setHasEvolution(boolean hasEvolution) {
 		this.hasEvolution = hasEvolution;
+	}
+	
+	public GepAlgConfiguration getGepAlgConfiguration() {
+		return gepAlgConfiguration;
+	}
+
+
+	public void setGepAlgConfiguration(GepAlgConfiguration gepAlgConfiguration) {
+		this.gepAlgConfiguration = gepAlgConfiguration;
 	}
 
 }

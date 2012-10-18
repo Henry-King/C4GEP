@@ -34,15 +34,15 @@ public class AccuracyController {
 		accuracyPanel.fillModel(accuracyModel);
 		accuracyModel.registerObserver(accuracyPanel);
 		
-		//accuracyPanel.generationNumTextField.getDocument().addDocumentListener
-		//(new GenerationNumTextField_onValueChanged ());
+		accuracyPanel.generationNumTextField.getDocument().addDocumentListener
+		(new GenerationNumTextField_onValueChanged ());
 		
 		
-		//accuracyPanel.accuracytextField.getDocument().addDocumentListener
-		//(new AccuracyTextField_onValueChanged());
+		accuracyPanel.accuracytextField.getDocument().addDocumentListener
+		(new AccuracyTextField_onValueChanged());
 		
-		//accuracyPanel.selectionRangeTextField.getDocument().addDocumentListener
-		//(new SelectionRangeTextField_onValueChanged());
+		accuracyPanel.selectionRangeTextField.getDocument().addDocumentListener
+		(new SelectionRangeTextField_onValueChanged());
 		
 		
 		

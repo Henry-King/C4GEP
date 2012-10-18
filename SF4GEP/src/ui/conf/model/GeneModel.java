@@ -32,7 +32,7 @@ public class GeneModel extends Model{
 	
 	
 	private void init(){
-		useHomeoticGene = false;
+		//useHomeoticGene = true;
 		isDataFitedMap.put("individualNumber", false);
 		isDataFitedMap.put("normalGeneNumber", false);
 		isDataFitedMap.put("normalGeneHeaderLength", false);

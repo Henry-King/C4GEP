@@ -243,6 +243,7 @@ public class NewGEPDialog extends JDialog {
 					}
                     
                     newConfPanel.setNewProjectModel(data);	//为新建算法项目设置配置文件
+                    newConfPanel.outputStatusLabel.setText("Welcome to GEP Programing.I need load a input data first.");
 				}
                 
 			}

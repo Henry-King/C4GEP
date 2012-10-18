@@ -71,8 +71,8 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 	private Element EvolutionBestElement;
 	private Element EvolutionWorseElement;
 	
-	public JLabel tooltip_PicturePanel;
-	
+	public JTextArea tooltip_PicturePanel;
+	public GroupLayout gl_InfoPanel;
 	private void init(){
 		FittingCurveBox = new TDataBox();
 		EvolutionBox = new TDataBox();
@@ -93,19 +93,25 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		setLayout(new BorderLayout(0,0));
 		setBorder(new MatteBorder(0, 0, 7, 0, (Color) new Color(250, 250, 210)));
 		
-		tooltip_PicturePanel = new JLabel("It's no picture info now.");
+		tooltip_PicturePanel = new JTextArea("It's no picture info now.");
 		tooltip_PicturePanel.setToolTipText("The picture status will show here");
 		tooltip_PicturePanel.setFont(new Font("Century", Font.PLAIN, 14));
 		tooltip_PicturePanel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(250, 240, 230)));
-		tooltip_PicturePanel.setBackground(new Color(255, 255, 102));
-		GroupLayout gl_InfoPanel = new GroupLayout(InfoPanel);
+		tooltip_PicturePanel.setBackground(new Color(255, 250, 205));
+		tooltip_PicturePanel.setEditable(false);
+		tooltip_PicturePanel.setLineWrap(true);
+		tooltip_PicturePanel.setWrapStyleWord(true);
+
+		gl_InfoPanel = new GroupLayout(InfoPanel);
 		gl_InfoPanel.setHorizontalGroup(
 			gl_InfoPanel.createParallelGroup(Alignment.LEADING)
-				.addComponent(tooltip_PicturePanel, GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+				.addComponent(tooltip_PicturePanel, GroupLayout.DEFAULT_SIZE,100, Short.MAX_VALUE)
 		);
 		gl_InfoPanel.setVerticalGroup(
 			gl_InfoPanel.createParallelGroup(Alignment.LEADING)
-				.addComponent(tooltip_PicturePanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+				.addGroup(gl_InfoPanel.createSequentialGroup()
+					.addComponent(tooltip_PicturePanel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		InfoPanel.setLayout(gl_InfoPanel);
 		add(PicturePanel,BorderLayout.CENTER);
