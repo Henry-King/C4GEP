@@ -348,7 +348,7 @@ public class MainToolBar extends JToolBar {
 						*/
 					}else{	//使用函数连接
 						geneConfiguration.setUseHomeoticGene(false);
-						JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
+						//JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
 						//geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
 						geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
 					}

@@ -111,17 +111,23 @@ public class ContentPanel extends JPanel implements MouseListener,
 		
 		
 		
-		
 		accuracyPanel = new AccuracyPanel();
 		AccuracyModel accuracyModel = new AccuracyModel();
 		accuracyController = new AccuracyController(accuracyModel,accuracyPanel);
 		
+		//JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, accuracyPanel, accuracyPanel);
+		
+        //splitPane.setOneTouchExpandable(true);
+        //splitPane.setDividerLocation(320);
+		
+		JScrollPane accuracyScrollPane = new JScrollPane(accuracyPanel);
+		accuracyScrollPane.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		
 		
 		tabbedPane
 				.addTab("Accuracy Setting",
 						null,
-						accuracyPanel,
+						accuracyScrollPane,
 						null);
 
 		
@@ -133,16 +139,26 @@ public class ContentPanel extends JPanel implements MouseListener,
 		geneController = new GeneController(geneModel,genePanel);
 		
 		
+		JScrollPane geneScrollPane = new JScrollPane(genePanel);
+		//geneScrollPane.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		
 		tabbedPane.addTab("Individual&Gene Para", null,
-				genePanel, null);
+				geneScrollPane, null);
+		
+		
+		
+		
 
 		operatorPanel = new OperatorPanel();
 		OperatorModel operatorModel = new OperatorModel();
 		operatorController = new OperatorController(operatorModel,operatorPanel);
 		
 		
+		JScrollPane operatorScrollPane = new JScrollPane(operatorPanel);
+		operatorScrollPane.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		
 		tabbedPane
-				.addTab("Evolution Para", null, operatorPanel, null);
+				.addTab("Evolution Para", null, operatorScrollPane, null);
 
 
 		add(tabbedPane);

@@ -84,7 +84,7 @@ public class GeneController {
 				
 				
 				
-				genePanel.cardLayout.show(genePanel.connectionPanel, "homeoticPannel");
+				//genePanel.cardLayout.show(genePanel.connectionPanel, "homeoticPannel");
 			}
 		});
 		
@@ -98,7 +98,7 @@ public class GeneController {
 				}
 				
 				
-				genePanel.cardLayout.show(genePanel.connectionPanel, "connectionPannel");
+				//genePanel.cardLayout.show(genePanel.connectionPanel, "connectionPannel");
 			}
 		});
 		

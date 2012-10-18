@@ -76,6 +76,8 @@ public class AccuracyPanel extends JPanel implements Observer{
 		accuracyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		generationNumTextField = new MyTextField();
+		
+		
 		generationNumTextField.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {

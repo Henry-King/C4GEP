@@ -16,6 +16,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
 public class OperatorPanel extends JPanel implements Observer{
 
@@ -45,221 +49,221 @@ public class OperatorPanel extends JPanel implements Observer{
 		gridBagLayout.rowHeights = new int[]{62, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
-		
-		JLabel titleLabel = new MyTitle("\u8F93\u5165\u53D8\u5F02\u53C2\u6570");
-		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
-		gbc_titleLabel.gridwidth = 2;
-		gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_titleLabel.gridx = 1;
-		gbc_titleLabel.gridy = 0;
-		add(titleLabel, gbc_titleLabel);
-		
-		JLabel mutateLabel = new MyPrompt("\u53D8\u5F02\u6982\u7387   ");
-		GridBagConstraints gbc_mutateLabel = new GridBagConstraints();
-		gbc_mutateLabel.anchor = GridBagConstraints.WEST;
-		gbc_mutateLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_mutateLabel.gridx = 1;
-		gbc_mutateLabel.gridy = 1;
-		add(mutateLabel, gbc_mutateLabel);
-		
-		mutateTextField = new MyTextField();
-		mutateTextField.setText("0");
-		mutateTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				mutateTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_mutateTextField = new GridBagConstraints();
-		gbc_mutateTextField.anchor = GridBagConstraints.WEST;
-		gbc_mutateTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_mutateTextField.gridx = 2;
-		gbc_mutateTextField.gridy = 1;
-		add(mutateTextField, gbc_mutateTextField);
-		
-		JLabel ISLabel = new MyPrompt("IS\u8F6C\u5EA7\u6982\u7387 ");
-		GridBagConstraints gbc_ISLabel = new GridBagConstraints();
-		gbc_ISLabel.anchor = GridBagConstraints.WEST;
-		gbc_ISLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_ISLabel.gridx = 1;
-		gbc_ISLabel.gridy = 2;
-		add(ISLabel, gbc_ISLabel);
-		
-		ISTextField = new MyTextField();
-		ISTextField.setText("0");
-		ISTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				ISTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_ISTextField = new GridBagConstraints();
-		gbc_ISTextField.anchor = GridBagConstraints.WEST;
-		gbc_ISTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_ISTextField.gridx = 2;
-		gbc_ISTextField.gridy = 2;
-		add(ISTextField, gbc_ISTextField);
-		
-		JLabel ISLengthLabel = new MyPrompt("IS\u8F6C\u5EA7\u957F\u5EA6 ");
-		GridBagConstraints gbc_ISLengthLabel = new GridBagConstraints();
-		gbc_ISLengthLabel.anchor = GridBagConstraints.WEST;
-		gbc_ISLengthLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_ISLengthLabel.gridx = 1;
-		gbc_ISLengthLabel.gridy = 3;
-		add(ISLengthLabel, gbc_ISLengthLabel);
-		
-		ISLengthTextField = new MyTextField();
-		ISLengthTextField.setText("0");
-		ISLengthTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				ISLengthTextField.selectAll();
-			}
-		});
 		GridBagConstraints gbc_ISLengthTextField = new GridBagConstraints();
-		gbc_ISLengthTextField.anchor = GridBagConstraints.WEST;
-		gbc_ISLengthTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_ISLengthTextField.gridx = 2;
-		gbc_ISLengthTextField.gridy = 3;
-		add(ISLengthTextField, gbc_ISLengthTextField);
-		
-		JLabel RISLabel = new MyPrompt("RIS\u8F6C\u5EA7\u6982\u7387");
-		GridBagConstraints gbc_RISLabel = new GridBagConstraints();
-		gbc_RISLabel.anchor = GridBagConstraints.WEST;
-		gbc_RISLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_RISLabel.gridx = 1;
-		gbc_RISLabel.gridy = 4;
-		add(RISLabel, gbc_RISLabel);
-		
-		RISTextField = new MyTextField();
-		RISTextField.setText("0");
-		RISTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				RISTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_RISTextField = new GridBagConstraints();
-		gbc_RISTextField.anchor = GridBagConstraints.WEST;
-		gbc_RISTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_RISTextField.gridx = 2;
-		gbc_RISTextField.gridy = 4;
-		add(RISTextField, gbc_RISTextField);
-		
-		JLabel RISLengthLabel = new MyPrompt("RIS\u8F6C\u5EA7\u957F\u5EA6");
 		GridBagConstraints gbc_RISLengthLabel = new GridBagConstraints();
 		gbc_RISLengthLabel.anchor = GridBagConstraints.WEST;
 		gbc_RISLengthLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_RISLengthLabel.gridx = 1;
 		gbc_RISLengthLabel.gridy = 5;
-		add(RISLengthLabel, gbc_RISLengthLabel);
 		
-		RISLengthTextField = new MyTextField();
-		RISLengthTextField.setText("0");
-		RISLengthTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				RISLengthTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_RISLengthTextField = new GridBagConstraints();
-		gbc_RISLengthTextField.anchor = GridBagConstraints.WEST;
-		gbc_RISLengthTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_RISLengthTextField.gridx = 2;
-		gbc_RISLengthTextField.gridy = 5;
-		add(RISLengthTextField, gbc_RISLengthTextField);
-		
-		JLabel geneLabel = new MyPrompt("\u57FA\u56E0\u8F6C\u5EA7\u6982\u7387");
-		GridBagConstraints gbc_geneLabel = new GridBagConstraints();
-		gbc_geneLabel.anchor = GridBagConstraints.WEST;
-		gbc_geneLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_geneLabel.gridx = 1;
-		gbc_geneLabel.gridy = 6;
-		add(geneLabel, gbc_geneLabel);
-		
-		geneTextField = new MyTextField();
-		geneTextField.setText("0");
-		geneTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				geneTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_geneTextField = new GridBagConstraints();
-		gbc_geneTextField.anchor = GridBagConstraints.WEST;
-		gbc_geneTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_geneTextField.gridx = 2;
-		gbc_geneTextField.gridy = 6;
-		add(geneTextField, gbc_geneTextField);
-		
-		JLabel oneCombineLabel = new MyPrompt("\u5355\u70B9\u91CD\u7EC4\u6982\u7387");
-		GridBagConstraints gbc_oneCombineLabel = new GridBagConstraints();
-		gbc_oneCombineLabel.anchor = GridBagConstraints.WEST;
-		gbc_oneCombineLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_oneCombineLabel.gridx = 1;
-		gbc_oneCombineLabel.gridy = 7;
-		add(oneCombineLabel, gbc_oneCombineLabel);
-		
-		oneCombineTextField = new MyTextField();
-		oneCombineTextField.setText("0");
-		oneCombineTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				oneCombineTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_oneCombineTextField = new GridBagConstraints();
-		gbc_oneCombineTextField.anchor = GridBagConstraints.WEST;
-		gbc_oneCombineTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_oneCombineTextField.gridx = 2;
-		gbc_oneCombineTextField.gridy = 7;
-		add(oneCombineTextField, gbc_oneCombineTextField);
-		
-		JLabel twoCombineLabel = new MyPrompt("\u4E24\u70B9\u91CD\u7EC4\u6982\u7387");
-		GridBagConstraints gbc_twoCombineLabel = new GridBagConstraints();
-		gbc_twoCombineLabel.anchor = GridBagConstraints.WEST;
-		gbc_twoCombineLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_twoCombineLabel.gridx = 1;
-		gbc_twoCombineLabel.gridy = 8;
-		add(twoCombineLabel, gbc_twoCombineLabel);
-		
-		twoCombineTextField = new MyTextField();
-		twoCombineTextField.setText("0");
-		twoCombineTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				twoCombineTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_twoCombineTextField = new GridBagConstraints();
-		gbc_twoCombineTextField.anchor = GridBagConstraints.WEST;
-		gbc_twoCombineTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_twoCombineTextField.gridx = 2;
-		gbc_twoCombineTextField.gridy = 8;
-		add(twoCombineTextField, gbc_twoCombineTextField);
-		
-		JLabel geneCombineLabel = new MyPrompt("\u57FA\u56E0\u91CD\u7EC4\u6982\u7387");
-		GridBagConstraints gbc_geneCombineLabel = new GridBagConstraints();
-		gbc_geneCombineLabel.anchor = GridBagConstraints.WEST;
-		gbc_geneCombineLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_geneCombineLabel.gridx = 1;
-		gbc_geneCombineLabel.gridy = 9;
-		add(geneCombineLabel, gbc_geneCombineLabel);
-		
-		geneCombineTextField = new MyTextField();
-		geneCombineTextField.setText("0");
-		geneCombineTextField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				geneCombineTextField.selectAll();
-			}
-		});
-		GridBagConstraints gbc_geneCombineTextField = new GridBagConstraints();
-		gbc_geneCombineTextField.anchor = GridBagConstraints.WEST;
-		gbc_geneCombineTextField.gridx = 2;
-		gbc_geneCombineTextField.gridy = 9;
-		add(geneCombineTextField, gbc_geneCombineTextField);
+		Font font = new Font("Century", Font.PLAIN, 14);
+			setLayout(new BorderLayout(0, 0));
+			
+			JPanel ContainerPanel = new JPanel();
+			add(ContainerPanel);
+			ContainerPanel.setLayout(new GridLayout(1, 3, 0, 10));
+			
+			JPanel MutatePanel = new JPanel();
+			ContainerPanel.add(MutatePanel);
+			MutatePanel.setLayout(null);
+			
+			
+			JLabel mutateLabel = new MyPrompt("\u53D8\u5F02\u6982\u7387   ");
+			mutateLabel.setBounds(10, 22, 123, 30);
+			MutatePanel.add(mutateLabel);
+			mutateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			mutateLabel.setFont(font);
+			mutateLabel.setText("Mutate Rate");
+			
+			mutateTextField = new MyTextField();
+			mutateTextField.setFont(font);
+			mutateTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			mutateTextField.setBounds(143, 24, 113, 30);
+			MutatePanel.add(mutateTextField);
+			mutateTextField.setText("0");
+			
+			JLabel lblTheMutateRate = new JLabel("<html> <body>&nbsp;&nbsp;The mutate rate descript a rate that  gep item can be mutated in a way<br/>\r\n&nbsp;&nbsp;You can click here for more details.\r\n</body> </html>");
+			lblTheMutateRate.setBounds(10, 98, 320, 67);
+			MutatePanel.add(lblTheMutateRate);
+			mutateTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					mutateTextField.selectAll();
+				}
+			});
+			
+			JPanel TransportPanel = new JPanel();
+			ContainerPanel.add(TransportPanel);
+			TransportPanel.setLayout(null);
+			
+			JLabel ISLabel = new MyPrompt("IS\u8F6C\u5EA7\u6982\u7387 ");
+			ISLabel.setBounds(11, 24, 142, 30);
+			TransportPanel.add(ISLabel);
+			ISLabel.setText("IS Transport Rate");
+			ISLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			ISLabel.setFont(font);
+			
+			JLabel ISLengthLabel = new MyPrompt("IS\u8F6C\u5EA7\u957F\u5EA6 ");
+			ISLengthLabel.setBounds(11, 64, 142, 30);
+			TransportPanel.add(ISLengthLabel);
+			ISLengthLabel.setText("IS Transport Length");
+			ISLengthLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			ISLengthLabel.setFont(font);
+			
+			ISLengthTextField = new MyTextField();
+			ISLengthTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			ISLengthTextField.setFont(font);
+			ISLengthTextField.setBounds(165, 66, 113, 30);
+			TransportPanel.add(ISLengthTextField);
+			ISLengthTextField.setText("0");
+			
+			ISTextField = new MyTextField();
+			ISTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			ISTextField.setFont(font);
+			ISTextField.setBounds(165, 26, 113, 30);
+			TransportPanel.add(ISTextField);
+			ISTextField.setText("0");
+			
+			RISTextField = new MyTextField();
+			RISTextField.setFont(new Font("Century", Font.PLAIN, 14));
+			RISTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			RISTextField.setBounds(165, 120, 113, 30);
+			TransportPanel.add(RISTextField);
+			RISTextField.setText("0");
+			
+			RISLengthTextField = new MyTextField();
+			RISLengthTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			RISLengthTextField.setFont(new Font("Century", Font.PLAIN, 14));
+			RISLengthTextField.setBounds(165, 160, 113, 30);
+			TransportPanel.add(RISLengthTextField);
+			RISLengthTextField.setText("0");
+			
+			JLabel RISLabel = new MyPrompt("RIS\u8F6C\u5EA7\u6982\u7387");
+			RISLabel.setBounds(13, 119, 142, 30);
+			TransportPanel.add(RISLabel);
+			RISLabel.setText("RIS Transport Rate");
+			RISLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			RISLabel.setFont(font);
+			
+			JLabel RISLengthLabel = new MyPrompt("RIS\u8F6C\u5EA7\u957F\u5EA6");
+			RISLengthLabel.setBounds(0, 160, 156, 30);
+			TransportPanel.add(RISLengthLabel);
+			RISLengthLabel.setText("RIS Transport Length");
+			RISLengthLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			RISLengthLabel.setFont(font);
+			
+			JLabel geneLabel = new JLabel("Gene Transport Rate");
+			geneLabel.setBounds(9, 215, 148, 30);
+			TransportPanel.add(geneLabel);
+			geneLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			geneLabel.setFont(font);
+			
+				
+				geneTextField = new MyTextField();
+				geneTextField.setHorizontalAlignment(SwingConstants.CENTER);
+				geneTextField.setFont(new Font("Century", Font.PLAIN, 14));
+				geneTextField.setBounds(165, 216, 113, 30);
+				TransportPanel.add(geneTextField);
+				geneTextField.setText("0");
+				
+				
+				
+				
+				geneTextField.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent arg0) {
+						geneTextField.selectAll();
+					}
+				});
+			RISLengthTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					RISLengthTextField.selectAll();
+				}
+			});
+			RISTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					RISTextField.selectAll();
+				}
+			});
+			ISTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					ISTextField.selectAll();
+				}
+			});
+			ISLengthTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					ISLengthTextField.selectAll();
+				}
+			});
+			
+			
+			JPanel RecombinationPanel = new JPanel();
+			ContainerPanel.add(RecombinationPanel);
+			RecombinationPanel.setLayout(null);
+			
+			JLabel oneCombineLabel = new MyPrompt("\u5355\u70B9\u91CD\u7EC4\u6982\u7387");
+			oneCombineLabel.setBounds(5, 26, 137, 30);
+			RecombinationPanel.add(oneCombineLabel);
+			oneCombineLabel.setText("One Point Combine ");
+			oneCombineLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			oneCombineLabel.setFont(font);
+			
+			oneCombineTextField = new MyTextField();
+			oneCombineTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			oneCombineTextField.setFont(new Font("Century", Font.PLAIN, 14));
+			oneCombineTextField.setBounds(147, 26, 113, 30);
+			RecombinationPanel.add(oneCombineTextField);
+			oneCombineTextField.setText("0");
+			
+			twoCombineTextField = new MyTextField();
+			twoCombineTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			twoCombineTextField.setFont(new Font("Century", Font.PLAIN, 14));
+			twoCombineTextField.setBounds(147, 66, 113, 30);
+			RecombinationPanel.add(twoCombineTextField);
+			twoCombineTextField.setText("0");
+			
+			JLabel twoCombineLabel = new MyPrompt("\u4E24\u70B9\u91CD\u7EC4\u6982\u7387");
+			twoCombineLabel.setBounds(14, 66, 127, 30);
+			RecombinationPanel.add(twoCombineLabel);
+			twoCombineLabel.setText("Two Point Combine");
+			twoCombineLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			twoCombineLabel.setFont(font);
+			
+			JLabel geneCombineLabel = new MyPrompt("\u57FA\u56E0\u91CD\u7EC4\u6982\u7387");
+			geneCombineLabel.setBounds(-2, 105, 143, 30);
+			RecombinationPanel.add(geneCombineLabel);
+			geneCombineLabel.setText("Gene Combine");
+			geneCombineLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+			geneCombineLabel.setFont(font);
+			
+			geneCombineTextField = new MyTextField();
+			geneCombineTextField.setHorizontalAlignment(SwingConstants.CENTER);
+			geneCombineTextField.setFont(new Font("Century", Font.PLAIN, 14));
+			geneCombineTextField.setBounds(147, 106, 113, 30);
+			RecombinationPanel.add(geneCombineTextField);
+			geneCombineTextField.setText("0");
+			geneCombineTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					geneCombineTextField.selectAll();
+				}
+			});
+			twoCombineTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					twoCombineTextField.selectAll();
+				}
+			});
+			oneCombineTextField.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent arg0) {
+					oneCombineTextField.selectAll();
+				}
+			});
 		
 	}
 
@@ -341,5 +345,4 @@ public class OperatorPanel extends JPanel implements Observer{
 		
 		
 	}
-
 }

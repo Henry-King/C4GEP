@@ -115,11 +115,10 @@ public class MainWnd {
             }
         }.start();*/
         
-        		
+        
         try {
 			EventQueue.invokeAndWait(new Runnable() {
 			    public void run() {
-			    	
 			    	loadBar = splashScreen.getLoadBar();
 			        loadBar.setValue(30);
 			    	splashScreen.splashPanel.setLoadString("initial HibernateDataContext");
@@ -160,7 +159,6 @@ public class MainWnd {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
 					frame = new MainFrame(mainWnd);
 					if (splashScreen != null) {
 	                    splashScreen.setVisible(false);
