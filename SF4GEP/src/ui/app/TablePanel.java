@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.*;
@@ -65,10 +67,21 @@ public class TablePanel extends JPanel {
         this.tableType = tableType;
         init();
     }
+    
+    public  void reflesh(){
+    	GepConfigurationService gepConfigurationService = new GepConfigurationService(mainWnd.getHibernateDataContext());
+        modelList.clear();
+        
+        for (GepAlgConfiguration gac : gepConfigurationService.getAllGepAlgConfiguration()) {
+        	modelList.add(gac);
+		}
+        Collections.reverse(modelList);
+    }
 
     private void init() {
     	GepConfigurationService gepConfigurationService = new GepConfigurationService(mainWnd.getHibernateDataContext());
         modelList = gepConfigurationService.getAllGepAlgConfiguration();
+        Collections.reverse(modelList);
         setName("Table");
         setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         initModel();
@@ -84,6 +97,7 @@ public class TablePanel extends JPanel {
         	public void mouseClicked(MouseEvent e) {
         		//JOptionPane.showMessageDialog(mainWnd.frame,"test click");
         		GepAlgConfiguration gepAlgConfiguration = (GepAlgConfiguration)modelList.get(myTable.rowAtPoint(e.getPoint()));
+        		//System.out.println("here "+myTable.rowAtPoint(e.getPoint()));
         		
         		
         		if (JTattooUtilities.getJavaVersion() >= 1.6) {
@@ -112,11 +126,14 @@ public class TablePanel extends JPanel {
 	                     accuracyController = newConfPanel.contentPanel.getAccuracyController();
 	                     geneController = newConfPanel.contentPanel.getGeneController();
 	                     operatorController = newConfPanel.contentPanel.getOperatorController();
-	                    
+	                     newConfPanel.setGepAlgConfiguration(gepAlgConfiguration);
+	                     newConfPanel.outputStatusLabel.setText("It's your history profile:" + title +"  You can load a input data later or modify this profile.");
 					}else if(tableType.equals(TableType.LoadProfileTable)){
 						 accuracyController = confPanel.contentPanel.getAccuracyController();
 	                     geneController = confPanel.contentPanel.getGeneController();
 	                     operatorController = confPanel.contentPanel.getOperatorController();
+	                     confPanel.setGepAlgConfiguration(gepAlgConfiguration);
+	                     //confPanel.outputStatusLabel.setText(".");
 					}else{
 						
 					}
@@ -143,6 +160,7 @@ public class TablePanel extends JPanel {
              		else {
              			geneModel.setUseHomeoticGene(false);
              			geneModel.setConnectionFunction(geneConfiguration.getConnectionFunction());
+             			//System.out.println(geneConfiguration.getConnectionFunctionString());
              		}
              		geneModel.changeModel();
              		

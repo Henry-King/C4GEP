@@ -18,6 +18,7 @@ import javax.swing.plaf.TabbedPaneUI;
 
 import twaver.PopupMenuGenerator;
 import twaver.TView;
+import ui.conf.WelcomePanel;
 import ui.conf.view.ConfPanel;
 import ui.images.ImageHelper;
 
@@ -26,6 +27,7 @@ public class MainTabbedPane extends JTabbedPane{
 	private MainWnd mainWnd;
 	private JPopupMenu popupMenu;
 	private int currentSelectTabIndex = -1;
+	public WelcomePanel welcomePanel;
 	
 	public MainTabbedPane(int left,MainWnd mainWnd) {
 		super(left);
@@ -35,7 +37,7 @@ public class MainTabbedPane extends JTabbedPane{
 		setForeground(defaultColor);
 		
 		/*Ä¬ÈÏ»¶Ó­½çÃæ*/
-		ui.conf.WelcomePanel welcomePanel = new ui.conf.WelcomePanel(mainWnd);
+		welcomePanel = new ui.conf.WelcomePanel(mainWnd);
 		VTextIcon welcomeVTextIcon=new VTextIcon(welcomePanel, "Welcome",VTextIcon.ROTATE_LEFT);
 		addTab(null,welcomeVTextIcon, welcomePanel, null);
 		

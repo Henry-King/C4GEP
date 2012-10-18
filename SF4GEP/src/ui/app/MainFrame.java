@@ -25,10 +25,10 @@ public class MainFrame extends JFrame implements IDemoApp {
     private static final int appPosX = (screenSize.width / 2) - (appSize.width / 2);
     private static final int appPosY = (screenSize.height / 2) - (appSize.height / 2);
     private static Rectangle appBounds = new Rectangle(appPosX, appPosY, appSize.width, appSize.height);
-    private static final String appTitle = "GEP Framework (µ¥»ú°æ)";
+    private static final String appTitle = "GEP Framework (Standalone Version)";
    
     private MainMenuBar menuBar = null;
-    public JTabbedPane mainTabbedPane = null;
+    public MainTabbedPane mainTabbedPane = null;
     private MainWnd mainWnd;
     
 
@@ -135,7 +135,7 @@ public class MainFrame extends JFrame implements IDemoApp {
 
 	@Override
 	public void setMainTabbedPane(JTabbedPane tabPane) {
-		 mainTabbedPane = tabPane;
+		 mainTabbedPane = (MainTabbedPane) tabPane;
 	}
 
 	@Override

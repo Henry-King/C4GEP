@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.Timer;
 
 
@@ -20,6 +21,7 @@ import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
 import domain.core.algconfiguration.*;
+import domain.iservice.algOutput.IAlgOutputService;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algOutput.AlgCpuRunStep;
 import domain.service.algOutput.AlgOutputService;
@@ -166,6 +168,8 @@ public class MainToolBar extends JToolBar {
     			inputDataWnd = new InputDataWnd(confPanel);
     			p.y=p.y+inputDataButton.getIcon().getIconHeight()+7;
     			inputDataWnd.setLocation(p);
+    			//Point p = inputDataButton.getLocation();
+        		//Point p= inputDataButton.getLocationOnScreen();
     			
                 inputDataWnd.setVisible(true);
                 
@@ -290,11 +294,17 @@ public class MainToolBar extends JToolBar {
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
+            	
             	GepAlgConfiguration gepAlgConfiguration=null;
 				IndividualConfiguration individualConfiguration = null;
 				GeneConfiguration geneConfiguration = null;
 				OperatorConfiguration operatorConfiguration = null;
 				inputDataSet = confPanel.getInputData();
+				if (inputDataSet==null) {
+					JOptionPane.showMessageDialog(mainWnd.frame,"Please input a input data first.");
+					return;
+				}
+            	
             	
             	
             	/*精度面板*/
@@ -309,6 +319,8 @@ public class MainToolBar extends JToolBar {
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 				
 					gepAlgConfiguration = new GepAlgConfiguration();
+					
+					gepAlgConfiguration.setName(confPanel.getGepAlgConfiguration().getName());
 	            	gepAlgConfiguration.setMaxGeneration(accuracyModel.getMaxGeneration());
 	            	gepAlgConfiguration.setSelectionRange(accuracyModel.getSelectionRange());
 	            	gepAlgConfiguration.setAccuracy(accuracyModel.getAccuracy());
@@ -336,6 +348,10 @@ public class MainToolBar extends JToolBar {
 					geneConfiguration.setNormalGeneNumber(geneModel.getNormalGeneNumber());
 					geneConfiguration.setNormalGeneHeaderLength(geneModel.getNormalGeneHeaderLength());
 					geneConfiguration.setFunctionUsed(geneModel.getFunctionList());
+					
+					
+					
+					
 					if (geneModel.isUseHomeoticGene()) {	//使用同源基因连接
 						geneConfiguration.setHomeoticGeneNumber(geneModel.getHomeoticGeneNumber());
 						geneConfiguration.setHomeoticGeneHeaderLength(geneModel.getHomeoticGeneHeaderLength());
@@ -347,10 +363,12 @@ public class MainToolBar extends JToolBar {
 								+geneModel.getHomeoticGeneHeaderLength());
 						*/
 					}else{	//使用函数连接
+						
 						geneConfiguration.setUseHomeoticGene(false);
 						//JOptionPane.showMessageDialog(mainWnd.frame,"使用函数连接");
-						//geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
+						//geneConfiguration.setConnectionFunctionString(geneModel.getConnectionFunction().getName());
 						geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
+						System.out.println(geneModel.getConnectionFunction()==null);
 					}
 					
 				
@@ -379,7 +397,8 @@ public class MainToolBar extends JToolBar {
 					operatorConfiguration.setTwoPointRecombineRate(operatorModel.getTwoPointRecombineRate());
 					operatorConfiguration.setGeneRecombineRate(operatorModel.getGeneRecombineRate());
 			
-					/*JOptionPane.showMessageDialog(mainWnd.frame,operatorModel.getMutateRate()+"|"
+					/*JOptionPane.showMessageDialog(
+							mainWnd.frame,operatorModel.getMutateRate()+"|"
 							+operatorModel.getIsTransportRate()+"|"
 							+operatorModel.getIsElement()+"|"
 							+operatorModel.getRisTransportRate()+"|"
@@ -387,7 +406,17 @@ public class MainToolBar extends JToolBar {
 							+operatorModel.getGeneTransportRate()+"|"
 							+operatorModel.getOnePointRecombineRate()+"|"
 							+operatorModel.getTwoPointRecombineRate()+"|"
-							+operatorModel.getGeneRecombineRate());*/
+							+operatorModel.getGeneRecombineRate());
+					Integer[] integer1 = operatorModel.getIsElement();
+					for (int i = 0; i < integer1.length; i++) {
+						System.out.print(integer1[i]+",");
+					}
+					System.out.println();
+					Integer[] integer2 = operatorModel.getRisElement();
+					for (int i = 0; i < integer2.length; i++) {
+						System.out.print(integer2[i]+",");
+					}*/
+					
 				
 				//}
             	
@@ -397,10 +426,20 @@ public class MainToolBar extends JToolBar {
             	gepAlgConfiguration.setIndividualConfiguration(individualConfiguration);
             	
             	GepConfigurationService configurationService=new GepConfigurationService(hibernateDataContext);
+            	
             	gepAlgConfiguration=configurationService.processConf(gepAlgConfiguration, inputDataSet);
+            	
             	AlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
+            	
+            	/**
+            	 * 设置是否写入数据库
+            	 */
             	algOutputService.setWriteToDB(false);
+            	
+            	
+            	
             	Future<GepAlgRun> result=algOutputService.run(gepAlgConfiguration, new AlgCpuRunStep(), inputDataSet);
+            	
             	try {
             		gepAlgRun = result.get();
             		
@@ -410,13 +449,40 @@ public class MainToolBar extends JToolBar {
             		OutputPicturePanel outputPicturePanel = confPanel.contentPanel.outputPicturePanel;
             		Dimension di = outputPicturePanel.getPreferredSize();
             		outputPicturePanel.setPreferredSize(new Dimension(di.width,confPanel.contentPanel.getHeight()-25));
-            		outputPicturePanel.tooltip_PicturePanel.setText("  Here shows the Fitting Curve Gragh and Evolution Gragh,You can "
-            				+"do more by click the link label.");	//其实是个Label
+            		/*outputPicturePanel.tooltip_PicturePanel.setText("  Here shows the Fitting Curve Gragh and Evolution Gragh,You can "
+            				+"do more by click the link label.");	//其实是个Label*/
+            		/*outputPicturePanel.tooltip_PicturePanel.setText("<html><body>&nbsp;&nbsp;Run Time: "+gepAlgRun.getPeriod()+
+            				"&nbsp;&nbsp;&nbsp;&nbsp;Total Generation: "+gepAlgRun.getCurrentPopulation().getGenerationNum()+ "<br/>"+
+            				"&nbsp;&nbsp;Result&Expression:"
+            				+
+            				gepAlgRun.getCurrentPopulation().toExprString()
+            				
+            				+"</body></html>");*/
+            		outputPicturePanel.tooltip_PicturePanel.setText("Run Time: " +gepAlgRun.getPeriod() +
+            				"\nTotal Generation: "+gepAlgRun.getCurrentPopulation().getGenerationNum()+
+            				"\nResult&Expression:"+ gepAlgRun.getCurrentPopulation().toExprString());
+            				
+            		//outputPicturePanel.tooltip_PicturePanel.setPreferredSize(new Dimension(60,80));
+            		//outputPicturePanel.tooltip_PicturePanel.setMaximumSize(new Dimension(60,80));
             		
             		
+            		outputPicturePanel.gl_InfoPanel.setVerticalGroup(
+            				outputPicturePanel.gl_InfoPanel.createParallelGroup(Alignment.LEADING)
+            				.addGroup(outputPicturePanel.gl_InfoPanel.createSequentialGroup()
+            					.addComponent(outputPicturePanel.tooltip_PicturePanel, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+            					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            		);
+            		//outputPicturePanel.tooltip_PicturePanel.setSize(outputPicturePanel.tooltip_PicturePanel.getWidth(), outputPicturePanel.tooltip_PicturePanel.getHeight()+40);
 				} catch (InterruptedException | ExecutionException e1) {
 					e1.printStackTrace();
 				}
+            	
+            	
+            	/**
+            	 * 更新Welcome界面
+            	 */
+            	//mainWnd.frame.mainTabbedPane.welcomePanel.hp.projectTable.reflesh();
+            	
             	
             }
         });
