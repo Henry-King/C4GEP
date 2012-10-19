@@ -11,7 +11,7 @@
 #include "device_launch_parameters.h"
 __device__ int getfunNum(int i)
 {
-	int x;
+	int x=0;
 	switch(i)
 	{
 	case 0://'+'
@@ -29,17 +29,17 @@ __device__ int getfunNum(int i)
 }
 __device__ float opFun(int op,float a,float b)
 {
-	float result;
+	float result=0;
 	switch(op)
 	{
 	case 0:
 		result=a+b;break;
 	case 1:
-		result=a-b;break;
+		result=b-a;break;
 	case 2:
 		result=a*b;break;
 	case 3:
-		result=a/b;break;//处理b为0的情况
+		result=b/a;break;//处理b为0的情况
 	}
 	return result;
 }
@@ -73,16 +73,16 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 	char *row_normalGenes=(char*)((char*)normalgenes+bid*pitchNG);//当前个体
 	char *row_normalGenesIndex=(char*)((char*)normalgenesIndex+bid*pitchNI);//当前个体标记
 	//row_normalGenes[tid]为基因
-
-	int indexofgene=tid*lenofgene;//当前基因的起始位置
-	int len=getgenelen(row_normalGenes,row_normalGenesIndex,indexofgene);
 	float *fitness=(float*)share;
 	int lenofhometic=rowofdata*numofnormalgenes;
 	float *fitness2=(float*)&fitness[lenofhometic];
 	int lenoffit3=rowofdata*numofhomeoticgenes;
 	float *fitness3=(float*)&fitness2[lenoffit3];
 
+	int len;
 	if (tid<numofnormalgenes) {
+		int indexofgene=tid*lenofgene;//当前基因的起始位置
+		len=getgenelen(row_normalGenes,row_normalGenesIndex,indexofgene);
 		for(int n=0;n<rowofdata;n++)
 		{
 			int l=len;
@@ -90,25 +90,26 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 			if(len==0)
 			{
 				fitness[tid*rowofdata+n]=row_data[(int)row_normalGenesIndex[indexofgene]];//第tid个基因第n个测试数据的拟合值
+				break;
 			}
 			else
 			{
+				int index_all=lenofgene*rowofdata*bid*tid+tid*rowofdata*lenofgene+n*lenofgene;
 				for(int i=len;i>=0;i--)
 				{
 					if((int)row_normalGenes[indexofgene+i]==1)//是函数
 					{
 						//赋值
 						if((int)row_normalGenes[indexofgene+l]==0)
-							allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l]=row_data[(int)row_normalGenesIndex[indexofgene+l]];
+							allarray[index_all+l]=row_data[(int)row_normalGenesIndex[indexofgene+l]];
 						if((int)row_normalGenes[indexofgene+l-1]==0)
-							allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]=row_data[(int)row_normalGenesIndex[indexofgene+l-1]];
+							allarray[index_all+l-1]=row_data[(int)row_normalGenesIndex[indexofgene+l-1]];
 						//计算
-						allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+i]=opFun((int)row_normalGenesIndex[indexofgene+i],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]);
+						allarray[index_all+i]=opFun((int)row_normalGenesIndex[indexofgene+i],allarray[index_all+l],allarray[index_all+l-1]);
 						l-=getfunNum((int)row_normalGenesIndex[indexofgene+i]);
 					}
 				}
-				fitness[tid*rowofdata+n]=allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+0];//第tid个基因第n个数据对应的拟合值
-				//cuPrintf("%f\n",fitness[tid*rowofdata+n]);
+				fitness[tid*rowofdata+n]=allarray[index_all];//第tid个基因第n个数据对应的拟合值
 			}
 		}
 	}
@@ -127,22 +128,27 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 		{
 			int l=len;
 			if(len==0)
-				fitness2[tid*rowofdata+n]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene]+n];
+			{
+				fitness2[tid*rowofdata+n]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene]];
+				break;
+			}
 			else
 			{
+				int index_all=lenofhometicgene*rowofdata*bid*tid+tid*rowofdata*lenofhometicgene+n*lenofhometicgene;
 				for(int i=len;i>=0;i--)
 				{
+					allarray[index_all+i]=0;
 					if(row_hometicgene[indexofhometicgene+i]==1)//是函数
 					{
 						if(row_hometicgene[indexofhometicgene+l]==2)
-							allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l]+n];
+							allarray[index_all+l]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l]+n];
 						if(row_hometicgene[indexofhometicgene+l-1]==2)
-							allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l-1]+n];
-						allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+i]=opFun(row_hometicgene[indexofhometicgene+i],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]);//sum2[n][l],sum2[n][l-1]);
+							allarray[index_all+l-1]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l-1]+n];
+						allarray[index_all+i]=opFun(row_hometicgene[indexofhometicgene+i],allarray[index_all+l],allarray[index_all+l-1]);//sum2[n][l],sum2[n][l-1]);
 						l=l-getfunNum((int)row_hometicgene[indexofhometicgene+i]);
 					}
 				}
-				fitness2[tid*rowofdata+n]=allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+0];//sum2[n][0];
+				fitness2[tid*rowofdata+n]=allarray[index_all];//sum2[n][0];
 			}
 		}
 	}
@@ -157,16 +163,13 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 			float *row_data=(float*)((char*)data+n*pitchDT);
 			float result=fabs((fitness2[tid*rowofdata+n]-row_data[colofdata-1]));
 			result=fabs(M-result);
-			if(result<accuracy||result>=M*rowofdata)
+			if(result<=accuracy||result>1.0*M*rowofdata)
 				result=0;
 			sumoffitness=sumoffitness+result;
 		}
-		if(isnan(sumoffitness)==true)
-			fitness3[tid]=0;
-		if(sumoffitness>M*rowofdata)
+		if(isnan(sumoffitness)==true||sumoffitness>1.0*M*rowofdata)
 			sumoffitness=0;
-		else
-			fitness3[tid]=sumoffitness;
+		fitness3[tid]=sumoffitness;
 	}
 	__syncthreads();
 
@@ -174,9 +177,10 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 	{
 		float max=0.0f;
 		int index=0;
+		float ss=1.0*M*rowofdata;
 		for(int i=0;i<numofhomeoticgenes;i++)
 		{
-			if(max<fitness3[i])
+			if(fitness3[i]<ss&&max<=fitness3[i])
 			{
 				max=fitness3[i];
 				index=i;

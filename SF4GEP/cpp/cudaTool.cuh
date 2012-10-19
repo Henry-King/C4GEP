@@ -105,7 +105,7 @@ float **getFittedValueArray(){
 	return fittedvalue;
 }
 void callKernel(int normalGeneNum,int homeoticGeneNum,int populationSize,int rowNum,int columnNum,int normalGeneLength,int homeoticGeneLength,int selectionRange,float accuracy){
-	int threadsPerBlock=(normalGeneNum>homeoticGeneNum?normalGeneNum:homeoticGeneNum);
+	int threadsPerBlock=(normalGeneNum>=homeoticGeneNum?normalGeneNum:homeoticGeneNum);
 	int blocksPerGrid=populationSize;
 	size_t share_size=(rowNum*normalGeneNum+rowNum*homeoticGeneNum+homeoticGeneNum)*sizeof(float);
 	int sizeofarray=rowNum*normalGeneLength*populationSize*threadsPerBlock;
