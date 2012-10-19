@@ -75,98 +75,99 @@ __global__ void kernel(char *normalgenes,char *normalgenesIndex,char *homeoticge
 	//row_normalGenes[tid]为基因
 
 	int indexofgene=tid*lenofgene;//当前基因的起始位置
-
-	//获取基因的有效长度len
 	int len=getgenelen(row_normalGenes,row_normalGenesIndex,indexofgene);
-	//计算当前基因的适应值
-	//改为动态
 	float *fitness=(float*)share;
+	int lenofhometic=rowofdata*numofnormalgenes;
+	float *fitness2=(float*)&fitness[lenofhometic];
+	int lenoffit3=rowofdata*numofhomeoticgenes;
+	float *fitness3=(float*)&fitness2[lenoffit3];
 
-	for(int n=0;n<rowofdata;n++)
-	{
-		int l=len;
-		float *row_data=(float*)((char*)data+n*pitchDT);
-		if(len==0)
+	if (tid<numofnormalgenes) {
+		for(int n=0;n<rowofdata;n++)
 		{
-			fitness[tid*rowofdata+n]=row_data[(int)row_normalGenesIndex[indexofgene]];//第tid个基因第n个测试数据的拟合值
-		}
-		else
-		{
-			for(int i=len;i>=0;i--)
+			int l=len;
+			float *row_data=(float*)((char*)data+n*pitchDT);
+			if(len==0)
 			{
-				if((int)row_normalGenes[indexofgene+i]==1)//是函数
-				{
-					//赋值
-					if((int)row_normalGenes[indexofgene+l]==0)
-						allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l]=row_data[(int)row_normalGenesIndex[indexofgene+l]];
-					if((int)row_normalGenes[indexofgene+l-1]==0)
-						allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]=row_data[(int)row_normalGenesIndex[indexofgene+l-1]];
-					//计算
-					allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+i]=opFun((int)row_normalGenesIndex[indexofgene+i],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]);
-					l-=getfunNum((int)row_normalGenesIndex[indexofgene+i]);
-				}
+				fitness[tid*rowofdata+n]=row_data[(int)row_normalGenesIndex[indexofgene]];//第tid个基因第n个测试数据的拟合值
 			}
-			fitness[tid*rowofdata+n]=allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+0];//第tid个基因第n个数据对应的拟合值
-			//cuPrintf("%f\n",fitness[tid*rowofdata+n]);
+			else
+			{
+				for(int i=len;i>=0;i--)
+				{
+					if((int)row_normalGenes[indexofgene+i]==1)//是函数
+					{
+						//赋值
+						if((int)row_normalGenes[indexofgene+l]==0)
+							allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l]=row_data[(int)row_normalGenesIndex[indexofgene+l]];
+						if((int)row_normalGenes[indexofgene+l-1]==0)
+							allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]=row_data[(int)row_normalGenesIndex[indexofgene+l-1]];
+						//计算
+						allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+i]=opFun((int)row_normalGenesIndex[indexofgene+i],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l],allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+l-1]);
+						l-=getfunNum((int)row_normalGenesIndex[indexofgene+i]);
+					}
+				}
+				fitness[tid*rowofdata+n]=allarray[lenofgene*rowofdata*bid*tid+n*lenofgene+0];//第tid个基因第n个数据对应的拟合值
+				//cuPrintf("%f\n",fitness[tid*rowofdata+n]);
+			}
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//加入同源基因thread=hometicgene;
 
 	__syncthreads();
-	char *row_hometicgene=(char*)((char*)homeoticgenes+bid*pitchHG);
-	char *row_hometicgeneindex=(char*)((char*)homeoticgenesIndex+bid*pitchHI);
-	int indexofhometicgene=tid*lenofhometicgene;//当前同源基因的起始位置
-	//获取同源基因有效长度
-	len=getgenelen(row_hometicgene,row_hometicgeneindex,indexofhometicgene);
-	//计算适应值
-	int lenofhometic=rowofdata*numofnormalgenes;
-	float *fitness2=(float*)&fitness[lenofhometic];
-	for(int n=0;n<rowofdata;n++)
-	{
-		int l=len;
-		if(len==0)
-			fitness2[tid*rowofdata+n]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene]+n];
-		else
+	if (tid<numofhomeoticgenes) {
+		char *row_hometicgene=(char*)((char*)homeoticgenes+bid*pitchHG);
+		char *row_hometicgeneindex=(char*)((char*)homeoticgenesIndex+bid*pitchHI);
+		int indexofhometicgene=tid*lenofhometicgene;//当前同源基因的起始位置
+		//获取同源基因有效长度
+		len=getgenelen(row_hometicgene,row_hometicgeneindex,indexofhometicgene);
+		//计算适应值
+		for(int n=0;n<rowofdata;n++)
 		{
-			for(int i=len;i>=0;i--)
+			int l=len;
+			if(len==0)
+				fitness2[tid*rowofdata+n]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene]+n];
+			else
 			{
-				if(row_hometicgene[indexofhometicgene+i]==1)//是函数
+				for(int i=len;i>=0;i--)
 				{
-					if(row_hometicgene[indexofhometicgene+l]==2)
-						allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l]+n];
-					if(row_hometicgene[indexofhometicgene+l-1]==2)
-						allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l-1]+n];
-					allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+i]=opFun(row_hometicgene[indexofhometicgene+i],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]);//sum2[n][l],sum2[n][l-1]);
-					l=l-getfunNum((int)row_hometicgene[indexofhometicgene+i]);
+					if(row_hometicgene[indexofhometicgene+i]==1)//是函数
+					{
+						if(row_hometicgene[indexofhometicgene+l]==2)
+							allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l]+n];
+						if(row_hometicgene[indexofhometicgene+l-1]==2)
+							allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]=fitness[rowofdata*(int)row_hometicgeneindex[indexofhometicgene+l-1]+n];
+						allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+i]=opFun(row_hometicgene[indexofhometicgene+i],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l],allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+l-1]);//sum2[n][l],sum2[n][l-1]);
+						l=l-getfunNum((int)row_hometicgene[indexofhometicgene+i]);
+					}
 				}
+				fitness2[tid*rowofdata+n]=allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+0];//sum2[n][0];
 			}
-			fitness2[tid*rowofdata+n]=allarray[lenofhometicgene*rowofdata*bid*tid+n*lenofhometicgene+0];//sum2[n][0];
-			//cuPrintf("%f\n",fitness2[tid*rowofdata+n]);
 		}
 	}
-	//////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////
+		//__shared__ float fitness3[numofhomeoticgenes];//每个同源基因的拟合值
+		//改为动态数组
 	__syncthreads();
-	//__shared__ float fitness3[numofhomeoticgenes];//每个同源基因的拟合值
-	//改为动态数组
-	int lenoffit3=rowofdata*numofhomeoticgenes;
-	float *fitness3=(float*)&fitness2[lenoffit3];
-	float sumoffitness=0;
-	for(int n=0;n<rowofdata;n++)
-	{
-		float *row_data=(float*)((char*)data+n*pitchDT);
-		float result=fabs((fitness2[tid*rowofdata+n]-row_data[colofdata-1]));
-		result=fabs(M-result);
-		if(result<accuracy||result>=M*rowofdata)
-			result=0;
-		sumoffitness=sumoffitness+result;
+	if (tid<numofhomeoticgenes) {
+		float sumoffitness=0;
+		for(int n=0;n<rowofdata;n++)
+		{
+			float *row_data=(float*)((char*)data+n*pitchDT);
+			float result=fabs((fitness2[tid*rowofdata+n]-row_data[colofdata-1]));
+			result=fabs(M-result);
+			if(result<accuracy||result>=M*rowofdata)
+				result=0;
+			sumoffitness=sumoffitness+result;
+		}
+		if(isnan(sumoffitness)==true)
+			fitness3[tid]=0;
+		if(sumoffitness>M*rowofdata)
+			sumoffitness=0;
+		else
+			fitness3[tid]=sumoffitness;
 	}
-	if(isnan(sumoffitness)==true)
-		fitness3[tid]=0;
-	if(sumoffitness>M*rowofdata)
-		sumoffitness=0;
-	else
-		fitness3[tid]=sumoffitness;
 	__syncthreads();
 
 	if(tid==0)
