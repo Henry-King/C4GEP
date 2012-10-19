@@ -172,10 +172,15 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		    		if (!confPanel.isHasFittingCurve()) {
 		    			int position = tabCount - 2;
 		    			String title = "FittingCurveDetail";
-		    			JPanel panel = new JPanel();
-		    			panel.setName("FittingCurveDetail");
+		    			
+		    			
+		    			
+		    			OutputPictureDetail fittingCurveDetail = new OutputPictureDetail(FittingCurveChart);
+		    			
+		    			
+		    			fittingCurveDetail.setName("FittingCurveDetail");
 		    			CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
-		    			jtp.add(panel,position);
+		    			jtp.add(fittingCurveDetail,position);
 		    			jtp.setSelectedIndex(position);
 			            jtp.setTabComponentAt(position, ctc);
 			            jtp.setToolTipTextAt(position, "This is project " + (position + 1) + "  "+title);
@@ -269,12 +274,6 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		
 		JSeparator separator_1 = new JSeparator();
 		
-		
-		
-		
-		JLabel label = new JLabel("Runtime:");
-		label.setFont(new Font("Century", Font.PLAIN, 12));
-		
 		JLabel lblBestValueIn = new JLabel("Best Value in Best Individual:");
 		lblBestValueIn.setFont(new Font("Century", Font.PLAIN, 12));
 		
@@ -300,6 +299,60 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		EvolutionScrollBar.setOrientation(JScrollBar.HORIZONTAL);
 		EvolutionScrollBar.setEnabled(false);
 		
+		LinkLabel lblShowEvolutionDetail = new LinkLabel("Show Detail");
+		lblShowEvolutionDetail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (JTattooUtilities.getJavaVersion() >= 1.6) {
+		    		JTabbedPane jtp = confPanel.projectTabPane;
+		    		int tabCount = jtp.getTabCount();
+		    		
+		    		if (!confPanel.isHasEvolution()) {
+		    			int position = tabCount - 2;
+		    			String title = "EvolutionDetail";
+		    			
+		    			
+		    			OutputPictureDetail evolutionCurveDetail = new OutputPictureDetail(EvolutionGraphChart);
+		    			
+		    			
+		    			evolutionCurveDetail.setName("EvolutionDetail");
+		    			CloseableTabComponent ctc = new CloseableTabComponent(jtp,title);
+		    			jtp.add(evolutionCurveDetail,position);
+		    			jtp.setSelectedIndex(position);
+			            jtp.setTabComponentAt(position, ctc);
+			            jtp.setToolTipTextAt(position, "This is project " + (position + 1) + "  "+title);
+			            confPanel.setHasFittingCurve(true);
+		    		}else{
+		    			for (int i = 0; i < tabCount; i++) {
+		    				Component component = jtp.getComponentAt(i);
+		    				String name = component.getName();
+		    				System.out.println(name);
+		    				if (name.equals("FittingCurveDetail")) {
+		    					jtp.setSelectedIndex(i);
+		    					//Ô¤Áô
+							}else if (name.endsWith("EvolutionDetail")) {
+								jtp.setSelectedIndex(i);
+								//Ô¤Áô
+							}
+						}
+		    		}
+				}
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		lblShowEvolutionDetail.setFont(new Font("Century", Font.PLAIN, 12));
+		
 		
 		//add(FittingCurveCanvas);
 		
@@ -311,23 +364,23 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 					.addContainerGap()
 					.addComponent(lblEvolutionGraph, GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
-					.addGap(10)
-					.addGroup(gl_EvolutionGraphPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
-							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
-							.addGap(15))
-						.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
-							.addGap(10)
-							.addGroup(gl_EvolutionGraphPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(label, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblBestValueIn, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblWorseValueIn, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))
-							.addGap(177))))
 				.addComponent(EvolutionContainer, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
 				.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
 					.addComponent(EvolutionScrollBar, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_EvolutionGraphPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
+							.addGap(10)
+							.addGroup(gl_EvolutionGraphPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblBestValueIn, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblWorseValueIn, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblShowEvolutionDetail, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap())
+						.addGroup(gl_EvolutionGraphPanel.createSequentialGroup()
+							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
+							.addGap(15))))
 		);
 		gl_EvolutionGraphPanel.setVerticalGroup(
 			gl_EvolutionGraphPanel.createParallelGroup(Alignment.LEADING)
@@ -337,13 +390,13 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 					.addGap(1)
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(label, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
 					.addComponent(lblBestValueIn, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addGap(1)
 					.addComponent(lblWorseValueIn, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					.addGap(2)
+					.addComponent(lblShowEvolutionDetail, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(EvolutionContainer, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+					.addComponent(EvolutionContainer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(7)
 					.addComponent(EvolutionScrollBar, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 		);

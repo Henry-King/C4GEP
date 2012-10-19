@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import ui.conf.view.ProjectTabPane;
 import ui.images.ImageHelper;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
@@ -45,6 +46,14 @@ public class CloseableTabComponent extends JPanel {
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+                	JPanel panel = (JPanel) tabbedPane.getComponentAt(i);
+                	if (panel.getName().equals("FittingCurveDetail")) {
+                		ProjectTabPane projectTabPane = (ProjectTabPane) tabbedPane;
+                		projectTabPane.confPanel.setHasFittingCurve(false);
+					}else if (panel.getName().equals("EvolutionDetail")) {
+						ProjectTabPane projectTabPane = (ProjectTabPane) tabbedPane;
+                		projectTabPane.confPanel.setHasEvolution(false);
+					}
                     if (CloseableTabComponent.this.equals(tabbedPane.getTabComponentAt(i))) {
                         tabbedPane.removeTabAt(i);
                         break;

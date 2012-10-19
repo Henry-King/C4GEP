@@ -30,7 +30,7 @@ public class ConfPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -5609826898115031426L;
 	public MainWnd mainWnd;
-	public JTabbedPane projectTabPane;
+	public ProjectTabPane projectTabPane;
 	private DataSet inputData;
 	private NewProjectModel newProjectModel;
 	private File inputFile;
@@ -52,7 +52,7 @@ public class ConfPanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		this.mainWnd = mainWnd;
 		
-		projectTabPane = new JTabbedPane(JTabbedPane.TOP);
+		projectTabPane = new ProjectTabPane(JTabbedPane.TOP,this);
 		add(projectTabPane);
 		
 		/*ÄÚÈÝÃæ°å*/

@@ -44,7 +44,8 @@ public class OutputChart extends LineChart {
 	
 	
 	public OutputChart(LineChart rangeChart, int valuesCount) {
-		
+		this.rangeChart = rangeChart;
+    	this.valuesCount = valuesCount;
     	initial();
     }
 
@@ -162,11 +163,21 @@ public class OutputChart extends LineChart {
         }
     }
 
+    private void setRangeChart(LineChart rangeChart){
+    	this.rangeChart = rangeChart;
+    }
+    private void setValuesCount(int valuesCount){
+    	this.valuesCount = valuesCount;
+    }
     
+    public void initialRangePanel(LineChart rangeChart,int valuesCount){
+    	setRangeChart(rangeChart);
+    	setValuesCount(valuesCount);
+    	initial();
+    }
     
     private void initial(){
-    	this.rangeChart = rangeChart;
-        this.valuesCount = valuesCount;
+    	
         this.setEnableXZoom(false);
         this.setEnableYZoom(false);
         this.setEnableXTranslate(false);
