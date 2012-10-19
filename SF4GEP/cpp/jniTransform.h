@@ -229,6 +229,16 @@ static char** createGene(JNIEnv *env, jobject gepAlgRun,int rows,int columns,job
 //	printf("start\n");
 	return gene;
 }
+static void printInfo(char* name,char** value,int row,int column){
+	printf(name,"s");
+	for(int i=0;i<row;i++){
+		for(int j=0;j<column;j++){
+			printf("%d ",value[i][j]);
+		}
+		printf("\n");
+	}
+	fflush(stdout);
+}
 float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 	jfloatArray dataSetCpCols;
 	jobject dataSet = env->GetObjectField(gepAlgRun, dataSetID);
@@ -250,24 +260,32 @@ float** createDataSet(JNIEnv *env, jobject gepAlgRun,int rowNum,int columNum) {
 char** createNormalGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray normalGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneTypeID);
-	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneTypes);
+	char **result=createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneTypes);
+//	printInfo("normalGeneType\n",result,populationSize,normalGeneLength*normalGeneNumber);
+	return result;
 }
 char** createHomeoticGeneType(JNIEnv *env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray homeoticGeneTypes = (jobjectArray) env->CallObjectMethod(currentPopulation, getHomeoticGeneTypeID);
-	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneTypes);
+	char **result=createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneTypes);
+//	printInfo("homeoticGeneType\n",result,populationSize,homeoticGeneLength*homeoticGeneNum);
+	return result;
 }
 
 char** createNormalGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int normalGeneLength,int normalGeneNumber) {
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray normalGeneIndex = (jobjectArray) env->CallObjectMethod(currentPopulation, getNormalGeneIndexID);
-	return createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneIndex);
+	char** result=createGene(env,gepAlgRun,populationSize,normalGeneLength*normalGeneNumber,normalGeneIndex);
+//	printInfo("normalGeneIndex\n",result,populationSize,normalGeneLength*normalGeneNumber);
+	return result;
 }
 
 char** createHomeoticGeneIndex(JNIEnv* env, jobject gepAlgRun,int populationSize,int homeoticGeneLength,int homeoticGeneNum) {
 	jobject currentPopulation = env->CallObjectMethod(gepAlgRun,getCurrentPopulationID);
 	jobjectArray homeoticGeneIndex = (jobjectArray) env->CallObjectMethod(currentPopulation, getHomeoticGeneIndexID);
-	return createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneIndex);
+	char** result=createGene(env,gepAlgRun,populationSize,homeoticGeneLength*homeoticGeneNum,homeoticGeneIndex);
+//	printInfo("homeoticGeneIndex\n",result,populationSize,homeoticGeneLength*homeoticGeneNum);
+	return result;
 }
 int getPopulationSize(JNIEnv* env, jobject gepAlgRun) {
 	jobject individualConfObject = getIndividualConfObject(env, gepAlgRun);
