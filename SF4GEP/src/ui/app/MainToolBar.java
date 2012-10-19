@@ -460,7 +460,7 @@ public class MainToolBar extends JToolBar {
             				+"</body></html>");*/
             		outputPicturePanel.tooltip_PicturePanel.setText(" Run Time: " +gepAlgRun.getPeriod() +
             				"\n Total Generation: "+gepAlgRun.getCurrentPopulation().getGenerationNum()+
-            				"\n Result&Expression:"+ gepAlgRun.getCurrentPopulation().toExprString());
+            				"\n Result&Expression:"+ gepAlgRun.getBestIndividual().toExprString(geneConfiguration));
             				
             		//outputPicturePanel.tooltip_PicturePanel.setPreferredSize(new Dimension(60,80));
             		//outputPicturePanel.tooltip_PicturePanel.setMaximumSize(new Dimension(60,80));
