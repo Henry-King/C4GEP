@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
+import jxl.write.Number;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -108,21 +110,37 @@ public class PaperLab {
 		WritableWorkbook writer=Workbook.createWorkbook(new BufferedOutputStream(new FileOutputStream("统计结果.xls")));
 		WritableSheet isStay=writer.createSheet("IS=0.1", 0);
 		WritableSheet mutateStay=writer.createSheet("Mutate=0.04", 1);
-		Label tempLabel;
-		for(int i=0;i<is.length;i++){
-			for(int j=0;j<is[0].length;j++){
-				tempLabel=new Label(i, j, Long.toString(is[i][j]));
-				isStay.addCell(tempLabel);
-			}
-		}
-		for(int i=0;i<mutate.length;i++){
-			for(int j=0;j<mutate[0].length;j++){
-				tempLabel=new Label(i, j, Long.toString(mutate[i][j]));
-				mutateStay.addCell(tempLabel);
-			}
-		}
+		setExcelHead(mutateStay, Arrays.asList(0.05,0.1,0.15,0.2,0.25,0.3),"转座概率");
+		setExcelHead(isStay, Arrays.asList(0.02,0.04,0.1,0.2,0.3,0.4),"变异概率");
+		setExcelData(mutateStay, mutate);
+		setExcelData(isStay, is);
 		writer.write();
 		writer.close();
+	}
+	private static void setExcelHead(WritableSheet sheet,List<Double> data,String title) throws RowsExceededException, WriteException{
+		setExcelTitle(sheet, title);
+		Number tempNumber;
+		for(int i=0;i<data.size();i++){
+			tempNumber=new Number(i+1, 0, data.get(i));
+			sheet.addCell(tempNumber);
+		}
+	}
+	private static void setExcelTitle(WritableSheet sheet,String title) throws RowsExceededException, WriteException{
+		Label label;
+		label=new Label(0, 0, title);
+		sheet.addCell(label);
+		label=new Label(0,1,"时间(毫秒)");
+		sheet.addCell(label);
+		sheet.mergeCells(0, 1, 0, 100);
+	}
+	private static void setExcelData(WritableSheet sheet,long[][]datas) throws RowsExceededException, WriteException{
+		Number tempNumber;
+		for(int i=0;i<datas.length;i++){
+			for(int j=0;j<datas[0].length;j++){
+				tempNumber=new Number(i+1, j+1, datas[i][j]);
+				sheet.addCell(tempNumber);
+			}
+		}
 	}
 	private static long[] setAndRun(double is,double mutate,IgepConfigurationService gepConfigurationService,
 			GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
