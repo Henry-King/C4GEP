@@ -3,6 +3,7 @@ package domain.service.algOutput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -125,7 +126,7 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		float sumFitness=addFitness(lastPopulation);
 		List<Float> probability=calculateProbability(lastPopulation, sumFitness);
 		calculateCumulative(probability);
-		Population newPopulation=createNewPopulation(lastPopulation, probability);
+		Population newPopulation=createNewPopulation(gepAlgRun.getPopulations(), probability);
 		return newPopulation;
 	}
 
@@ -512,17 +513,14 @@ public class AlgCpuRunStep implements IAlgRunStep {
 		if(index==-1){
 			individual.setFitness((float) 0);
 			individual.setSelectedHomeoticGeneNumber(-1);
-			individual.setFittedValues(null);
+			for(int i=0;i<individual.getFittedValues().size();i++)
+				individual.getFittedValues().get(i).setFittedValue((float) 0);
 		}
 		else {
 			individual.setFitness(fitness[index]);
 			individual.setSelectedHomeoticGeneNumber(index);
-			List<FittedValue> fittedValues=individual.getFittedValues();
-			FittedValue fittedValue;
-			for(int i=0;i<individualVaule.length;i++){
-				fittedValue=fittedValues.get(i);
-				fittedValue.setFittedValue(individualVaule[i][index]);
-			}
+			for(int i=0;i<individualVaule.length;i++)
+				individual.getFittedValues().get(i).setFittedValue(individualVaule[i][index]);
 
 		}
 		return individual;
@@ -572,9 +570,10 @@ public class AlgCpuRunStep implements IAlgRunStep {
 	 * @param cumulativeProbability 个体累加适应值
 	 * @return 新的种群
 	 */
-	private Population createNewPopulation(Population original,List<Float> cumulativeProbability){
+	private Population createNewPopulation(List<Population> pList,List<Float> cumulativeProbability){
+		Population original=pList.get(0);
 		Population resultPopulation=new Population(original.getIndividuals().size());
-		Individual bestIndividual=original.getBestIndividual().clone();
+		Individual bestIndividual=Collections.max(Arrays.asList(pList.get(pList.size()-1).getBestIndividual(),original.getBestIndividual())).clone();
 		resultPopulation.addIndividual(bestIndividual);
 		Random random=new Random();
 		int position;
