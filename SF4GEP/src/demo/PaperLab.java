@@ -172,7 +172,6 @@ public class PaperLab {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		if(Long.compare(gepAlgRun.getCurrentPopulation().getGenerationNum(),gepAlgRun.getGepAlgConfiguration().getMaxGeneration()-2)>=0)
