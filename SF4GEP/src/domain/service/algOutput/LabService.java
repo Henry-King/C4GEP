@@ -20,7 +20,7 @@ import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
 
-public class AlgOutputService implements IAlgOutputService {
+public class LabService implements IAlgOutputService {
 	private class DbSave<T> implements Runnable{
 		private T data;
 		public DbSave(T data) {
@@ -36,7 +36,7 @@ public class AlgOutputService implements IAlgOutputService {
 	private boolean flag;
 	private IHibernateDataContext hibernateDataContext;
 	private ExecutorService exec=Executors.newCachedThreadPool();
-	public AlgOutputService(IHibernateDataContext hibernateDataContext) {
+	public LabService(IHibernateDataContext hibernateDataContext) {
 		// TODO Auto-generated constructor stub
 		this.hibernateDataContext=hibernateDataContext;
 	}
@@ -75,11 +75,6 @@ public class AlgOutputService implements IAlgOutputService {
 						commit(gepAlgRun.getPrePopulation(),execDB);
 					algRunStep.mutate(gepAlgRun.getCurrentPopulation());
 					algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
-					algRunStep.risTransport(gepAlgRun.getCurrentPopulation());
-					algRunStep.geneTransport(gepAlgRun.getCurrentPopulation());
-					algRunStep.onePointRecombine(gepAlgRun.getCurrentPopulation());
-					algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
-					algRunStep.geneRecombine(gepAlgRun.getCurrentPopulation());
 				}
 				long end=System.nanoTime();
 				long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);

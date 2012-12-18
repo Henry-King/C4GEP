@@ -40,7 +40,7 @@ import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
 import domain.service.algOutput.AlgCpuRunStep;
-import domain.service.algOutput.AlgOutputService;
+import domain.service.algOutput.LabService;
 
 public class PaperLab {
 
@@ -57,7 +57,7 @@ public class PaperLab {
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processData(new File("Coal.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
-		gepAlgConfiguration.setAccuracy((float) 0.6);
+		gepAlgConfiguration.setAccuracy((float) 0.55);
 		gepAlgConfiguration.setSelectionRange((float) 10);
 		gepAlgConfiguration.setName("Lab");
 		gepAlgConfiguration.setMaxGeneration((long) 1000000);
@@ -137,16 +137,15 @@ public class PaperLab {
 		}
 		return time;
 	}
-	@SuppressWarnings("unused")
 	private static long run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
-		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
+		IAlgOutputService algOutputService=new LabService(hibernateDataContext);
 		algOutputService.setWriteToDB(false);
 		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
-		
+		GepAlgRun gepAlgRun=null;
 		try {
-			GepAlgRun gepAlgRun = resultRun.get();
+			gepAlgRun = resultRun.get();
 			algOutputService.shutdownAll();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -157,12 +156,9 @@ public class PaperLab {
 		}
 		
 		long end=System.nanoTime();
-		long result=TimeUnit.SECONDS.convert(end-start, TimeUnit.NANOSECONDS);
-//		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
-//		System.out.println("总耗时：\t"+result+"\t秒");
-//		System.out.println("适应值：\t"+gepAlgRun.getCurrentPopulation().getBestIndividual().getFitness());
-//		System.out.println(gepAlgRun.getBestIndividual().toGeneString());
-//		System.out.println(gepAlgRun.getBestIndividual().toExprString(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration()));
+		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		if(Long.compare(gepAlgRun.getCurrentPopulation().getGenerationNum(),gepAlgRun.getGepAlgConfiguration().getMaxGeneration()-2)>=0)
+			result=-1;
 		return result;
 	}
 
