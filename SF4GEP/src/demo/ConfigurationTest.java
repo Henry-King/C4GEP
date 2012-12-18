@@ -45,7 +45,7 @@ public class ConfigurationTest {
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
 		gepAlgConfiguration.setName("运行");
-		gepAlgConfiguration.setMaxGeneration((long) 10000);
+		gepAlgConfiguration.setMaxGeneration((long) 1000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(200);
 		GeneConfiguration geneConfiguration=new GeneConfiguration();
@@ -76,7 +76,7 @@ public class ConfigurationTest {
 	}
 	private static void run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
-		algOutputService.setWriteToDB(true);
+		algOutputService.setWriteToDB(false);
 		IAlgRunStep runStep=new AlgCpuRunStep();
 		long start=System.nanoTime();
 		Future<GepAlgRun> resultRun=algOutputService.run(gepAlgConfiguration, runStep, dataSet);
@@ -96,6 +96,7 @@ public class ConfigurationTest {
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		System.out.println("总代数:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
 		System.out.println("总耗时：\t"+result+"\t毫秒");
+		System.out.println("适应值：\t"+gepAlgRun.getCurrentPopulation().getBestIndividual().getFitness());
 		System.out.println(gepAlgRun.getBestIndividual().toExprString(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration()));
 		System.out.println(gepAlgRun.getBestIndividual().toGeneString());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneIndex());
