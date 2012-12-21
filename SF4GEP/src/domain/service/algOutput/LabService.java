@@ -75,6 +75,10 @@ public class LabService implements IAlgOutputService {
 						commit(gepAlgRun.getPrePopulation(),execDB);
 					algRunStep.mutate(gepAlgRun.getCurrentPopulation());
 					algRunStep.isTransport(gepAlgRun.getCurrentPopulation());
+					if(gepAlgConfiguration.getOperatorConfiguration().getOnePointRecombineRate()>0)
+						algRunStep.onePointRecombine(gepAlgRun.getCurrentPopulation());
+					if(gepAlgConfiguration.getOperatorConfiguration().getTwoPointRecombineRate()>0)
+						algRunStep.twoPointRecombine(gepAlgRun.getCurrentPopulation());
 				}
 				long end=System.nanoTime();
 				long period=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
