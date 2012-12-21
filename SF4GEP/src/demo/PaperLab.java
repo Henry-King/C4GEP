@@ -59,7 +59,7 @@ public class PaperLab {
 		IDataInputService dataInputService=new DataInputService(hibernateDataContext);
 		DataSet dataSet=dataInputService.processData(new File("Coal.xls"));
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
-		gepAlgConfiguration.setAccuracy((float) 0.55);
+		gepAlgConfiguration.setAccuracy((float) 0.6);
 		gepAlgConfiguration.setSelectionRange((float) 10);
 		gepAlgConfiguration.setName("Lab");
 		gepAlgConfiguration.setMaxGeneration((long) 1000000);
@@ -86,7 +86,7 @@ public class PaperLab {
 		IgepConfigurationService gepConfigurationService=new GepConfigurationService(hibernateDataContext);
 		gepAlgConfiguration=gepConfigurationService.processConf(gepAlgConfiguration, dataSet);
 		
-		long[][] mutateStay=new long[6][];
+		long[][][] mutateStay=new long[6][][];
 		mutateStay[0]=setAndRun(0.05,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		mutateStay[1]=setAndRun(0.1,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		mutateStay[2]=setAndRun(0.15,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
@@ -94,7 +94,7 @@ public class PaperLab {
 		mutateStay[4]=setAndRun(0.25,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		mutateStay[5]=setAndRun(0.3,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		
-		long[][] isStay=new long[6][];
+		long[][][] isStay=new long[6][][];
 		isStay[0]=setAndRun(0.1,0.02, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		isStay[1]=setAndRun(0.1,0.04, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
 		isStay[2]=setAndRun(0.1,0.10, gepConfigurationService, gepAlgConfiguration, dataSet, hibernateDataContext);
@@ -106,56 +106,65 @@ public class PaperLab {
 		System.out.println(Arrays.deepToString(mutateStay));
 		writeFile(isStay, mutateStay);
 	}
-	private static void writeFile(long[][] is,long mutate[][]) throws FileNotFoundException, IOException, RowsExceededException, WriteException{
+	private static void writeFile(long[][][] is,long mutate[][][]) throws FileNotFoundException, IOException, RowsExceededException, WriteException{
 		WritableWorkbook writer=Workbook.createWorkbook(new BufferedOutputStream(new FileOutputStream("统计结果.xls")));
-		WritableSheet isStay=writer.createSheet("IS=0.1", 0);
-		WritableSheet mutateStay=writer.createSheet("Mutate=0.04", 1);
-		setExcelHead(mutateStay, Arrays.asList(0.05,0.1,0.15,0.2,0.25,0.3),"转座概率");
-		setExcelHead(isStay, Arrays.asList(0.02,0.04,0.1,0.2,0.3,0.4),"变异概率");
-		setExcelData(mutateStay, mutate);
-		setExcelData(isStay, is);
+		WritableSheet isStayTime=writer.createSheet("IS=0.1 时间", 0);
+		WritableSheet isStayGeneration=writer.createSheet("IS=0.1 代数", 1);
+		WritableSheet mutateStayTime=writer.createSheet("Mutate=0.04 时间", 2);
+		WritableSheet mutateStayGeneration=writer.createSheet("Mutate=0.04 代数", 3);
+		
+		setExcelHead(mutateStayTime, Arrays.asList(0.05,0.1,0.15,0.2,0.25,0.3),"转座概率","时间(毫秒)");
+		setExcelHead(mutateStayGeneration, Arrays.asList(0.05,0.1,0.15,0.2,0.25,0.3),"转座概率","演化代数");
+		setExcelHead(isStayTime, Arrays.asList(0.02,0.04,0.1,0.2,0.3,0.4),"变异概率","时间(毫秒)");
+		setExcelHead(isStayGeneration, Arrays.asList(0.02,0.04,0.1,0.2,0.3,0.4),"变异概率","演化代数");
+		
+		setExcelData(mutateStayTime,mutateStayGeneration, mutate);
+		setExcelData(isStayTime,isStayGeneration, is);
+		
 		writer.write();
 		writer.close();
 	}
-	private static void setExcelHead(WritableSheet sheet,List<Double> data,String title) throws RowsExceededException, WriteException{
-		setExcelTitle(sheet, title);
+	private static void setExcelHead(WritableSheet sheet,List<Double> data,String title,String context) throws RowsExceededException, WriteException{
+		setExcelTitle(sheet, title,context);
 		Number tempNumber;
 		for(int i=0;i<data.size();i++){
 			tempNumber=new Number(i+1, 0, data.get(i));
 			sheet.addCell(tempNumber);
 		}
 	}
-	private static void setExcelTitle(WritableSheet sheet,String title) throws RowsExceededException, WriteException{
+	private static void setExcelTitle(WritableSheet sheet,String title,String context) throws RowsExceededException, WriteException{
 		Label label;
 		label=new Label(0, 0, title);
 		sheet.addCell(label);
-		label=new Label(0,1,"时间(毫秒)");
+		label=new Label(0,1,context);
 		sheet.addCell(label);
 		sheet.mergeCells(0, 1, 0, 100);
 	}
-	private static void setExcelData(WritableSheet sheet,long[][]datas) throws RowsExceededException, WriteException{
+	private static void setExcelData(WritableSheet time,WritableSheet generation,long[][][]datas) throws RowsExceededException, WriteException{
 		Number tempNumber;
 		for(int i=0;i<datas.length;i++){
 			for(int j=0;j<datas[0].length;j++){
-				tempNumber=new Number(i+1, j+1, datas[i][j]);
-				sheet.addCell(tempNumber);
+				tempNumber=new Number(i+1, j+1, datas[i][j][0]);
+				time.addCell(tempNumber);
+				tempNumber=new Number(i+1, j+1, datas[i][j][1]);
+				generation.addCell(tempNumber);
 			}
 		}
 	}
-	private static long[] setAndRun(double is,double mutate,IgepConfigurationService gepConfigurationService,
+	private static long[][] setAndRun(double is,double mutate,IgepConfigurationService gepConfigurationService,
 			GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		gepAlgConfiguration.getOperatorConfiguration().setIsTransportRate((float) is);
 		gepAlgConfiguration.getOperatorConfiguration().setMutateRate((float) mutate);
 		gepConfigurationService.save(gepAlgConfiguration);
-		long time[]=new long[100];
+		long result[][]=new long[100][];
 		for(int i=0;i<100;i++){
-			time[i]=run(gepAlgConfiguration,dataSet,hibernateDataContext);
+			result[i]=run(gepAlgConfiguration,dataSet,hibernateDataContext);
 			rate+=step;
 			System.out.println(rate+" %");
 		}
-		return time;
+		return result;
 	}
-	private static long run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
+	private static long[] run(GepAlgConfiguration gepAlgConfiguration,DataSet dataSet,IHibernateDataContext hibernateDataContext){
 		IAlgOutputService algOutputService=new LabService(hibernateDataContext);
 		algOutputService.setWriteToDB(false);
 		IAlgRunStep runStep=new AlgCpuRunStep();
@@ -173,9 +182,12 @@ public class PaperLab {
 			e.printStackTrace();
 		}
 		long end=System.nanoTime();
-		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
+		long time=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
 		if(Long.compare(gepAlgRun.getCurrentPopulation().getGenerationNum(),gepAlgRun.getGepAlgConfiguration().getMaxGeneration()-2)>=0)
-			result=-1;
+			time=-1;
+		long result[]=new long[2];
+		result[0]=time;
+		result[1]=gepAlgRun.getCurrentPopulation().getGenerationNum();
 		return result;
 	}
 
