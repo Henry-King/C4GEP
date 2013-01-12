@@ -26,8 +26,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 	 * @return Hibernate上下文连接对象
 	 */
 	public static HibernateDataContext initSystem() {
-		System.loadLibrary("SF4GEP");
-		System.loadLibrary("JLinkNativeLibrary");
+//		System.loadLibrary("SF4GEP");
 		return new HibernateDataContext();
 	}
 	
@@ -65,7 +64,7 @@ public class GepConfigurationService implements IgepConfigurationService {
 		int maxArity=maxArity(geneConfiguration.getFunctionUsed());
 		if(!geneConfiguration.getUseHomeoticGene()){
 			geneConfiguration.setHomeoticGeneNumber(1);
-			geneConfiguration.setHomeoticGeneHeaderLength((geneConfiguration.getNormalGeneNumber()/(maxArity-1))-1);
+			geneConfiguration.setHomeoticGeneHeaderLength((geneConfiguration.getNormalGeneNumber()/(geneConfiguration.getConnectionFunction().getArity()-1))-1);
 		}
 		geneConfiguration.setHomeoticGeneTailLength(geneConfiguration.getHomeoticGeneHeaderLength()*(maxArity-1)+1);
 		geneConfiguration.setHomeoticGeneLength(geneConfiguration.getHomeoticGeneHeaderLength()+geneConfiguration.getHomeoticGeneTailLength());
