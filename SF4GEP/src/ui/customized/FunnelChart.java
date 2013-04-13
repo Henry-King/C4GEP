@@ -11,7 +11,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+
 import javax.swing.JLabel;
+
 import twaver.Element;
 import twaver.TWaverConst;
 import twaver.chart.AbstractChart;

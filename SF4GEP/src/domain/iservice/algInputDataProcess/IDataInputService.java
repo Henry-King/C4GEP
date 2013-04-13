@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.List;
 
 import jxl.read.biff.BiffException;
-
 import domain.core.algInputDataProcess.DataSet;
 
 public interface IDataInputService {

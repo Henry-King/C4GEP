@@ -5,9 +5,18 @@
 
 package ui.app;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
 
 import ui.conf.NewGEPDialog;
 import ui.images.ImageHelper;
@@ -33,7 +42,7 @@ public class MainMenuBar extends JMenuBar {
         
         
         
-        /*×Ó²Ëµ¥Demo*/
+        /*ï¿½Ó²Ëµï¿½Demo*/
         JMenu subMenu = new JMenu("Submenu");
         JMenuItem subMenuItem = new JMenuItem("Submenu one");
         subMenu.add(subMenuItem);
@@ -42,7 +51,7 @@ public class MainMenuBar extends JMenuBar {
 
         
         
-        /*ÎÄ¼þ*/
+        /*ï¿½Ä¼ï¿½*/
         JMenu menu = new JMenu("File");
         menu.setMnemonic('F');
         

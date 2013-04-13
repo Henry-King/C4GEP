@@ -5,8 +5,15 @@
 
 package ui.app;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
 
 /** Hilfsklasse fuer das Einfuegen von Swing-Komponenten in ein Panel mit GridBagLayout.
  * @author Michael Hagen

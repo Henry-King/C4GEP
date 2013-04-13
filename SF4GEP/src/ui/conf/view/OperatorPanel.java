@@ -1,25 +1,23 @@
 package ui.conf.view;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import ui.conf.model.AccuracyModel;
-import ui.conf.model.Model;
-import ui.conf.model.MyPrompt;
-import ui.conf.model.MyTextField;
-import ui.conf.model.MyTitle;
-import ui.conf.model.OperatorModel;
-
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
+
+import ui.conf.model.Model;
+import ui.conf.model.MyPrompt;
+import ui.conf.model.MyTextField;
+import ui.conf.model.OperatorModel;
 
 public class OperatorPanel extends JPanel implements Observer{
 

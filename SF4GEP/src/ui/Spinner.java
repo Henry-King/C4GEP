@@ -1,9 +1,16 @@
 package ui;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.text.*;
-import java.awt.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
+import javax.swing.JFrame;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Spinner {
   public static void main (String args[]) throws Exception {

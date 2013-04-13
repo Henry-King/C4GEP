@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,8 +27,8 @@ public class AlgOutputServiceTest {
 	@Test
 	public void testRun() {
 		/**
-		 * ÎÞ·¨²âÊÔ
-		 * ÆäËû·½·¨£¨³ýÁËprivate·½·¨£¬¾ùÎªÖ±½Óµ÷ÓÃÆäËûÀàµÄ·½·¨£©
+		 * ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½privateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÖ±ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
 		 */
 
 		

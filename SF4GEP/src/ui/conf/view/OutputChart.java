@@ -6,35 +6,20 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
-import javax.swing.TransferHandler;
 
-import com.sun.media.sound.Toolkit;
-
-import twaver.AlarmState;
-import twaver.BatchEvent;
-import twaver.BatchListener;
-import twaver.DataBoxEvent;
-import twaver.DataBoxListener;
 import twaver.Element;
-import twaver.Node;
 import twaver.PopupMenuGenerator;
 import twaver.TDataBox;
 import twaver.TView;
 import twaver.TWaverConst;
 import twaver.TWaverUtil;
-import twaver.base.A.E.a;
 import twaver.chart.LineChart;
-import ui.images.ImageHelper;
-
-import java.awt.event.MouseMotionAdapter;
 
 public class OutputChart extends LineChart {
 	public OutputChart(TDataBox tDataBox) {
@@ -186,12 +171,12 @@ public class OutputChart extends LineChart {
         this.setYAxisVisible(true);
         this.setXAxisVisible(true);
         this.setXScaleTextVisible(false);
-        this.setInflexionVisible(true);	//ÏÔÊ¾ÍäÇúÏßÌõ
+        this.setInflexionVisible(true);	//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		
 		
         this.setLineType(TWaverConst.LINE_TYPE_AREA);
-        //this.setValueSpanCount(10);		//ÐèÒªÏÔÊ¾µÄµãµÄ¸öÊý
+        //this.setValueSpanCount(10);		//ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½Äµï¿½Ä¸ï¿½ï¿½ï¿½
         //this.setXScaleTextSpanCount(10);
         this.setXScaleTextOrientation(TWaverConst.LABEL_ORIENTATION_HORIZONTAL);
         //this.setLowerLimit(0);
@@ -199,7 +184,7 @@ public class OutputChart extends LineChart {
         this.setXScaleTextVisible(true);//
         this.setGradient(false);
         //this.setYScaleValueGap(100);
-        this.setLegendLayout(TWaverConst.LEGEND_LAYOUT_HORIZONTAL);	//ÉèÖÃÏßÌõ±êÇ©Î»ÖÃ
+        this.setLegendLayout(TWaverConst.LEGEND_LAYOUT_HORIZONTAL);	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©Î»ï¿½ï¿½
         this.getLegendPane().setVisible(true);
        
         this.setXAxisVisible(true);

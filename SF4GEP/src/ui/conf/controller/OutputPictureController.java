@@ -1,21 +1,8 @@
 package ui.conf.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ui.algoutput.controller.OutputController;
-import ui.conf.model.Model;
 import ui.conf.model.OutputPictureModel;
-import ui.conf.view.Observer;
 import ui.conf.view.OutputPicturePanel;
-
-import com.sun.org.apache.xml.internal.security.Init;
-import com.wolfram.jlink.MathCanvas;
-
-import domain.core.algInputDataProcess.DataSet;
-import domain.core.algOutput.FittedValue;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
 
 public class OutputPictureController{
 	

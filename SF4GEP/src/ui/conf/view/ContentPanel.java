@@ -1,14 +1,19 @@
 package ui.conf.view;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import com.wolfram.jlink.MathCanvas;
 
 import ui.app.MainWnd;
 import ui.conf.controller.AccuracyController;
@@ -53,7 +58,7 @@ public class ContentPanel extends JPanel implements MouseListener,
 		this.mainWnd = mainWnd;
 		this.confPanel = confPanel;
 		this.setLayout(new BorderLayout());
-		/* »­Í¼Ãæ°å */
+		/* ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ */
 		outputPicturePanel = new OutputPicturePanel(mainWnd,confPanel);
 		Dimension di = outputPicturePanel.getPreferredSize();
 		outputPicturePanel.setPreferredSize(new Dimension());

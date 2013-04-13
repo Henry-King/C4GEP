@@ -1,38 +1,12 @@
 package ui.conf.view;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import twaver.Element;
-import twaver.Node;
-import twaver.TDataBox;
-import twaver.TWaverConst;
-import twaver.chart.LineChart;
-import ui.ChartPane;
-import ui.app.CloseableTabComponent;
-import ui.app.LinkLabel;
-import ui.app.MainWnd;
-import ui.conf.model.Model;
-import ui.conf.model.OutputPictureModel;
-
-import com.jtattoo.plaf.JTattooUtilities;
-import com.sun.org.apache.xml.internal.security.Init;
-import com.wolfram.jlink.KernelLink;
-import com.wolfram.jlink.MathCanvas;
-
-import domain.core.algInputDataProcess.DataSet;
-import domain.core.algOutput.FittedValue;
-import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -42,6 +16,40 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.MatteBorder;
+
+import twaver.Element;
+import twaver.Node;
+import twaver.TDataBox;
+import twaver.TWaverConst;
+import ui.ChartPane;
+import ui.app.CloseableTabComponent;
+import ui.app.LinkLabel;
+import ui.app.MainWnd;
+import ui.conf.model.Model;
+import ui.conf.model.OutputPictureModel;
+
+import com.jtattoo.plaf.JTattooUtilities;
+import com.wolfram.jlink.KernelLink;
+
+import domain.core.algInputDataProcess.DataSet;
+import domain.core.algOutput.FittedValue;
+import domain.core.algOutput.GepAlgRun;
+import domain.core.algOutput.Individual;
 
 public class OutputPicturePanel extends JPanel  implements Observer{
 	
@@ -192,10 +200,10 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		    				System.out.println(name);
 		    				if (name.equals("FittingCurveDetail")) {
 		    					jtp.setSelectedIndex(i);
-		    					//Ô¤Áô
+		    					//Ô¤ï¿½ï¿½
 							}else if (name.endsWith("EvolutionDetail")) {
 								jtp.setSelectedIndex(i);
-								//Ô¤Áô
+								//Ô¤ï¿½ï¿½
 							}
 						}
 		    		}
@@ -329,10 +337,10 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		    				System.out.println(name);
 		    				if (name.equals("FittingCurveDetail")) {
 		    					jtp.setSelectedIndex(i);
-		    					//Ô¤Áô
+		    					//Ô¤ï¿½ï¿½
 							}else if (name.endsWith("EvolutionDetail")) {
 								jtp.setSelectedIndex(i);
-								//Ô¤Áô
+								//Ô¤ï¿½ï¿½
 							}
 						}
 		    		}
@@ -420,7 +428,7 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 	
 	
 	/**
-	 * ¼àÌýModelµÄ±ä»¯ÏìÓ¦
+	 * ï¿½ï¿½ï¿½ï¿½Modelï¿½Ä±ä»¯ï¿½ï¿½Ó¦
 	 */
 	@Override
 	public void dataUpdate(Model model) {
@@ -462,7 +470,7 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		UserInputDataElement.setDisplayName("User Input Data");
 		UserInputDataElement.setName("UserInputData");
 		UserInputDataElement.putChartColor(Color.GREEN);
-		//ÉèÖÃ±ê¼ÇµÄÏÔÊ¾ÑùÊ½.
+		//ï¿½ï¿½ï¿½Ã±ï¿½Çµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ê½.
 		UserInputDataElement.putChartInflexionStyle(TWaverConst.ANTENNA_TYPE_ELLIPSE);
 		FittingCurveBox.addElement(UserInputDataElement);
 		
@@ -599,12 +607,12 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		
 		oldStr.append("};");
 		newStr.append("};");
-		String str = "ListLinePlot[{o, n}, AxesLabel -> {Ñù±¾Êý, ÄâºÏÖµ}, GridLines -> Automatic," +
-				"PlotLabel -> Style[Framed[ ×î¼Ñ¸öÌåµÄÄâºÏÇúÏßÍ¼], 16, Blue," +
+		String str = "ListLinePlot[{o, n}, AxesLabel -> {ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Öµ}, GridLines -> Automatic," +
+				"PlotLabel -> Style[Framed[ ï¿½ï¿½Ñ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼], 16, Blue," +
 				"Background -> Lighter[Yellow]]," +
 				"Epilog -> Inset[Panel[Grid[{" +
-				"{Graphics[{Thick, Yellow, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],ÓÃ»§ÊäÈë}," +
-				"{Graphics[{Dashed,Black, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], ¼ÆËã½á¹û}" +
+				"{Graphics[{Thick, Yellow, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½}," +
+				"{Graphics[{Dashed,Black, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}" +
 				"}]],Offset[{-2, -180}, Scaled[{1, 1}]]," +
 				"{Right, Bottom}], PlotStyle -> {{Yellow,Thick}, {Black,Dashed}}]";
 		
@@ -645,10 +653,10 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 		bestStr.append("};");
 		worseStr.append("};");
 		
-		String str = "ListLinePlot[{yb, yw}, AxesLabel -> {´úÊý, ÊÊÓ¦Öµ}, GridLines -> Automatic,PlotLabel -> Style[Framed[ Ã¿´ú×î¼Ñ¸öÌåºÍ×î²î¸öÌåµÄÑÝ»¯ÇúÏßÍ¼], 16, Blue,Background -> Lighter[Yellow]], " +
+		String str = "ListLinePlot[{yb, yw}, AxesLabel -> {ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ó¦Öµ}, GridLines -> Automatic,PlotLabel -> Style[Framed[ Ã¿ï¿½ï¿½ï¿½ï¿½Ñ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½Í¼], 16, Blue,Background -> Lighter[Yellow]], " +
 				"Epilog -> Inset[Panel[Grid[{" +
-				"{Graphics[{Thick, Green, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],×î¼Ñ¸öÌå}," +
-				"{Graphics[{Thick, Red, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], ×î²î¸öÌå}" +
+				"{Graphics[{Thick, Green, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1, ImageSize -> 20],ï¿½ï¿½Ñ¸ï¿½ï¿½ï¿½}," +
+				"{Graphics[{Thick, Red, Line[{{0, 0}, {1, 0}}]}, AspectRatio -> .1,ImageSize -> 20], ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}" +
 				"}]],Offset[{-2, -180}, Scaled[{1, 1}]], {Right, Bottom}], PlotStyle -> {{Green}, {Red}}]";
 		
 		EvolutionGraphCanvas.setMathCommand(bestStr.toString()+worseStr.toString()+str);
@@ -679,7 +687,7 @@ public class OutputPicturePanel extends JPanel  implements Observer{
 	
 	
 	/**
-	 * ±£´æÍ¼Æ¬
+	 * ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	 * @param image
 	 * @param jc
 	 */
@@ -691,15 +699,15 @@ public class OutputPicturePanel extends JPanel  implements Observer{
         int w = image.getWidth(this); 
         int h = image.getHeight(this);
 
-//Ê×ÏÈ´´½¨Ò»¸öBufferedImage±äÁ¿£¬ÒòÎªImageIOÐ´Í¼Æ¬ÓÃµ½ÁËBufferedImage±äÁ¿¡£ 
+//ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½BufferedImageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªImageIOÐ´Í¼Æ¬ï¿½Ãµï¿½ï¿½ï¿½BufferedImageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
         BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
 
-//ÔÙ´´½¨Ò»¸öGraphics±äÁ¿£¬ÓÃÀ´»­³öÀ´Òª±£³ÖµÄÍ¼Æ¬£¬¼°ÉÏÃæ´«µÝ¹ýÀ´µÄImage±äÁ¿ 
+//ï¿½Ù´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Graphicsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Öµï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´«ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½Imageï¿½ï¿½ï¿½ï¿½ 
         Graphics g = bi.getGraphics(); 
         try { 
             g.drawImage(image, 0, 0, null);
 
-//½«BufferedImage±äÁ¿Ð´ÈëÎÄ¼þÖÐ¡£ 
+//ï¿½ï¿½BufferedImageï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð¡ï¿½ 
             
             ImageIO.write(bi,"jpg",new File(jc.getSelectedFile().getAbsolutePath())); 
         } catch (IOException e) { 

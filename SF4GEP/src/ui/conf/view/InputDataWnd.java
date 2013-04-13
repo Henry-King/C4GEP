@@ -1,24 +1,27 @@
 package ui.conf.view;
 
-import java.awt.*;
-
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import domain.core.algInputDataProcess.DataColumn;
-import domain.core.algInputDataProcess.DataRow;
-import domain.core.algInputDataProcess.DataSet;
-import domain.core.algconfiguration.GepAlgConfiguration;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
-import java.text.*;
-import java.util.Date;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.JWindow;
+import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
-import java.util.List;
 
 import ui.conf.controller.InputDataController;
+import domain.core.algInputDataProcess.DataSet;
 
 
 
@@ -181,12 +184,12 @@ public class InputDataWnd extends JWindow{
 		
 		
 		/**
-		 * ²é¿´µ±Ç°²Ù×÷µÄÊý¾Ý¼¯
+		 * ï¿½é¿´ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½
 		 */
 		
 		
 		/**
-		 * ÖØÐÂÑ¡ÔñÊäÈëÊý¾Ý¼¯
+		 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½
 		 */
 		
 		JPanel settedPanel = new JPanel();

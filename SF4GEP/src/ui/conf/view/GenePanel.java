@@ -1,42 +1,32 @@
 package ui.conf.view;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
-
-import domain.core.algconfiguration.Function;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
 
 import ui.app.MainWnd;
 import ui.conf.model.GeneModel;
 import ui.conf.model.Model;
 import ui.conf.model.MyPrompt;
 import ui.conf.model.MyTextField;
-import ui.conf.model.MyTitle;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.CardLayout;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
+import domain.core.algconfiguration.Function;
 
 public class GenePanel extends JPanel implements Observer{
 
@@ -140,7 +130,7 @@ public class GenePanel extends JPanel implements Observer{
 				homeoticGeneRadioButton.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						if (homeoticGeneRadioButton.isSelected()) {
-							//System.out.println("选择同源");
+							//System.out.println("选锟斤拷同源");
 							homeoticGeneRadioButton.setSelected(true);
 							connectionFuncRadioButton.setSelected(false);
 							 connectionFuncPanel.setVisible(false);
@@ -159,7 +149,7 @@ public class GenePanel extends JPanel implements Observer{
 						connectionFuncRadioButton.addItemListener(new ItemListener() {
 							public void itemStateChanged(ItemEvent e) {
 								if (connectionFuncRadioButton.isSelected()) {
-									//System.out.println("选择连接函数");
+									//System.out.println("选锟斤拷锟斤拷锟接猴拷锟斤拷");
 									homeoticGeneRadioButton.setSelected(false);
 									connectionFuncRadioButton.setSelected(true);
 									connectionFuncPanel.setVisible(true);

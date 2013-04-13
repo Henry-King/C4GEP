@@ -1,17 +1,11 @@
 package ui.conf;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
-import javassist.tools.framedump;
+import javax.swing.JPanel;
 
-import javax.management.loading.PrivateClassLoader;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.multi.*;
-
-import ui.app.*;
+import ui.app.MainWnd;
 public class WelcomePanel extends JPanel {
 
 	

@@ -1,6 +1,5 @@
 package ui;
 
-import ui.customized.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -25,10 +25,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
-import twaver.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import twaver.Element;
 import twaver.TDataBox;
 import twaver.TWaverConst;
 import twaver.TWaverUtil;
@@ -43,6 +45,12 @@ import twaver.chart.Marker;
 import twaver.chart.PercentChart;
 import twaver.chart.PieChart;
 import twaver.chart.RadarChart;
+import ui.customized.CalendarChart;
+import ui.customized.FunnelChart;
+import ui.customized.HistoryChart;
+import ui.customized.MapNode;
+import ui.customized.StylePieChart;
+import ui.customized.ThermometerChart;
 
 public class Util {
 

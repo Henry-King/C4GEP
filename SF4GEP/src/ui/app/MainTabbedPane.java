@@ -1,26 +1,20 @@
 package ui.app;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.TabbedPaneUI;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTabbedPane;
 
-import twaver.PopupMenuGenerator;
-import twaver.TView;
 import ui.conf.WelcomePanel;
-import ui.conf.view.ConfPanel;
-import ui.images.ImageHelper;
 
 public class MainTabbedPane extends JTabbedPane{
 	
@@ -32,11 +26,11 @@ public class MainTabbedPane extends JTabbedPane{
 	public MainTabbedPane(int left,MainWnd mainWnd) {
 		super(left);
 		this.mainWnd = mainWnd;
-		//Font defaultFont = new Font("ÃÔÄã¼òçúçê",Font.BOLD,14);
+		//Font defaultFont = new Font("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",Font.BOLD,14);
 		Color defaultColor = new Color(233, 233, 233);
 		setForeground(defaultColor);
 		
-		/*Ä¬ÈÏ»¶Ó­½çÃæ*/
+		/*Ä¬ï¿½Ï»ï¿½Ó­ï¿½ï¿½ï¿½ï¿½*/
 		welcomePanel = new ui.conf.WelcomePanel(mainWnd);
 		VTextIcon welcomeVTextIcon=new VTextIcon(welcomePanel, "Welcome",VTextIcon.ROTATE_LEFT);
 		addTab(null,welcomeVTextIcon, welcomePanel, null);
@@ -65,15 +59,15 @@ public class MainTabbedPane extends JTabbedPane{
         
         
         /**
-         * ÎªÖ÷TabÃæ°åÌí¼ÓÓÒ¼ü²Ëµ¥ÏìÓ¦ÊÂ¼þ
+         * Îªï¿½ï¿½Tabï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½Ëµï¿½ï¿½ï¿½Ó¦ï¿½Â¼ï¿½
          */
         addMouseListener(new MouseAdapter() {
     		@Override
     		public void mouseReleased(MouseEvent e) {
-    			//·µ»Ø´ËÊó±êÊÂ¼þÊÇ·ñÎª¸ÃÆ½Ì¨µÄµ¯³ö²Ëµ¥´¥·¢ÊÂ¼þ¡£
+    			//ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½Æ½Ì¨ï¿½Äµï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½
     			if(e.isPopupTrigger()) {
-	    			 //Ö»ÔÚÑ¡Ïî¿¨ÉÏÏÔÊ¾Êó±êÓÒ¼üµÄÌáÊ¾
-	    			//ÔÚÏà¶ÔÓÚ³õÊ¼×é¼þµÄ x¡¢y Î»ÖÃÉÏÏÔÊ¾µ¯³öÊ½²Ëµ¥¡£
+	    			 //Ö»ï¿½ï¿½Ñ¡ï¿½î¿¨ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½Ê¾
+	    			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½y Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ëµï¿½ï¿½ï¿½
 	    			int i = MainTabbedPane.this.indexAtLocation(e.getX(), e.getY());
 	    			 if(i != -1&&i!=0) {
 	    				 MainTabbedPane.this.setSelectedIndex(i);
@@ -106,7 +100,7 @@ class RotatePanel extends JPanel {
         String s = "Welcome";
         g.setFont(new Font("Kartika", Font.BOLD, 14));
         g.translate(this.getWidth() / 2, this.getHeight() / 2);
-        ((Graphics2D) g).rotate(-0.5 * Math.PI);//Ðý×ª
+        ((Graphics2D) g).rotate(-0.5 * Math.PI);//ï¿½ï¿½×ª
         g.drawString(s, 0, 0);
         
         

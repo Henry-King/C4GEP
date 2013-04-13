@@ -1,42 +1,48 @@
 package ui.conf;
 
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import javax.swing.JList;
-
-import com.jtattoo.plaf.JTattooUtilities;
-
-import ui.app.GUIProperties;
-import ui.app.JTBorderFactory;
-import ui.app.MainWnd;
-import ui.images.ImageHelper;
-
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+
+import ui.app.JTBorderFactory;
+import ui.app.MainWnd;
+import ui.images.ImageHelper;
+
 public class NewGEPDialog2 extends JDialog {
 
 
-	DefaultMutableTreeNode root = new DefaultMutableTreeNode("ÏîÄ¿¿ò¼Ü");
-	DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("´®ÐÐ¿ò¼Ü ");
-	DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("²¢ÐÐ¿ò¼Ü");
+	DefaultMutableTreeNode root = new DefaultMutableTreeNode("ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½");
+	DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ ");
+	DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½");
     DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	JTree tree_1 ;
 	JScrollPane scrollPane;
@@ -123,8 +129,8 @@ public class NewGEPDialog2 extends JDialog {
 		//listForParr.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForParr.setBackground(Color.WHITE);
 		listForParr.setSelectedIndex(0);
-		listForParr.setFont(new Font("ËÎÌå", Font.PLAIN, 16));
-		listForParr.setListData(new String[]{"Ö÷´ÓÊ½","»ìºÏÊ½","´ÖÁ£¶È","Ï¸Á£¶È"});
+		listForParr.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 16));
+		listForParr.setListData(new String[]{"ï¿½ï¿½ï¿½ï¿½Ê½","ï¿½ï¿½ï¿½Ê½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","Ï¸ï¿½ï¿½ï¿½ï¿½"});
 		listForParr.addListSelectionListener( new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
@@ -139,7 +145,7 @@ public class NewGEPDialog2 extends JDialog {
 		//listForSer.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForSer.setBackground(Color.WHITE);
 		listForSer.setSelectedIndex(0);
-		listForSer.setFont(new Font("ËÎÌå", Font.PLAIN, 16));
+		listForSer.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 16));
 		listForSer.addListSelectionListener( new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
@@ -151,8 +157,8 @@ public class NewGEPDialog2 extends JDialog {
             
             
         });
-		listForSer.setListData(new String[]{"´®ÐÐÊ½"});
-		introduction.setText("Ö÷´ÓÊ½");
+		listForSer.setListData(new String[]{"ï¿½ï¿½ï¿½ï¿½Ê½"});
+		introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 	}
 	
 	private void initIntroductionPanel(){
@@ -175,7 +181,7 @@ public class NewGEPDialog2 extends JDialog {
 		
 		
 		
-		/*°´Å¥Ãæ°å*/
+		/*ï¿½ï¿½Å¥ï¿½ï¿½ï¿½*/
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(800, 48));
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -273,23 +279,23 @@ public class NewGEPDialog2 extends JDialog {
 	private void updateIntroduction() {
 		final String frameName= (String)listForParr.getSelectedValue();
 		if(frameName!=null){
-			if(frameName.equals("Ö÷´ÓÊ½")){
-				introduction.setText("Ö÷´ÓÊ½");
+			if(frameName.equals("ï¿½ï¿½ï¿½ï¿½Ê½")){
+				introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 			}
-			else if(frameName.equals("´ÖÁ£¶È")){
-				introduction.setText("´ÖÁ£¶È");
+			else if(frameName.equals("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")){
+				introduction.setText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
-			else if(frameName.equals("Ï¸Á£¶È")){
-				introduction.setText("Ï¸Á£¶È");
+			else if(frameName.equals("Ï¸ï¿½ï¿½ï¿½ï¿½")){
+				introduction.setText("Ï¸ï¿½ï¿½ï¿½ï¿½");
 			}
-			else if(frameName.equals("»ìºÏÊ½")){
-				introduction.setText("»ìºÏÊ½");
+			else if(frameName.equals("ï¿½ï¿½ï¿½Ê½")){
+				introduction.setText("ï¿½ï¿½ï¿½Ê½");
 			}
 		}
 		
 	}
 	private void initIndexTree() {
-		//Ê÷
+		//ï¿½ï¿½
 	 	  treeModel.insertNodeInto(root1, root, root.getChildCount());
 		  treeModel.insertNodeInto(root2, root, root.getChildCount());
 		  UIManager.getLookAndFeelDefaults().put("ClassLoader",getClass().getClassLoader());
@@ -301,7 +307,7 @@ public class NewGEPDialog2 extends JDialog {
 		  cellRenderer.setOpenIcon(new ImageIcon("//leaf.jpg"));
 		  cellRenderer.setClosedIcon(new ImageIcon("//leaf.jpg"));
 
-		  cellRenderer.setFont(new Font("ËÎÌå", Font.PLAIN, 15));// ÉèÖÃ×ÖÌå.
+		  cellRenderer.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		  cellRenderer.setBackgroundNonSelectionColor(Color.white);
 		  cellRenderer.setBorderSelectionColor(Color.red);
 		  cellRenderer.setTextNonSelectionColor(Color.black);
@@ -310,7 +316,7 @@ public class NewGEPDialog2 extends JDialog {
 		
 		
 		/*
-		 * ÉèÖÃÑ¡Ê±»ò²»Ñ¡Ê±£¬ÎÄ×ÖµÄ±ä»¯ÑÕÉ«
+		 * ï¿½ï¿½ï¿½ï¿½Ñ¡Ê±ï¿½ï¿½Ñ¡Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ±ä»¯ï¿½ï¿½É«
 		 */
 		  cellRenderer.setTextNonSelectionColor(Color.black);
 		  cellRenderer.setTextSelectionColor(Color.WHITE);
@@ -331,18 +337,18 @@ public class NewGEPDialog2 extends JDialog {
 				          {
 				          	TreeNode node = (TreeNode) selPath.getLastPathComponent();
 				          	
-				          	if((node.toString()).equals("²¢ÐÐ¿ò¼Ü")){
+				          	if((node.toString()).equals("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½")){
 				          		getContentPane().add(parr_Panel, BorderLayout.CENTER);
 				          	    parr_Panel.setVisible(true);
 				          	    serr_Panel.setVisible(false);
-				          	    introduction.setText("Ö÷´ÓÊ½");
+				          	    introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 				          	}
 				          	else{
-				          		System.out.print("ÔÚÄÇÀï"+node.toString());
+				          		System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+node.toString());
 				          		getContentPane().add(serr_Panel, BorderLayout.CENTER);
 				          		 serr_Panel.setVisible(true);
 					          	 parr_Panel.setVisible(false);
-					          	introduction.setText("´®ÐÐÊ½");
+					          	introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 				          	}
 				          }
 				     }

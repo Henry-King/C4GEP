@@ -4,14 +4,16 @@
  */
 package ui.app;
 
-import com.jtattoo.plaf.AbstractLookAndFeel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Properties;
-import javax.swing.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-//import com.jtattoo.swing.extensions.*;
+
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import ui.images.ImageHelper;
 

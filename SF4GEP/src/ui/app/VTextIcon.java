@@ -1,9 +1,15 @@
 package ui.app;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import java.beans.*;
+import javax.swing.Icon;
 
 /**
  * VTextIcon is an Icon implementation which draws a short string vertically.
@@ -141,9 +147,9 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 			fWidth = -15;
 		} else {*/
 			// if rotated, width is the height of the string
-			//fWidth = fCharHeight;	//ÐÞ¸ÄÊúÏòµÄ¸ß¶È
+			//fWidth = fCharHeight;	//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ß¶ï¿½
 			// and height is the width, plus some buffer space
-			fHeight = fm.stringWidth(fLabel) + 2 * kBufferSpace+30;//ÐÞ¸ÄÊúÏòµÄ¿í¶È
+			fHeight = fm.stringWidth(fLabel) + 2 * kBufferSpace+30;//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 			fWidth = -25;
 		//}
 	}
@@ -158,7 +164,7 @@ public class VTextIcon implements Icon, PropertyChangeListener {
 		//g.setColor(c.getForeground());
 		g.setColor(Color.BLACK);
 		//g.setFont(c.getFont());
-		g.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 14));
+		g.setFont(new Font("Î¢ï¿½ï¿½ï¿½Åºï¿½", Font.BOLD, 14));
 		
 		
 		/*if (fRotation == ROTATE_NONE) {

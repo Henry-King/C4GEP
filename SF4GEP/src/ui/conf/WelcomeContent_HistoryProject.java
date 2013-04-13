@@ -1,36 +1,22 @@
 package ui.conf;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.SystemColor;
-
-import ui.app.GUIProperties;
-import ui.app.MainWnd;
-import ui.app.TablePanel;
-import ui.conf.view.TypeHelper;
-import ui.conf.view.TypeHelper.TableType;
-import ui.images.*;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.JSeparator;
-import javax.swing.JList;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.BoxLayout;
+import java.awt.Font;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import ui.conf.view.*;
+
+import ui.app.MainWnd;
+import ui.app.TablePanel;
+import ui.conf.view.TypeHelper.TableType;
+import ui.images.ImageHelper;
 
 public class WelcomeContent_HistoryProject extends JPanel {
 

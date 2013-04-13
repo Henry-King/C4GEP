@@ -3,8 +3,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -25,7 +24,7 @@ public class ChartPane extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(this.lbTitle, BorderLayout.NORTH);
         
-        lbTitle.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
+        lbTitle.setFont(new Font("Î¢ï¿½ï¿½ï¿½Åºï¿½", Font.BOLD, 12));
         lbTitle.setForeground(new Color(90, 90, 90));
         lbTitle.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     }

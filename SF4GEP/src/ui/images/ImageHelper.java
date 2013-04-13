@@ -6,6 +6,7 @@ package ui.images;
 
 import java.awt.Toolkit;
 import java.net.URL;
+
 import javax.swing.ImageIcon;
 
 /**

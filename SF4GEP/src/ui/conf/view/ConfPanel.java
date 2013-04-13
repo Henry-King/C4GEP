@@ -1,26 +1,24 @@
 package ui.conf.view;
 
-import javax.swing.*;
-
-import ui.app.*;
-import ui.conf.model.NewProjectModel;
-
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.io.File;
 
-import javax.swing.border.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
+import ui.app.MainToolBar;
+import ui.app.MainWnd;
+import ui.conf.model.NewProjectModel;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algconfiguration.GepAlgConfiguration;
 
 
 /**
- * Ëã·¨ÏîÄ¿Àà
- * °üº¬±¾´ÎÏîÄ¿µÄÊäÈë¼¯ÎÄ¼þºÍÅäÖÃÎÄ¼þµÄÊµÀý
+ * ï¿½ã·¨ï¿½ï¿½Ä¿ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ë¼¯ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Êµï¿½ï¿½
  * @author Administrator
  */
 public class ConfPanel extends JPanel {
@@ -55,9 +53,9 @@ public class ConfPanel extends JPanel {
 		projectTabPane = new ProjectTabPane(JTabbedPane.TOP,this);
 		add(projectTabPane);
 		
-		/*ÄÚÈÝÃæ°å*/
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 		contentPanel = new ContentPanel(mainWnd,this);
-		contentPanel.setName("MainPanel");	//Í¨¹ýnameÀ´ÅÐ¶ÏTabPanelÖÐµÄ¸÷¸ö×é¼þ
+		contentPanel.setName("MainPanel");	//Í¨ï¿½ï¿½nameï¿½ï¿½ï¿½Ð¶ï¿½TabPanelï¿½ÐµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		projectTabPane.addTab("Main Panel",null,contentPanel,null);
 		
 		JPanel runtimePanel = new JPanel();
@@ -69,7 +67,7 @@ public class ConfPanel extends JPanel {
 		projectTabPane.addTab("Log",null,logPanel,null);
 		
 		
-		/*¹¤¾ßºÍ×´Ì¬À¸*/
+		/*ï¿½ï¿½ï¿½ßºï¿½×´Ì¬ï¿½ï¿½*/
 		JPanel TLPanel = new JPanel();
 		TLPanel.setLayout(new BorderLayout(0, 0));
 		add(TLPanel, BorderLayout.NORTH);
@@ -81,7 +79,7 @@ public class ConfPanel extends JPanel {
 		TLPanel.add(toolBar, BorderLayout.NORTH);
 
 		outputStatusLabel = new JLabel("Status Information");
-		outputStatusLabel.setFont(new Font("ËÎÌå", Font.PLAIN, 14));
+		outputStatusLabel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 14));
 		outputStatusLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10,
 				10));
 		TLPanel.add(outputStatusLabel, BorderLayout.SOUTH);

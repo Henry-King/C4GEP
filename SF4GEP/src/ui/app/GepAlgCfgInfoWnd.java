@@ -1,21 +1,28 @@
 package ui.app;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
+import java.util.List;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JSeparator;
+import javax.swing.JWindow;
 import javax.swing.border.MatteBorder;
 
 import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.NumberFormat;
-import java.util.List;
 
 public class GepAlgCfgInfoWnd extends JWindow{
 	
@@ -46,7 +53,7 @@ public class GepAlgCfgInfoWnd extends JWindow{
 		JLabel lbl_Title = new JLabel("Profile Setting");
 		lbl_Title.setForeground(SystemColor.menuText);
 		lbl_Title.setFont(new Font("Arial", Font.BOLD, 16));
-		lbl_Title.setFont(new Font("ËÎÌå", Font.BOLD, 16));
+		lbl_Title.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 16));
 		lbl_Title.setBounds(10, 0, 242, 26);
 		mainPanel.add(lbl_Title);
 		
@@ -320,7 +327,7 @@ public class GepAlgCfgInfoWnd extends JWindow{
 		
 		//Initial Data
 		NumberFormat nt = NumberFormat.getPercentInstance();
-		//ÉèÖÃ°Ù·ÖÊý¾«È·¶È2¼´±£ÁôÁ½Î»Ð¡Êý
+		//ï¿½ï¿½ï¿½Ã°Ù·ï¿½ï¿½ï¿½È·ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»Ð¡ï¿½ï¿½
 		nt.setMinimumFractionDigits(2);
 		
 		GeneConfiguration geneConfiguration = gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration();

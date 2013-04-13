@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import twaver.Element;
 import twaver.ElementAttribute;
 import twaver.Node;

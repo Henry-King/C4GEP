@@ -1,50 +1,18 @@
 package ui.app;
 
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import java.awt.BorderLayout;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoundedRangeModel;
-import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JToolBar;
-import javax.swing.JLabel;
-import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-import com.jtattoo.plaf.JTattooUtilities;
-import com.sun.jndi.url.corbaname.corbanameURLContextFactory;
 import com.wolfram.jlink.KernelLink;
-import com.wolfram.jlink.MathCanvas;
 import com.wolfram.jlink.MathLinkException;
 import com.wolfram.jlink.MathLinkFactory;
 
 import data.dao.HibernateDataContext;
 import domain.service.algConfiguration.GepConfigurationService;
-
-
-import ui.algoutput.view.OutputView;
-import ui.conf.view.ConfPanel;
-import ui.images.ImageHelper;
 
 
 public class MainWnd {
@@ -174,16 +142,16 @@ public class MainWnd {
 //		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 //		frame.setIconImage(ImageHelper.loadImage("logo.png").getImage());
 		
-		/*ÑùÊ½ÉèÖÃ*/
+		/*ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½*/
 		
 		
-		/*Ö÷²Ëµ¥*/
+		/*ï¿½ï¿½ï¿½Ëµï¿½*/
 		//MainMenuBar menuBar = new MainMenuBar(this);
 		//frame.setJMenuBar(menuBar);
 		
 		
 		
-		/*Ö÷ÒªµÄTabbedÃæ°å*/
+		/*ï¿½ï¿½Òªï¿½ï¿½Tabbedï¿½ï¿½ï¿½*/
 		//mainTabbedPane = new MainTabbedPane(JTabbedPane.LEFT,this);
 		//frame.getContentPane().add(mainTabbedPane, BorderLayout.CENTER);
 		

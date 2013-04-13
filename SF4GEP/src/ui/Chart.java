@@ -1,16 +1,15 @@
 package ui;
 
-import java.awt.*;
-import java.io.*;
-import java.text.NumberFormat;
-import java.util.*;
-import java.util.List;
+import java.awt.Color;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
-import twaver.*;
+import twaver.Element;
+import twaver.Node;
+import twaver.TDataBox;
+import twaver.TWaverConst;
+import twaver.TWaverUtil;
 import twaver.chart.LineChart;
-import ui.customized.HistoryChart;
 
 public class Chart {
 
@@ -30,12 +29,12 @@ public class Chart {
 		lineChart.setXScaleTextVisible(true);
 		lineChart.setLegendLayout(TWaverConst.LEGEND_LAYOUT_VERTICAL);
 		
-		//Ã¿Ò»¸öµãÉÏÊÇ·ñÐèÒªÏÔÊ¾±ê¼Ç
+		//Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
 		lineChart.setInflexionVisible(false);
 		Element a = new Node();
 		a.setName("A");
 		a.putChartColor(Color.GREEN);
-		//ÉèÖÃ±ê¼ÇµÄÏÔÊ¾ÑùÊ½.
+		//ï¿½ï¿½ï¿½Ã±ï¿½Çµï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ê½.
 		a.putChartInflexionStyle(TWaverConst.LINE_TYPE_AREA);
 		box.addElement(a);
 

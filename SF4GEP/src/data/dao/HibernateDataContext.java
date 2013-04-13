@@ -3,6 +3,7 @@ package data.dao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -117,7 +118,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 
 	public void update(Object item)
 	{
-		//ÏÈÇå¿ÕÒ»ÏÂSession
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Session
 		session.clear();
 		// TODO Auto-generated method stub
 		log.debug("updateing item");
@@ -256,7 +257,7 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		}
 	}
 	/*
-	 * ¸ù¾ÝHQLÓï¾ä²éÑ¯¶ÔÏó
+	 * ï¿½ï¿½ï¿½HQLï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
 	 */
 	@SuppressWarnings("unchecked")
 	public<T> List<T> queryByHql(String hql)
@@ -507,10 +508,10 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		 return session.isDirty();
 	 }
 	 
-	//value[i]ÎªµÚi¸ö²éÑ¯Ìõ¼þpropertyName[i]µÄÖµ          £¨±¾·½·¨ÒÑÍ¨¹ý²âÊÔ£©  
+	//value[i]Îªï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½propertyName[i]ï¿½ï¿½Öµ          ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ô£ï¿½  
 	 
-		/*¶àÌõ¼þ²éÑ¯,²éÑ¯Ìõ¼þµÄÖµÎª¿ÕÊ±×Ô¶¯³ýÈ¥¸ÃÌõ¼þ  
-		* rigorÎªtrueÊ±²ÉÓÃ¾«È·²éÑ¯  
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯,ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½Ê±ï¿½Ô¶ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+		* rigorÎªtrueÊ±ï¿½ï¿½ï¿½Ã¾ï¿½È·ï¿½ï¿½Ñ¯  
 		*/ 
 		@SuppressWarnings("unchecked")
 		public List<Object> searchByPropertys(String model,String[]propertyName,Object[] value,boolean rigor){    
@@ -557,12 +558,12 @@ public class HibernateDataContext implements  IHibernateDataContext {
 		 
 		}
 		
-		/*¶àÌõ¼þ²éÑ¯,¿ÉÒÔÊ¹ÓÃBetweenÌõ¼þ,²éÑ¯Ìõ¼þµÄÖµÎª¿ÕÊ±×Ô¶¯³ýÈ¥¸ÃÌõ¼þ  
-		* rigorÎªtrueÊ±²ÉÓÃ¾«È·²éÑ¯  
+		/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯,ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Betweenï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½Ê±ï¿½Ô¶ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+		* rigorÎªtrueÊ±ï¿½ï¿½ï¿½Ã¾ï¿½È·ï¿½ï¿½Ñ¯  
 		*/ 
 		@SuppressWarnings("unchecked")
 		public List<Object> searchByPropertysBetween(String model,String[]propertyName,Object[] value,boolean rigor,String BetweenProperty,Object[] valueObject){    
-		    System.out.println("ÐòÁÐ»¯"+value[0].toString());
+		    System.out.println("ï¿½ï¿½ï¿½Ð»ï¿½"+value[0].toString());
 			StringBuffer sqlBuffer = new StringBuffer();  
 		    String ralation=" like ";  
 		    if(rigor){  

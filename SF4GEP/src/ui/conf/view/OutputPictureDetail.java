@@ -1,52 +1,19 @@
 package ui.conf.view;
 
 
-import java.awt.*;
-
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import twaver.Element;
-import twaver.Node;
 import twaver.TDataBox;
 import twaver.TWaverConst;
 import twaver.chart.LineChart;
-import ui.ChartPane;
-import ui.app.CloseableTabComponent;
-import ui.app.LinkLabel;
-import ui.app.MainWnd;
-import ui.conf.model.Model;
-import ui.conf.model.OutputPictureModel;
-
-import com.jtattoo.plaf.JTattooUtilities;
-import com.sun.org.apache.xml.internal.security.Init;
-import com.wolfram.jlink.KernelLink;
-import com.wolfram.jlink.MathCanvas;
-
-import domain.core.algInputDataProcess.DataSet;
-import domain.core.algOutput.FittedValue;
-import domain.core.algOutput.GepAlgRun;
-import domain.core.algOutput.Individual;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 public class OutputPictureDetail extends JPanel{

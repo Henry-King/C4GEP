@@ -5,11 +5,14 @@
 
 package ui.app;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import ui.conf.model.NewProjectModel;
 import ui.images.ImageHelper;
 
 /**

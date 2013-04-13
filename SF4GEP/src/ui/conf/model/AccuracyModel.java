@@ -1,13 +1,12 @@
 package ui.conf.model;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class AccuracyModel extends Model{
-	private Long maxGeneration;		//×î´óÇó½â´úÊý
-	private Float selectionRange;	//Ñ¡Ôñ·¶Î§
-	private Float accuracy;			//Çó½â¾«¶È
+	private Long maxGeneration;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Float selectionRange;	//Ñ¡ï¿½ï¿½Î§
+	private Float accuracy;			//ï¿½ï¿½â¾«ï¿½ï¿½
 	
 	private Map<String, Boolean> isDataFitedMap = new HashMap<String, Boolean>();
 	

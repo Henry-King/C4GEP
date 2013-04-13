@@ -1,10 +1,12 @@
 package ui.app;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JWindow;
 
 public class SplashWnd extends JWindow{
 	
@@ -40,7 +42,7 @@ public class SplashWnd extends JWindow{
 		loadProgressBarPanel = new JProgressBar(boundedRangeModel);
 		loadProgressBarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		loadProgressBarPanel.setStringPainted(false);
-		loadProgressBarPanel.setFont(new Font("ËÎÌå", Font.PLAIN, 15));
+		loadProgressBarPanel.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
 		*/
 		loadProgressBarPanel = new ProgressBarPanel();
 		mainPanel.add(loadProgressBarPanel, BorderLayout.SOUTH);

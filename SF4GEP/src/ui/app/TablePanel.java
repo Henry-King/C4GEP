@@ -5,19 +5,30 @@
 
 package ui.app;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.event.MouseInputAdapter;
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 
-import twaver.Element;
 import ui.conf.controller.AccuracyController;
 import ui.conf.controller.GeneController;
 import ui.conf.controller.OperatorController;
@@ -29,12 +40,10 @@ import ui.conf.view.TypeHelper.TableType;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
-import domain.core.algconfiguration.Function;
 import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
 import domain.service.algConfiguration.GepConfigurationService;
-import java.awt.event.MouseAdapter;
 
 /**
  *
@@ -193,7 +202,7 @@ public class TablePanel extends JPanel {
         		if (cfgInfoWnd!=null) {
         			
         			if (prePoint!=null) {
-						if (prePoint.getX()<e.getPoint().getX()) {	//ÓÒÒÆ
+						if (prePoint.getX()<e.getPoint().getX()) {	//ï¿½ï¿½ï¿½ï¿½
 							
 						}else{
 							cfgInfoWnd.setVisible(false);
@@ -218,11 +227,11 @@ public class TablePanel extends JPanel {
                     cfgInfoWnd.setVisible(true);
 				}else{
 					
-					//if ÓÒÒÆ
-						//¹Ì¶¨Î»ÖÃ£¬Êó±êÒÆ³öÏûÊ§
+					//if ï¿½ï¿½ï¿½ï¿½
+						//ï¿½Ì¶ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Ê§
 					//else
 					if (prePoint!=null) {
-						if (prePoint.getX()<e.getPoint().getX()) {	//ÓÒÒÆ
+						if (prePoint.getX()<e.getPoint().getX()) {	//ï¿½ï¿½ï¿½ï¿½
 							
 						}else{
 							cfgInfoWnd.setLocation(e.getPoint());
@@ -323,8 +332,8 @@ private void initModel() {
     class MyTableModel extends AbstractTableModel {
         private String[] columnNames = {"Project Name", "Last Open Date", "FT", "Status"};
         private Object[][] data = {
-            {"My First Project", "2012-9-19", "Ö÷´ÓÊ½", "OK"},
-            {"My Second Project", "2012-9-19", "´®ÐÐÊ½", "OK"}
+            {"My First Project", "2012-9-19", "ï¿½ï¿½ï¿½ï¿½Ê½", "OK"},
+            {"My Second Project", "2012-9-19", "ï¿½ï¿½ï¿½ï¿½Ê½", "OK"}
         };
 
         public int getColumnCount() {

@@ -1,11 +1,13 @@
 package ui.conf.view;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import ui.conf.model.MyTitle;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+
+import javax.swing.JPanel;
+
 import ui.conf.model.MyPrompt;
+import ui.conf.model.MyTitle;
 
 public class ResultPanel extends JPanel {
 

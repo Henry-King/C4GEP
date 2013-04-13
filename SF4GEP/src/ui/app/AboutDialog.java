@@ -5,9 +5,20 @@
 
 package ui.app;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Iterator;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JApplet;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 

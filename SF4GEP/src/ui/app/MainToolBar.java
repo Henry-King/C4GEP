@@ -5,35 +5,49 @@
 
 package ui.app;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.util.List;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import javax.swing.*;
+import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
 import javax.swing.Timer;
 
-
+import ui.conf.NewGEPDialog;
+import ui.conf.controller.OutputPictureController;
+import ui.conf.model.AccuracyModel;
+import ui.conf.model.GeneModel;
+import ui.conf.model.OperatorModel;
+import ui.conf.view.ConfPanel;
+import ui.conf.view.InputDataWnd;
+import ui.conf.view.OutputPicturePanel;
+import ui.conf.view.ProfileWnd;
+import ui.images.ImageHelper;
 import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
-import domain.core.algconfiguration.*;
-import domain.iservice.algOutput.IAlgOutputService;
+import domain.core.algconfiguration.GeneConfiguration;
+import domain.core.algconfiguration.GepAlgConfiguration;
+import domain.core.algconfiguration.IndividualConfiguration;
+import domain.core.algconfiguration.OperatorConfiguration;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algOutput.AlgCpuRunStep;
 import domain.service.algOutput.AlgOutputService;
-
-import ui.conf.*;
-import ui.conf.controller.InputDataController;
-import ui.conf.controller.OutputPictureController;
-import ui.conf.model.*;
-import ui.conf.view.*;
-import ui.alginputdataprocess.controller.InputFileController;
-import ui.app.*;
-import ui.images.*;
 
 
 
@@ -103,15 +117,15 @@ public class MainToolBar extends JToolBar {
             	NewGEPDialog newGEPDialog = new NewGEPDialog("NewGEPDialog",mainWnd);
             }
         });
-        newButton.setToolTipText("ÐÂ½¨");
+        newButton.setToolTipText("ï¿½Â½ï¿½");
         
         openImage = ImageHelper.loadImage("open.png");
         openButton = new ToolButton(openImage);
-        openButton.setToolTipText("´ò¿ª");
+        openButton.setToolTipText("ï¿½ï¿½");
         
         saveImage = ImageHelper.loadImage("save.png");
         saveButton = new ToolButton(saveImage);
-        saveButton.setToolTipText("±£´æ");
+        saveButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         
         inputDataImage = ImageHelper.loadImage("inputdata.png");
@@ -197,11 +211,11 @@ public class MainToolBar extends JToolBar {
                     inputDataWnd.setVisible(true);
 				}else{
 					
-					//if ÓÒÒÆ
-						//¹Ì¶¨Î»ÖÃ£¬Êó±êÒÆ³öÏûÊ§
+					//if ï¿½ï¿½ï¿½ï¿½
+						//ï¿½Ì¶ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Ê§
 					//else
 					if (prePoint!=null) {
-						if (prePoint.getX()<e.getPoint().getX()) {	//ÓÒÒÆ
+						if (prePoint.getX()<e.getPoint().getX()) {	//ï¿½ï¿½ï¿½ï¿½
 							
 						}else{
 							inputDataWnd.setLocation(e.getPoint());
@@ -215,7 +229,7 @@ public class MainToolBar extends JToolBar {
             	prePoint = e.getPoint();
             }*/
         });
-        inputDataButton.setToolTipText("Ñ¡ÔñÊäÈëÊý¾Ý¼¯");
+        inputDataButton.setToolTipText("Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½");
         
         
         profileImage = ImageHelper.loadImage("profile.png");
@@ -262,28 +276,28 @@ public class MainToolBar extends JToolBar {
         
         cutImage = ImageHelper.loadImage("cut.png");
         cutButton = new ToolButton(cutImage);
-        cutButton.setToolTipText("¼ôÇÐ");
+        cutButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         copyImage = ImageHelper.loadImage("copy.png");
         copyButton = new ToogleToolButton(copyImage);
-        copyButton.setToolTipText("¸´ÖÆ");
+        copyButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         pasteImage = ImageHelper.loadImage("paste.png");
         pasteButton = new ToolButton(pasteImage);
-        pasteButton.setToolTipText("Õ³Ìù");
+        pasteButton.setToolTipText("Õ³ï¿½ï¿½");
         pasteButton.setEnabled(false);
         
         clearImage = ImageHelper.loadImage("clear.png");
         clearButton = new ToolButton(clearImage);
-        clearButton.setToolTipText("Çå¿Õ");
+        clearButton.setToolTipText("ï¿½ï¿½ï¿½");
         
         undoImage = ImageHelper.loadImage("undo.png");
         undoButton = new ToolButton(undoImage);
-        undoButton.setToolTipText("³·Ïú");
+        undoButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         redoImage = ImageHelper.loadImage("redo.png");
         redoButton = new ToolButton(redoImage);
-        redoButton.setToolTipText("ÖØ×ö");
+        redoButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         
         
@@ -307,14 +321,14 @@ public class MainToolBar extends JToolBar {
             	
             	
             	
-            	/*¾«¶ÈÃæ°å*/
+            	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
             	AccuracyModel accuracyModel = confPanel.contentPanel.accuracyController.getAccuracyModel();
             	Map<String, Boolean> isAccuracyFited = accuracyModel.getIsDataFitedMap();
             	Collection<Boolean> isAccuracyFitedValues = isAccuracyFited.values();
             	
             	
             	//if (isAccuracyFitedValues.contains(false)) {
-            		//JOptionPane.showMessageDialog(mainWnd.frame,"²ÎÊý²»ÕýÈ·");
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·");
 				//}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 				
@@ -329,14 +343,14 @@ public class MainToolBar extends JToolBar {
             	
             	
             	
-            	/*»ùÒòÃæ°å*/
+            	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
             	GeneModel geneModel = confPanel.contentPanel.geneController.getGeneModel();
             	Map<String, Boolean> isGeneFited = geneModel.getIsDataFitedMap();
             	Collection<Boolean> isGeneFitedValues = isGeneFited.values();
             	
             	
             	//if (isGeneFitedValues.contains(false)) {
-            		//JOptionPane.showMessageDialog(mainWnd.frame,"²ÎÊý²»ÕýÈ·");
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·");
 				//}else{
 					//JOptionPane.showMessageDialog(mainWnd.frame,accuracyModel.getMaxGeneration()+"|"+accuracyModel.getAccuracy()+"|"+accuracyModel.getSelectionRange());
 					
@@ -352,7 +366,7 @@ public class MainToolBar extends JToolBar {
 					
 					
 					
-					if (geneModel.isUseHomeoticGene()) {	//Ê¹ÓÃÍ¬Ô´»ùÒòÁ¬½Ó
+					if (geneModel.isUseHomeoticGene()) {	//Ê¹ï¿½ï¿½Í¬Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						geneConfiguration.setHomeoticGeneNumber(geneModel.getHomeoticGeneNumber());
 						geneConfiguration.setHomeoticGeneHeaderLength(geneModel.getHomeoticGeneHeaderLength());
 						geneConfiguration.setUseHomeoticGene(true);
@@ -362,10 +376,10 @@ public class MainToolBar extends JToolBar {
 								+geneModel.getHomeoticGeneNumber()+"|"
 								+geneModel.getHomeoticGeneHeaderLength());
 						*/
-					}else{	//Ê¹ÓÃº¯ÊýÁ¬½Ó
+					}else{	//Ê¹ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						
 						geneConfiguration.setUseHomeoticGene(false);
-						//JOptionPane.showMessageDialog(mainWnd.frame,"Ê¹ÓÃº¯ÊýÁ¬½Ó");
+						//JOptionPane.showMessageDialog(mainWnd.frame,"Ê¹ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 						//geneConfiguration.setConnectionFunctionString(geneModel.getConnectionFunction().getName());
 						geneConfiguration.setConnectionFunction(geneModel.getConnectionFunction());
 						System.out.println(geneModel.getConnectionFunction()==null);
@@ -376,14 +390,14 @@ public class MainToolBar extends JToolBar {
             	
             	
             	
-            	/*ÐÞÊÎÃæ°å*/
+            	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
             	OperatorModel operatorModel = confPanel.contentPanel.operatorController.getOperatorModel();
             	Map<String, Boolean> isOperatorFited = operatorModel.getIsDataFitedMap();
             	Collection<Boolean> isOperatorFitedValues = isOperatorFited.values();
             	
             	
             	//if (isOperatorFitedValues.contains(false)) {
-            		//JOptionPane.showMessageDialog(mainWnd.frame,"Operator²ÎÊý²»ÕýÈ·");
+            		//JOptionPane.showMessageDialog(mainWnd.frame,"Operatorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·");
 				//}else{
 				
 					operatorConfiguration = new OperatorConfiguration();
@@ -432,7 +446,7 @@ public class MainToolBar extends JToolBar {
             	AlgOutputService algOutputService=new AlgOutputService(hibernateDataContext);
             	
             	/**
-            	 * ÉèÖÃÊÇ·ñÐ´ÈëÊý¾Ý¿â
+            	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
             	 */
             	algOutputService.setWriteToDB(false);
             	
@@ -444,13 +458,13 @@ public class MainToolBar extends JToolBar {
             		gepAlgRun = result.get();
             		
             		OutputPictureController ouputPictureController = confPanel.contentPanel.getOutputPictureController();
-            		ouputPictureController.setGepAlgRun(gepAlgRun);	//ÕâÀï¿ªÊ¼»­Í¼£¬ÐÞ¸ÄÄ£ÐÍÏàÓ¦µÄUI½çÃæ
+            		ouputPictureController.setGepAlgRun(gepAlgRun);	//ï¿½ï¿½ï¿½ï¿ªÊ¼ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Þ¸ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
             		
             		OutputPicturePanel outputPicturePanel = confPanel.contentPanel.outputPicturePanel;
             		Dimension di = outputPicturePanel.getPreferredSize();
             		outputPicturePanel.setPreferredSize(new Dimension(di.width,confPanel.contentPanel.getHeight()-25));
             		/*outputPicturePanel.tooltip_PicturePanel.setText("  Here shows the Fitting Curve Gragh and Evolution Gragh,You can "
-            				+"do more by click the link label.");	//ÆäÊµÊÇ¸öLabel*/
+            				+"do more by click the link label.");	//ï¿½ï¿½Êµï¿½Ç¸ï¿½Label*/
             		/*outputPicturePanel.tooltip_PicturePanel.setText("<html><body>&nbsp;&nbsp;Run Time: "+gepAlgRun.getPeriod()+
             				"&nbsp;&nbsp;&nbsp;&nbsp;Total Generation: "+gepAlgRun.getCurrentPopulation().getGenerationNum()+ "<br/>"+
             				"&nbsp;&nbsp;Result&Expression:"
@@ -479,14 +493,14 @@ public class MainToolBar extends JToolBar {
             	
             	
             	/**
-            	 * ¸üÐÂWelcome½çÃæ
+            	 * ï¿½ï¿½ï¿½ï¿½Welcomeï¿½ï¿½ï¿½ï¿½
             	 */
             	//mainWnd.frame.mainTabbedPane.welcomePanel.hp.projectTable.reflesh();
             	
             	
             }
         });
-        runButton.setToolTipText("Ö´ÐÐËã·¨");
+        runButton.setToolTipText("Ö´ï¿½ï¿½ï¿½ã·¨");
         
         
         
@@ -494,12 +508,12 @@ public class MainToolBar extends JToolBar {
         
         debugImage = ImageHelper.loadImage("debug.png");
         debugButton = new ToolButton(debugImage);
-        debugButton.setToolTipText("µ÷ÊÔ");
+        debugButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
         
         
         cfgImage = ImageHelper.loadImage("config.png");
         cfgButton = new ToolButton(cfgImage);
-        cfgButton.setToolTipText("ÅäÖÃ");
+        cfgButton.setToolTipText("ï¿½ï¿½ï¿½ï¿½");
 
 //        defaultBorderButton = new JButton("DefaultBorder");
 //        defaultBorderButton.setFocusable(false);

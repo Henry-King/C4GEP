@@ -1,18 +1,13 @@
 package ui.app;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-
-import javax.management.loading.PrivateClassLoader;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.multi.*;
-
-import com.sun.org.apache.xml.internal.security.Init;
-
-import ui.app.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class LinkLabel extends JLabel {
 	private String text,url;
@@ -84,7 +79,7 @@ public class LinkLabel extends JLabel {
 	public static void main(String[] args) {
 		JFrame jf = new JFrame("test");
 		JPanel jp = new JPanel();
-		jp.add(new LinkLabel("Á¬½ÓQQ", "http://www.qq.com"));
+		jp.add(new LinkLabel("ï¿½ï¿½ï¿½ï¿½QQ", "http://www.qq.com"));
 		jf.setContentPane(jp);
 		jf.pack();
 		jf.setVisible(true);

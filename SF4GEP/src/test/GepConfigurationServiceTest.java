@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,12 @@ import domain.core.algconfiguration.GeneConfiguration;
 import domain.core.algconfiguration.GepAlgConfiguration;
 import domain.core.algconfiguration.IndividualConfiguration;
 import domain.core.algconfiguration.OperatorConfiguration;
-import domain.core.algconfiguration.function.*;
+import domain.core.algconfiguration.function.Addition;
+import domain.core.algconfiguration.function.Cos;
+import domain.core.algconfiguration.function.Divide;
+import domain.core.algconfiguration.function.Minus;
+import domain.core.algconfiguration.function.Multiply;
+import domain.core.algconfiguration.function.Sin;
 import domain.service.algConfiguration.GepConfigurationService;
 
 public class GepConfigurationServiceTest {
@@ -57,9 +63,9 @@ public class GepConfigurationServiceTest {
 	public void testSetGepAlgConfiguration() {
 		
 		/**
-		 * ×¢ÊÍµôÒ»Ð©²»±ØÒªµÄ²ÎÊý£¬
-		 * ±ÈÈçOperatorConfiguration£¬
-		 * »áµ¼ÖÂ²âÊÔµÄÊ±ºò·¢Éú´íÎó
+		 * ×¢ï¿½Íµï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä²ï¿½ï¿½ï¿½
+		 * ï¿½ï¿½ï¿½ï¿½OperatorConfigurationï¿½ï¿½
+		 * ï¿½áµ¼ï¿½Â²ï¿½ï¿½Ôµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		 */
 		GepAlgConfiguration gepAlgConfiguration = new GepAlgConfiguration();
 		IndividualConfiguration individualConfiguration = new IndividualConfiguration();
@@ -152,10 +158,10 @@ public class GepConfigurationServiceTest {
 	@Test
 	public void testGetAvailableFunctions() {
 		/**
-		 * expectÖÐ£¬
-		 * ×ÔÐÐÌí¼ÓµÄº¯ÊýµÄË³Ðò»áÓ°Ïì²âÊÔ½á¹û
-		 * ´ý²âº¯ÊýÖ´ÐÐµÄ½á¹û·µ»ØµÄListÖÐ£¬
-		 * µÃµ½µÄº¯ÊýË³ÐòÊÇ¼Ó³ý¼õ³Ë£¬
+		 * expectï¿½Ð£ï¿½
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÓµÄºï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½
+		 * ï¿½ï¿½âº¯ï¿½ï¿½Ö´ï¿½ÐµÄ½ï¿½ï¿½Øµï¿½Listï¿½Ð£ï¿½
+		 * ï¿½Ãµï¿½ï¿½Äºï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Ç¼Ó³ï¿½ï¿½ï¿½Ë£ï¿½
 		 */
 		List<Function> expect = new ArrayList<Function>(4);
 		Function addFunction = new Addition();

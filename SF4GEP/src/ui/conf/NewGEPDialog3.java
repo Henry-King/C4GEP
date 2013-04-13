@@ -1,16 +1,29 @@
 package ui.conf;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.File;
 
-import javax.swing.*;
-import javax.swing.border.*;
-
-import com.jtattoo.plaf.JTattooUtilities;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
 import ui.app.MainWnd;
 import ui.images.ImageHelper;
+
+import com.jtattoo.plaf.JTattooUtilities;
 
 public class NewGEPDialog3 extends JDialog {
 
@@ -51,7 +64,7 @@ public class NewGEPDialog3 extends JDialog {
         
         
         
-        /*Ö÷ÄÚÈÝÃæ°å*/
+        /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
         JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(null);
 		
@@ -82,7 +95,7 @@ public class NewGEPDialog3 extends JDialog {
         
         
 		 
-        /*°´Å¥Ãæ°å*/
+        /*ï¿½ï¿½Å¥ï¿½ï¿½ï¿½*/
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(0, 424, 550, 48);
         
@@ -160,7 +173,7 @@ public class NewGEPDialog3 extends JDialog {
         
                 {
                  lbl_profileName = new JLabel("Profile Name:");
-                lbl_profileName.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                lbl_profileName.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                 lbl_profileName.setBounds(20, 50, 100, 30);
                 
                 
@@ -188,12 +201,12 @@ public class NewGEPDialog3 extends JDialog {
                  	}
                  });
                  
-                chckbxNewCheckBox.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                chckbxNewCheckBox.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                 chckbxNewCheckBox.setBounds(17, 21, 227, 23);
                 
                 
                  lbl_profilePath = new JLabel("Profile Path:");
-                lbl_profilePath.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                lbl_profilePath.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                 lbl_profilePath.setBounds(20, 90, 100, 30);
                 
                 
@@ -237,7 +250,7 @@ public class NewGEPDialog3 extends JDialog {
                 inputDataPanel.setLayout(null);
                 {
                 	JLabel InputDataWarnInfo = new JLabel("Your Can import input data here. Click here for help");
-                	InputDataWarnInfo.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                	InputDataWarnInfo.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                 	InputDataWarnInfo.setBounds(17, 17, 459, 30);
                     inputDataPanel.add(InputDataWarnInfo);
                     
@@ -253,13 +266,13 @@ public class NewGEPDialog3 extends JDialog {
                      		
                      	}
                      });
-                    checkBox.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                    checkBox.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                     checkBox.setBounds(13, 52, 342, 23);
                     inputDataPanel.add(checkBox);
                     
                     
                      lbl_InputPath = new JLabel("Input Data Path:");
-                    lbl_InputPath.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+                    lbl_InputPath.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
                     lbl_InputPath.setBounds(18, 85, 133, 30);
                     inputDataPanel.add(lbl_InputPath);
                     

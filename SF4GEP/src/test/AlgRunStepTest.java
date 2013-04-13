@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ import domain.core.algconfiguration.function.Multiply;
 import domain.service.algOutput.AlgCpuRunStep;
 
 /**
- * ²âÊÔ¼ÆËãÊÊÓ¦ÖµºÍ±äÒì¼ì²âÍ¨¹ı£¬ µ«ÊÇ¼ÆËãÊÊÓ¦ÖµµÄ²âÊÔÊä³ö½á¹ûÎª0.0£¬ Ã»ÓĞÕÒµ½³ö´íµÄµØ·½£¬¿ÉÄÜÊÇÊı¾İµÄÎÊÌâ
+ * ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Öµï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Öµï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0.0ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ÄµØ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İµï¿½ï¿½ï¿½ï¿½ï¿½
  * 
- * ±äÒìÍ¨¹ıÎŞÒì³£
+ * ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ì³£
  * 
- * ÆäËû»ùÒòĞŞÊÎ·½·¨¾ùÃ»ÓĞÍ¨¹ı²âÊÔ£¬ debugÃ»ÓĞÕÒµ½³ö´íµÄµØ·½£¬ Ò²Ã»ÓĞÌáÊ¾£¬ ÎÊÒ»ÏÂÄãĞ´µÄÊ±ºòÄÚ²¿ÊÇ·ñÌí¼ÓÁËÊ²Ã´ÌØ±ğµÄ²ÎÊı
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ debugÃ»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ÄµØ·ï¿½ï¿½ï¿½ Ò²Ã»ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½Ø±ï¿½Ä²ï¿½ï¿½ï¿½
  */
 public class AlgRunStepTest {
 
@@ -158,7 +158,7 @@ public class AlgRunStepTest {
 		GenePiece gp = new GenePiece();
 		gp.setId(1);
 		gp.setSymbol("+");
-		gp.setName("¼Ó");
+		gp.setName("ï¿½ï¿½");
 		gp.setValue(12f);
 		gp.setVariableIndex(1);
 		gp.setGenePieceType(GenePieceType.Constant);
@@ -211,8 +211,8 @@ public class AlgRunStepTest {
 	@Test
 	public void testCreate() {
 		/**
-		 * Create ·µ»ØÉèÖÃÁËDataSetºÍGepAlgConfigurationºóµÄGepAlgRun¶ÔÏó ÒÉÎÊ£º
-		 * ¸Ãº¯ÊıµÄÄÚ²¿±äÁ¿Population ÓĞÉèÖÃ²Ù×÷£¬ È´Ã»ÓĞÏòÍâ²¿´«²Î
+		 * Create ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DataSetï¿½ï¿½GepAlgConfigurationï¿½ï¿½ï¿½GepAlgRunï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê£ï¿½
+		 * ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½Population ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ È´Ã»ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½
 		 */
 		DataSet ds = new DataSet();
 		GepAlgConfiguration gepAlgConfiguration = new GepAlgConfiguration();
@@ -233,7 +233,7 @@ public class AlgRunStepTest {
 	public void testCalculateFitness() {
 
 		/**
-		 * ²âÊÔ¼ÆËãÊÊÓ¦Öµ ÊÊÓ¦ÖµµÄ½á¹ûÃ¿´Î¶¼ÔÚ±ä»¯
+		 * ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦Öµ ï¿½ï¿½Ó¦Öµï¿½Ä½ï¿½ï¿½Ã¿ï¿½Î¶ï¿½ï¿½Ú±ä»¯
 		 */
 
 		List<Float> test = algRunStep.calculateFitness(population);
@@ -248,7 +248,7 @@ public class AlgRunStepTest {
 	@Test
 	public void testSelect() {
 		/**
-		 * ÎŞ·¨²âÊÔ
+		 * ï¿½Ş·ï¿½ï¿½ï¿½ï¿½ï¿½
 		 */
 		/*
 		 * Population expect = new Population(); float sumFitness = 100f;

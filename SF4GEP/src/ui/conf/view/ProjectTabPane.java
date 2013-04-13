@@ -1,6 +1,6 @@
 package ui.conf.view;
 
-import javax.swing.*;
+import javax.swing.JTabbedPane;
 
 public class ProjectTabPane extends JTabbedPane{
 	

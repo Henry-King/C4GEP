@@ -1,65 +1,50 @@
 package ui.app;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
-import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import javax.swing.JList;
 
 import ui.images.ImageHelper;
-
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 
 
 public class ProjectCreateDialog extends JDialog {
 
 	
-	DefaultMutableTreeNode root = new DefaultMutableTreeNode("ÏîÄ¿¿ò¼Ü");
-	DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("´®ÐÐ¿ò¼Ü ");
-	DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("²¢ÐÐ¿ò¼Ü");
+	DefaultMutableTreeNode root = new DefaultMutableTreeNode("ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½");
+	DefaultMutableTreeNode root1 = new DefaultMutableTreeNode("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ ");
+	DefaultMutableTreeNode root2 = new DefaultMutableTreeNode("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½");
     DefaultTreeModel treeModel = new DefaultTreeModel(root);
 	JTree tree_1 ;
 	JScrollPane scrollPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	JButton btnNewButton = new JButton("È·¶¨");
-	JButton btnNewButton_1 = new JButton("È¡Ïû");
+	JButton btnNewButton = new JButton("È·ï¿½ï¿½");
+	JButton btnNewButton_1 = new JButton("È¡ï¿½ï¿½");
 	JList<String> listForParr = new JList<String>();
 	JList<String> listForSer=new JList<String>();
 	JTextArea introduction = new JTextArea();
@@ -101,7 +86,7 @@ public class ProjectCreateDialog extends JDialog {
 
 		}
 		{
-			introduction_Panel.setBorder(JTBorderFactory.createTitleBorder(ImageHelper.loadImage("paste.gif"),"¿ò¼Ü¼ò½é",0, 0));
+			introduction_Panel.setBorder(JTBorderFactory.createTitleBorder(ImageHelper.loadImage("paste.gif"),"ï¿½ï¿½Ü¼ï¿½ï¿½",0, 0));
 			getContentPane().add(introduction_Panel, BorderLayout.EAST);
 			introduction_Panel.setLayout(new BorderLayout(0, 0));
 			initIntroductionPanel();
@@ -119,8 +104,8 @@ public class ProjectCreateDialog extends JDialog {
 		listForParr.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForParr.setBackground(Color.WHITE);
 		listForParr.setSelectedIndex(0);
-		listForParr.setFont(new Font("ËÎÌå", Font.PLAIN, 16));
-		listForParr.setListData(new String[]{"Ö÷´ÓÊ½","»ìºÏÊ½","´ÖÁ£¶È","Ï¸Á£¶È"});
+		listForParr.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 16));
+		listForParr.setListData(new String[]{"ï¿½ï¿½ï¿½ï¿½Ê½","ï¿½ï¿½ï¿½Ê½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","Ï¸ï¿½ï¿½ï¿½ï¿½"});
 		listForParr.addListSelectionListener( new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
@@ -134,7 +119,7 @@ public class ProjectCreateDialog extends JDialog {
 		listForSer.putClientProperty("textureType", GUIProperties.TEXTURE_TYPE);
 		listForSer.setBackground(Color.WHITE);
 		listForSer.setSelectedIndex(0);
-		listForSer.setFont(new Font("ËÎÌå", Font.PLAIN, 16));
+		listForSer.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 16));
 		listForSer.addListSelectionListener( new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
@@ -142,8 +127,8 @@ public class ProjectCreateDialog extends JDialog {
                 }
             }
         });
-		listForSer.setListData(new String[]{"´®ÐÐÊ½"});
-		introduction.setText("Ö÷´ÓÊ½");
+		listForSer.setListData(new String[]{"ï¿½ï¿½ï¿½ï¿½Ê½"});
+		introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 	}
 	private void initIntroductionPanel(){
 		
@@ -187,7 +172,7 @@ public class ProjectCreateDialog extends JDialog {
 		fl_center_Panel.setAlignment(FlowLayout.LEFT);
 		button_Panel.add(center_Panel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_2 = new JLabel("±£´æÎ»ÖÃ");
+		JLabel lblNewLabel_2 = new JLabel("ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½");
 		center_Panel.add(lblNewLabel_2);
 		
 		textField_1 = new JTextField();
@@ -215,22 +200,22 @@ public class ProjectCreateDialog extends JDialog {
 	}
 	private void updateIntroduction() {
 		final String frameName= (String)listForParr.getSelectedValue();
-		if(frameName.equals("Ö÷´ÓÊ½")){
-			introduction.setText("Ö÷´ÓÊ½");
+		if(frameName.equals("ï¿½ï¿½ï¿½ï¿½Ê½")){
+			introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 		}
-		else if(frameName.equals("´ÖÁ£¶È")){
-			introduction.setText("´ÖÁ£¶È");
+		else if(frameName.equals("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")){
+			introduction.setText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
-		else if(frameName.equals("Ï¸Á£¶È")){
-			introduction.setText("Ï¸Á£¶È");
+		else if(frameName.equals("Ï¸ï¿½ï¿½ï¿½ï¿½")){
+			introduction.setText("Ï¸ï¿½ï¿½ï¿½ï¿½");
 		}
-		else if(frameName.equals("»ìºÏÊ½")){
-			introduction.setText("»ìºÏÊ½");
+		else if(frameName.equals("ï¿½ï¿½ï¿½Ê½")){
+			introduction.setText("ï¿½ï¿½ï¿½Ê½");
 		}
 		
 	}
 	private void initIndexTree() {
-		//Ê÷
+		//ï¿½ï¿½
 	 	  treeModel.insertNodeInto(root1, root, root.getChildCount());
 		  treeModel.insertNodeInto(root2, root, root.getChildCount());
 		  UIManager.getLookAndFeelDefaults().put("ClassLoader",getClass().getClassLoader());
@@ -242,7 +227,7 @@ public class ProjectCreateDialog extends JDialog {
 		  cellRenderer.setOpenIcon(new ImageIcon("//leaf.jpg"));
 		  cellRenderer.setClosedIcon(new ImageIcon("//leaf.jpg"));
 
-		  cellRenderer.setFont(new Font("ËÎÌå", Font.PLAIN, 15));// ÉèÖÃ×ÖÌå.
+		  cellRenderer.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		  cellRenderer.setBackgroundNonSelectionColor(Color.white);
 		  cellRenderer.setBorderSelectionColor(Color.red);
 		  cellRenderer.setTextNonSelectionColor(Color.black);
@@ -251,7 +236,7 @@ public class ProjectCreateDialog extends JDialog {
 		
 		
 		/*
-		 * ÉèÖÃÑ¡Ê±»ò²»Ñ¡Ê±£¬ÎÄ×ÖµÄ±ä»¯ÑÕÉ«
+		 * ï¿½ï¿½ï¿½ï¿½Ñ¡Ê±ï¿½ï¿½Ñ¡Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ±ä»¯ï¿½ï¿½É«
 		 */
 		  cellRenderer.setTextNonSelectionColor(Color.black);
 		  cellRenderer.setTextSelectionColor(Color.WHITE);
@@ -272,18 +257,18 @@ public class ProjectCreateDialog extends JDialog {
 				          {
 				          	TreeNode node = (TreeNode) selPath.getLastPathComponent();
 				          	
-				          	if((node.toString()).equals("²¢ÐÐ¿ò¼Ü")){
+				          	if((node.toString()).equals("ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½")){
 				          		getContentPane().add(parr_Panel, BorderLayout.CENTER);
 				          	    parr_Panel.setVisible(true);
 				          	    serr_Panel.setVisible(false);
-				          	    introduction.setText("Ö÷´ÓÊ½");
+				          	    introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 				          	}
 				          	else{
-				          		System.out.print("ÔÚÄÇÀï"+node.toString());
+				          		System.out.print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+node.toString());
 				          		getContentPane().add(serr_Panel, BorderLayout.CENTER);
 				          		 serr_Panel.setVisible(true);
 					          	 parr_Panel.setVisible(false);
-					          	introduction.setText("´®ÐÐÊ½");
+					          	introduction.setText("ï¿½ï¿½ï¿½ï¿½Ê½");
 				          	}
 				          }
 				     }

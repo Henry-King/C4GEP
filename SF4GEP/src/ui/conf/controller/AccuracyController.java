@@ -1,14 +1,14 @@
 package ui.conf.controller;
 
 
-import ui.conf.model.*;
-import ui.conf.view.*;
-
-import javax.swing.event.*;
-
 import java.awt.Color;
-import java.util.Hashtable;
 import java.util.Map;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import ui.conf.model.AccuracyModel;
+import ui.conf.view.AccuracyPanel;
 
 public class AccuracyController {
 	
@@ -112,7 +112,7 @@ public class AccuracyController {
 	
 	
 	/**
-	 * ×î´ó´úÊýÎÄ±¾¿òÐÞ¸ÄÊÂ¼þ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Â¼ï¿½
 	 * @author Administrator
 	 */
 	class GenerationNumTextField_onValueChanged implements DocumentListener
@@ -173,7 +173,7 @@ public class AccuracyController {
 	
 	
 	/**
-	 * Ñ¡Ôñ·¶Î§ÎÄ±¾¿òÐÞ¸ÄÊÂ¼þ
+	 * Ñ¡ï¿½ï¿½Î§ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Â¼ï¿½
 	 * @author Administrator
 	 *
 	 */
@@ -232,7 +232,7 @@ public class AccuracyController {
 	
 	
 	/**
-	 * ¾«¶ÈÎÄ±¾¿òÐÞ¸ÄÊÂ¼þ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Â¼ï¿½
 	 * @author Administrator
 	 *
 	 */

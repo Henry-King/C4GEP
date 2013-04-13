@@ -5,14 +5,13 @@
 
 package ui.app;
 
-import com.jtattoo.plaf.JTattooUtilities;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 /**
  *

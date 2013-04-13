@@ -1,14 +1,13 @@
 package ui.conf.controller;
 
-import ui.conf.model.*;
-import ui.conf.view.*;
-
-import javax.swing.event.*;
-
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import ui.conf.model.OperatorModel;
+import ui.conf.view.OperatorPanel;
 
 public class OperatorController {
 	

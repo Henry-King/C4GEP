@@ -1,9 +1,10 @@
 package ui.app;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class testSpl extends JFrame{

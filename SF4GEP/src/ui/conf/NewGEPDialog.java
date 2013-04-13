@@ -1,17 +1,29 @@
 package ui.conf;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.List;
 
-import javassist.tools.framedump;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.multi.*;
-
-import ui.app.*;
+import ui.app.MainWnd;
+import ui.app.VTextIcon;
+import ui.conf.controller.InputDataController;
+import ui.conf.model.NewProjectModel;
+import ui.conf.view.ConfPanel;
+import ui.images.ImageHelper;
 
 import com.jtattoo.plaf.JTattooUtilities;
 
@@ -19,14 +31,6 @@ import data.dao.HibernateDataContext;
 import domain.core.algInputDataProcess.DataColumn;
 import domain.core.algInputDataProcess.DataRow;
 import domain.core.algInputDataProcess.DataSet;
-
-import ui.app.MainFrame;
-import ui.app.MainWnd;
-import ui.app.VTextIcon;
-import ui.conf.controller.InputDataController;
-import ui.conf.model.NewProjectModel;
-import ui.conf.view.ConfPanel;
-import ui.images.ImageHelper;
 
 public class NewGEPDialog extends JDialog {
 
@@ -53,7 +57,7 @@ public class NewGEPDialog extends JDialog {
 	        
 	        
             
-            /*Ö÷ÄÚÈÝÃæ°å*/
+            /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
             JPanel contentPanel = new JPanel();
     		contentPanel.setLayout(null);
     		
@@ -73,7 +77,7 @@ public class NewGEPDialog extends JDialog {
             /*Project Content*/
             JLabel lbl_projectName = new JLabel("Project Name:");
     		lbl_projectName.setBounds(31, 128, 100, 30);
-    		lbl_projectName.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+    		lbl_projectName.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
     		
     		
     		txt_projectName = new JTextField();
@@ -91,7 +95,7 @@ public class NewGEPDialog extends JDialog {
             
             
     		JLabel lbl_savePath = new JLabel("Save Path:");
-    		lbl_savePath.setFont(new Font("ËÎÌå", Font.PLAIN, 13));
+    		lbl_savePath.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 13));
     		lbl_savePath.setBounds(31, 168, 100, 30);
             
             
@@ -117,7 +121,7 @@ public class NewGEPDialog extends JDialog {
             
             
             
-            /*°´Å¥Ãæ°å*/
+            /*ï¿½ï¿½Å¥ï¿½ï¿½ï¿½*/
             JPanel buttonPanel = new JPanel();
             buttonPanel.setBounds(0, 424, 550, 48);
             
@@ -221,7 +225,7 @@ public class NewGEPDialog extends JDialog {
             if (cur.late!=null&&cur.late.late!=null) {
             	String inputPath = cur.late.late.txt_InputPath.getText();
             	if (inputPath.equals("")||inputPath.equals(null)) {
-            		//Î´ÉèÖÃÊäÈëÊý¾Ý¼¯Â·¾¶
+            		//Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½Â·ï¿½ï¿½
 				}else{
 					data.setInputDataPath(inputPath);
                     hibernateDataContext = mainWnd.getHibernateDataContext();
@@ -242,7 +246,7 @@ public class NewGEPDialog extends JDialog {
 						System.out.println();
 					}
                     
-                    newConfPanel.setNewProjectModel(data);	//ÎªÐÂ½¨Ëã·¨ÏîÄ¿ÉèÖÃÅäÖÃÎÄ¼þ
+                    newConfPanel.setNewProjectModel(data);	//Îªï¿½Â½ï¿½ï¿½ã·¨ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
                     newConfPanel.outputStatusLabel.setText("Welcome to GEP Programing.I need load a input data first.");
 				}
                 

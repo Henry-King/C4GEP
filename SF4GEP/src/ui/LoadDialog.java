@@ -1,5 +1,10 @@
 package ui;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.SwingUtilities;
 
 public class LoadDialog extends javax.swing.JDialog {
  private JPanel outer;
@@ -28,30 +33,30 @@ public class LoadDialog extends javax.swing.JDialog {
  
  private void initGUI() {
   try {
-   setTitle("ĞŞ¸ÄÃÜÂë£º");
+   setTitle("ï¿½Ş¸ï¿½ï¿½ï¿½ï¿½ë£º");
    getContentPane().setLayout(null);
    {
     outer = new JPanel();
     getContentPane().add(outer);
     outer.setBounds(41, 34, 313, 194);
-    outer.setBorder(BorderFactory.createTitledBorder("ĞŞ¸ÄĞÅÏ¢:"));
+    outer.setBorder(BorderFactory.createTitledBorder("ï¿½Ş¸ï¿½ï¿½ï¿½Ï¢:"));
     outer.setLayout(null);
     {
      one = new JLabel();
      outer.add(one);
-     one.setText("ÊäÈëÔ­ÃÜÂë:");
+     one.setText("ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½:");
      one.setBounds(44, 56, 69, 15);
     }
     {
      two = new JLabel();
      outer.add(two);
-     two.setText("ÊäÈëĞÂÃÜÂë:");
+     two.setText("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:");
      two.setBounds(44, 90, 69, 15);
     }
     {
      three = new JLabel();
      outer.add(three);
-     three.setText("ÖØ¸´Ô­ÃÜÂë:");
+     three.setText("ï¿½Ø¸ï¿½Ô­ï¿½ï¿½ï¿½ï¿½:");
      three.setBounds(44, 126, 69, 15);
     }
     {

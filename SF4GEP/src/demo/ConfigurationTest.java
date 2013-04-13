@@ -8,7 +8,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import jxl.read.biff.BiffException;
-
 import data.dao.IHibernateDataContext;
 import domain.core.algInputDataProcess.DataSet;
 import domain.core.algOutput.GepAlgRun;
@@ -26,7 +25,8 @@ import domain.iservice.algOutput.IAlgOutputService;
 import domain.iservice.algOutput.IAlgRunStep;
 import domain.service.algConfiguration.GepConfigurationService;
 import domain.service.algInputDataProcess.DataInputService;
-import domain.service.algOutput.*;
+import domain.service.algOutput.AlgCpuRunStep;
+import domain.service.algOutput.AlgOutputService;
 
 
 public class ConfigurationTest {
@@ -44,7 +44,7 @@ public class ConfigurationTest {
 		GepAlgConfiguration gepAlgConfiguration=new GepAlgConfiguration();
 		gepAlgConfiguration.setAccuracy((float) 0.01);
 		gepAlgConfiguration.setSelectionRange((float) 100);
-		gepAlgConfiguration.setName("ÔËÐÐ");
+		gepAlgConfiguration.setName("ï¿½ï¿½ï¿½ï¿½");
 		gepAlgConfiguration.setMaxGeneration((long) 1000);
 		IndividualConfiguration individualConfiguration=new IndividualConfiguration();
 		individualConfiguration.setIndividualNumber(200);
@@ -94,9 +94,9 @@ public class ConfigurationTest {
 		
 		long end=System.nanoTime();
 		long result=TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
-		System.out.println("×Ü´úÊý:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
-		System.out.println("×ÜºÄÊ±£º\t"+result+"\tºÁÃë");
-		System.out.println("ÊÊÓ¦Öµ£º\t"+gepAlgRun.getCurrentPopulation().getBestIndividual().getFitness());
+		System.out.println("ï¿½Ü´ï¿½ï¿½ï¿½:\t"+gepAlgRun.getCurrentPopulation().getGenerationNum());
+		System.out.println("ï¿½Üºï¿½Ê±ï¿½ï¿½\t"+result+"\tï¿½ï¿½ï¿½ï¿½");
+		System.out.println("ï¿½ï¿½Ó¦Öµï¿½ï¿½\t"+gepAlgRun.getCurrentPopulation().getBestIndividual().getFitness());
 		System.out.println(gepAlgRun.getBestIndividual().toExprString(gepAlgConfiguration.getIndividualConfiguration().getGeneConfiguration()));
 		System.out.println(gepAlgRun.getBestIndividual().toGeneString());
 		Arrays.deepToString(gepAlgRun.getCurrentPopulation().getNormalGeneIndex());

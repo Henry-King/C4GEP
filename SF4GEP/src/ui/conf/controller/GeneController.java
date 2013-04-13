@@ -1,22 +1,24 @@
 package ui.conf.controller;
 
-import ui.conf.model.*;
-import ui.conf.view.*;
-
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.event.*;
-
-import data.dao.IHibernateDataContext;
-import domain.core.algconfiguration.Function;
-import domain.service.algConfiguration.GepConfigurationService;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import ui.conf.model.GeneModel;
+import ui.conf.view.GenePanel;
+import data.dao.IHibernateDataContext;
+import domain.core.algconfiguration.Function;
+import domain.service.algConfiguration.GepConfigurationService;
 
 public class GeneController {
 	GeneModel geneModel = null;
@@ -132,7 +134,7 @@ public class GeneController {
 					String homeoticGeneHeaderString = genePanel.homeoticGeneHeaderTextField.getText();
 					if (homeoticGeneString.equals("")||homeoticGeneString.equals(null)||
 							homeoticGeneHeaderString.equals("")||homeoticGeneHeaderString.equals(null)) {
-						//Î´ÊäÈë
+						//Î´ï¿½ï¿½ï¿½ï¿½
 					}else{
 						try {
 							Integer.parseInt(homeoticGeneString);
