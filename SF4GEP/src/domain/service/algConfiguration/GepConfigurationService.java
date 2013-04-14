@@ -22,8 +22,8 @@ public class GepConfigurationService implements IgepConfigurationService {
 		this.hibernateDataContext=hibernateDataContext;
 	}
 	/**
-	 * ╪стьdllнд╪Чё╛╡╒ЁУй╪╩╞йЩ╬ща╛╫с,╥╫╥╗вН╨С╥╣╩ьHibernateиооба╛╫с
-	 * @return Hibernateиообнда╛╫с╤тоС
+	 * О©╫О©╫О©╫О©╫dllО©╫д╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫,О©╫О©╫О©╫О©╫О©╫О©╫С╥╣╩О©╫HibernateО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
+	 * @return HibernateО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫с╤О©╫О©╫О©╫
 	 */
 	public static HibernateDataContext initSystem() {
 //		System.loadLibrary("SF4GEP");
